@@ -1,0 +1,155 @@
+{
+  "timestamp": "2025-09-19T21:31:39.118Z",
+  "auditScore": 93.75,
+  "totalAudits": 16,
+  "passedAudits": 15,
+  "failedAudits": 1,
+  "auditResults": [
+    {
+      "test": "Pegasus Process Detection",
+      "passed": true,
+      "notes": "Must detect com.apple.WebKit.Networking",
+      "timestamp": "2025-09-19T21:31:39.056Z"
+    },
+    {
+      "test": "Pegasus Hash Detection",
+      "passed": true,
+      "notes": "Must detect documented Pegasus hash",
+      "timestamp": "2025-09-19T21:31:39.056Z"
+    },
+    {
+      "test": "Pegasus Network Detection",
+      "passed": true,
+      "notes": "Must detect documented C2 IP",
+      "timestamp": "2025-09-19T21:31:39.056Z"
+    },
+    {
+      "test": "Lazarus Process Detection",
+      "passed": true,
+      "notes": "Must detect svchost_.exe masquerading",
+      "timestamp": "2025-09-19T21:31:39.056Z"
+    },
+    {
+      "test": "Lazarus Crypto Targeting",
+      "passed": true,
+      "notes": "Must detect wallet.dat targeting",
+      "timestamp": "2025-09-19T21:31:39.056Z"
+    },
+    {
+      "test": "APT28 Process Detection",
+      "passed": true,
+      "notes": "Must detect xagent.exe",
+      "timestamp": "2025-09-19T21:31:39.057Z"
+    },
+    {
+      "test": "APT28 Hash Detection",
+      "passed": true,
+      "notes": "Must detect documented APT28 hash",
+      "timestamp": "2025-09-19T21:31:39.057Z"
+    },
+    {
+      "test": "PowerShell Behavioral Analysis",
+      "passed": true,
+      "notes": "Must analyze PowerShell obfuscation patterns",
+      "timestamp": "2025-09-19T21:31:39.058Z"
+    },
+    {
+      "test": "Crypto Theft Behavioral Analysis",
+      "passed": true,
+      "notes": "Must analyze crypto theft behaviors",
+      "timestamp": "2025-09-19T21:31:39.058Z"
+    },
+    {
+      "test": "VirusTotal API Key",
+      "passed": true,
+      "notes": "Must have valid VirusTotal API key configured",
+      "timestamp": "2025-09-19T21:31:39.102Z"
+    },
+    {
+      "test": "AlienVault OTX API Key",
+      "passed": true,
+      "notes": "Must have valid AlienVault OTX API key configured",
+      "timestamp": "2025-09-19T21:31:39.102Z"
+    },
+    {
+      "test": "Anthropic API Key",
+      "passed": true,
+      "notes": "Must have valid Anthropic API key configured",
+      "timestamp": "2025-09-19T21:31:39.102Z"
+    },
+    {
+      "test": "No Fake Random Testing",
+      "passed": false,
+      "notes": "KPI tests must not use Math.random() for fake results",
+      "timestamp": "2025-09-19T21:31:39.106Z"
+    },
+    {
+      "test": "Real Behavioral Analysis",
+      "passed": true,
+      "notes": "Must use real behavioral analysis, not simulations",
+      "timestamp": "2025-09-19T21:31:39.106Z"
+    },
+    {
+      "test": "Real Anthropic API Key",
+      "passed": true,
+      "notes": "Must have actual Anthropic API key, not placeholder",
+      "timestamp": "2025-09-19T21:31:39.113Z"
+    },
+    {
+      "test": "Real VirusTotal API Key",
+      "passed": true,
+      "notes": "Must have actual VirusTotal API key, not placeholder",
+      "timestamp": "2025-09-19T21:31:39.113Z"
+    }
+  ],
+  "fixesApplied": [
+    "Integrated behavioral analyzer into main engine"
+  ],
+  "documentedCapabilities": {
+    "pegasusDetection": {
+      "processes": [
+        "com.apple.WebKit.Networking",
+        "assistantd"
+      ],
+      "hashes": [
+        "d616c60b7657c66c6d3c6f61bd4e2f00f1f60e89"
+      ],
+      "network": [
+        "185.141.63.120"
+      ]
+    },
+    "lazarusDetection": {
+      "processes": [
+        "AppleJeus.app",
+        "3CXDesktopApp.exe",
+        "svchost_.exe"
+      ],
+      "network": [
+        "175.45.178.1",
+        "210.202.40.1"
+      ],
+      "cryptoTargets": [
+        "wallet.dat",
+        "keystore"
+      ]
+    },
+    "apt28Detection": {
+      "processes": [
+        "xagent.exe",
+        "seduploader.exe"
+      ],
+      "hashes": [
+        "c2e8b4f7a9d5e1c6b3f9d6a2e8c5b1f7e4a9d6b3"
+      ],
+      "network": [
+        "185.86.148.*"
+      ]
+    },
+    "performanceTargets": {
+      "responseTime": 66,
+      "cpuUsage": 3,
+      "memoryUsage": 1,
+      "falsePositiveRate": 0
+    }
+  }
+}

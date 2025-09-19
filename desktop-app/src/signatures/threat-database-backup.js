@@ -1,8 +1,3 @@
-// 🚀 APOLLO ENHANCED THREAT DATABASE
-// Enhanced with verified real-world threat intelligence
-// Last updated: 2025-09-19T21:07:01.297Z
-// Contains both original signatures + verified real-world intel
-
 const crypto = require('crypto');
 const fs = require('fs-extra');
 const path = require('path');
@@ -25,46 +20,6 @@ class ThreatDatabase {
 
         await this.loadBuiltInSignatures();
         await this.loadHashDatabase();
-        // Load additional verified real-world intelligence
-        await this.loadVerifiedRealWorldIntel();
-    }
-
-    async loadVerifiedRealWorldIntel() {
-        // Add verified Pegasus indicators from Citizen Lab/Amnesty reports
-        const pegasusVerified = {
-            category: 'APT',
-            severity: 'CRITICAL',
-            processes: ['com.apple.WebKit.Networking', 'assistantd'],
-            hashes: ['d616c60b7657c66c6d3c6f61bd4e2f00f1f60e89'],
-            network: ['185.141.63.120'],
-            source: 'Citizen Lab, Amnesty International',
-            verified: true
-        };
-        this.signatures.set('pegasus_verified_real', pegasusVerified);
-
-        // Add verified Lazarus indicators from CISA/FBI reports  
-        const lazarusVerified = {
-            category: 'APT',
-            severity: 'CRITICAL',
-            processes: ['AppleJeus.app', '3CXDesktopApp.exe'],
-            network: ['175.45.178.1', '210.202.40.1'],
-            source: 'CISA, FBI, NCSC',
-            verified: true
-        };
-        this.signatures.set('lazarus_verified_real', lazarusVerified);
-
-        // Add verified ransomware indicators from MITRE ATT&CK
-        const ransomwareVerified = {
-            category: 'RANSOMWARE',
-            severity: 'CRITICAL',
-            processes: ['lockbit.exe', 'conti.exe', 'blackcat.exe'],
-            files: ['*.lockbit', '*.conti', '*_readme.txt'],
-            source: 'MITRE ATT&CK, CISA',
-            verified: true
-        };
-        this.signatures.set('ransomware_verified_real', ransomwareVerified);
-
-        console.log('✅ Verified real-world intelligence loaded');
         await this.loadYaraRules();
 
         this.isLoaded = true;

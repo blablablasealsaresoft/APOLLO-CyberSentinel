@@ -1,0 +1,80 @@
+{
+  "timestamp": "2025-09-19T20:56:52.612Z",
+  "kpiResults": {
+    "detectionRate": {
+      "known": 50,
+      "zeroDay": 40
+    },
+    "falsePositiveRate": 0,
+    "responseTime": [
+      53.509900000000016,
+      61.672499999999985,
+      76.78570000000002,
+      94.452,
+      76.52939999999995,
+      76.46590000000003,
+      46.48899999999992,
+      77.75970000000007,
+      46.97140000000002,
+      61.82639999999992
+    ],
+    "resourceUsage": {
+      "cpu": 2.5,
+      "memory": 0.1916961669921875
+    },
+    "overallScore": 71.42857142857143
+  },
+  "testResults": [
+    {
+      "name": "Detection Rate - Known",
+      "actual": 50,
+      "target": 95,
+      "passed": false
+    },
+    {
+      "name": "Detection Rate - Zero-Day",
+      "actual": 40,
+      "target": 80,
+      "passed": false
+    },
+    {
+      "name": "False Positive Rate",
+      "actual": 0,
+      "target": 1,
+      "passed": true
+    },
+    {
+      "name": "Average Response Time",
+      "actual": 67.24618999999998,
+      "target": 100,
+      "passed": true
+    },
+    {
+      "name": "CPU Usage",
+      "actual": 2.5,
+      "target": 5,
+      "passed": true
+    },
+    {
+      "name": "Memory Usage",
+      "actual": 0.1916961669921875,
+      "target": 100,
+      "passed": true
+    },
+    {
+      "name": "Real-World Scenarios",
+      "actual": 100,
+      "target": 90,
+      "passed": true
+    }
+  ],
+  "targets": {
+    "knownThreatDetection": 95,
+    "zeroDayDetection": 80,
+    "falsePositiveRate": 1,
+    "responseTime": 100,
+    "cpuUsage": 5,
+    "memoryUsage": 100
+  },
+  "overallScore": 71.42857142857143
+}

@@ -1,0 +1,142 @@
+{
+  "timestamp": "2025-09-19T21:44:25.690Z",
+  "verificationScore": 33.33333333333333,
+  "totalVerifications": 6,
+  "successfulVerifications": 2,
+  "verificationResults": [
+    {
+      "category": "Threat Database",
+      "success": false,
+      "details": null,
+      "error": "Cannot find module './src/signatures/threat-database'\nRequire stack:\n- C:\\SECURE_THREAT_INTEL\\Fortress\\APOLLO\\desktop-app\\scripts\\verify-all-real-data.js",
+      "timestamp": "2025-09-19T21:44:25.684Z"
+    },
+    {
+      "category": "API Configuration",
+      "success": {
+        "realAPIKeys": 5,
+        "totalAPIKeys": 5,
+        "configurationRate": 100
+      },
+      "details": {
+        "realAPIKeys": 5,
+        "totalAPIKeys": 5,
+        "configurationRate": 100
+      },
+      "error": null,
+      "timestamp": "2025-09-19T21:44:25.685Z"
+    },
+    {
+      "category": "Behavioral Analysis",
+      "success": false,
+      "details": null,
+      "error": "Cannot find module './src/core/behavioral-analyzer'\nRequire stack:\n- C:\\SECURE_THREAT_INTEL\\Fortress\\APOLLO\\desktop-app\\scripts\\verify-all-real-data.js",
+      "timestamp": "2025-09-19T21:44:25.686Z"
+    },
+    {
+      "category": "Network Intelligence",
+      "success": false,
+      "details": null,
+      "error": "Cannot find module './src/signatures/threat-database'\nRequire stack:\n- C:\\SECURE_THREAT_INTEL\\Fortress\\APOLLO\\desktop-app\\scripts\\verify-all-real-data.js",
+      "timestamp": "2025-09-19T21:44:25.686Z"
+    },
+    {
+      "category": "Hash Signatures",
+      "success": false,
+      "details": null,
+      "error": "Cannot find module './src/signatures/threat-database'\nRequire stack:\n- C:\\SECURE_THREAT_INTEL\\Fortress\\APOLLO\\desktop-app\\scripts\\verify-all-real-data.js",
+      "timestamp": "2025-09-19T21:44:25.686Z"
+    },
+    {
+      "category": "Public Source Cross-Reference",
+      "success": {
+        "crossReferencedItems": 0,
+        "totalKnownReal": 7,
+        "crossReferenceRate": 0
+      },
+      "details": {
+        "crossReferencedItems": 0,
+        "totalKnownReal": 7,
+        "crossReferenceRate": 0
+      },
+      "error": null,
+      "timestamp": "2025-09-19T21:44:25.688Z"
+    }
+  ],
+  "verifiedData": [
+    {
+      "type": "api_key",
+      "name": "ANTHROPIC_API_KEY",
+      "real": true,
+      "length": 108
+    },
+    {
+      "type": "api_key",
+      "name": "VIRUSTOTAL_API_KEY",
+      "real": true,
+      "length": 64
+    },
+    {
+      "type": "api_key",
+      "name": "ALIENVAULT_OTX_API_KEY",
+      "real": true,
+      "length": 64
+    },
+    {
+      "type": "api_key",
+      "name": "SHODAN_API_KEY",
+      "real": true,
+      "length": 32
+    },
+    {
+      "type": "api_key",
+      "name": "ETHERSCAN_API_KEY",
+      "real": true,
+      "length": 34
+    }
+  ],
+  "suspiciousData": [],
+  "knownRealSources": {
+    "hashes": {
+      "d616c60b7657c66c6d3c6f61bd4e2f00f1f60e89": {
+        "source": "Citizen Lab Pegasus Report",
+        "verified": true,
+        "reference": "https://citizenlab.ca/2021/08/bahrain-hacks-activists-with-nso-group-zero-click-iphone-exploits/"
+      }
+    },
+    "processes": {
+      "com.apple.WebKit.Networking": {
+        "source": "Amnesty International Pegasus Research",
+        "verified": true,
+        "reference": "https://www.amnesty.org/en/latest/research/2021/07/forensic-methodology-report-how-to-catch-nso-groups-pegasus/"
+      },
+      "assistantd": {
+        "source": "Amnesty International Pegasus Research",
+        "verified": true,
+        "reference": "https://www.amnesty.org/en/latest/research/2021/07/forensic-methodology-report-how-to-catch-nso-groups-pegasus/"
+      },
+      "AppleJeus.app": {
+        "source": "CISA Advisory AA23-187A",
+        "verified": true,
+        "reference": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-187a"
+      },
+      "3CXDesktopApp.exe": {
+        "source": "CISA Advisory AA23-187A",
+        "verified": true,
+        "reference": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-187a"
+      }
+    },
+    "networks": {
+      "185.141.63.120": {
+        "source": "Citizen Lab Pegasus Infrastructure Analysis",
+        "verified": true,
+        "reference": "https://citizenlab.ca/2021/08/bahrain-hacks-activists-with-nso-group-zero-click-iphone-exploits/"
+      },
+      "175.45.178.1": {
+        "source": "CISA Advisory AA23-187A",
+        "verified": true,
+        "reference": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-187a"
+      }
+    }
+  }
+}

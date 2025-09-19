@@ -1,0 +1,269 @@
+{
+  "timestamp": "2025-09-19T22:01:18.892Z",
+  "overallScore": 171.42857142857142,
+  "totalWorkflows": 10,
+  "workflowResults": [
+    {
+      "workflow": "Emergency Isolation",
+      "component": "HTML Element",
+      "success": true,
+      "timestamp": "2025-09-19T22:01:16.598Z"
+    },
+    {
+      "workflow": "Deep System Scan",
+      "component": "HTML Element",
+      "success": true,
+      "timestamp": "2025-09-19T22:01:16.598Z"
+    },
+    {
+      "workflow": "AI Threat Analysis",
+      "component": "HTML Element",
+      "success": true,
+      "timestamp": "2025-09-19T22:01:16.598Z"
+    },
+    {
+      "workflow": "Smart Contract Analysis",
+      "component": "HTML Element",
+      "success": true,
+      "timestamp": "2025-09-19T22:01:16.598Z"
+    },
+    {
+      "workflow": "Transaction Verification",
+      "component": "HTML Element",
+      "success": true,
+      "timestamp": "2025-09-19T22:01:16.598Z"
+    },
+    {
+      "workflow": "Phishing URL Check",
+      "component": "HTML Element",
+      "success": true,
+      "timestamp": "2025-09-19T22:01:16.598Z"
+    },
+    {
+      "workflow": "OSINT Intelligence Refresh",
+      "component": "HTML Element",
+      "success": true,
+      "timestamp": "2025-09-19T22:01:16.598Z"
+    },
+    {
+      "workflow": "Threat Counter Display",
+      "component": "HTML Element",
+      "success": false,
+      "timestamp": "2025-09-19T22:01:16.598Z"
+    },
+    {
+      "workflow": "Protection Status Indicator",
+      "component": "HTML Element",
+      "success": false,
+      "timestamp": "2025-09-19T22:01:16.598Z"
+    },
+    {
+      "workflow": "Wallet Connection",
+      "component": "HTML Element",
+      "success": true,
+      "timestamp": "2025-09-19T22:01:16.599Z"
+    },
+    {
+      "workflow": "Emergency Isolation",
+      "component": "JavaScript Handler",
+      "success": true,
+      "timestamp": "2025-09-19T22:01:16.600Z"
+    },
+    {
+      "workflow": "Deep System Scan",
+      "component": "JavaScript Handler",
+      "success": true,
+      "timestamp": "2025-09-19T22:01:16.600Z"
+    },
+    {
+      "workflow": "AI Threat Analysis",
+      "component": "JavaScript Handler",
+      "success": true,
+      "timestamp": "2025-09-19T22:01:16.600Z"
+    },
+    {
+      "workflow": "Smart Contract Analysis",
+      "component": "JavaScript Handler",
+      "success": true,
+      "timestamp": "2025-09-19T22:01:16.600Z"
+    },
+    {
+      "workflow": "Transaction Verification",
+      "component": "JavaScript Handler",
+      "success": true,
+      "timestamp": "2025-09-19T22:01:16.600Z"
+    },
+    {
+      "workflow": "Phishing URL Check",
+      "component": "JavaScript Handler",
+      "success": true,
+      "timestamp": "2025-09-19T22:01:16.600Z"
+    },
+    {
+      "workflow": "OSINT Intelligence Refresh",
+      "component": "JavaScript Handler",
+      "success": true,
+      "timestamp": "2025-09-19T22:01:16.600Z"
+    },
+    {
+      "workflow": "Threat Counter Display",
+      "component": "JavaScript Handler",
+      "success": false,
+      "timestamp": "2025-09-19T22:01:16.601Z"
+    },
+    {
+      "workflow": "Protection Status Indicator",
+      "component": "JavaScript Handler",
+      "success": false,
+      "timestamp": "2025-09-19T22:01:16.601Z"
+    },
+    {
+      "workflow": "Wallet Connection",
+      "component": "JavaScript Handler",
+      "success": true,
+      "timestamp": "2025-09-19T22:01:16.601Z"
+    },
+    {
+      "workflow": "Threat Counter Display",
+      "component": "Backend Method",
+      "success": true,
+      "timestamp": "2025-09-19T22:01:16.733Z"
+    },
+    {
+      "workflow": "AI Threat Analysis",
+      "component": "Backend Method",
+      "success": true,
+      "timestamp": "2025-09-19T22:01:16.862Z"
+    },
+    {
+      "workflow": "OSINT Intelligence Refresh",
+      "component": "Backend Method",
+      "success": true,
+      "timestamp": "2025-09-19T22:01:16.863Z"
+    },
+    {
+      "workflow": "Deep System Scan",
+      "component": "Backend Method",
+      "success": true,
+      "timestamp": "2025-09-19T22:01:17.875Z"
+    },
+    {
+      "workflow": "Phishing URL Check",
+      "component": "Backend Method",
+      "success": false,
+      "timestamp": "2025-09-19T22:01:17.876Z"
+    },
+    {
+      "workflow": "Pegasus Data Flow",
+      "component": "Real Data Pipeline",
+      "success": true,
+      "timestamp": "2025-09-19T22:01:18.884Z"
+    },
+    {
+      "workflow": "Lazarus Data Flow",
+      "component": "Real Data Pipeline",
+      "success": true,
+      "timestamp": "2025-09-19T22:01:18.884Z"
+    },
+    {
+      "workflow": "APT28 Data Flow",
+      "component": "Real Data Pipeline",
+      "success": true,
+      "timestamp": "2025-09-19T22:01:18.885Z"
+    },
+    {
+      "workflow": "Ransomware Data Flow",
+      "component": "Real Data Pipeline",
+      "success": true,
+      "timestamp": "2025-09-19T22:01:18.885Z"
+    }
+  ],
+  "uiWorkflows": [
+    {
+      "name": "Emergency Isolation",
+      "htmlElement": "emergency-btn isolation",
+      "onClick": "emergencyIsolation()",
+      "backendMethod": "main.js → emergencyIsolation()",
+      "realAction": "Network disconnection and system isolation",
+      "testable": true
+    },
+    {
+      "name": "Deep System Scan",
+      "htmlElement": "action-btn primary",
+      "onClick": "runDeepScan()",
+      "backendMethod": "main.js → runDeepScan() → unified-protection-engine.js",
+      "realAction": "Complete system threat analysis",
+      "testable": true
+    },
+    {
+      "name": "AI Threat Analysis",
+      "htmlElement": "action-btn primary",
+      "onClick": "analyzeWithClaude()",
+      "backendMethod": "ai/oracle-integration.js → analyzeThreat() → Anthropic API",
+      "realAction": "Claude AI threat assessment",
+      "testable": true
+    },
+    {
+      "name": "Smart Contract Analysis",
+      "htmlElement": "action-btn primary",
+      "onClick": "analyzeContract()",
+      "backendMethod": "main.js → analyzeContract() → crypto-guardian/wallet-shield.js",
+      "realAction": "Blockchain smart contract verification",
+      "testable": true
+    },
+    {
+      "name": "Transaction Verification",
+      "htmlElement": "action-btn secondary",
+      "onClick": "checkTransaction()",
+      "backendMethod": "main.js → checkTransaction() → Etherscan API",
+      "realAction": "Real blockchain transaction analysis",
+      "testable": true
+    },
+    {
+      "name": "Phishing URL Check",
+      "htmlElement": "action-btn warning",
+      "onClick": "checkPhishingURL()",
+      "backendMethod": "intelligence/osint-sources.js → analyzePhishingURL()",
+      "realAction": "Real-time phishing detection",
+      "testable": true
+    },
+    {
+      "name": "OSINT Intelligence Refresh",
+      "htmlElement": "action-btn primary",
+      "onClick": "refreshIntelligenceSources()",
+      "backendMethod": "intelligence/osint-sources.js → getStats()",
+      "realAction": "Live threat intelligence update",
+      "testable": true
+    },
+    {
+      "name": "Threat Counter Display",
+      "htmlElement": "value active-threats",
+      "onClick": "Automatic update",
+      "backendMethod": "unified-protection-engine.js → getStatistics()",
+      "realAction": "Real-time threat count display",
+      "testable": true
+    },
+    {
+      "name": "Protection Status Indicator",
+      "htmlElement": "protection-status",
+      "onClick": "Automatic update",
+      "backendMethod": "main.js → protectionActive",
+      "realAction": "Real protection engine status",
+      "testable": true
+    },
+    {
+      "name": "Wallet Connection",
+      "htmlElement": "wallet-connect",
+      "onClick": "openWalletModal()",
+      "backendMethod": "crypto-guardian/wallet-shield.js",
+      "realAction": "Real wallet protection activation",
+      "testable": true
+    }
+  ],
+  "summary": {
+    "htmlElements": 8,
+    "jsHandlers": 8,
+    "backendMethods": 4,
+    "realDataFlows": 4
+  }
+}

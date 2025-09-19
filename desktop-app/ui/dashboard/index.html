@@ -16,7 +16,7 @@
                     <div class="logo-icon">🚀</div>
                     <span class="logo-text">Apollo</span>
                 </div>
-                <div class="protection-status active">
+                <div class="protection-status active" id="protection-status">
                     <div class="status-indicator"></div>
                     <span>Military-Grade Protection Active</span>
                 </div>
@@ -147,6 +147,7 @@
 
             <!-- Advanced Features -->
             <section class="features-section">
+                <div class="feature-cards">
                 <!-- AI Oracle Container -->
                 <div class="feature-card ai-oracle-container">
                     <div class="card-header">
@@ -165,7 +166,9 @@
                             </div>
                         </div>
                         <div class="oracle-input-section">
+                            <textarea id="oracle-input" placeholder="Enter threat indicator for AI analysis..." rows="3"></textarea>
                             <input type="text" id="oracle-indicator" placeholder="Enter IOC, hash, domain, or IP address..." />
+                            <input type="text" id="threat-indicator-input" placeholder="Enter threat indicator..." />
                             <select id="oracle-type">
                                 <option value="auto">Auto-detect</option>
                                 <option value="hash">File Hash</option>
@@ -174,9 +177,21 @@
                                 <option value="url">URL</option>
                                 <option value="contract">Smart Contract</option>
                             </select>
+                            <select id="threat-type-select">
+                                <option value="malware">Malware</option>
+                                <option value="apt">APT</option>
+                                <option value="ransomware">Ransomware</option>
+                                <option value="phishing">Phishing</option>
+                                <option value="crypto">Crypto Threat</option>
+                            </select>
+                        </div>
+                        <div class="oracle-analysis-results" id="oracle-last-analysis" style="display: none;">
+                            <div class="analysis-threat-level" id="analysis-threat-level"></div>
+                            <div class="analysis-confidence" id="analysis-confidence"></div>
+                            <div class="analysis-summary" id="analysis-summary"></div>
                         </div>
                         <div class="feature-actions">
-                            <button class="action-btn primary" onclick="analyzeWithClaude()">
+                            <button class="action-btn primary" id="analyze-threat-btn" onclick="analyzeWithClaude()">
                                 🧠 Analyze with Claude AI
                             </button>
                             <button class="action-btn secondary" onclick="clearOracleInput()">
@@ -215,6 +230,16 @@
                             <div class="source-category">
                                 <h4>Additional OSINT</h4>
                                 <span class="source-list">GitHub API, NewsAPI, DNS Dumpster, Hunter.io</span>
+                            </div>
+                        </div>
+                        <div class="osint-stats-container" id="osint-stats-container">
+                            <div class="osint-stat">
+                                <span class="stat-value" id="osint-queries-counter">0</span>
+                                <span class="stat-label">OSINT Queries</span>
+                            </div>
+                            <div class="osint-stat">
+                                <span class="stat-value" id="threats-found">0</span>
+                                <span class="stat-label">Threats Found</span>
                             </div>
                         </div>
                         <div class="feature-actions">
@@ -265,6 +290,12 @@
                             </button>
                             <button class="action-btn warning" onclick="checkPhishingURL()">
                                 Check Phishing
+                            </button>
+                            <button class="action-btn info" id="analyze-crypto-btn" onclick="analyzeCryptoThreat()">
+                                🔍 Analyze Crypto
+                            </button>
+                            <button class="action-btn warning" id="analyze-phishing-btn" onclick="analyzePhishingThreat()">
+                                🎣 Analyze Phishing
                             </button>
                         </div>
                     </div>
@@ -340,6 +371,7 @@
                             </div>
                         </button>
                     </div>
+                </div>
                 </div>
             </section>
         </main>
@@ -462,7 +494,8 @@
                 <div class="modal-body">
                     <div class="input-group">
                         <label for="contract-address">Contract Address:</label>
-                        <input type="text" id="contract-address" placeholder="0x..." maxlength="42" />
+                        <input type="text" id="contract-address" class="contract-address-input" placeholder="0x..." maxlength="42" />
+                        <input type="text" id="contract-address-input" placeholder="0x..." maxlength="42" style="display:none;" />
                     </div>
                     <div class="input-group">
                         <label for="contract-network">Network:</label>
@@ -491,7 +524,8 @@
                 <div class="modal-body">
                     <div class="input-group">
                         <label for="tx-hash">Transaction Hash:</label>
-                        <input type="text" id="tx-hash" placeholder="0x..." maxlength="66" />
+                        <input type="text" id="tx-hash" class="transaction-hash-input" placeholder="0x..." maxlength="66" />
+                        <input type="text" id="transaction-hash-input" placeholder="0x..." maxlength="66" style="display:none;" />
                     </div>
                     <div class="input-group">
                         <label for="tx-network">Network:</label>
@@ -520,7 +554,8 @@
                 <div class="modal-body">
                     <div class="input-group">
                         <label for="url-input">Website URL:</label>
-                        <input type="url" id="url-input" placeholder="https://..." />
+                        <input type="url" id="url-input" class="phishing-url-input" placeholder="https://..." />
+                        <input type="url" id="phishing-url-input" placeholder="https://..." style="display:none;" />
                     </div>
                     <div class="warning-box">
                         <strong>⚠️ Warning:</strong> Only check URLs you suspect may be malicious.
@@ -533,7 +568,100 @@
                 </div>
             </div>
         </div>
-    </div>
+        </div>
+
+        <!-- Missing Modal Elements -->
+        
+        <!-- Investigation Modal -->
+        <div class="modal-overlay" id="investigation-modal" style="display: none;">
+            <div class="modal-content investigation">
+                <div class="modal-header">
+                    <h3>🔍 Threat Investigation</h3>
+                    <button class="close-btn" onclick="closeInvestigationModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="investigation-details" id="investigation-details">
+                        <p>Threat investigation results will appear here...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wallet Analysis Modal -->
+        <div class="modal-overlay" id="wallet-analysis-modal" style="display: none;">
+            <div class="modal-content wallet-analysis">
+                <div class="modal-header">
+                    <h3>💰 Wallet Analysis</h3>
+                    <button class="close-btn" onclick="closeWalletAnalysisModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="wallet-analysis-results" id="wallet-analysis-results">
+                        <p>Wallet analysis results will appear here...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manual Wallet Modal -->
+        <div class="modal-overlay" id="manual-wallet-modal" style="display: none;">
+            <div class="modal-content manual-wallet">
+                <div class="modal-header">
+                    <h3>🔗 Manual Wallet Connection</h3>
+                    <button class="close-btn" onclick="closeManualWalletModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label for="manual-wallet-address">Wallet Address:</label>
+                        <input type="text" id="manual-wallet-address" placeholder="Enter wallet address..." />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wallet Protection Modal -->
+        <div class="modal-overlay" id="wallet-protection-modal" style="display: none;">
+            <div class="modal-content wallet-protection">
+                <div class="modal-header">
+                    <h3>🛡️ Wallet Protection</h3>
+                    <button class="close-btn" onclick="closeWalletProtectionModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="protection-status" id="wallet-protection-status">
+                        <p>Wallet protection status will appear here...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phishing Alert Modal -->
+        <div class="modal-overlay" id="phishing-alert-modal" style="display: none;">
+            <div class="modal-content phishing-alert">
+                <div class="modal-header">
+                    <h3>🚨 Phishing Alert</h3>
+                    <button class="close-btn" onclick="closePhishingAlertModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="phishing-details" id="phishing-details">
+                        <p>Phishing analysis results will appear here...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- URL Check Modal -->
+        <div class="modal-overlay" id="url-check-modal" style="display: none;">
+            <div class="modal-content url-check">
+                <div class="modal-header">
+                    <h3>🔍 URL Check Results</h3>
+                    <button class="close-btn" onclick="closeUrlCheckModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="url-check-results" id="url-check-results">
+                        <p>URL check results will appear here...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     <script src="dashboard.js"></script>
 </body>

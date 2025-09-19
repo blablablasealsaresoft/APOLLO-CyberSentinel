@@ -1,0 +1,998 @@
+{
+  "timestamp": "2025-09-19T22:08:24.235Z",
+  "overallScore": 69.56521739130434,
+  "totalTests": 46,
+  "passedTests": 32,
+  "failedTests": 14,
+  "testResults": [
+    {
+      "testName": "UI Files Loading",
+      "success": true,
+      "details": {
+        "htmlSize": 28680,
+        "jsSize": 220755,
+        "cssSize": 25074
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.187Z"
+    },
+    {
+      "testName": "DOM Structure",
+      "success": false,
+      "details": {
+        "foundContainers": 4,
+        "totalContainers": 5,
+        "duplicateIds": 0,
+        "orphanedElements": 46
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.202Z"
+    },
+    {
+      "testName": "Button: settings-btn",
+      "success": true,
+      "details": {
+        "buttonExists": true,
+        "handlerExists": true,
+        "properStructure": true,
+        "critical": true
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.204Z"
+    },
+    {
+      "testName": "Button: emergency-btn-isolation",
+      "success": true,
+      "details": {
+        "buttonExists": true,
+        "handlerExists": true,
+        "properStructure": true,
+        "critical": true
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.204Z"
+    },
+    {
+      "testName": "Button: emergency-btn-quarantine",
+      "success": true,
+      "details": {
+        "buttonExists": true,
+        "handlerExists": true,
+        "properStructure": true,
+        "critical": true
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.204Z"
+    },
+    {
+      "testName": "Button: emergency-btn-forensic",
+      "success": true,
+      "details": {
+        "buttonExists": true,
+        "handlerExists": true,
+        "properStructure": true,
+        "critical": true
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.204Z"
+    },
+    {
+      "testName": "Button: deep-scan-btn",
+      "success": true,
+      "details": {
+        "buttonExists": true,
+        "handlerExists": true,
+        "properStructure": true,
+        "critical": true
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.204Z"
+    },
+    {
+      "testName": "Button: view-threats-btn",
+      "success": true,
+      "details": {
+        "buttonExists": true,
+        "handlerExists": true,
+        "properStructure": true,
+        "critical": false
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.204Z"
+    },
+    {
+      "testName": "Button: refresh-activity-btn",
+      "success": true,
+      "details": {
+        "buttonExists": true,
+        "handlerExists": true,
+        "properStructure": true,
+        "critical": false
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.205Z"
+    },
+    {
+      "testName": "Button: analyze-claude-btn",
+      "success": true,
+      "details": {
+        "buttonExists": true,
+        "handlerExists": true,
+        "properStructure": true,
+        "critical": true
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.205Z"
+    },
+    {
+      "testName": "Button: clear-oracle-btn",
+      "success": true,
+      "details": {
+        "buttonExists": true,
+        "handlerExists": true,
+        "properStructure": true,
+        "critical": false
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.205Z"
+    },
+    {
+      "testName": "Button: refresh-intel-btn",
+      "success": true,
+      "details": {
+        "buttonExists": true,
+        "handlerExists": true,
+        "properStructure": true,
+        "critical": true
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.205Z"
+    },
+    {
+      "testName": "Button: query-ioc-btn",
+      "success": true,
+      "details": {
+        "buttonExists": true,
+        "handlerExists": true,
+        "properStructure": true,
+        "critical": true
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.205Z"
+    },
+    {
+      "testName": "Button: view-feeds-btn",
+      "success": true,
+      "details": {
+        "buttonExists": true,
+        "handlerExists": true,
+        "properStructure": true,
+        "critical": false
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.205Z"
+    },
+    {
+      "testName": "Button: wallet-connect-btn",
+      "success": true,
+      "details": {
+        "buttonExists": true,
+        "handlerExists": true,
+        "properStructure": true,
+        "critical": true
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.205Z"
+    },
+    {
+      "testName": "Button: analyze-contract-btn",
+      "success": true,
+      "details": {
+        "buttonExists": true,
+        "handlerExists": true,
+        "properStructure": true,
+        "critical": true
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.206Z"
+    },
+    {
+      "testName": "Button: check-transaction-btn",
+      "success": true,
+      "details": {
+        "buttonExists": true,
+        "handlerExists": true,
+        "properStructure": true,
+        "critical": true
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.206Z"
+    },
+    {
+      "testName": "Button: check-phishing-btn",
+      "success": true,
+      "details": {
+        "buttonExists": true,
+        "handlerExists": true,
+        "properStructure": true,
+        "critical": true
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.206Z"
+    },
+    {
+      "testName": "Button: close-threat-modal",
+      "success": true,
+      "details": {
+        "buttonExists": true,
+        "handlerExists": true,
+        "properStructure": true,
+        "critical": false
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.206Z"
+    },
+    {
+      "testName": "Button: close-settings-modal",
+      "success": true,
+      "details": {
+        "buttonExists": true,
+        "handlerExists": true,
+        "properStructure": true,
+        "critical": false
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.206Z"
+    },
+    {
+      "testName": "Button: close-wallet-modal",
+      "success": true,
+      "details": {
+        "buttonExists": true,
+        "handlerExists": true,
+        "properStructure": true,
+        "critical": false
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.206Z"
+    },
+    {
+      "testName": "Button: save-settings-btn",
+      "success": true,
+      "details": {
+        "buttonExists": true,
+        "handlerExists": true,
+        "properStructure": true,
+        "critical": true
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.206Z"
+    },
+    {
+      "testName": "Button: block-threat-btn",
+      "success": true,
+      "details": {
+        "buttonExists": true,
+        "handlerExists": true,
+        "properStructure": true,
+        "critical": true
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.206Z"
+    },
+    {
+      "testName": "Button: investigate-threat-btn",
+      "success": true,
+      "details": {
+        "buttonExists": true,
+        "handlerExists": true,
+        "properStructure": true,
+        "critical": false
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.206Z"
+    },
+    {
+      "testName": "Display: active-threats",
+      "success": true,
+      "details": {
+        "elementExists": true,
+        "hasDataBinding": true,
+        "hasStyling": false,
+        "type": "counter",
+        "source": "engine-stats"
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.208Z"
+    },
+    {
+      "testName": "Display: blocked-today",
+      "success": true,
+      "details": {
+        "elementExists": true,
+        "hasDataBinding": true,
+        "hasStyling": false,
+        "type": "counter",
+        "source": "engine-stats"
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.208Z"
+    },
+    {
+      "testName": "Display: last-scan",
+      "success": true,
+      "details": {
+        "elementExists": true,
+        "hasDataBinding": true,
+        "hasStyling": false,
+        "type": "timestamp",
+        "source": "engine-stats"
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.208Z"
+    },
+    {
+      "testName": "Display: threat-indicator",
+      "success": true,
+      "details": {
+        "elementExists": true,
+        "hasDataBinding": true,
+        "hasStyling": true,
+        "type": "status",
+        "source": "threat-level"
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.209Z"
+    },
+    {
+      "testName": "Display: protection-status",
+      "success": false,
+      "details": {
+        "elementExists": false,
+        "hasDataBinding": false,
+        "hasStyling": true
+      },
+      "error": "Display element incomplete",
+      "timestamp": "2025-09-19T22:08:24.209Z"
+    },
+    {
+      "testName": "Display: current-time",
+      "success": true,
+      "details": {
+        "elementExists": true,
+        "hasDataBinding": true,
+        "hasStyling": false,
+        "type": "clock",
+        "source": "system-time"
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.209Z"
+    },
+    {
+      "testName": "Display: system-name",
+      "success": false,
+      "details": {
+        "elementExists": true,
+        "hasDataBinding": false,
+        "hasStyling": true
+      },
+      "error": "Display element incomplete",
+      "timestamp": "2025-09-19T22:08:24.209Z"
+    },
+    {
+      "testName": "Display: protected-wallets",
+      "success": true,
+      "details": {
+        "elementExists": true,
+        "hasDataBinding": true,
+        "hasStyling": false,
+        "type": "counter",
+        "source": "crypto-stats"
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.209Z"
+    },
+    {
+      "testName": "Display: analyzed-contracts",
+      "success": true,
+      "details": {
+        "elementExists": true,
+        "hasDataBinding": true,
+        "hasStyling": false,
+        "type": "counter",
+        "source": "crypto-stats"
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.210Z"
+    },
+    {
+      "testName": "Display: wallet-address",
+      "success": true,
+      "details": {
+        "elementExists": true,
+        "hasDataBinding": true,
+        "hasStyling": false,
+        "type": "address",
+        "source": "wallet-connection"
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.210Z"
+    },
+    {
+      "testName": "Input: oracle-input",
+      "success": false,
+      "details": {
+        "inputExists": false,
+        "hasProperType": false,
+        "hasInputHandling": true
+      },
+      "error": "Input element incomplete",
+      "timestamp": "2025-09-19T22:08:24.210Z"
+    },
+    {
+      "testName": "Input: contract-address-input",
+      "success": false,
+      "details": {
+        "inputExists": false,
+        "hasProperType": false,
+        "hasInputHandling": false
+      },
+      "error": "Input element incomplete",
+      "timestamp": "2025-09-19T22:08:24.210Z"
+    },
+    {
+      "testName": "Input: transaction-hash-input",
+      "success": false,
+      "details": {
+        "inputExists": false,
+        "hasProperType": false,
+        "hasInputHandling": false
+      },
+      "error": "Input element incomplete",
+      "timestamp": "2025-09-19T22:08:24.210Z"
+    },
+    {
+      "testName": "Input: phishing-url-input",
+      "success": false,
+      "details": {
+        "inputExists": false,
+        "hasProperType": false,
+        "hasInputHandling": false
+      },
+      "error": "Input element incomplete",
+      "timestamp": "2025-09-19T22:08:24.210Z"
+    },
+    {
+      "testName": "CSS-HTML Integration",
+      "success": false,
+      "details": {
+        "cssClasses": 134,
+        "htmlClasses": 122,
+        "unusedCSS": 46,
+        "unstyledHTML": 34,
+        "integrationScore": 65.67164179104478
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.211Z"
+    },
+    {
+      "testName": "JavaScript-HTML Integration",
+      "success": false,
+      "details": {
+        "validBindings": 46,
+        "totalBindings": 70,
+        "bindingRate": 65.71428571428571,
+        "getElementCalls": 57,
+        "querySelectorCalls": 13
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.227Z"
+    },
+    {
+      "testName": "Workflow: Emergency Isolation Workflow",
+      "success": true,
+      "details": {
+        "steps": [
+          {
+            "step": "Click emergency isolation button",
+            "working": true
+          },
+          {
+            "step": "Confirm isolation dialog",
+            "working": true
+          },
+          {
+            "step": "Execute system isolation",
+            "working": true
+          },
+          {
+            "step": "Display isolation status",
+            "working": true
+          }
+        ],
+        "critical": true
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.228Z"
+    },
+    {
+      "testName": "Workflow: Deep Scan Workflow",
+      "success": false,
+      "details": {
+        "steps": [
+          {
+            "step": "Click deep scan button",
+            "working": true
+          },
+          {
+            "step": "Start scanning process",
+            "working": true
+          },
+          {
+            "step": "Display scan progress",
+            "working": false
+          },
+          {
+            "step": "Show scan results",
+            "working": false
+          }
+        ],
+        "issues": [
+          "Display scan progress",
+          "Show scan results"
+        ],
+        "critical": true
+      },
+      "error": "Workflow incomplete",
+      "timestamp": "2025-09-19T22:08:24.228Z"
+    },
+    {
+      "testName": "Workflow: AI Analysis Workflow",
+      "success": false,
+      "details": {
+        "steps": [
+          {
+            "step": "Enter threat indicator",
+            "working": false
+          },
+          {
+            "step": "Click analyze button",
+            "working": true
+          },
+          {
+            "step": "Send to Claude AI",
+            "working": true
+          },
+          {
+            "step": "Display AI analysis",
+            "working": false
+          }
+        ],
+        "issues": [
+          "Enter threat indicator",
+          "Display AI analysis"
+        ],
+        "critical": true
+      },
+      "error": "Workflow incomplete",
+      "timestamp": "2025-09-19T22:08:24.229Z"
+    },
+    {
+      "testName": "Workflow: Contract Analysis Workflow",
+      "success": false,
+      "details": {
+        "steps": [
+          {
+            "step": "Enter contract address",
+            "working": false
+          },
+          {
+            "step": "Click analyze contract",
+            "working": true
+          },
+          {
+            "step": "Verify on blockchain",
+            "working": true
+          },
+          {
+            "step": "Display safety assessment",
+            "working": false
+          }
+        ],
+        "issues": [
+          "Enter contract address",
+          "Display safety assessment"
+        ],
+        "critical": true
+      },
+      "error": "Workflow incomplete",
+      "timestamp": "2025-09-19T22:08:24.229Z"
+    },
+    {
+      "testName": "Workflow: Real-Time Threat Detection",
+      "success": false,
+      "details": {
+        "steps": [
+          {
+            "step": "Backend detects threat",
+            "working": true
+          },
+          {
+            "step": "Send IPC event",
+            "working": true
+          },
+          {
+            "step": "Update threat counter",
+            "working": true
+          },
+          {
+            "step": "Show threat alert",
+            "working": false
+          }
+        ],
+        "issues": [
+          "Show threat alert"
+        ],
+        "critical": true
+      },
+      "error": "Workflow incomplete",
+      "timestamp": "2025-09-19T22:08:24.229Z"
+    },
+    {
+      "testName": "Cross-File Dependencies",
+      "success": false,
+      "details": {
+        "htmlCSSIssues": 46,
+        "htmlJSIssues": 0,
+        "jsCSSIssues": 4,
+        "totalIssues": 50
+      },
+      "error": null,
+      "timestamp": "2025-09-19T22:08:24.232Z"
+    }
+  ],
+  "domIssues": [
+    "Missing container: feature-cards",
+    "Missing element for getElementById: analyze-threat-btn",
+    "Missing element for getElementById: threat-indicator-input",
+    "Missing element for getElementById: threat-type-select",
+    "Missing element for getElementById: analyze-crypto-btn",
+    "Missing element for getElementById: analyze-phishing-btn",
+    "Missing element for getElementById: threat-indicator-input",
+    "Missing element for getElementById: threat-type-select",
+    "Missing element for getElementById: oracle-last-analysis",
+    "Missing element for getElementById: wallet-analysis-modal",
+    "Missing element for getElementById: wallet-analysis-modal",
+    "Missing element for getElementById: wallet-analysis-modal",
+    "Missing element for getElementById: investigation-modal",
+    "Missing element for getElementById: investigation-modal",
+    "Missing element for getElementById: url-check-modal",
+    "Missing element for getElementById: url-check-modal",
+    "Missing element for getElementById: phishing-alert-modal",
+    "Missing element for getElementById: manual-wallet-modal",
+    "Missing element for getElementById: manual-wallet-modal",
+    "Missing element for getElementById: manual-wallet-address",
+    "Missing element for getElementById: wallet-protection-modal",
+    "Missing element for querySelector: .osint-stats-container",
+    "Missing element for querySelector: .analysis-threat-level",
+    "Missing element for querySelector: .analysis-confidence",
+    "Missing element for querySelector: .analysis-summary"
+  ],
+  "crossFileIssues": [
+    "HTML class 'threat-level' has no CSS definition",
+    "HTML class 'threat-text' has no CSS definition",
+    "HTML class 'protection-modules' has no CSS definition",
+    "HTML class 'crypto-guardian' has no CSS definition",
+    "HTML class 'wallet-connection-section' has no CSS definition",
+    "HTML class 'wallet-connect' has no CSS definition",
+    "HTML class 'connected-wallet' has no CSS definition",
+    "HTML class 'wallet-address' has no CSS definition",
+    "HTML class 'disconnect-btn' has no CSS definition",
+    "HTML class 'apt-defense' has no CSS definition",
+    "HTML class 'isolation' has no CSS definition",
+    "HTML class 'quarantine' has no CSS definition",
+    "HTML class 'forensic' has no CSS definition",
+    "HTML class 'threat-alert' has no CSS definition",
+    "HTML class 'threat-type' has no CSS definition",
+    "HTML class 'wallet-connection' has no CSS definition",
+    "HTML class 'wallet-options' has no CSS definition",
+    "HTML class 'wallet-option' has no CSS definition",
+    "HTML class 'wallet-icon' has no CSS definition",
+    "HTML class 'wallet-info' has no CSS definition",
+    "HTML class 'wallet-name' has no CSS definition",
+    "HTML class 'wallet-desc' has no CSS definition",
+    "HTML class 'wallet-option' has no CSS definition",
+    "HTML class 'wallet-icon' has no CSS definition",
+    "HTML class 'wallet-info' has no CSS definition",
+    "HTML class 'wallet-name' has no CSS definition",
+    "HTML class 'wallet-desc' has no CSS definition",
+    "HTML class 'wallet-option' has no CSS definition",
+    "HTML class 'wallet-icon' has no CSS definition",
+    "HTML class 'wallet-info' has no CSS definition",
+    "HTML class 'wallet-name' has no CSS definition",
+    "HTML class 'wallet-desc' has no CSS definition",
+    "HTML class 'wallet-status' has no CSS definition",
+    "HTML class 'status-text' has no CSS definition",
+    "HTML class 'contract-analysis' has no CSS definition",
+    "HTML class 'input-group' has no CSS definition",
+    "HTML class 'input-group' has no CSS definition",
+    "HTML class 'modal-actions' has no CSS definition",
+    "HTML class 'transaction-check' has no CSS definition",
+    "HTML class 'input-group' has no CSS definition",
+    "HTML class 'input-group' has no CSS definition",
+    "HTML class 'modal-actions' has no CSS definition",
+    "HTML class 'url-check' has no CSS definition",
+    "HTML class 'input-group' has no CSS definition",
+    "HTML class 'warning-box' has no CSS definition",
+    "HTML class 'modal-actions' has no CSS definition",
+    "JavaScript className 'osint-stats-container' has no CSS definition",
+    "JavaScript className 'threat-indicator ${this.threatLevel}' has no CSS definition",
+    "JavaScript className 'activity-item ${activity.type}' has no CSS definition",
+    "JavaScript className 'module-item ${status}' has no CSS definition"
+  ],
+  "uiFiles": {
+    "html": "C:\\SECURE_THREAT_INTEL\\Fortress\\APOLLO\\desktop-app\\ui\\dashboard\\index.html",
+    "javascript": "C:\\SECURE_THREAT_INTEL\\Fortress\\APOLLO\\desktop-app\\ui\\dashboard\\dashboard.js",
+    "css": "C:\\SECURE_THREAT_INTEL\\Fortress\\APOLLO\\desktop-app\\ui\\dashboard\\styles.css"
+  },
+  "interactiveElements": [
+    {
+      "id": "settings-btn",
+      "type": "button",
+      "onclick": "openSettings()",
+      "critical": true
+    },
+    {
+      "id": "emergency-btn-isolation",
+      "type": "button",
+      "onclick": "emergencyIsolation()",
+      "critical": true
+    },
+    {
+      "id": "emergency-btn-quarantine",
+      "type": "button",
+      "onclick": "quarantineThreats()",
+      "critical": true
+    },
+    {
+      "id": "emergency-btn-forensic",
+      "type": "button",
+      "onclick": "captureEvidence()",
+      "critical": true
+    },
+    {
+      "id": "deep-scan-btn",
+      "type": "button",
+      "onclick": "runDeepScan()",
+      "critical": true
+    },
+    {
+      "id": "view-threats-btn",
+      "type": "button",
+      "onclick": "viewThreats()",
+      "critical": false
+    },
+    {
+      "id": "refresh-activity-btn",
+      "type": "button",
+      "onclick": "refreshActivity()",
+      "critical": false
+    },
+    {
+      "id": "analyze-claude-btn",
+      "type": "button",
+      "onclick": "analyzeWithClaude()",
+      "critical": true
+    },
+    {
+      "id": "clear-oracle-btn",
+      "type": "button",
+      "onclick": "clearOracleInput()",
+      "critical": false
+    },
+    {
+      "id": "refresh-intel-btn",
+      "type": "button",
+      "onclick": "refreshIntelligenceSources()",
+      "critical": true
+    },
+    {
+      "id": "query-ioc-btn",
+      "type": "button",
+      "onclick": "queryIOCIntelligence()",
+      "critical": true
+    },
+    {
+      "id": "view-feeds-btn",
+      "type": "button",
+      "onclick": "viewThreatFeeds()",
+      "critical": false
+    },
+    {
+      "id": "wallet-connect-btn",
+      "type": "button",
+      "onclick": "openWalletModal()",
+      "critical": true
+    },
+    {
+      "id": "analyze-contract-btn",
+      "type": "button",
+      "onclick": "analyzeContract()",
+      "critical": true
+    },
+    {
+      "id": "check-transaction-btn",
+      "type": "button",
+      "onclick": "checkTransaction()",
+      "critical": true
+    },
+    {
+      "id": "check-phishing-btn",
+      "type": "button",
+      "onclick": "checkPhishingURL()",
+      "critical": true
+    },
+    {
+      "id": "close-threat-modal",
+      "type": "button",
+      "onclick": "closeThreatModal()",
+      "critical": false
+    },
+    {
+      "id": "close-settings-modal",
+      "type": "button",
+      "onclick": "closeSettingsModal()",
+      "critical": false
+    },
+    {
+      "id": "close-wallet-modal",
+      "type": "button",
+      "onclick": "closeWalletModal()",
+      "critical": false
+    },
+    {
+      "id": "save-settings-btn",
+      "type": "button",
+      "onclick": "saveSettings()",
+      "critical": true
+    },
+    {
+      "id": "block-threat-btn",
+      "type": "button",
+      "onclick": "blockThreat()",
+      "critical": true
+    },
+    {
+      "id": "investigate-threat-btn",
+      "type": "button",
+      "onclick": "investigateThreat()",
+      "critical": false
+    }
+  ],
+  "displayElements": [
+    {
+      "id": "active-threats",
+      "type": "counter",
+      "source": "engine-stats"
+    },
+    {
+      "id": "blocked-today",
+      "type": "counter",
+      "source": "engine-stats"
+    },
+    {
+      "id": "last-scan",
+      "type": "timestamp",
+      "source": "engine-stats"
+    },
+    {
+      "id": "threat-indicator",
+      "type": "status",
+      "source": "threat-level"
+    },
+    {
+      "id": "protection-status",
+      "type": "status",
+      "source": "protection-active"
+    },
+    {
+      "id": "current-time",
+      "type": "clock",
+      "source": "system-time"
+    },
+    {
+      "id": "system-name",
+      "type": "info",
+      "source": "system-info"
+    },
+    {
+      "id": "protected-wallets",
+      "type": "counter",
+      "source": "crypto-stats"
+    },
+    {
+      "id": "analyzed-contracts",
+      "type": "counter",
+      "source": "crypto-stats"
+    },
+    {
+      "id": "wallet-address",
+      "type": "address",
+      "source": "wallet-connection"
+    }
+  ],
+  "inputElements": [
+    {
+      "id": "oracle-input",
+      "type": "textarea",
+      "purpose": "AI threat analysis"
+    },
+    {
+      "id": "contract-address-input",
+      "type": "input",
+      "purpose": "Smart contract analysis"
+    },
+    {
+      "id": "transaction-hash-input",
+      "type": "input",
+      "purpose": "Transaction verification"
+    },
+    {
+      "id": "phishing-url-input",
+      "type": "input",
+      "purpose": "Phishing URL check"
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Emergency Isolation Workflow",
+      "steps": [
+        "Click emergency isolation button",
+        "Confirm isolation dialog",
+        "Execute system isolation",
+        "Display isolation status"
+      ],
+      "critical": true
+    },
+    {
+      "name": "Deep Scan Workflow",
+      "steps": [
+        "Click deep scan button",
+        "Start scanning process",
+        "Display scan progress",
+        "Show scan results"
+      ],
+      "critical": true
+    },
+    {
+      "name": "AI Analysis Workflow",
+      "steps": [
+        "Enter threat indicator",
+        "Click analyze button",
+        "Send to Claude AI",
+        "Display AI analysis"
+      ],
+      "critical": true
+    },
+    {
+      "name": "Contract Analysis Workflow",
+      "steps": [
+        "Enter contract address",
+        "Click analyze contract",
+        "Verify on blockchain",
+        "Display safety assessment"
+      ],
+      "critical": true
+    },
+    {
+      "name": "Real-Time Threat Detection",
+      "steps": [
+        "Backend detects threat",
+        "Send IPC event",
+        "Update threat counter",
+        "Show threat alert"
+      ],
+      "critical": true
+    }
+  ]
+}

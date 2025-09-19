@@ -6,6 +6,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const os = require('os');
 const crypto = require('crypto');
+const ApolloBehavioralAnalyzer = require('./behavioral-analyzer');
 
 class ApolloUnifiedProtectionEngine extends EventEmitter {
     constructor() {
@@ -45,6 +46,7 @@ class ApolloUnifiedProtectionEngine extends EventEmitter {
             'lsass.exe', 'smss.exe', 'explorer.exe', 'dwm.exe'
         ]);
         this.initializeProcessWhitelist();
+        this.behavioralAnalyzer = new ApolloBehavioralAnalyzer();
 
         // Unified statistics
         this.stats = {

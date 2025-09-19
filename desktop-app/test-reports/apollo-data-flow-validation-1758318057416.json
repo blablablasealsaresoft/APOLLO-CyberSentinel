@@ -1,0 +1,237 @@
+{
+  "timestamp": "2025-09-19T21:40:57.416Z",
+  "flowScore": 100,
+  "totalTests": 6,
+  "passedTests": 6,
+  "failedTests": 0,
+  "testResults": [
+    {
+      "testName": "Backend Detection",
+      "success": true,
+      "details": {
+        "detectionRate": 100,
+        "detectedThreats": 5,
+        "totalThreats": 5,
+        "results": [
+          {
+            "threat": "Pegasus Process",
+            "detected": true,
+            "signature": "pegasus",
+            "category": "APT",
+            "severity": "CRITICAL"
+          },
+          {
+            "threat": "Pegasus Hash",
+            "detected": true,
+            "signature": "pegasus",
+            "category": "APT",
+            "severity": "CRITICAL"
+          },
+          {
+            "threat": "Lazarus Process",
+            "detected": true,
+            "signature": "lazarus",
+            "category": "APT",
+            "severity": "CRITICAL"
+          },
+          {
+            "threat": "APT28 Process",
+            "detected": true,
+            "signature": "apt28",
+            "category": "APT",
+            "severity": "HIGH"
+          },
+          {
+            "threat": "Ransomware Process",
+            "detected": true,
+            "signature": "ransomware",
+            "category": "RANSOMWARE",
+            "severity": "CRITICAL"
+          }
+        ]
+      },
+      "error": null,
+      "timestamp": "2025-09-19T21:40:54.785Z"
+    },
+    {
+      "testName": "Data Processing",
+      "success": true,
+      "details": {
+        "engineStats": {
+          "threatsDetected": 0,
+          "threatsBlocked": 0,
+          "cryptoTransactionsProtected": 0,
+          "aptAlertsGenerated": 0,
+          "filesScanned": 0,
+          "networkConnectionsMonitored": 0,
+          "totalScanTime": 0,
+          "engineUptime": 1758318049662,
+          "engine": "Apollo Unified Protection Engine",
+          "version": "2.0.0",
+          "isActive": true,
+          "lastScanTime": null,
+          "uptime": 5124,
+          "signatureCount": 8,
+          "aptSignatureCount": 3,
+          "cryptoSignatureCount": 5,
+          "activeThreatSessions": 0,
+          "quarantinedItems": 0,
+          "blockedConnections": 0
+        },
+        "aiStats": {
+          "total_analyses": 0,
+          "threat_context_entries": 4,
+          "ai_model": "claude-opus-4-1-20250805",
+          "ai_provider": "Anthropic Claude",
+          "oracle_status": "active"
+        },
+        "osintStats": {
+          "queriesRun": 0,
+          "threatsFound": 0,
+          "iocsCollected": 0,
+          "lastUpdate": "2025-09-19T21:40:49.664Z",
+          "cacheSize": 0,
+          "activeSources": 7
+        }
+      },
+      "error": null,
+      "timestamp": "2025-09-19T21:40:54.786Z"
+    },
+    {
+      "testName": "IPC Data Format",
+      "success": true,
+      "details": {
+        "threatAlert": {
+          "type": "APT_DETECTION",
+          "severity": "CRITICAL",
+          "source": "test",
+          "details": {
+            "threat": "pegasus",
+            "process": "com.apple.WebKit.Networking",
+            "category": "APT"
+          },
+          "timestamp": "2025-09-19T21:40:54.787Z",
+          "engineVersion": "2.0.0"
+        },
+        "engineStats": {
+          "threatsDetected": 0,
+          "threatsBlocked": 0,
+          "cryptoTransactionsProtected": 0,
+          "aptAlertsGenerated": 0,
+          "filesScanned": 0,
+          "networkConnectionsMonitored": 0,
+          "totalScanTime": 0,
+          "engineUptime": 1758318049662,
+          "engine": "Apollo Unified Protection Engine",
+          "version": "2.0.0",
+          "isActive": true,
+          "lastScanTime": null,
+          "uptime": 5125,
+          "signatureCount": 8,
+          "aptSignatureCount": 3,
+          "cryptoSignatureCount": 5,
+          "activeThreatSessions": 0,
+          "quarantinedItems": 0,
+          "blockedConnections": 0
+        }
+      },
+      "error": null,
+      "timestamp": "2025-09-19T21:40:54.787Z"
+    },
+    {
+      "testName": "Frontend Data Structure",
+      "success": true,
+      "details": {
+        "hasRealThreatHandler": true,
+        "hasStatsUpdate": true,
+        "hasBackendConnection": true,
+        "hasElectronAPI": true
+      },
+      "error": null,
+      "timestamp": "2025-09-19T21:40:54.789Z"
+    },
+    {
+      "testName": "Real-Time Events",
+      "success": true,
+      "details": {
+        "workingListeners": 4,
+        "totalListeners": 4,
+        "listeners": [
+          "onThreatDetected",
+          "onEngineStats",
+          "onActivityUpdated",
+          "onProtectionToggled"
+        ]
+      },
+      "error": null,
+      "timestamp": "2025-09-19T21:40:54.790Z"
+    },
+    {
+      "testName": "API Responses",
+      "success": true,
+      "details": {
+        "aiResponse": {
+          "threat_level": "CLEAN",
+          "confidence": 50,
+          "threat_family": null,
+          "technical_analysis": "Heuristic-based analysis performed",
+          "recommendations": [
+            "Monitor for suspicious activity"
+          ],
+          "iocs": [],
+          "timestamp": "2025-09-19T21:40:54.919Z",
+          "source": "Fallback Analysis"
+        },
+        "osintResponse": {
+          "indicator": "test_hash",
+          "type": "hash",
+          "timestamp": "2025-09-19T21:40:54.919Z",
+          "sources": [],
+          "threat_level": "unknown",
+          "malicious": false,
+          "details": {}
+        },
+        "behaviorResponse": {
+          "detected": false,
+          "confidence": 0,
+          "analysisType": "behavioral",
+          "indicators": []
+        }
+      },
+      "error": null,
+      "timestamp": "2025-09-19T21:40:57.413Z"
+    }
+  ],
+  "realThreatTests": [
+    {
+      "name": "Pegasus Process",
+      "type": "process",
+      "value": "com.apple.WebKit.Networking",
+      "expected": "pegasus"
+    },
+    {
+      "name": "Pegasus Hash",
+      "type": "hash",
+      "value": "d616c60b7657c66c6d3c6f61bd4e2f00f1f60e89",
+      "expected": "pegasus"
+    },
+    {
+      "name": "Lazarus Process",
+      "type": "process",
+      "value": "svchost_.exe",
+      "expected": "lazarus"
+    },
+    {
+      "name": "APT28 Process",
+      "type": "process",
+      "value": "xagent.exe",
+      "expected": "apt28"
+    },
+    {
+      "name": "Ransomware Process",
+      "type": "process",
+      "value": "lockbit.exe",
+      "expected": "ransomware"
+    }
+  ]
+}

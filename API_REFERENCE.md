@@ -1,443 +1,489 @@
-# 🔌 Apollo Security - API Reference
+# 🔌 APOLLO CyberSentinel - API Reference v2.0
 
 ## Overview
-Apollo Security provides a comprehensive API for threat analysis, OSINT intelligence, and AI-powered security assessment. This reference covers all available endpoints and integration methods.
+APOLLO CyberSentinel provides a comprehensive API for enhanced threat analysis, OSINT intelligence, and AI-powered security assessment with context-aware detection capabilities. This reference covers all available endpoints and integration methods.
 
-## 📡 IPC API (Electron Main Process)
+## 🛡️ Enhanced Security APIs
+
+### Process Analysis & Whitelisting
+```javascript
+// Analyze process with context awareness
+const processAnalysis = await window.apolloAPI.analyzeProcess({
+  processName: "powershell.exe",
+  commandLine: "-EncodedCommand base64string...",
+  parentProcess: "explorer.exe",
+  pid: 1234
+});
+
+console.log(processAnalysis);
+// Returns:
+// {
+//   suspicionLevel: 0.75,
+//   confidenceScore: 75,
+//   requiresConfirmation: true,
+//   threatType: "LIVING_OFF_THE_LAND",
+//   technique: "T1059.001",
+//   reason: "Suspicious argument: -EncodedCommand",
+//   parentProcess: "explorer.exe",
+//   isWhitelisted: false
+// }
+```
+
+### User Confirmation System
+```javascript
+// Request user confirmation for medium-confidence threats
+const userDecision = await window.apolloAPI.requestUserConfirmation({
+  threat: {
+    type: "APT_DETECTION",
+    severity: "high",
+    details: {
+      tool: "powershell.exe",
+      technique: "T1059.001",
+      confidenceScore: 75
+    },
+    pid: 1234,
+    reason: "Potentially encoded command detected"
+  },
+  source: "Advanced Process Monitor"
+});
+
+console.log(userDecision);
+// Returns: { approved: false, addToWhitelist: true }
+```
+
+### Process Whitelisting Management
+```javascript
+// Add process chain to whitelist
+await window.apolloAPI.addToWhitelist("code.exe>powershell.exe");
+
+// Check if process is whitelisted
+const isWhitelisted = await window.apolloAPI.isProcessWhitelisted(
+  "explorer.exe",
+  "powershell.exe"
+);
+
+// Get current whitelist
+const whitelist = await window.apolloAPI.getProcessWhitelist();
+console.log(whitelist);
+// Returns: ["explorer.exe>powershell.exe", "code.exe>powershell.exe", ...]
+```
+
+## 📡 Core Protection APIs
 
 ### Protection Status
 ```javascript
-// Get current protection status
+// Get enhanced protection status
 const status = await window.apolloAPI.getProtectionStatus();
 console.log(status);
 // Returns:
 // {
 //   active: true,
-//   stats: { threatsDetected: 0, threatsBlocked: 0, ... },
-//   engines: { threatEngine: "active", walletShield: "active", ... }
+//   version: "2.0.0",
+//   stats: {
+//     threatsDetected: 5,
+//     threatsBlocked: 3,
+//     falsePositivesReduced: 12,
+//     confirmationsRequested: 2
+//   },
+//   engines: {
+//     threatEngine: "active",
+//     walletShield: "active",
+//     contextAnalyzer: "active",
+//     processGuard: "active"
+//   },
+//   features: {
+//     contextAwareDetection: true,
+//     processWhitelisting: true,
+//     userConfirmation: true,
+//     criticalProcessProtection: true
+//   }
+// }
+```
+
+### APT Detection
+```javascript
+// Get APT detection results
+const aptStatus = await window.apolloAPI.getAPTDetectionStatus();
+console.log(aptStatus);
+// Returns:
+// {
+//   activeThreats: [
+//     {
+//       group: "apt29_cozy_bear",
+//       technique: "T1059.001",
+//       confidence: 85,
+//       process: "powershell.exe",
+//       status: "contained"
+//     }
+//   ],
+//   detectionRules: 47,
+//   lastUpdate: "2025-01-15T10:30:00Z"
 // }
 ```
 
 ### Threat Analysis
 ```javascript
-// Analyze smart contract
+// Analyze smart contract with enhanced AI
 const contractResult = await window.apolloAPI.analyzeSmartContract(
   "0x1234567890123456789012345678901234567890",
-  bytecode // optional
+  bytecode, // optional
+  { aiAnalysis: true, confidenceThreshold: 0.7 }
 );
 
-// Check phishing URL
+// Check phishing URL with context
 const phishingResult = await window.apolloAPI.checkPhishingURL(
-  "https://suspicious-domain.com"
+  "https://suspicious-site.com",
+  {
+    contextAnalysis: true,
+    parentApplication: "browser.exe",
+    userTriggered: true
+  }
 );
 
-// AI-powered threat analysis
-const aiAnalysis = await window.apolloAPI.analyzeWithAI(
-  "suspicious-file.exe",
-  { type: "file", source: "email_attachment" }
-);
-```
-
-### OSINT Intelligence
-```javascript
-// Get OSINT statistics
-const osintStats = await window.apolloAPI.getOSINTStats();
-console.log(osintStats);
-// Returns:
-// {
-//   total_queries: 156,
-//   threat_sources: 5,
-//   last_update: "2025-01-19T..."
-// }
-```
-
-## 🧠 AI Oracle API
-
-### Claude Integration
-```javascript
-const ApolloAIOracle = require('./src/ai/oracle-integration');
-
-const oracle = new ApolloAIOracle();
-
-// Analyze threat with context
-const analysis = await oracle.analyzeThreat("malicious-indicator", {
-  type: "url",
-  source: "email",
-  osintResults: [/* OSINT data */]
-});
-
-// Smart contract security analysis
-const contractAnalysis = await oracle.analyzeSmartContract(
-  "0xContractAddress",
-  bytecode
-);
-
-// Phishing URL analysis
-const phishingAnalysis = await oracle.analyzePhishingURL(
-  "https://suspicious-site.com"
-);
-```
-
-### Analysis Response Format
-```javascript
-{
-  "threat_level": "MALICIOUS",
-  "confidence": 85,
-  "threat_family": "Lazarus",
-  "technical_analysis": "Advanced persistent threat...",
-  "recommendations": [
-    "Quarantine immediately",
-    "Perform deep forensic analysis"
-  ],
-  "iocs": ["192.168.1.100", "malicious.exe"],
-  "timestamp": "2025-01-19T...",
-  "source": "Claude AI Oracle",
-  "model": "claude-opus-4-1-20250805"
-}
-```
-
-## 🔍 OSINT Intelligence API
-
-### Threat Intelligence Sources
-```javascript
-const OSINTThreatIntelligence = require('./src/intelligence/osint-sources');
-
-const osint = new OSINTThreatIntelligence();
-
-// Analyze URL for threats
-const urlAnalysis = await osint.analyzeURL("https://suspicious.com");
-
-// Check file hash reputation
-const fileAnalysis = await osint.analyzeFileHash("sha256:abc123...");
-
-// Cryptocurrency transaction analysis
-const cryptoAnalysis = await osint.analyzeCryptoTransaction(
-  "0x1234567890123456789012345678901234567890123456789012345678901234"
-);
-```
-
-### OSINT Response Format
-```javascript
-{
-  "indicator": "https://malicious.com",
-  "malicious": true,
-  "score": 0.95,
-  "sources": [
-    {
-      "source": "VirusTotal",
-      "malicious": true,
-      "score": 0.9,
-      "last_analysis": "2025-01-19T..."
-    },
-    {
-      "source": "URLhaus",
-      "malicious": true,
-      "score": 1.0,
-      "tags": ["phishing", "cryptocurrency"]
-    }
-  ],
-  "timestamp": "2025-01-19T..."
-}
-```
-
-## 🛡️ Protection Engine API
-
-### Real-time Monitoring
-```javascript
-// Enable/disable protection modules
-await window.apolloAPI.toggleProtection();
-
-// Run deep system scan
-const scanResult = await window.apolloAPI.runDeepScan();
-
-// Emergency system isolation
-const isolationResult = await window.apolloAPI.emergencyIsolation();
-```
-
-### Event Listeners
-```javascript
-// Listen for threat alerts
-window.apolloAPI.onThreatAlert((alert) => {
-  console.log('Threat detected:', alert);
-  // Handle threat alert UI
-});
-
-// Listen for crypto alerts
-window.apolloAPI.onCryptoAlert((alert) => {
-  console.log('Crypto threat:', alert);
-  // Handle crypto threat UI
-});
-
-// Listen for APT alerts
-window.apolloAPI.onAPTAlert((alert) => {
-  console.log('APT detected:', alert);
-  // Handle APT alert UI
-});
-```
-
-## ⚙️ Configuration API
-
-### Settings Management
-```javascript
-// Load current configuration
-const config = await window.apolloAPI.loadConfig();
-
-// Save configuration changes
-const saveResult = await window.apolloAPI.saveConfig({
-  realTimeProtection: true,
-  cryptoMonitoring: true,
-  aptDetection: true,
-  aiOracle: {
-    enabled: true,
-    provider: "anthropic",
-    model: "claude-opus-4-1-20250805"
+// Enhanced transaction monitoring
+const transactionRisk = await window.apolloAPI.analyzeTransaction({
+  to: "0xabcd...",
+  value: "1000000000000000000",
+  data: "0x...",
+  contextualInfo: {
+    userIntent: "token_swap",
+    dappOrigin: "uniswap.org"
   }
 });
 ```
 
-### Environment Variables
-```bash
-# Required API keys
-ANTHROPIC_API_KEY=sk-ant-api03-...
-VIRUSTOTAL_API_KEY=abc123...
-ALIENVAULT_OTX_API_KEY=def456...
-SHODAN_API_KEY=ghi789...
+## 🔍 Enhanced OSINT Integration
 
-# Optional configuration
-AI_MODEL=claude-opus-4-1-20250805
-NODE_ENV=production
-DEBUG_MODE=false
-```
-
-## 📊 Statistics & Metrics API
-
-### Real-time Metrics
+### Intelligence Sources with AI Analysis
 ```javascript
-// Get protection statistics
-const stats = await window.apolloAPI.getProtectionStatus();
-console.log(stats.stats);
-// Returns:
-// {
-//   threatsDetected: 0,
-//   threatsBlocked: 0,
-//   scansCompleted: 1247,
-//   cryptoTransactionsProtected: 156,
-//   aptDetections: 0,
-//   osintQueries: 93,
-//   phishingBlocked: 5,
-//   malwareDetected: 2
-// }
+// Query intelligence sources with AI enhancement
+const intelResult = await window.apolloAPI.queryIntelligence({
+  indicator: "malicious-domain.com",
+  type: "domain",
+  sources: ["virustotal", "alienVault", "threatFox"],
+  aiAnalysis: true,
+  contextualScoring: true
+});
 
-// Get AI Oracle statistics
-const aiStats = await oracle.getStats();
-console.log(aiStats);
+console.log(intelResult);
 // Returns:
 // {
-//   total_analyses: 42,
-//   threat_context_entries: 4,
-//   ai_model: "claude-opus-4-1-20250805",
-//   ai_provider: "Anthropic Claude",
-//   oracle_status: "active"
+//   indicator: "malicious-domain.com",
+//   riskScore: 95,
+//   confidence: 92,
+//   sources: {
+//     virustotal: { detected: true, score: 85 },
+//     alienVault: { pulses: 3, score: 90 },
+//     threatFox: { malware_families: ["emotet"] }
+//   },
+//   aiAnalysis: {
+//     assessment: "High confidence malicious domain",
+//     reasoning: "Multiple sources confirm malware distribution",
+//     recommendedAction: "block"
+//   }
 // }
 ```
 
-## 🚨 Emergency Response API
-
-### System Isolation
+### Threat Intelligence Feeds
 ```javascript
-// Activate emergency isolation
-const isolation = await window.apolloAPI.emergencyIsolation();
-if (isolation.success) {
-  console.log('System isolated from network');
-}
+// Subscribe to enhanced threat feeds
+await window.apolloAPI.subscribeThreatFeed({
+  categories: ["apt", "crypto", "phishing"],
+  confidence_threshold: 0.8,
+  callback: (threat) => {
+    console.log("New threat detected:", threat);
+  }
+});
 
-// Quarantine detected threats
-const quarantine = await window.apolloAPI.quarantineThreats();
-
-// Capture forensic evidence
-const evidence = await window.apolloAPI.captureEvidence();
+// Get threat feed statistics
+const feedStats = await window.apolloAPI.getThreatFeedStats();
+console.log(feedStats);
+// Returns:
+// {
+//   totalIndicators: 15000,
+//   aptIndicators: 2500,
+//   cryptoThreats: 8000,
+//   phishingURLs: 4500,
+//   lastUpdate: "2025-01-15T09:45:00Z",
+//   accuracy: 0.95
+// }
 ```
 
-## 🔐 Security Considerations
+## 🧠 AI Oracle Integration
 
-### API Rate Limits
+### Claude AI Analysis
 ```javascript
-// OSINT source rate limits
-const rateLimits = {
-  virusTotal: 4, // requests per minute
-  alienVault: 1000, // requests per hour
-  shodan: 100, // requests per month
-  urlhaus: 1000 // requests per day
-};
+// Advanced AI threat analysis
+const aiAnalysis = await window.apolloAPI.analyzeWithClaude({
+  type: "process_behavior",
+  data: {
+    processName: "suspicious.exe",
+    commandLine: "encoded_command_here",
+    networkConnections: ["192.168.1.100:4444"],
+    fileOperations: ["/tmp/payload.bin"]
+  },
+  model: "claude-opus-4-1-20250805",
+  analysisDepth: "deep"
+});
 
-// AI Oracle rate limits (Anthropic)
-const claudeLimits = {
-  tier1: 5, // requests per minute
-  tier2: 50, // requests per minute
-  tier3: 1000 // requests per minute
-};
+console.log(aiAnalysis);
+// Returns:
+// {
+//   assessment: "HIGH_RISK",
+//   confidence: 0.92,
+//   reasoning: "Process exhibits clear APT characteristics...",
+//   techniques: ["T1059.001", "T1071.001"],
+//   recommendedActions: ["isolate", "investigate", "terminate"],
+//   aptGroup: "apt29_cozy_bear"
+// }
 ```
+
+### Behavioral Analysis
+```javascript
+// Real-time behavioral analysis
+const behaviorResult = await window.apolloAPI.analyzeBehavior({
+  timeWindow: 300, // 5 minutes
+  processFilter: ["powershell.exe", "cmd.exe"],
+  networkMonitoring: true,
+  fileSystemEvents: true
+});
+
+console.log(behaviorResult);
+// Returns:
+// {
+//   suspicious_patterns: [
+//     {
+//       pattern: "encoded_powershell_execution",
+//       confidence: 0.85,
+//       processes: ["powershell.exe"],
+//       technique: "T1059.001"
+//     }
+//   ],
+//   baseline_deviation: 0.7,
+//   risk_score: 82
+// }
+```
+
+## 🔧 Configuration APIs
+
+### Enhanced Security Settings
+```javascript
+// Configure context-aware detection
+await window.apolloAPI.updateSecuritySettings({
+  contextAnalysis: {
+    enabled: true,
+    confidenceThreshold: 0.7,
+    requireConfirmationBelow: 0.8
+  },
+  processWhitelisting: {
+    enabled: true,
+    autoLearn: true,
+    strictMode: false
+  },
+  criticalProcessProtection: {
+    enabled: true,
+    protectedProcesses: [
+      "winlogon.exe", "csrss.exe", "lsass.exe"
+    ]
+  },
+  userInteraction: {
+    confirmMediumThreats: true,
+    showConfidenceScores: true,
+    allowWhitelistAddition: true
+  }
+});
+
+// Get current configuration
+const config = await window.apolloAPI.getSecurityConfiguration();
+```
+
+### API Key Management
+```javascript
+// Securely update API keys
+await window.apolloAPI.updateAPIKeys({
+  anthropic: "your_anthropic_key",
+  virusTotal: "your_vt_key",
+  alienVault: "your_otx_key"
+});
+
+// Test API connectivity
+const connectivity = await window.apolloAPI.testAPIConnectivity();
+console.log(connectivity);
+// Returns:
+// {
+//   anthropic: { status: "connected", latency: 150 },
+//   virusTotal: { status: "connected", rate_limit: 4 },
+//   alienVault: { status: "connected", quota: 1000 }
+// }
+```
+
+## 📊 Enhanced Statistics & Monitoring
+
+### Detailed Statistics
+```javascript
+// Get comprehensive statistics
+const detailedStats = await window.apolloAPI.getDetailedStatistics();
+console.log(detailedStats);
+// Returns:
+// {
+//   detection: {
+//     totalThreats: 25,
+//     aptDetections: 3,
+//     falsePositives: 2,
+//     userConfirmations: 5,
+//     whitelistHits: 12
+//   },
+//   performance: {
+//     averageAnalysisTime: 485, // ms
+//     cpuUsage: 1.8, // %
+//     memoryUsage: 145 // MB
+//   },
+//   confidence: {
+//     averageScore: 0.84,
+//     highConfidenceDetections: 18,
+//     mediumConfidenceDetections: 7
+//   }
+// }
+```
+
+### Real-time Monitoring
+```javascript
+// Subscribe to real-time events
+window.apolloAPI.onThreatDetected((threat) => {
+  console.log("Threat detected:", threat);
+  // {
+  //   type: "APT_DETECTION",
+  //   confidence: 0.89,
+  //   process: "malicious.exe",
+  //   action: "terminated",
+  //   timestamp: "2025-01-15T10:30:00Z"
+  // }
+});
+
+window.apolloAPI.onUserConfirmationRequired((request) => {
+  console.log("User confirmation needed:", request);
+  // Display confirmation dialog
+});
+
+window.apolloAPI.onWhitelistUpdated((update) => {
+  console.log("Whitelist updated:", update);
+});
+```
+
+## 🚨 Event System
+
+### Enhanced Event Types
+```javascript
+// Subscribe to enhanced security events
+const events = [
+  'threat-detected',           // Enhanced threat detection
+  'context-analysis-complete', // Context analysis finished
+  'user-confirmation-required',// Medium-confidence threat needs approval
+  'process-whitelisted',       // Process added to whitelist
+  'critical-process-protected',// Critical process protection triggered
+  'apt-signature-matched',     // APT group signature detected
+  'confidence-score-calculated'// Threat confidence assessment
+];
+
+events.forEach(eventType => {
+  window.apolloAPI.on(eventType, (data) => {
+    console.log(`Event ${eventType}:`, data);
+  });
+});
+```
+
+## 🔒 Security Considerations
+
+### API Security
+- All API calls are validated and sanitized
+- Sensitive data is encrypted in transit
+- API keys are stored securely using OS keychain
+- Rate limiting prevents abuse
+- Audit logging for all security-related operations
 
 ### Error Handling
 ```javascript
 try {
-  const analysis = await oracle.analyzeThreat(indicator, context);
-
-  if (analysis.error) {
-    switch (analysis.error) {
-      case 'API_KEY_MISSING':
-        console.error('Configure ANTHROPIC_API_KEY');
-        break;
-      case 'RATE_LIMIT_EXCEEDED':
-        console.error('Rate limit exceeded, retry later');
-        break;
-      case 'NETWORK_ERROR':
-        console.error('Network connectivity issue');
-        break;
-      default:
-        console.error('Unknown error:', analysis.error);
-    }
-  }
-
+  const result = await window.apolloAPI.analyzeProcess(processData);
 } catch (error) {
-  console.error('API call failed:', error.message);
+  console.error("API Error:", error);
+  // Error types:
+  // - "INVALID_INPUT": Invalid parameters
+  // - "API_UNAVAILABLE": External service down
+  // - "RATE_LIMITED": Too many requests
+  // - "INSUFFICIENT_PERMISSIONS": Access denied
+  // - "ANALYSIS_TIMEOUT": Operation timed out
 }
 ```
 
-### Authentication & Security
+## 📚 Integration Examples
+
+### Complete Threat Analysis Workflow
 ```javascript
-// API keys should be stored securely
-const secureConfig = {
-  // Use environment variables
-  anthropicKey: process.env.ANTHROPIC_API_KEY,
+async function comprehensiveThreatAnalysis(processInfo) {
+  try {
+    // Step 1: Context analysis
+    const contextResult = await window.apolloAPI.analyzeProcess(processInfo);
 
-  // Or encrypted configuration files
-  configFile: await loadEncryptedConfig(),
+    // Step 2: Check whitelist
+    if (contextResult.isWhitelisted) {
+      return { action: "allow", reason: "whitelisted" };
+    }
 
-  // Never hardcode keys in source
-  // ❌ apiKey: "sk-ant-api03-..." // DON'T DO THIS
-};
-```
+    // Step 3: AI analysis for high-confidence threats
+    if (contextResult.suspicionLevel > 0.8) {
+      const aiResult = await window.apolloAPI.analyzeWithClaude({
+        type: "process_behavior",
+        data: processInfo
+      });
 
-## 📱 CLI API
+      return {
+        action: "block",
+        confidence: aiResult.confidence,
+        reasoning: aiResult.reasoning
+      };
+    }
 
-### Command Line Interface
-```bash
-# Test integrations
-apollo --test-claude
-apollo --test-osint
-apollo --test-network
+    // Step 4: User confirmation for medium threats
+    if (contextResult.requiresConfirmation) {
+      const userDecision = await window.apolloAPI.requestUserConfirmation({
+        threat: contextResult,
+        source: "Enhanced Detection Engine"
+      });
 
-# Analysis commands
-apollo --analyze-url https://suspicious.com
-apollo --analyze-contract 0x1234...
-apollo --analyze-file /path/to/file
-
-# System commands
-apollo --status
-apollo --scan
-apollo --isolate
-apollo --update
-```
-
-### Response Formats
-```bash
-# JSON output for programmatic use
-apollo --analyze-url https://suspicious.com --output json
-
-# Human-readable output
-apollo --analyze-url https://suspicious.com --output human
-
-# Detailed analysis
-apollo --analyze-url https://suspicious.com --verbose
-```
-
-## 🔧 Integration Examples
-
-### Node.js Integration
-```javascript
-const { spawn } = require('child_process');
-
-// Use Apollo CLI from Node.js
-function analyzeURL(url) {
-  return new Promise((resolve, reject) => {
-    const apollo = spawn('apollo', ['--analyze-url', url, '--output', 'json']);
-
-    let output = '';
-    apollo.stdout.on('data', (data) => {
-      output += data.toString();
-    });
-
-    apollo.on('close', (code) => {
-      if (code === 0) {
-        resolve(JSON.parse(output));
-      } else {
-        reject(new Error(`Apollo CLI exited with code ${code}`));
+      if (userDecision.addToWhitelist) {
+        await window.apolloAPI.addToWhitelist(
+          `${processInfo.parentProcess}>${processInfo.processName}`
+        );
       }
-    });
-  });
+
+      return {
+        action: userDecision.approved ? "allow" : "block",
+        reason: "user_decision"
+      };
+    }
+
+    return { action: "allow", reason: "low_confidence" };
+
+  } catch (error) {
+    console.error("Threat analysis failed:", error);
+    return { action: "block", reason: "analysis_error" };
+  }
 }
 ```
 
-### Python Integration
-```python
-import subprocess
-import json
+## 📖 API Versioning
 
-def analyze_contract(contract_address):
-    """Analyze smart contract using Apollo CLI"""
-    try:
-        result = subprocess.run([
-            'apollo',
-            '--analyze-contract',
-            contract_address,
-            '--output',
-            'json'
-        ], capture_output=True, text=True, timeout=30)
+### Current Version: 2.0.0
+- Enhanced context-aware detection
+- Process whitelisting system
+- User confirmation workflows
+- Critical process protection
+- Improved confidence scoring
 
-        if result.returncode == 0:
-            return json.loads(result.stdout)
-        else:
-            raise Exception(f"Apollo analysis failed: {result.stderr}")
+### Backwards Compatibility
+All v1.x API endpoints remain functional with enhanced responses including confidence scores and context information.
 
-    except subprocess.TimeoutExpired:
-        raise Exception("Apollo analysis timed out")
-```
+---
 
-### REST API Wrapper
-```javascript
-// Express.js wrapper for Apollo functionality
-const express = require('express');
-const { spawn } = require('child_process');
-
-const app = express();
-app.use(express.json());
-
-// URL analysis endpoint
-app.post('/api/analyze/url', async (req, res) => {
-  try {
-    const { url } = req.body;
-    const result = await analyzeURL(url);
-    res.json(result);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Smart contract analysis endpoint
-app.post('/api/analyze/contract', async (req, res) => {
-  try {
-    const { address, bytecode } = req.body;
-    // Implement contract analysis
-    res.json(result);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-app.listen(3000, () => {
-  console.log('Apollo API server running on port 3000');
-});
-```
-
-This API reference provides comprehensive documentation for integrating with Apollo Security's threat analysis capabilities.
+🛡️ **For complete API documentation and examples, visit the [APOLLO CyberSentinel Documentation](docs/)**

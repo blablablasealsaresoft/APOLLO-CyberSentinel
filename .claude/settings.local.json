@@ -19,7 +19,9 @@
       "Bash(gh repo create:*)",
       "Bash(git init:*)",
       "Bash(git remote add:*)",
-      "Bash(xargs sed:*)"
+      "Bash(xargs sed:*)",
+      "Bash(git branch:*)",
+      "Bash(git rm:*)"
     ],
     "deny": [],
     "ask": []

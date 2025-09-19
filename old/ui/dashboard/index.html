@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apollo Protection Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <div class="apollo-logo">
+                    <div class="logo-icon">🚀</div>
+                    <span class="logo-text">Apollo</span>
+                </div>
+                <div class="protection-status active">
+                    <div class="status-indicator"></div>
+                    <span>Military-Grade Protection Active</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="system-info">
+                    <span id="system-name">DESKTOP-APOLLO</span>
+                    <span id="current-time"></span>
+                </div>
+                <button class="settings-btn" onclick="openSettings()">⚙️</button>
+            </div>
+        </header>
+
+        <!-- Main Dashboard -->
+        <main class="dashboard-main">
+            <!-- Protection Overview -->
+            <section class="protection-overview">
+                <div class="overview-card threat-level">
+                    <div class="card-header">
+                        <h3>Threat Level</h3>
+                        <div class="threat-indicator low" id="threat-indicator">
+                            <span class="threat-text">LOW</span>
+                        </div>
+                    </div>
+                    <div class="threat-details">
+                        <div class="detail-item">
+                            <span class="label">Active Threats:</span>
+                            <span class="value" id="active-threats">0</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">Blocked Today:</span>
+                            <span class="value" id="blocked-today">0</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">Last Scan:</span>
+                            <span class="value" id="last-scan">Just now</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="overview-card protection-modules">
+                    <div class="card-header">
+                        <h3>Protection Modules</h3>
+                    </div>
+                    <div class="modules-grid">
+                        <div class="module-item active" id="threat-engine-status">
+                            <div class="module-icon">🛡️</div>
+                            <div class="module-info">
+                                <span class="module-name">Threat Engine</span>
+                                <span class="module-status">Active</span>
+                            </div>
+                        </div>
+                        <div class="module-item active" id="crypto-shield-status">
+                            <div class="module-icon">⛓️</div>
+                            <div class="module-info">
+                                <span class="module-name">Crypto Shield</span>
+                                <span class="module-status">Active</span>
+                            </div>
+                        </div>
+                        <div class="module-item active" id="apt-detector-status">
+                            <div class="module-icon">🕵️</div>
+                            <div class="module-info">
+                                <span class="module-name">APT Detector</span>
+                                <span class="module-status">Active</span>
+                            </div>
+                        </div>
+                        <div class="module-item active" id="behavior-monitor-status">
+                            <div class="module-icon">🧠</div>
+                            <div class="module-info">
+                                <span class="module-name">Behavior Monitor</span>
+                                <span class="module-status">Active</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Real-time Monitoring -->
+            <section class="monitoring-section">
+                <div class="monitoring-card">
+                    <div class="card-header">
+                        <h3>Real-time Activity</h3>
+                        <button class="refresh-btn" onclick="refreshActivity()">🔄</button>
+                    </div>
+                    <div class="activity-feed" id="activity-feed">
+                        <div class="activity-item info">
+                            <div class="activity-time">Just now</div>
+                            <div class="activity-icon">✅</div>
+                            <div class="activity-text">Apollo protection activated - all systems secured</div>
+                        </div>
+                        <div class="activity-item success">
+                            <div class="activity-time">2 min ago</div>
+                            <div class="activity-icon">🛡️</div>
+                            <div class="activity-text">Threat database updated - 15,247 new signatures</div>
+                        </div>
+                        <div class="activity-item info">
+                            <div class="activity-time">5 min ago</div>
+                            <div class="activity-icon">🔍</div>
+                            <div class="activity-text">System scan completed - no threats detected</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-card">
+                    <div class="card-header">
+                        <h3>Protection Statistics</h3>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value" id="total-scans">1,247</div>
+                            <div class="stat-label">Total Scans</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="threats-blocked">0</div>
+                            <div class="stat-label">Threats Blocked</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="crypto-transactions">156</div>
+                            <div class="stat-label">Crypto Tx Protected</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="apt-detections">0</div>
+                            <div class="stat-label">APT Detections</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Advanced Features -->
+            <section class="features-section">
+                <div class="feature-card crypto-guardian">
+                    <div class="card-header">
+                        <h3>🔐 Crypto Guardian</h3>
+                        <div class="status-badge active">ACTIVE</div>
+                    </div>
+                    <div class="feature-content">
+                        <div class="feature-stats">
+                            <div class="feature-stat">
+                                <span class="stat-value" id="protected-wallets">3</span>
+                                <span class="stat-label">Protected Wallets</span>
+                            </div>
+                            <div class="feature-stat">
+                                <span class="stat-value" id="analyzed-contracts">42</span>
+                                <span class="stat-label">Contracts Analyzed</span>
+                            </div>
+                        </div>
+                        <div class="feature-actions">
+                            <button class="action-btn primary" onclick="analyzeContract()">
+                                Analyze Contract
+                            </button>
+                            <button class="action-btn secondary" onclick="checkTransaction()">
+                                Check Transaction
+                            </button>
+                            <button class="action-btn warning" onclick="checkPhishingURL()">
+                                Check Phishing
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card apt-defense">
+                    <div class="card-header">
+                        <h3>🛡️ APT Defense</h3>
+                        <div class="status-badge active">MONITORING</div>
+                    </div>
+                    <div class="feature-content">
+                        <div class="apt-threats">
+                            <div class="threat-group">
+                                <div class="threat-icon">🇰🇵</div>
+                                <div class="threat-info">
+                                    <span class="threat-name">North Korea APT</span>
+                                    <span class="threat-status">No Activity</span>
+                                </div>
+                            </div>
+                            <div class="threat-group">
+                                <div class="threat-icon">🕵️</div>
+                                <div class="threat-info">
+                                    <span class="threat-name">Pegasus Spyware</span>
+                                    <span class="threat-status">Protected</span>
+                                </div>
+                            </div>
+                            <div class="threat-group">
+                                <div class="threat-icon">🌐</div>
+                                <div class="threat-info">
+                                    <span class="threat-name">State Actors</span>
+                                    <span class="threat-status">Monitoring</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feature-actions">
+                            <button class="action-btn primary" onclick="runDeepScan()">
+                                Deep Scan
+                            </button>
+                            <button class="action-btn secondary" onclick="viewThreats()">
+                                View Threats
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Emergency Controls -->
+            <section class="emergency-section">
+                <div class="emergency-card">
+                    <div class="card-header">
+                        <h3>🚨 Emergency Controls</h3>
+                    </div>
+                    <div class="emergency-controls">
+                        <button class="emergency-btn isolation" onclick="emergencyIsolation()">
+                            <div class="btn-icon">🚧</div>
+                            <div class="btn-text">
+                                <span class="btn-title">System Isolation</span>
+                                <span class="btn-desc">Cut all network connections</span>
+                            </div>
+                        </button>
+                        <button class="emergency-btn quarantine" onclick="quarantineThreats()">
+                            <div class="btn-icon">🔒</div>
+                            <div class="btn-text">
+                                <span class="btn-title">Quarantine</span>
+                                <span class="btn-desc">Isolate detected threats</span>
+                            </div>
+                        </button>
+                        <button class="emergency-btn forensic" onclick="captureEvidence()">
+                            <div class="btn-icon">📋</div>
+                            <div class="btn-text">
+                                <span class="btn-title">Capture Evidence</span>
+                                <span class="btn-desc">Preserve forensic data</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Threat Alert Modal -->
+        <div class="modal-overlay" id="threat-modal" style="display: none;">
+            <div class="modal-content threat-alert">
+                <div class="modal-header">
+                    <h3>🚨 Critical Threat Detected</h3>
+                    <button class="close-btn" onclick="closeThreatModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="threat-severity critical">
+                        <span class="severity-label">CRITICAL</span>
+                        <span class="threat-type" id="threat-type">APT Activity</span>
+                    </div>
+                    <div class="threat-details">
+                        <p id="threat-description">Advanced persistent threat activity detected from North Korean Lazarus group.</p>
+                        <div class="threat-actions">
+                            <button class="action-btn critical" onclick="blockThreat()">Block Threat</button>
+                            <button class="action-btn secondary" onclick="investigateThreat()">Investigate</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Modal -->
+        <div class="modal-overlay" id="settings-modal" style="display: none;">
+            <div class="modal-content settings">
+                <div class="modal-header">
+                    <h3>⚙️ Apollo Settings</h3>
+                    <button class="close-btn" onclick="closeSettingsModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="settings-section">
+                        <h4>Protection Settings</h4>
+                        <div class="setting-item">
+                            <label class="setting-label">
+                                <input type="checkbox" checked> Real-time Protection
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label class="setting-label">
+                                <input type="checkbox" checked> Crypto Monitoring
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label class="setting-label">
+                                <input type="checkbox" checked> APT Detection
+                            </label>
+                        </div>
+                    </div>
+                    <div class="settings-section">
+                        <h4>Advanced Options</h4>
+                        <div class="setting-item">
+                            <label class="setting-label">
+                                <input type="checkbox"> Debug Mode
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label class="setting-label">
+                                <input type="checkbox" checked> Auto-Updates
+                            </label>
+                        </div>
+                    </div>
+                    <div class="settings-actions">
+                        <button class="action-btn primary" onclick="saveSettings()">Save Settings</button>
+                        <button class="action-btn secondary" onclick="resetSettings()">Reset to Default</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

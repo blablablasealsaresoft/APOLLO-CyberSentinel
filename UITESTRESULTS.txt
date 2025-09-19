@@ -1,0 +1,43 @@
+dashboard.js:5487 Uncaught SyntaxError: Unexpected end of input
+VM4 sandbox_bundle:2 Electron Security Warning (Insecure Content-Security-Policy) This renderer process has either no Content Security
+  Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+  this app to unnecessary security risks.
+
+For more information and help, consult
+https://electronjs.org/docs/tutorial/security.
+This warning will not show up
+once the app is packaged.
+warnAboutInsecureCSP @ VM4 sandbox_bundle:2
+2index.html:251 Uncaught ReferenceError: openWalletModal is not defined
+    at HTMLButtonElement.onclick (index.html:251:99)
+index.html:260 Uncaught ReferenceError: analyzeContract is not defined
+    at HTMLButtonElement.onclick (index.html:260:92)
+index.html:263 Uncaught ReferenceError: checkTransaction is not defined
+    at HTMLButtonElement.onclick (index.html:263:95)
+index.html:266 Uncaught ReferenceError: checkPhishingURL is not defined
+    at HTMLButtonElement.onclick (index.html:266:93)
+index.html:303 Uncaught ReferenceError: runDeepScan is not defined
+    at HTMLButtonElement.onclick (index.html:303:88)
+index.html:306 Uncaught ReferenceError: viewThreats is not defined
+    at HTMLButtonElement.onclick (index.html:306:90)
+index.html:306 Uncaught ReferenceError: viewThreats is not defined
+    at HTMLButtonElement.onclick (index.html:306:90)
+onclick @ index.html:306
+index.html:303 Uncaught ReferenceError: runDeepScan is not defined
+    at HTMLButtonElement.onclick (index.html:303:88)
+onclick @ index.html:303
+index.html:227 Uncaught ReferenceError: viewThreatFeeds is not defined
+    at HTMLButtonElement.onclick (index.html:227:92)
+onclick @ index.html:227
+index.html:224 Uncaught ReferenceError: queryIOCIntelligence is not defined
+    at HTMLButtonElement.onclick (index.html:224:99)
+onclick @ index.html:224
+index.html:221 Uncaught ReferenceError: refreshIntelligenceSources is not defined
+    at HTMLButtonElement.onclick (index.html:221:103)
+onclick @ index.html:221
+index.html:179 Uncaught ReferenceError: analyzeWithClaude is not defined
+    at HTMLButtonElement.onclick (index.html:179:94)
+onclick @ index.html:179
+index.html:29 Uncaught ReferenceError: openSettings is not defined
+    at HTMLButtonElement.onclick (index.html:29:71)
+

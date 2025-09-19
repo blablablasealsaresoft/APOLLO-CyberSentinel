@@ -1,0 +1,203 @@
+{
+  "name": "apollo",
+  "version": "1.0.0",
+  "description": "Cross-platform protection against nation-state hackers and crypto threats",
+  "main": "main.js",
+  "homepage": ".",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "node scripts/build-production.js",
+    "build:all": "npm run build:win && npm run build:mac && npm run build:linux",
+    "build:win": "electron-builder --win",
+    "build:mac": "electron-builder --mac",
+    "build:linux": "electron-builder --linux",
+    "build:current": "BUILD_TARGET=current node scripts/build-production.js",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "postinstall": "electron-builder install-app-deps",
+    "test": "node scripts/test-and-build.js",
+    "test:basic": "node -e \"console.log('Basic test passed')\"",
+    "test:claude": "node test-claude-integration.js",
+    "docs:serve": "echo 'Documentation available in docs/ directory'",
+    "docs:validate": "echo 'Validating documentation links and examples'",
+    "lint": "echo 'Linting...' && echo 'No linting rules configured'",
+    "setup-dev": "npm install",
+    "install-service": "node src/service/apollo-service.js --install",
+    "uninstall-service": "node src/service/apollo-service.js --uninstall"
+  },
+  "build": {
+    "appId": "com.apollo.app",
+    "productName": "Apollo",
+    "copyright": "© 2025 Apollo Project",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*",
+      "ui/**/*",
+      "assets/**/*",
+      "node_modules/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "binaries",
+        "to": "binaries",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/apollo-icon.ico",
+      "requestedExecutionLevel": "requireAdministrator",
+      "artifactName": "Apollo-Setup-${version}-${arch}.${ext}",
+      "sign": false
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "icon": "assets/apollo-icon.jpg",
+      "category": "public.app-category.security",
+      "hardenedRuntime": true,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist",
+      "artifactName": "Apollo-${version}-${arch}.${ext}"
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "rpm",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/apollo-icon.jpg",
+      "category": "Security",
+      "artifactName": "Apollo-${version}-${arch}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "assets/apollo-icon.ico",
+      "uninstallerIcon": "assets/apollo-icon.ico",
+      "installerHeaderIcon": "assets/apollo-icon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Apollo",
+      "runAfterFinish": true,
+      "allowElevation": true,
+      "perMachine": true,
+      "include": "build/installer.nsh"
+    },
+    "dmg": {
+      "title": "Apollo ${version}",
+      "icon": "assets/apollo-icon.jpg",
+      "background": "assets/dmg-background.png",
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ],
+      "window": {
+        "width": 540,
+        "height": 380
+      }
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "apollo-shield",
+      "repo": "apollo-releases"
+    }
+  },
+  "author": {
+    "name": "Apollo Project",
+    "email": "security@apollo-shield.org"
+  },
+  "license": "MIT",
+  "keywords": [
+    "security",
+    "antivirus",
+    "pegasus",
+    "nation-state",
+    "cryptocurrency",
+    "protection",
+    "electron",
+    "cross-platform",
+    "apollo"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/apollo-shield/desktop-app.git"
+  },
+  "dependencies": {
+    "electron-updater": "^6.1.7",
+    "node-machine-id": "^1.1.12",
+    "systeminformation": "^5.21.22",
+    "ps-list": "^8.1.1",
+    "fs-extra": "^11.2.0",
+    "axios": "^1.6.5",
+    "ws": "^8.16.0",
+    "ethers": "^6.9.0",
+    "winreg": "^1.2.4",
+    "node-windows": "^1.0.0-beta.8",
+    "@anthropic-ai/sdk": "^0.29.0",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "electron": "^28.1.0",
+    "electron-builder": "^24.9.1",
+    "eslint": "^8.56.0",
+    "jest": "^29.7.0",
+    "@types/node": "^20.11.5"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

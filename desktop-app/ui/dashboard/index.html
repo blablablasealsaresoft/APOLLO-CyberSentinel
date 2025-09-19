@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apollo Protection Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <div class="apollo-logo">
+                    <div class="logo-icon">🚀</div>
+                    <span class="logo-text">Apollo</span>
+                </div>
+                <div class="protection-status active">
+                    <div class="status-indicator"></div>
+                    <span>Military-Grade Protection Active</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="system-info">
+                    <span id="system-name">DESKTOP-APOLLO</span>
+                    <span id="current-time"></span>
+                </div>
+                <button class="settings-btn" onclick="openSettings()">⚙️</button>
+            </div>
+        </header>
+
+        <!-- Main Dashboard -->
+        <main class="dashboard-main">
+            <!-- Protection Overview -->
+            <section class="protection-overview">
+                <div class="overview-card threat-level">
+                    <div class="card-header">
+                        <h3>Threat Level</h3>
+                        <div class="threat-indicator low" id="threat-indicator">
+                            <span class="threat-text" id="threat-text">LOW</span>
+                        </div>
+                    </div>
+                    <div class="threat-details">
+                        <div class="detail-item">
+                            <span class="label">Active Threats:</span>
+                            <span class="value" id="active-threats">0</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">Blocked Today:</span>
+                            <span class="value" id="blocked-today">0</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">Last Scan:</span>
+                            <span class="value" id="last-scan">Just now</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="overview-card protection-modules">
+                    <div class="card-header">
+                        <h3>Protection Modules</h3>
+                    </div>
+                    <div class="modules-grid">
+                        <div class="module-item active" id="threat-engine-status">
+                            <div class="module-icon">🛡️</div>
+                            <div class="module-info">
+                                <span class="module-name">Threat Engine</span>
+                                <span class="module-status">Active</span>
+                            </div>
+                        </div>
+                        <div class="module-item active" id="crypto-shield-status">
+                            <div class="module-icon">⛓️</div>
+                            <div class="module-info">
+                                <span class="module-name">Crypto Shield</span>
+                                <span class="module-status">Active</span>
+                            </div>
+                        </div>
+                        <div class="module-item active" id="apt-detector-status">
+                            <div class="module-icon">🕵️</div>
+                            <div class="module-info">
+                                <span class="module-name">APT Detector</span>
+                                <span class="module-status">Active</span>
+                            </div>
+                        </div>
+                        <div class="module-item active" id="behavior-monitor-status">
+                            <div class="module-icon">🧠</div>
+                            <div class="module-info">
+                                <span class="module-name">Behavior Monitor</span>
+                                <span class="module-status">Active</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Real-time Monitoring -->
+            <section class="monitoring-section">
+                <div class="monitoring-card">
+                    <div class="card-header">
+                        <h3>Real-time Activity</h3>
+                        <button class="refresh-btn" onclick="refreshActivity()">🔄</button>
+                    </div>
+                    <div class="activity-feed" id="activity-feed">
+                        <div class="activity-item info">
+                            <div class="activity-time">Just now</div>
+                            <div class="activity-icon">✅</div>
+                            <div class="activity-text">Apollo protection activated - all systems secured</div>
+                        </div>
+                        <div class="activity-item success">
+                            <div class="activity-time">2 min ago</div>
+                            <div class="activity-icon">🛡️</div>
+                            <div class="activity-text">Threat database updated - 15,247 new signatures</div>
+                        </div>
+                        <div class="activity-item info">
+                            <div class="activity-time">5 min ago</div>
+                            <div class="activity-icon">🔍</div>
+                            <div class="activity-text">System scan completed - no threats detected</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-card">
+                    <div class="card-header">
+                        <h3>Protection Statistics</h3>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value" id="total-scans">1,247</div>
+                            <div class="stat-label">Total Scans</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="threats-blocked">0</div>
+                            <div class="stat-label">Threats Blocked</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="crypto-transactions">156</div>
+                            <div class="stat-label">Crypto Tx Protected</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="apt-detections">0</div>
+                            <div class="stat-label">APT Detections</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Advanced Features -->
+            <section class="features-section">
+                <!-- AI Oracle Container -->
+                <div class="feature-card ai-oracle-container">
+                    <div class="card-header">
+                        <h3>🧠 AI Oracle</h3>
+                        <div class="status-badge active">OPERATIONAL</div>
+                    </div>
+                    <div class="feature-content">
+                        <div class="oracle-stats">
+                            <div class="oracle-stat">
+                                <span class="stat-value" id="ai-analyses">0</span>
+                                <span class="stat-label">AI Analyses</span>
+                            </div>
+                            <div class="oracle-stat">
+                                <span class="stat-value" id="threat-classifications">0</span>
+                                <span class="stat-label">Threat Classifications</span>
+                            </div>
+                        </div>
+                        <div class="oracle-input-section">
+                            <input type="text" id="oracle-indicator" placeholder="Enter IOC, hash, domain, or IP address..." />
+                            <select id="oracle-type">
+                                <option value="auto">Auto-detect</option>
+                                <option value="hash">File Hash</option>
+                                <option value="ip">IP Address</option>
+                                <option value="domain">Domain</option>
+                                <option value="url">URL</option>
+                                <option value="contract">Smart Contract</option>
+                            </select>
+                        </div>
+                        <div class="feature-actions">
+                            <button class="action-btn primary" onclick="analyzeWithClaude()">
+                                🧠 Analyze with Claude AI
+                            </button>
+                            <button class="action-btn secondary" onclick="clearOracleInput()">
+                                Clear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Intelligence Sources Container -->
+                <div class="feature-card intelligence-sources-container">
+                    <div class="card-header">
+                        <h3>🔍 Intelligence Sources</h3>
+                        <div class="status-badge active">15+ ACTIVE</div>
+                    </div>
+                    <div class="feature-content">
+                        <div class="sources-stats">
+                            <div class="sources-stat">
+                                <span class="stat-value" id="osint-queries">0</span>
+                                <span class="stat-label">OSINT Queries</span>
+                            </div>
+                            <div class="sources-stat">
+                                <span class="stat-value" id="intel-feeds">15+</span>
+                                <span class="stat-label">Active Sources</span>
+                            </div>
+                        </div>
+                        <div class="sources-categories">
+                            <div class="source-category">
+                                <h4>Premium Sources</h4>
+                                <span class="source-list">VirusTotal, Shodan, AlienVault OTX, Etherscan</span>
+                            </div>
+                            <div class="source-category">
+                                <h4>Free Sources</h4>
+                                <span class="source-list">URLhaus, ThreatFox, Malware Bazaar, Feodo Tracker</span>
+                            </div>
+                            <div class="source-category">
+                                <h4>Additional OSINT</h4>
+                                <span class="source-list">GitHub API, NewsAPI, DNS Dumpster, Hunter.io</span>
+                            </div>
+                        </div>
+                        <div class="feature-actions">
+                            <button class="action-btn primary" onclick="refreshIntelligenceSources()">
+                                🔄 Refresh Intelligence
+                            </button>
+                            <button class="action-btn secondary" onclick="queryIOCIntelligence()">
+                                🔍 Query IOC
+                            </button>
+                            <button class="action-btn warning" onclick="viewThreatFeeds()">
+                                📊 View Feeds
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card crypto-guardian">
+                    <div class="card-header">
+                        <h3>🔐 Crypto Guardian</h3>
+                        <div class="status-badge active">ACTIVE</div>
+                    </div>
+                    <div class="feature-content">
+                        <div class="feature-stats">
+                            <div class="feature-stat">
+                                <span class="stat-value" id="protected-wallets">3</span>
+                                <span class="stat-label">Protected Wallets</span>
+                            </div>
+                            <div class="feature-stat">
+                                <span class="stat-value" id="analyzed-contracts">42</span>
+                                <span class="stat-label">Contracts Analyzed</span>
+                            </div>
+                        </div>
+                        <div class="wallet-connection-section">
+                            <button class="action-btn wallet-connect" onclick="openWalletModal()">
+                                🔗 Connect Wallet
+                            </button>
+                            <div class="connected-wallet" id="connected-wallet" style="display: none;">
+                                <span class="wallet-address" id="wallet-address">Not connected</span>
+                                <button class="disconnect-btn" onclick="disconnectWallet()">Disconnect</button>
+                            </div>
+                        </div>
+                        <div class="feature-actions">
+                            <button class="action-btn primary" onclick="analyzeContract()">
+                                Analyze Contract
+                            </button>
+                            <button class="action-btn secondary" onclick="checkTransaction()">
+                                Check Transaction
+                            </button>
+                            <button class="action-btn warning" onclick="checkPhishingURL()">
+                                Check Phishing
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card apt-defense">
+                    <div class="card-header">
+                        <h3>🛡️ APT Defense</h3>
+                        <div class="status-badge active">MONITORING</div>
+                    </div>
+                    <div class="feature-content">
+                        <div class="apt-threats">
+                            <div class="threat-group">
+                                <div class="threat-icon">🇰🇵</div>
+                                <div class="threat-info">
+                                    <span class="threat-name">North Korea APT</span>
+                                    <span class="threat-status">No Activity</span>
+                                </div>
+                            </div>
+                            <div class="threat-group">
+                                <div class="threat-icon">🕵️</div>
+                                <div class="threat-info">
+                                    <span class="threat-name">Pegasus Spyware</span>
+                                    <span class="threat-status">Protected</span>
+                                </div>
+                            </div>
+                            <div class="threat-group">
+                                <div class="threat-icon">🌐</div>
+                                <div class="threat-info">
+                                    <span class="threat-name">State Actors</span>
+                                    <span class="threat-status">Monitoring</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feature-actions">
+                            <button class="action-btn primary" onclick="runDeepScan()">
+                                Deep Scan
+                            </button>
+                            <button class="action-btn secondary" onclick="viewThreats()">
+                                View Threats
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Emergency Controls -->
+            <section class="emergency-section">
+                <div class="emergency-card">
+                    <div class="card-header">
+                        <h3>🚨 Emergency Controls</h3>
+                    </div>
+                    <div class="emergency-controls">
+                        <button class="emergency-btn isolation" onclick="emergencyIsolation()">
+                            <div class="btn-icon">🚧</div>
+                            <div class="btn-text">
+                                <span class="btn-title">System Isolation</span>
+                                <span class="btn-desc">Cut all network connections</span>
+                            </div>
+                        </button>
+                        <button class="emergency-btn quarantine" onclick="quarantineThreats()">
+                            <div class="btn-icon">🔒</div>
+                            <div class="btn-text">
+                                <span class="btn-title">Quarantine</span>
+                                <span class="btn-desc">Isolate detected threats</span>
+                            </div>
+                        </button>
+                        <button class="emergency-btn forensic" onclick="captureEvidence()">
+                            <div class="btn-icon">📋</div>
+                            <div class="btn-text">
+                                <span class="btn-title">Capture Evidence</span>
+                                <span class="btn-desc">Preserve forensic data</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Threat Alert Modal -->
+        <div class="modal-overlay" id="threat-modal" style="display: none;">
+            <div class="modal-content threat-alert">
+                <div class="modal-header">
+                    <h3>🚨 Critical Threat Detected</h3>
+                    <button class="close-btn" onclick="closeThreatModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="threat-severity critical">
+                        <span class="severity-label">CRITICAL</span>
+                        <span class="threat-type" id="threat-type">APT Activity</span>
+                    </div>
+                    <div class="threat-details">
+                        <p id="threat-description">Advanced persistent threat activity detected from North Korean Lazarus group.</p>
+                        <div class="threat-actions">
+                            <button class="action-btn critical" onclick="blockThreat()">Block Threat</button>
+                            <button class="action-btn secondary" onclick="investigateThreat()">Investigate</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Modal -->
+        <div class="modal-overlay" id="settings-modal" style="display: none;">
+            <div class="modal-content settings">
+                <div class="modal-header">
+                    <h3>⚙️ Apollo Settings</h3>
+                    <button class="close-btn" onclick="closeSettingsModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="settings-section">
+                        <h4>Protection Settings</h4>
+                        <div class="setting-item">
+                            <label class="setting-label">
+                                <input type="checkbox" checked> Real-time Protection
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label class="setting-label">
+                                <input type="checkbox" checked> Crypto Monitoring
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label class="setting-label">
+                                <input type="checkbox" checked> APT Detection
+                            </label>
+                        </div>
+                    </div>
+                    <div class="settings-section">
+                        <h4>Advanced Options</h4>
+                        <div class="setting-item">
+                            <label class="setting-label">
+                                <input type="checkbox"> Debug Mode
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label class="setting-label">
+                                <input type="checkbox" checked> Auto-Updates
+                            </label>
+                        </div>
+                    </div>
+                    <div class="settings-actions">
+                        <button class="action-btn primary" onclick="saveSettings()">Save Settings</button>
+                        <button class="action-btn secondary" onclick="resetSettings()">Reset to Default</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wallet Connection Modal -->
+        <div class="modal-overlay" id="wallet-modal" style="display: none;">
+            <div class="modal-content wallet-connection">
+                <div class="modal-header">
+                    <h3>🔗 Connect Crypto Wallet</h3>
+                    <button class="close-btn" onclick="closeWalletModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="wallet-options">
+                        <div class="wallet-option" onclick="connectMetaMask()">
+                            <div class="wallet-icon">🦊</div>
+                            <div class="wallet-info">
+                                <span class="wallet-name">MetaMask</span>
+                                <span class="wallet-desc">Connect your MetaMask wallet</span>
+                            </div>
+                        </div>
+                        <div class="wallet-option" onclick="connectWalletConnect()">
+                            <div class="wallet-icon">📱</div>
+                            <div class="wallet-info">
+                                <span class="wallet-name">WalletConnect</span>
+                                <span class="wallet-desc">Connect mobile wallet</span>
+                            </div>
+                        </div>
+                        <div class="wallet-option" onclick="manualWalletEntry()">
+                            <div class="wallet-icon">⌨️</div>
+                            <div class="wallet-info">
+                                <span class="wallet-name">Manual Entry</span>
+                                <span class="wallet-desc">Enter wallet address manually</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wallet-status" id="wallet-status">
+                        <span class="status-text">No wallet connected</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contract Analysis Modal -->
+        <div class="modal-overlay" id="contract-modal" style="display: none;">
+            <div class="modal-content contract-analysis">
+                <div class="modal-header">
+                    <h3>📄 Smart Contract Analysis</h3>
+                    <button class="close-btn" onclick="closeContractModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label for="contract-address">Contract Address:</label>
+                        <input type="text" id="contract-address" placeholder="0x..." maxlength="42" />
+                    </div>
+                    <div class="input-group">
+                        <label for="contract-network">Network:</label>
+                        <select id="contract-network">
+                            <option value="ethereum">Ethereum Mainnet</option>
+                            <option value="polygon">Polygon</option>
+                            <option value="bsc">Binance Smart Chain</option>
+                            <option value="arbitrum">Arbitrum</option>
+                        </select>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="action-btn primary" onclick="runContractAnalysis()">Analyze Contract</button>
+                        <button class="action-btn secondary" onclick="closeContractModal()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transaction Check Modal -->
+        <div class="modal-overlay" id="transaction-modal" style="display: none;">
+            <div class="modal-content transaction-check">
+                <div class="modal-header">
+                    <h3>🔍 Transaction Analysis</h3>
+                    <button class="close-btn" onclick="closeTransactionModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label for="tx-hash">Transaction Hash:</label>
+                        <input type="text" id="tx-hash" placeholder="0x..." maxlength="66" />
+                    </div>
+                    <div class="input-group">
+                        <label for="tx-network">Network:</label>
+                        <select id="tx-network">
+                            <option value="ethereum">Ethereum Mainnet</option>
+                            <option value="polygon">Polygon</option>
+                            <option value="bsc">Binance Smart Chain</option>
+                            <option value="arbitrum">Arbitrum</option>
+                        </select>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="action-btn primary" onclick="runTransactionCheck()">Check Transaction</button>
+                        <button class="action-btn secondary" onclick="closeTransactionModal()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- URL Check Modal -->
+        <div class="modal-overlay" id="url-modal" style="display: none;">
+            <div class="modal-content url-check">
+                <div class="modal-header">
+                    <h3>🎣 Phishing URL Check</h3>
+                    <button class="close-btn" onclick="closeUrlModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label for="url-input">Website URL:</label>
+                        <input type="url" id="url-input" placeholder="https://..." />
+                    </div>
+                    <div class="warning-box">
+                        <strong>⚠️ Warning:</strong> Only check URLs you suspect may be malicious.
+                        Never enter your wallet credentials on suspicious sites.
+                    </div>
+                    <div class="modal-actions">
+                        <button class="action-btn warning" onclick="runUrlCheck()">Check URL</button>
+                        <button class="action-btn secondary" onclick="closeUrlModal()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

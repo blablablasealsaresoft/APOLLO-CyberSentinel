@@ -320,6 +320,11 @@ class ApolloUnifiedProtectionEngine extends EventEmitter {
 
     async analyzeProcessList(processes) {
         for (const process of processes) {
+            // APOLLO SELF-PROTECTION: Skip our own processes to prevent false positives
+            if (this.isApolloProcess(process)) {
+                continue; // Don't analyze our own processes
+            }
+            
             // Check against all threat signatures
             const threats = [];
 
@@ -1004,10 +1009,17 @@ class ApolloUnifiedProtectionEngine extends EventEmitter {
     initializeProcessWhitelist() {
         if (!this.processWhitelist) {
             this.processWhitelist = new Set([
+                // APOLLO SELF-PROTECTION - Don't detect our own processes
+                'electron.exe>powershell.exe',     // Apollo's Electron spawning PowerShell
+                'node.exe>powershell.exe',         // Apollo's Node.js spawning PowerShell
+                'npm.exe>powershell.exe',          // npm run commands
+                'npm-cli.js>powershell.exe',       // npm CLI spawning PowerShell
+                
                 // Common legitimate PowerShell scenarios
                 'explorer.exe>powershell.exe', // User launched PowerShell
                 'cmd.exe>powershell.exe',      // Command prompt to PowerShell
                 'code.exe>powershell.exe',     // VS Code integrated terminal
+                'cursor.exe>powershell.exe',   // Cursor editor terminal
                 'WindowsTerminal.exe>powershell.exe', // Windows Terminal
                 'powershell_ise.exe>powershell.exe', // PowerShell ISE
 
@@ -1017,6 +1029,32 @@ class ApolloUnifiedProtectionEngine extends EventEmitter {
                 'userinit.exe>explorer.exe'
             ]);
         }
+    }
+
+    isApolloProcess(process) {
+        // APOLLO SELF-PROTECTION: Identify our own processes to prevent false positives
+        
+        // Check if it's our main process
+        if (process.pid === process.pid) {
+            return true;
+        }
+        
+        // Check if it's a PowerShell process spawned by Apollo-related processes
+        if (process.name && process.name.toLowerCase().includes('powershell.exe')) {
+            // Check if parent process is Apollo-related
+            const apolloParents = ['electron.exe', 'node.exe', 'npm.exe', 'npm-cli.js'];
+            if (process.parentName && apolloParents.some(parent => 
+                process.parentName.toLowerCase().includes(parent.toLowerCase()))) {
+                return true;
+            }
+        }
+        
+        // Check if process is in Apollo's working directory
+        if (process.path && process.path.includes('SECURE_THREAT_INTEL\\Fortress\\APOLLO')) {
+            return true;
+        }
+        
+        return false;
     }
 
     addToWhitelist(pid) {

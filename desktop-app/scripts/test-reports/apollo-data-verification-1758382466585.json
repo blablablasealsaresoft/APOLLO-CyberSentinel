@@ -1,0 +1,258 @@
+{
+  "timestamp": "2025-09-20T15:34:26.585Z",
+  "verificationScore": 100,
+  "totalVerifications": 6,
+  "successfulVerifications": 6,
+  "verificationResults": [
+    {
+      "category": "Threat Database",
+      "success": {
+        "totalSignatures": 10,
+        "verifiedCategories": 4,
+        "verifiedRealThreats": 4,
+        "expectedRealThreats": 4
+      },
+      "details": {
+        "totalSignatures": 10,
+        "verifiedCategories": 4,
+        "verifiedRealThreats": 4,
+        "expectedRealThreats": 4
+      },
+      "error": null,
+      "timestamp": "2025-09-20T15:34:24.569Z"
+    },
+    {
+      "category": "API Configuration",
+      "success": {
+        "realAPIKeys": 5,
+        "totalAPIKeys": 5,
+        "configurationRate": 100
+      },
+      "details": {
+        "realAPIKeys": 5,
+        "totalAPIKeys": 5,
+        "configurationRate": 100
+      },
+      "error": null,
+      "timestamp": "2025-09-20T15:34:24.570Z"
+    },
+    {
+      "category": "Behavioral Analysis",
+      "success": {
+        "realAnalyses": 4,
+        "totalTests": 4,
+        "analysisRate": 100
+      },
+      "details": {
+        "realAnalyses": 4,
+        "totalTests": 4,
+        "analysisRate": 100
+      },
+      "error": null,
+      "timestamp": "2025-09-20T15:34:24.572Z"
+    },
+    {
+      "category": "Network Intelligence",
+      "success": {
+        "verifiedIOCs": 3,
+        "totalIOCs": 3,
+        "verificationRate": 100
+      },
+      "details": {
+        "verifiedIOCs": 3,
+        "totalIOCs": 3,
+        "verificationRate": 100
+      },
+      "error": null,
+      "timestamp": "2025-09-20T15:34:25.574Z"
+    },
+    {
+      "category": "Hash Signatures",
+      "success": {
+        "totalHashes": 22,
+        "verifiedRealHashes": 1,
+        "suspiciousHashes": 0,
+        "hashQualityScore": 100
+      },
+      "details": {
+        "totalHashes": 22,
+        "verifiedRealHashes": 1,
+        "suspiciousHashes": 0,
+        "hashQualityScore": 100
+      },
+      "error": null,
+      "timestamp": "2025-09-20T15:34:26.580Z"
+    },
+    {
+      "category": "Public Source Cross-Reference",
+      "success": {
+        "crossReferencedItems": 5,
+        "totalKnownReal": 7,
+        "crossReferenceRate": 71.42857142857143
+      },
+      "details": {
+        "crossReferencedItems": 5,
+        "totalKnownReal": 7,
+        "crossReferenceRate": 71.42857142857143
+      },
+      "error": null,
+      "timestamp": "2025-09-20T15:34:26.581Z"
+    }
+  ],
+  "verifiedData": [
+    {
+      "type": "process",
+      "value": "com.apple.WebKit.Networking",
+      "threat": "pegasus",
+      "source": "Government/Academic research",
+      "verified": true
+    },
+    {
+      "type": "hash",
+      "value": "d616c60b7657c66c6d3c6f61bd4e2f00f1f60e89",
+      "threat": "pegasus",
+      "source": "Government/Academic research",
+      "verified": true
+    },
+    {
+      "type": "process",
+      "value": "AppleJeus.app",
+      "threat": "lazarus_verified_real",
+      "source": "Government/Academic research",
+      "verified": true
+    },
+    {
+      "type": "process",
+      "value": "xagent.exe",
+      "threat": "apt28",
+      "source": "Government/Academic research",
+      "verified": true
+    },
+    {
+      "type": "api_key",
+      "name": "ANTHROPIC_API_KEY",
+      "real": true,
+      "length": 108
+    },
+    {
+      "type": "api_key",
+      "name": "VIRUSTOTAL_API_KEY",
+      "real": true,
+      "length": 64
+    },
+    {
+      "type": "api_key",
+      "name": "ALIENVAULT_OTX_API_KEY",
+      "real": true,
+      "length": 64
+    },
+    {
+      "type": "api_key",
+      "name": "SHODAN_API_KEY",
+      "real": true,
+      "length": 32
+    },
+    {
+      "type": "api_key",
+      "name": "ETHERSCAN_API_KEY",
+      "real": true,
+      "length": 34
+    },
+    {
+      "type": "behavioral_pattern",
+      "name": "PowerShell Obfuscation",
+      "confidence": 0.6,
+      "deterministic": true
+    },
+    {
+      "type": "behavioral_pattern",
+      "name": "Crypto Theft",
+      "confidence": 0.25,
+      "deterministic": true
+    },
+    {
+      "type": "behavioral_pattern",
+      "name": "Process Injection",
+      "confidence": 0.35,
+      "deterministic": true
+    },
+    {
+      "type": "behavioral_pattern",
+      "name": "Mass File Encryption",
+      "confidence": 0.4,
+      "deterministic": true
+    },
+    {
+      "type": "network_ioc",
+      "value": "185.141.63.120",
+      "threat": "pegasus",
+      "source": "Citizen Lab",
+      "verified": true
+    },
+    {
+      "type": "network_ioc",
+      "value": "175.45.178.1",
+      "threat": "lazarus",
+      "source": "CISA",
+      "verified": true
+    },
+    {
+      "type": "network_ioc",
+      "value": "210.202.40.1",
+      "threat": "lazarus",
+      "source": "FBI",
+      "verified": true
+    },
+    {
+      "type": "malware_hash",
+      "hash": "d616c60b7657c66c6d3c6f61bd4e2f00f1f60e89",
+      "malware": "Pegasus iOS sample",
+      "source": "Citizen Lab forensic analysis",
+      "verified": true
+    }
+  ],
+  "suspiciousData": [],
+  "knownRealSources": {
+    "hashes": {
+      "d616c60b7657c66c6d3c6f61bd4e2f00f1f60e89": {
+        "source": "Citizen Lab Pegasus Report",
+        "verified": true,
+        "reference": "https://citizenlab.ca/2021/08/bahrain-hacks-activists-with-nso-group-zero-click-iphone-exploits/"
+      }
+    },
+    "processes": {
+      "com.apple.WebKit.Networking": {
+        "source": "Amnesty International Pegasus Research",
+        "verified": true,
+        "reference": "https://www.amnesty.org/en/latest/research/2021/07/forensic-methodology-report-how-to-catch-nso-groups-pegasus/"
+      },
+      "assistantd": {
+        "source": "Amnesty International Pegasus Research",
+        "verified": true,
+        "reference": "https://www.amnesty.org/en/latest/research/2021/07/forensic-methodology-report-how-to-catch-nso-groups-pegasus/"
+      },
+      "AppleJeus.app": {
+        "source": "CISA Advisory AA23-187A",
+        "verified": true,
+        "reference": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-187a"
+      },
+      "3CXDesktopApp.exe": {
+        "source": "CISA Advisory AA23-187A",
+        "verified": true,
+        "reference": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-187a"
+      }
+    },
+    "networks": {
+      "185.141.63.120": {
+        "source": "Citizen Lab Pegasus Infrastructure Analysis",
+        "verified": true,
+        "reference": "https://citizenlab.ca/2021/08/bahrain-hacks-activists-with-nso-group-zero-click-iphone-exploits/"
+      },
+      "175.45.178.1": {
+        "source": "CISA Advisory AA23-187A",
+        "verified": true,
+        "reference": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-187a"
+      }
+    }
+  }
+}

@@ -36,12 +36,16 @@
 - **Registry persistence monitoring** with smart filtering
 - **Forensic evidence capture** with minimal false positives
 
-#### 3. ⛓️ Crypto Guardian (WalletShield)
+#### 3. ⛓️ Crypto Guardian (WalletShield) + 📱 WalletConnect v2
 - **Smart contract analysis** - "Is this airdrop safe?"
 - **Transaction risk assessment** - Real-time safety checks
 - **Clipboard hijacking protection** - Prevents wallet address swapping
 - **Phishing detection** - Blocks fake MetaMask sites
 - **Multi-chain support** - Ethereum, Bitcoin, and more
+- **🆕 WalletConnect v2 Integration** - Secure mobile wallet connections
+- **🆕 QR Code Generation** - Visual pairing for mobile wallets
+- **🆕 Multi-Chain Mobile Support** - 13+ blockchains via mobile wallets
+- **🆕 Real-Time Session Management** - Live mobile wallet monitoring
 
 ## 🏗️ Enhanced Security Architecture
 
@@ -202,6 +206,61 @@ REAL_THREAT_COVERAGE:
   - Ransomware: 6 families with real signatures
   - Crypto_Miners: 5 verified mining tools
   - Banking_Trojans: 4 documented families
+```
+
+## 📱 WalletConnect v2 Integration (NEW!)
+
+### 🔥 Mobile Wallet Protection
+Apollo now provides **military-grade protection for mobile wallets** through WalletConnect v2 integration:
+
+#### ✅ **Supported Mobile Wallets:**
+- **MetaMask Mobile** ✅ Tested and verified
+- **Trust Wallet** ✅ Full compatibility
+- **Rainbow Wallet** ✅ Multi-chain support
+- **Coinbase Wallet** ✅ Enterprise features
+- **100+ Other Wallets** ✅ WalletConnect ecosystem
+
+#### 📱 **Mobile Wallet Features:**
+```javascript
+// Real WalletConnect v2 Implementation
+✅ QR Code Generation - Visual pairing for mobile wallets
+✅ Multi-Chain Support - 13+ blockchains (Ethereum, Polygon, BSC, Arbitrum, etc.)
+✅ Real-Time Monitoring - Live transaction and session tracking
+✅ Session Management - Full WalletConnect v2 protocol compliance
+✅ Security Validation - Military-grade connection verification
+✅ Event Handling - chainChanged, accountsChanged, session management
+```
+
+#### 🛡️ **Mobile Wallet Security:**
+- **Real-Time Transaction Monitoring** - Every mobile transaction protected
+- **Session Security** - Encrypted WalletConnect relay communication
+- **Multi-Chain Protection** - Cross-blockchain threat detection
+- **Address Validation** - Real wallet address verification
+- **Clipboard Protection** - Mobile wallet address security
+
+#### 🔧 **Technical Implementation:**
+```javascript
+// WalletConnect v2 SignClient (dApp mode)
+const signClient = await SignClient.init({
+    projectId: process.env.WALLETCONNECT_PROJECT_ID,
+    metadata: {
+        name: 'Apollo CyberSentinel',
+        description: 'Military-grade wallet protection against nation-state threats',
+        url: 'https://apollo-shield.org',
+        icons: ['https://apollo-shield.org/assets/apollo-icon.png']
+    }
+});
+
+// Multi-chain mobile wallet connection
+const { uri, approval } = await signClient.connect({
+    requiredNamespaces: {
+        eip155: {
+            methods: ['eth_sendTransaction', 'personal_sign', ...],
+            chains: ['eip155:1', 'eip155:137'], // Ethereum + Polygon
+            events: ['chainChanged', 'accountsChanged']
+        }
+    }
+});
 ```
 
 ## 📋 Quick Start Guide

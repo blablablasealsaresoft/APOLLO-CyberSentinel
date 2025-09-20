@@ -5,6 +5,18 @@ const { app, BrowserWindow, Menu, Tray, ipcMain, dialog, shell } = require('elec
 const path = require('path');
 const fs = require('fs-extra');
 const os = require('os');
+const crypto = require('crypto');
+const QRCode = require('qrcode');
+
+// Polyfill crypto.getRandomValues for WalletConnect in main process
+if (!global.crypto) {
+    global.crypto = {};
+}
+if (!global.crypto.getRandomValues) {
+    global.crypto.getRandomValues = (array) => {
+        return crypto.randomFillSync(array);
+    };
+}
 
 // Fix cache permission issues
 app.commandLine.appendSwitch('disable-gpu-sandbox');
@@ -15,6 +27,12 @@ const ApolloUnifiedProtectionEngine = require('./src/core/unified-protection-eng
 const SystemPrivileges = require('./src/native/system-privileges');
 const OSINTThreatIntelligence = require('./src/intelligence/osint-sources');
 const ApolloAIOracle = require('./src/ai/oracle-integration');
+
+// WalletConnect imports - Apollo acts as a dApp to connect to mobile wallets
+const { Core } = require('@walletconnect/core');
+const { WalletKit } = require('@reown/walletkit');
+const { SignClient } = require('@walletconnect/sign-client');
+const { buildApprovedNamespaces, getSdkError } = require('@walletconnect/utils');
 
 class ApolloApplication {
     constructor() {
@@ -27,6 +45,9 @@ class ApolloApplication {
         this.systemPrivileges = null;
         this.osintIntelligence = null;
         this.aiOracle = null;
+        this.walletKit = null;
+        this.walletCore = null;
+        this.signClient = null;
 
         this.protectionActive = false;
         this.stats = {
@@ -89,6 +110,15 @@ class ApolloApplication {
     }
 
     setupAppEvents() {
+        // Single instance lock - prevents multiple UI instances
+        const gotTheLock = app.requestSingleInstanceLock();
+
+        if (!gotTheLock) {
+            console.log('🚫 Another instance of Apollo is already running');
+            app.quit();
+            return;
+        }
+
         app.whenReady().then(() => {
             this.createMainWindow();
             this.createSystemTray();
@@ -579,6 +609,18 @@ class ApolloApplication {
             return this.analyzeContract(contractAddress);
         });
 
+        ipcMain.handle('connect-walletconnect', async (event, connectionData) => {
+            return this.handleWalletConnectConnection(connectionData);
+        });
+
+        ipcMain.handle('initialize-walletconnect', async () => {
+            return this.initializeWalletConnect();
+        });
+
+        ipcMain.handle('wait-wallet-connection', async () => {
+            return this.waitForWalletConnection();
+        });
+
         ipcMain.handle('check-transaction', (event, txHash) => {
             return this.checkTransaction(txHash);
         });
@@ -593,6 +635,13 @@ class ApolloApplication {
 
         ipcMain.handle('save-config', (event, config) => {
             return this.saveConfig(config);
+        });
+
+        // Crypto API handler for WalletConnect compatibility
+        ipcMain.handle('crypto-get-random-values', (event, length) => {
+            const array = new Uint8Array(length);
+            crypto.randomFillSync(array);
+            return Array.from(array);
         });
 
         // Enhanced OSINT and AI Oracle handlers
@@ -687,27 +736,37 @@ class ApolloApplication {
                 const engineStats = this.unifiedProtectionEngine.getStatistics();
 
                 this.stats.scansCompleted++;
+                
+                const scanResults = {
+                    threatsFound: engineStats.threatsDetected || 0,
+                    filesScanned: engineStats.filesScanned || 0,
+                    networkConnections: engineStats.networkConnectionsMonitored || 0,
+                    cryptoAssets: engineStats.cryptoTransactionsProtected || 0,
+                    engineUptime: engineStats.uptime || 0,
+                    scanTime: engineStats.lastScanDuration || '0s'
+                };
+                
                 this.sendToRenderer('scan-completed', {
                     type: 'deep',
-                    results: {
-                        threatsFound: engineStats.threatsDetected,
-                        itemsScanned: engineStats.filesScanned,
-                        networkConnections: engineStats.networkConnectionsMonitored,
-                        cryptoAssets: engineStats.cryptoTransactionsProtected,
-                        engineUptime: engineStats.uptime
-                    },
+                    results: scanResults,
                     engineStats: engineStats
                 });
+                
+                // RETURN the results for the IPC call
+                return scanResults;
             } catch (error) {
                 console.error('❌ Deep scan error:', error);
                 this.sendToRenderer('scan-error', { error: error.message });
+                return { error: error.message, threatsFound: 0, filesScanned: 0 };
             }
         } else {
             // Fallback if engine not available
+            const fallbackResult = { error: 'Unified Protection Engine not available', threatsFound: 0, filesScanned: 0 };
             this.sendToRenderer('scan-completed', {
                 type: 'deep',
-                results: { error: 'Unified Protection Engine not available' }
+                results: fallbackResult
             });
+            return fallbackResult;
         }
     }
 
@@ -725,6 +784,304 @@ class ApolloApplication {
         if (contractAddress && this.walletShield) {
             console.log(`🔍 Analyzing contract: ${contractAddress}`);
             return await this.walletShield.analyzeSmartContract(contractAddress);
+        } else {
+            // Return proper error result when wallet shield not available
+            return {
+                error: 'Wallet Shield not available',
+                safe: false,
+                summary: 'Contract analysis service unavailable'
+            };
+        }
+    }
+
+    async handleWalletConnectConnection(connectionData) {
+        console.log('📱 Backend: Processing WalletConnect connection');
+        
+        if (connectionData && connectionData.address) {
+            // Log wallet connection for security monitoring
+            this.addActivity({
+                icon: '📱',
+                text: `WalletConnect connected: ${connectionData.address.substring(0, 8)}...`,
+                type: 'success',
+                timestamp: new Date()
+            });
+            
+            // Enable wallet monitoring
+            if (this.walletShield) {
+                await this.walletShield.addProtectedWallet(connectionData.address, 'WalletConnect');
+            }
+            
+            return {
+                success: true,
+                address: connectionData.address,
+                provider: 'WalletConnect',
+                protectionEnabled: true
+            };
+        } else {
+            return {
+                success: false,
+                error: 'Invalid connection data'
+            };
+        }
+    }
+
+    async initializeWalletConnect() {
+        console.log('📱 Backend: Initializing WalletConnect as dApp to connect mobile wallets...');
+        
+        try {
+            // Initialize WalletConnect SignClient (dApp mode)
+            this.signClient = await SignClient.init({
+                projectId: process.env.WALLETCONNECT_PROJECT_ID || 'apollo-cybersentinel-protection',
+                metadata: {
+                    name: 'Apollo CyberSentinel',
+                    description: 'Military-grade wallet protection against nation-state threats',
+                    url: 'https://apollo-shield.org',
+                    icons: ['https://apollo-shield.org/assets/apollo-icon.png']
+                }
+            });
+
+            // Set up comprehensive event handlers for dApp mode
+            this.setupSignClientEventHandlers();
+
+            console.log('✅ WalletConnect SignClient initialized for mobile wallet connections');
+            console.log('📱 SignClient instance:', !!this.signClient);
+            console.log('📱 SignClient methods available:', Object.getOwnPropertyNames(Object.getPrototypeOf(this.signClient)));
+            return { success: true, message: 'WalletConnect ready for mobile wallet scanning' };
+            
+        } catch (error) {
+            console.error('❌ WalletConnect SignClient initialization failed:', error);
+            return { success: false, error: error.message };
+        }
+    }
+
+    setupSignClientEventHandlers() {
+        if (!this.signClient) return;
+
+        // Session established handler - when mobile wallet connects
+        this.signClient.on('session_event', (event) => {
+            console.log('📱 WalletConnect session event:', event);
+        });
+
+        // Session update handler
+        this.signClient.on('session_update', ({ topic, params }) => {
+            console.log('📱 WalletConnect session update:', topic, params);
+        });
+
+        // Session delete handler  
+        this.signClient.on('session_delete', ({ topic, id }) => {
+            console.log('📱 WalletConnect session deleted:', topic, id);
+        });
+
+        console.log('✅ WalletConnect SignClient event handlers configured');
+    }
+
+    // Legacy handler - keeping for compatibility but updating for SignClient
+    setupWalletConnectEventHandlers() {
+        if (!this.walletKit || !this.walletCore) return;
+
+        // Session proposal handler - when dapp wants to connect
+        this.walletKit.on('session_proposal', async (proposal) => {
+            console.log('📱 WalletConnect session proposal received:', proposal.id);
+            
+            try {
+                // Build approved namespaces for Ethereum support
+                const approvedNamespaces = buildApprovedNamespaces({
+                    proposal: proposal.params,
+                    supportedNamespaces: {
+                        eip155: {
+                            chains: ['eip155:1', 'eip155:137'], // Ethereum mainnet and Polygon
+                            methods: [
+                                'eth_accounts',
+                                'eth_requestAccounts', 
+                                'eth_sendTransaction',
+                                'personal_sign',
+                                'eth_sign',
+                                'eth_signTypedData',
+                                'eth_signTypedData_v4'
+                            ],
+                            events: ['accountsChanged', 'chainChanged'],
+                            accounts: [] // Will be populated when user connects
+                        }
+                    }
+                });
+
+                // Log session proposal for user awareness (don't auto-approve)
+                console.log('📱 WalletConnect session proposal received from:', proposal.params.proposer.metadata.name);
+                console.log('📱 Chains requested:', proposal.params.requiredNamespaces.eip155?.chains);
+                console.log('📱 Methods requested:', proposal.params.requiredNamespaces.eip155?.methods);
+                
+                // For now, we'll reject automatic approvals to prevent ghost connections
+                // In a real implementation, this would show a user prompt
+                console.log('⚠️ Auto-rejecting session proposal to prevent ghost wallet connections');
+                await this.walletKit.rejectSession({
+                    id: proposal.id,
+                    reason: getSdkError('USER_REJECTED')
+                });
+                
+                // Notify frontend about the rejected proposal
+                this.sendToRenderer('walletconnect-proposal-rejected', {
+                    proposer: proposal.params.proposer.metadata.name,
+                    reason: 'Auto-approval disabled to prevent ghost connections'
+                });
+
+            } catch (error) {
+                console.error('❌ Session approval failed:', error);
+                
+                // Reject session
+                await this.walletKit.rejectSession({
+                    id: proposal.id,
+                    reason: getSdkError('USER_REJECTED')
+                });
+            }
+        });
+
+        // Connection state monitoring
+        this.walletCore.relayer.on('relayer_connect', () => {
+            console.log('✅ WalletConnect relay connected');
+            this.sendToRenderer('walletconnect-connected', { status: 'connected' });
+        });
+
+        this.walletCore.relayer.on('relayer_disconnect', () => {
+            console.log('⚠️ WalletConnect relay disconnected');
+            this.sendToRenderer('walletconnect-disconnected', { status: 'disconnected' });
+        });
+
+        // Pairing expiry handler
+        this.walletCore.pairing.events.on('pairing_expire', (event) => {
+            console.log('⏰ WalletConnect pairing expired:', event.topic);
+            this.sendToRenderer('walletconnect-pairing-expired', { topic: event.topic });
+        });
+
+        // Session request handler - when dapp makes requests
+        this.walletKit.on('session_request', async (request) => {
+            console.log('📱 WalletConnect session request:', request.params.request.method);
+            
+            // Log request for security monitoring
+            this.addActivity({
+                icon: '📱',
+                text: `WalletConnect request: ${request.params.request.method}`,
+                type: 'info',
+                timestamp: new Date()
+            });
+        });
+
+        console.log('✅ WalletConnect event handlers configured');
+    }
+
+    async waitForWalletConnection() {
+        console.log('📱 Backend: Generating WalletConnect connection URI for mobile wallets...');
+        
+        if (!this.signClient) {
+            return { success: false, error: 'WalletConnect SignClient not initialized' };
+        }
+
+        try {
+            // Check if we have a valid project ID
+            if (!process.env.WALLETCONNECT_PROJECT_ID || process.env.WALLETCONNECT_PROJECT_ID === 'apollo-cybersentinel-protection') {
+                return {
+                    success: false,
+                    error: 'WalletConnect requires a valid project ID from https://cloud.reown.com/',
+                    message: 'Add WALLETCONNECT_PROJECT_ID to your .env file to enable mobile wallet connections',
+                    configRequired: true
+                };
+            }
+
+            // Connect to mobile wallet using SignClient (dApp mode)
+            const { uri, approval } = await this.signClient.connect({
+                requiredNamespaces: {
+                    eip155: {
+                        methods: [
+                            'eth_sendTransaction',
+                            'eth_signTransaction', 
+                            'eth_sign',
+                            'personal_sign',
+                            'eth_signTypedData',
+                            'eth_signTypedData_v4',
+                        ],
+                        chains: ['eip155:1', 'eip155:137'], // Ethereum + Polygon
+                        events: ['chainChanged', 'accountsChanged'],
+                    },
+                },
+            });
+            
+            console.log('📱 WalletConnect connection URI generated:', uri);
+            console.log('📱 Setting up approval handler...');
+            
+            // Generate QR code as data URL
+            const qrCodeDataURL = await QRCode.toDataURL(uri, {
+                width: 300,
+                margin: 2,
+                color: {
+                    dark: '#000000',
+                    light: '#FFFFFF'
+                }
+            });
+            
+            // Set up approval handler
+            approval().then((session) => {
+                console.log('✅ WalletConnect session approved by mobile wallet:', session);
+                console.log('📱 Session structure:', JSON.stringify(session, null, 2));
+                
+                // Extract wallet address from session (SignClient format)
+                const accounts = Object.values(session.namespaces || {})[0]?.accounts || [];
+                const walletAddress = accounts[0]?.split(':')[2];
+                
+                console.log('📱 Extracted accounts:', accounts);
+                console.log('📱 Extracted wallet address:', walletAddress);
+                
+                if (walletAddress) {
+                    const sessionData = {
+                        topic: session.topic,
+                        address: walletAddress,
+                        peer: session.peer,
+                        accounts: accounts,
+                        source: 'SignClient',
+                        timestamp: new Date().toISOString()
+                    };
+                    
+                    console.log('📱 Sending WalletConnect session to frontend:', sessionData);
+                    
+                    // Try multiple channels to bypass hijacking
+                    this.sendToRenderer('apollo-walletconnect-session-success', sessionData);
+                    this.sendToRenderer('apollo-wallet-connected', sessionData);
+                    this.sendToRenderer('apollo-session-approved', sessionData);
+                    
+                    console.log('📱 WalletConnect session sent to frontend on multiple channels');
+                    
+                    // Also try direct global variable injection
+                    if (this.mainWindow && this.mainWindow.webContents) {
+                        this.mainWindow.webContents.executeJavaScript(`
+                            window.apolloWalletConnectSession = ${JSON.stringify(sessionData)};
+                            console.log('🔧 Direct injection: WalletConnect session injected into window object');
+                            if (window.handleWalletConnectSuccess) {
+                                window.handleWalletConnectSuccess(${JSON.stringify(sessionData)});
+                            }
+                        `);
+                    }
+                } else {
+                    console.error('❌ Could not extract wallet address from session');
+                    this.sendToRenderer('walletconnect-session-rejected', {
+                        error: 'Could not extract wallet address from session'
+                    });
+                }
+            }).catch((error) => {
+                console.error('❌ WalletConnect session approval failed:', error);
+                this.sendToRenderer('walletconnect-session-rejected', {
+                    error: error.message
+                });
+            });
+            
+            return {
+                success: true,
+                uri: uri,
+                qrCode: qrCodeDataURL,
+                message: 'Scan QR code with your mobile wallet to connect',
+                qrCodeReady: true
+            };
+            
+        } catch (error) {
+            console.error('❌ WalletConnect connection generation failed:', error);
+            return { success: false, error: error.message };
         }
     }
 

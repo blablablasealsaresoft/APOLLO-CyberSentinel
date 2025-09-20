@@ -420,7 +420,7 @@ WantedBy=multi-user.target`;
         if (this.platform === 'win32') {
             // Windows Defender exclusion for Apollo
             try {
-                await this.executePrivilegedCommand(`powershell -Command "Add-MpPreference -ExclusionPath '${process.cwd()}'"`);
+                await this.executePrivilegedCommand(`powershell -Command "Add-MpPreference -ExclusionPath '${process.cwd().replace(/'/g, "''")}'"`);
                 console.log('✅ Windows Defender configured');
             } catch (error) {
                 console.warn('Could not configure Windows Defender:', error);

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.etherscan.io https://api.virustotal.com https://otx.alienvault.com https://api.shodan.io https://api.anthropic.com wss://relay.walletconnect.com https://relay.walletconnect.com; worker-src 'self' blob:;">
     <title>Apollo Protection Dashboard</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -102,21 +103,7 @@
                         <button class="refresh-btn" onclick="refreshActivity()">🔄</button>
                     </div>
                     <div class="activity-feed" id="activity-feed">
-                        <div class="activity-item info">
-                            <div class="activity-time">Just now</div>
-                            <div class="activity-icon">✅</div>
-                            <div class="activity-text">Apollo protection activated - all systems secured</div>
-                        </div>
-                        <div class="activity-item success">
-                            <div class="activity-time">2 min ago</div>
-                            <div class="activity-icon">🛡️</div>
-                            <div class="activity-text">Threat database updated - 15,247 new signatures</div>
-                        </div>
-                        <div class="activity-item info">
-                            <div class="activity-time">5 min ago</div>
-                            <div class="activity-icon">🔍</div>
-                            <div class="activity-text">System scan completed - no threats detected</div>
-                        </div>
+                        <!-- Real-time activity entries will be populated by JavaScript from backend -->
                     </div>
                 </div>
 
@@ -126,19 +113,19 @@
                     </div>
                     <div class="stats-grid">
                         <div class="stat-item">
-                            <div class="stat-value" id="total-scans">1,247</div>
+                            <div class="stat-value" id="total-scans">Loading...</div>
                             <div class="stat-label">Total Scans</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-value" id="threats-blocked">0</div>
+                            <div class="stat-value" id="threats-blocked">Loading...</div>
                             <div class="stat-label">Threats Blocked</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-value" id="crypto-transactions">156</div>
+                            <div class="stat-value" id="crypto-transactions">Loading...</div>
                             <div class="stat-label">Crypto Tx Protected</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-value" id="apt-detections">0</div>
+                            <div class="stat-value" id="apt-detections">Loading...</div>
                             <div class="stat-label">APT Detections</div>
                         </div>
                     </div>
@@ -264,11 +251,11 @@
                     <div class="feature-content">
                         <div class="feature-stats">
                             <div class="feature-stat">
-                                <span class="stat-value" id="protected-wallets">3</span>
+                                <span class="stat-value" id="protected-wallets">Loading...</span>
                                 <span class="stat-label">Protected Wallets</span>
                             </div>
                             <div class="feature-stat">
-                                <span class="stat-value" id="analyzed-contracts">42</span>
+                                <span class="stat-value" id="analyzed-contracts">Loading...</span>
                                 <span class="stat-label">Contracts Analyzed</span>
                             </div>
                         </div>
@@ -469,13 +456,7 @@
                                 <span class="wallet-desc">Connect mobile wallet</span>
                             </div>
                         </div>
-                        <div class="wallet-option" onclick="manualWalletEntry()">
-                            <div class="wallet-icon">⌨️</div>
-                            <div class="wallet-info">
-                                <span class="wallet-name">Manual Entry</span>
-                                <span class="wallet-desc">Enter wallet address manually</span>
-                            </div>
-                        </div>
+                        <!-- Manual wallet entry removed for security - users must connect their own wallets -->
                     </div>
                     <div class="wallet-status" id="wallet-status">
                         <span class="status-text">No wallet connected</span>
@@ -602,21 +583,7 @@
             </div>
         </div>
 
-        <!-- Manual Wallet Modal -->
-        <div class="modal-overlay" id="manual-wallet-modal" style="display: none;">
-            <div class="modal-content manual-wallet">
-                <div class="modal-header">
-                    <h3>🔗 Manual Wallet Connection</h3>
-                    <button class="close-btn" onclick="closeManualWalletModal()">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="input-group">
-                        <label for="manual-wallet-address">Wallet Address:</label>
-                        <input type="text" id="manual-wallet-address" placeholder="Enter wallet address..." />
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- Manual Wallet Modal removed for security reasons -->
 
         <!-- Wallet Protection Modal -->
         <div class="modal-overlay" id="wallet-protection-modal" style="display: none;">

@@ -35,7 +35,7 @@ Always include confidence scores and cite relevant threat intelligence sources w
         try {
             const config = {
                 anthropicApiKey: process.env.ANTHROPIC_API_KEY || null,
-                model: process.env.AI_MODEL || "claude-opus-4-1-20250805"
+                model: process.env.AI_MODEL || "claude-3-5-sonnet-20241022"
             };
 
             this.apiKey = config.anthropicApiKey;

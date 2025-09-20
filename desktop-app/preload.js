@@ -16,6 +16,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
     analyzeWithAI: (indicator, context) => ipcRenderer.invoke('analyze-with-ai', indicator, context),
     getOSINTStats: () => ipcRenderer.invoke('get-osint-stats'),
     analyzeSmartContract: (address, bytecode) => ipcRenderer.invoke('analyze-smart-contract', address, bytecode),
+    initializeWalletConnect: () => ipcRenderer.invoke('initialize-walletconnect'),
+    waitForWalletConnection: () => ipcRenderer.invoke('wait-wallet-connection'),
+    getCryptoRandomValues: (length) => ipcRenderer.invoke('crypto-get-random-values', length),
 
     // Real-time data APIs for dashboard
     getEngineStats: () => ipcRenderer.invoke('get-engine-stats'),
@@ -31,6 +34,12 @@ contextBridge.exposeInMainWorld('electronAPI', {
     onScanCompleted: (callback) => ipcRenderer.on('scan-completed', callback),
     onEmergencyIsolation: (callback) => ipcRenderer.on('emergency-isolation', callback),
     onThreatBlocked: (callback) => ipcRenderer.on('threat-blocked', callback),
+    onWalletConnectSessionApproved: (callback) => ipcRenderer.on('walletconnect-session-approved', callback),
+    onApolloWalletConnectSuccess: (callback) => ipcRenderer.on('apollo-walletconnect-session-success', callback),
+    onApolloWalletConnected: (callback) => ipcRenderer.on('apollo-wallet-connected', callback),
+    onApolloSessionApproved: (callback) => ipcRenderer.on('apollo-session-approved', callback),
+    onWalletConnectProposalRejected: (callback) => ipcRenderer.on('walletconnect-proposal-rejected', callback),
+    onWalletConnectSessionRejected: (callback) => ipcRenderer.on('walletconnect-session-rejected', callback),
 
     // Legacy support
     onThreatAlert: (callback) => ipcRenderer.on('threat-alert', callback),

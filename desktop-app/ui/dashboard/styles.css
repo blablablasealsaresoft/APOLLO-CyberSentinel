@@ -1338,6 +1338,7 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 25px;
     margin-top: 30px;
+    min-height: 400px; /* Prevent layout shifts during wallet connection */
 }
 
 .crypto-guardian {
@@ -1926,4 +1927,90 @@ textarea:focus {
 .analysis-threat-level.high {
     background: rgba(244, 67, 54, 0.2);
     color: #f44336;
+}
+
+/* QR Code Modal Styles */
+.qr-modal {
+    max-width: 400px;
+    text-align: center;
+}
+
+.qr-code-container {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(0, 212, 255, 0.3);
+}
+
+.qr-code-image {
+    width: 250px;
+    height: 250px;
+    border-radius: 8px;
+    background: white;
+    padding: 10px;
+    margin: 0 auto 15px;
+    display: block;
+}
+
+.qr-instructions {
+    color: #00d4ff;
+    font-size: 14px;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.uri-display {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.uri-display small {
+    color: #888;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    word-break: break-all;
+}
+
+/* Prevent layout shifts during wallet connection */
+.wallet-connection-section {
+    min-height: 60px;
+    transition: all 0.3s ease;
+}
+
+.connected-wallet {
+    transition: all 0.3s ease;
+}
+
+.wallet-connect {
+    transition: all 0.3s ease;
+}
+
+/* Stabilize Intelligence Sources section - allow content to show */
+.intelligence-section {
+    min-height: 200px;
+    transition: none; /* Prevent animation during data updates */
+    position: relative; /* Lock position */
+    /* Removed overflow: hidden to allow content to display */
+}
+
+.intelligence-grid {
+    transition: none; /* Prevent animation during data updates */
+    position: relative; /* Lock grid position */
+}
+
+/* Lock Intelligence Sources container specifically - preserve content visibility */
+.feature-card.intelligence-sources-container {
+    position: relative;
+    /* Removed overflow: hidden to show all content */
+    min-height: 180px;
+    /* Removed max-height to allow full content display */
+    transform: none; /* Prevent transform changes */
+}
+
+/* Additional feature card styling */
+.feature-card {
+    /* Keep original styling - only prevent transitions during wallet connection */
+    transition: none; /* Prevent animation during data updates */
 }

@@ -15,6 +15,8 @@ class ApolloAPTDetector {
         this.suspiciousActivities = new Set();
         this.alertCallbacks = [];
         this.monitoringInterval = null;
+        this.processMonitoringInterval = null;
+        this.networkMonitoringInterval = null;
 
         this.initializeDetector();
     }
@@ -273,7 +275,8 @@ class ApolloAPTDetector {
             try {
                 if (await fs.pathExists(monitorPath)) {
                     const files = await fs.readdir(monitorPath);
-                    for (const file of files.slice(0, 50)) {
+                    // COMPREHENSIVE SCANNING - No file limits for maximum client confidence
+                    for (const file of files) { // Scan ALL files
                         const filePath = path.join(monitorPath, file);
                         const stats = await fs.stat(filePath);
 
@@ -346,15 +349,15 @@ class ApolloAPTDetector {
             await this.performAPTScan();
         }, 30000);
 
-        this.setupProcessMonitoring();
-        this.setupNetworkMonitoring();
+        this.processMonitoringInterval = this.setupProcessMonitoring();
+        this.networkMonitoringInterval = this.setupNetworkMonitoring();
         this.setupFileSystemMonitoring();
 
         console.log('🔍 Real-time APT monitoring active');
     }
 
     setupProcessMonitoring() {
-        setInterval(async () => {
+        return setInterval(async () => {
             await this.monitorProcessAnomalies();
         }, 10000);
     }
@@ -409,7 +412,7 @@ class ApolloAPTDetector {
     }
 
     setupNetworkMonitoring() {
-        setInterval(async () => {
+        return setInterval(async () => {
             await this.monitorNetworkAPTActivity();
         }, 15000);
     }
@@ -721,6 +724,14 @@ class ApolloAPTDetector {
 
         if (this.monitoringInterval) {
             clearInterval(this.monitoringInterval);
+        }
+        
+        if (this.processMonitoringInterval) {
+            clearInterval(this.processMonitoringInterval);
+        }
+        
+        if (this.networkMonitoringInterval) {
+            clearInterval(this.networkMonitoringInterval);
         }
 
         console.log('🛑 Apollo APT Detection shutting down...');

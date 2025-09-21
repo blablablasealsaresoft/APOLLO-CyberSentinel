@@ -436,6 +436,58 @@ class ThreatDatabase {
     checkFilePath(filePath) {
         const lowerPath = filePath.toLowerCase();
 
+        // CRITICAL: Comprehensive whitelist to prevent false positives (Patent Claim 1)
+        const legitimateDirectories = [
+            // NPM & Node.js
+            'npm-cache', '_cacache', 'node_modules',
+            // Development tools
+            '.vscode', '.git', 'vscode',
+            // System cache & temp
+            'temp', 'tmp', 'cache', 'logs', 'prefetch', 'recent', 'cookies', 'history',
+            // Microsoft products
+            'microsoft', 'office', 'solutionpackages', 'tokenbroker', 'windowsapps',
+            'powershell', 'startupprofiledata',
+            // Gaming & Graphics - CRITICAL RAZER PROTECTION
+            'razer', 'razercentral', 'razerappengine', 'intel', 'shadercache', 'nvidia', 'amd',
+            // VPN & Security
+            'proton', 'vpn', 'storage', 'announcements',
+            // Communication apps
+            'zoom', 'webviewcache', 'component_crx_cache', 'teams', 'discord', 'skype',
+            // Browsers
+            'chrome', 'firefox', 'edge', 'safari', 'opera', 'brave',
+            'cachestorage', 'serviceworker', 'webappcache',
+            // System directories
+            'system32', 'syswow64', 'drivers', 'winsxs', 'assembly',
+            // Application data
+            'appdata', 'programdata', 'localappdata', 'roaming', 'locallow'
+        ];
+
+        // Skip legitimate directories to prevent false positives
+        for (const legitDir of legitimateDirectories) {
+            if (lowerPath.includes(legitDir)) {
+                console.log(`⚪ WHITELIST: Skipping legitimate file: ${filePath}`);
+                return { detected: false };
+            }
+        }
+
+        // CRITICAL: Skip any cache storage files with hexadecimal names (browser/app cache)
+        if (lowerPath.includes('cachestorage') || lowerPath.includes('service worker')) {
+            console.log(`⚪ CACHE WHITELIST: Skipping cache storage file: ${filePath}`);
+            return { detected: false };
+        }
+
+        // CRITICAL: Skip files with pure hexadecimal names in cache directories
+        const fileName = path.basename(filePath).toLowerCase();
+        if (/^[0-9a-f]{8,}_[0-9]$/.test(fileName) && (lowerPath.includes('cache') || lowerPath.includes('storage'))) {
+            console.log(`⚪ HEX CACHE WHITELIST: Skipping hex cache file: ${filePath}`);
+            return { detected: false };
+        }
+
+        // Skip Apollo's own files
+        if (lowerPath.includes('apollo') || lowerPath.includes('quarantine')) {
+            return { detected: false };
+        }
+
         for (const [name, data] of this.signatures.entries()) {
             if (data.files) {
                 for (const pattern of data.files) {
@@ -452,18 +504,26 @@ class ThreatDatabase {
                 }
             }
 
-            // Check for crypto wallet files
+            // Check for crypto wallet files (but not legitimate cache files)
             if (data.cryptoTargets) {
                 for (const target of data.cryptoTargets) {
                     if (lowerPath.includes(target.replace('*', ''))) {
-                        return {
-                            detected: true,
-                            threat: name,
-                            category: 'CRYPTO_THREAT',
-                            severity: 'CRITICAL',
-                            file: filePath,
-                            target: 'cryptocurrency_wallet'
-                        };
+                        // Additional check: ensure it's actually a wallet file, not cache
+                        const isActualWallet = lowerPath.includes('wallet') || 
+                                             lowerPath.includes('keystore') || 
+                                             lowerPath.includes('electrum') ||
+                                             lowerPath.includes('metamask');
+                        
+                        if (isActualWallet) {
+                            return {
+                                detected: true,
+                                threat: name,
+                                category: 'CRYPTO_THREAT',
+                                severity: 'CRITICAL',
+                                file: filePath,
+                                target: 'cryptocurrency_wallet'
+                            };
+                        }
                     }
                 }
             }

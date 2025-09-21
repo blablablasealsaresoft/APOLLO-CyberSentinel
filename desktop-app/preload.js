@@ -38,8 +38,12 @@ contextBridge.exposeInMainWorld('electronAPI', {
     onApolloWalletConnectSuccess: (callback) => ipcRenderer.on('apollo-walletconnect-session-success', callback),
     onApolloWalletConnected: (callback) => ipcRenderer.on('apollo-wallet-connected', callback),
     onApolloSessionApproved: (callback) => ipcRenderer.on('apollo-session-approved', callback),
-    onWalletConnectProposalRejected: (callback) => ipcRenderer.on('walletconnect-proposal-rejected', callback),
-    onWalletConnectSessionRejected: (callback) => ipcRenderer.on('walletconnect-session-rejected', callback),
+        onWalletConnectProposalRejected: (callback) => ipcRenderer.on('walletconnect-proposal-rejected', callback),
+        onWalletConnectSessionRejected: (callback) => ipcRenderer.on('walletconnect-session-rejected', callback),
+        
+        // Scan progress and reporting event listeners
+        onScanProgress: (callback) => ipcRenderer.on('scan-progress', callback),
+        onScanCompleted: (callback) => ipcRenderer.on('scan-completed', callback),
 
     // Legacy support
     onThreatAlert: (callback) => ipcRenderer.on('threat-alert', callback),

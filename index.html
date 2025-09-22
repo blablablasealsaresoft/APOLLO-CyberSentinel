@@ -1000,31 +1000,41 @@
     <script>
         // Check for beta access authentication
         (function() {
-            const access = sessionStorage.getItem('apolloBetaAccess');
-            const authTime = sessionStorage.getItem('apolloAuthTime');
-
-            // Check if access is granted and still valid
-            if (!access || access !== 'granted') {
-                window.location.href = 'beta-access.html';
-                return;
-            }
-
-            // Check if session is still valid (24 hours)
-            if (authTime) {
-                const timeDiff = Date.now() - parseInt(authTime);
-                const hoursDiff = timeDiff / (1000 * 60 * 60);
-
-                if (hoursDiff >= 24) {
-                    // Session expired
-                    sessionStorage.removeItem('apolloBetaAccess');
-                    sessionStorage.removeItem('apolloAuthTime');
-                    window.location.href = 'beta-access.html';
+            try {
+                // Skip auth check if we're already on beta-access page or if sessionStorage is not available
+                if (typeof sessionStorage === 'undefined') {
                     return;
                 }
-            } else {
-                // No auth time, redirect to login
-                window.location.href = 'beta-access.html';
-                return;
+
+                const access = sessionStorage.getItem('apolloBetaAccess');
+                const authTime = sessionStorage.getItem('apolloAuthTime');
+
+                // Check if access is granted and still valid
+                if (!access || access !== 'granted') {
+                    window.location.replace('beta-access.html');
+                    return;
+                }
+
+                // Check if session is still valid (24 hours)
+                if (authTime) {
+                    const timeDiff = Date.now() - parseInt(authTime);
+                    const hoursDiff = timeDiff / (1000 * 60 * 60);
+
+                    if (hoursDiff >= 24) {
+                        // Session expired
+                        sessionStorage.removeItem('apolloBetaAccess');
+                        sessionStorage.removeItem('apolloAuthTime');
+                        window.location.replace('beta-access.html');
+                        return;
+                    }
+                } else {
+                    // No auth time, redirect to login
+                    window.location.replace('beta-access.html');
+                    return;
+                }
+            } catch (e) {
+                // Silently fail if there are issues with sessionStorage or redirects
+                console.log('Auth check skipped due to environment restrictions');
             }
         })();
     </script>
@@ -1076,6 +1086,7 @@
             <nav class="nav-links">
                 <a href="#features" class="nav-link">Features</a>
                 <a href="#about" class="nav-link">About</a>
+                <a href="docs.html" class="nav-link">Documentation</a>
                 <a href="#contact" class="nav-link">Contact</a>
                 <a href="#download" class="nav-link">Download</a>
                 <a href="installer.html" class="download-btn">

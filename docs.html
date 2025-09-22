@@ -359,31 +359,41 @@
     <script>
         // Check for beta access authentication
         (function() {
-            const access = sessionStorage.getItem('apolloBetaAccess');
-            const authTime = sessionStorage.getItem('apolloAuthTime');
-
-            // Check if access is granted and still valid
-            if (!access || access !== 'granted') {
-                window.location.href = 'beta-access.html';
-                return;
-            }
-
-            // Check if session is still valid (24 hours)
-            if (authTime) {
-                const timeDiff = Date.now() - parseInt(authTime);
-                const hoursDiff = timeDiff / (1000 * 60 * 60);
-
-                if (hoursDiff >= 24) {
-                    // Session expired
-                    sessionStorage.removeItem('apolloBetaAccess');
-                    sessionStorage.removeItem('apolloAuthTime');
-                    window.location.href = 'beta-access.html';
+            try {
+                // Skip auth check if we're already on beta-access page or if sessionStorage is not available
+                if (typeof sessionStorage === 'undefined') {
                     return;
                 }
-            } else {
-                // No auth time, redirect to login
-                window.location.href = 'beta-access.html';
-                return;
+
+                const access = sessionStorage.getItem('apolloBetaAccess');
+                const authTime = sessionStorage.getItem('apolloAuthTime');
+
+                // Check if access is granted and still valid
+                if (!access || access !== 'granted') {
+                    window.location.replace('beta-access.html');
+                    return;
+                }
+
+                // Check if session is still valid (24 hours)
+                if (authTime) {
+                    const timeDiff = Date.now() - parseInt(authTime);
+                    const hoursDiff = timeDiff / (1000 * 60 * 60);
+
+                    if (hoursDiff >= 24) {
+                        // Session expired
+                        sessionStorage.removeItem('apolloBetaAccess');
+                        sessionStorage.removeItem('apolloAuthTime');
+                        window.location.replace('beta-access.html');
+                        return;
+                    }
+                } else {
+                    // No auth time, redirect to login
+                    window.location.replace('beta-access.html');
+                    return;
+                }
+            } catch (e) {
+                // Silently fail if there are issues with sessionStorage or redirects
+                console.log('Auth check skipped due to environment restrictions');
             }
         })();
     </script>
@@ -410,49 +420,49 @@
             <nav>
                 <div class="nav-section">
                     <div class="nav-section-title">Getting Started</div>
-                    <a href="#user-guide" class="nav-item active">
+                    <a href="javascript:void(0)" onclick="loadDoc('user-guide')" class="nav-item active">
                         <i class="fas fa-book"></i> User Guide
                     </a>
-                    <a href="#installation" class="nav-item">
+                    <a href="javascript:void(0)" onclick="window.open('installer.html', '_blank')" class="nav-item">
                         <i class="fas fa-download"></i> Installation
                     </a>
-                    <a href="#quick-start" class="nav-item">
+                    <a href="javascript:void(0)" onclick="loadDoc('user-guide')" class="nav-item">
                         <i class="fas fa-rocket"></i> Quick Start
                     </a>
                 </div>
 
                 <div class="nav-section">
                     <div class="nav-section-title">Technical Docs</div>
-                    <a href="#technical-whitepaper" class="nav-item">
+                    <a href="javascript:void(0)" onclick="loadDoc('technical-whitepaper')" class="nav-item">
                         <i class="fas fa-file-alt"></i> Technical Whitepaper
                     </a>
-                    <a href="#patent-specification" class="nav-item">
+                    <a href="javascript:void(0)" onclick="loadDoc('patent-specification')" class="nav-item">
                         <i class="fas fa-certificate"></i> Patent Specification
                     </a>
-                    <a href="#api-reference" class="nav-item">
+                    <a href="javascript:void(0)" onclick="loadDoc('api-reference')" class="nav-item">
                         <i class="fas fa-code"></i> API Reference
                     </a>
                 </div>
 
                 <div class="nav-section">
                     <div class="nav-section-title">Research</div>
-                    <a href="#case-studies" class="nav-item">
+                    <a href="javascript:void(0)" onclick="loadDoc('case-studies')" class="nav-item">
                         <i class="fas fa-search"></i> Nation-State Case Studies
                     </a>
-                    <a href="#threat-intelligence" class="nav-item">
+                    <a href="javascript:void(0)" onclick="loadDoc('case-studies')" class="nav-item">
                         <i class="fas fa-shield-virus"></i> Threat Intelligence
                     </a>
-                    <a href="#research-papers" class="nav-item">
+                    <a href="javascript:void(0)" onclick="loadDoc('case-studies')" class="nav-item">
                         <i class="fas fa-microscope"></i> Research Papers
                     </a>
                 </div>
 
                 <div class="nav-section">
                     <div class="nav-section-title">Support</div>
-                    <a href="#troubleshooting" class="nav-item">
+                    <a href="javascript:void(0)" onclick="loadDoc('user-guide')" class="nav-item">
                         <i class="fas fa-tools"></i> Troubleshooting
                     </a>
-                    <a href="#faq" class="nav-item">
+                    <a href="javascript:void(0)" onclick="loadDoc('user-guide')" class="nav-item">
                         <i class="fas fa-question-circle"></i> FAQ
                     </a>
                     <a href="mailto:support@apollosentinel.com" class="nav-item">
@@ -481,10 +491,10 @@
             <div class="quick-links">
                 <h3>Quick Access</h3>
                 <div class="quick-links-grid">
-                    <a href="#user-guide" class="quick-link">User Guide</a>
-                    <a href="#installation" class="quick-link">Installation Guide</a>
-                    <a href="#technical-whitepaper" class="quick-link">Technical Specs</a>
-                    <a href="#case-studies" class="quick-link">Case Studies</a>
+                    <a href="javascript:void(0)" onclick="loadDoc('user-guide')" class="quick-link">User Guide</a>
+                    <a href="javascript:void(0)" onclick="window.open('installer.html', '_blank')" class="quick-link">Installation Guide</a>
+                    <a href="javascript:void(0)" onclick="loadDoc('technical-whitepaper')" class="quick-link">Technical Specs</a>
+                    <a href="javascript:void(0)" onclick="loadDoc('case-studies')" class="quick-link">Case Studies</a>
                     <a href="mailto:support@apollosentinel.com" class="quick-link">Get Support</a>
                     <a href="installer.html" class="quick-link">Download</a>
                 </div>
@@ -590,7 +600,7 @@
             document.querySelectorAll('.nav-item').forEach(item => {
                 item.classList.remove('active');
             });
-            document.querySelector(`a[href="#${docType}"]`).classList.add('active');
+            document.querySelector(`a[onclick*="'${docType}'"]`).classList.add('active');
 
             // Load content based on document type
             let content = '';

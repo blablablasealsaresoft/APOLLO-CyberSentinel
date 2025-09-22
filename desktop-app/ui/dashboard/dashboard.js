@@ -201,6 +201,9 @@ window.analyzeWithClaude = async function() {
                 await window.apolloDashboard.loadRealAIOracleStats();
             }
             
+            // Update AI Oracle container metrics in real-time
+            updateAIOracleContainerMetrics();
+            
             // Generate comprehensive analysis report
             setTimeout(() => {
                 generateAIAnalysisReport(indicator, result);
@@ -265,6 +268,62 @@ function generateAIAnalysisReport(indicator, analysisResult) {
     console.log('✅ AI Analysis report generated:', reportData);
 }
 
+async function updateAIOracleContainerMetrics() {
+    try {
+        console.log('🔄 Updating AI Oracle container metrics...');
+        const aiStats = await window.electronAPI.getAIOracleStats();
+        
+        if (aiStats) {
+            // Update AI Analyses counter
+            const analysesElement = document.getElementById('ai-analyses');
+            if (analysesElement) {
+                analysesElement.textContent = aiStats.total_analyses || 0;
+            }
+            
+            // Update Threat Classifications counter  
+            const classificationsElement = document.getElementById('threat-classifications');
+            if (classificationsElement) {
+                classificationsElement.textContent = aiStats.threat_context_entries || 0;
+            }
+            
+            console.log('✅ AI Oracle container metrics updated:', aiStats);
+        }
+    } catch (error) {
+        console.error('❌ Failed to update AI Oracle container metrics:', error);
+    }
+}
+
+async function updateIntelligenceSourcesContainerMetrics() {
+    try {
+        console.log('🔄 Updating Intelligence Sources container metrics...');
+        const osintStats = await window.electronAPI.getOSINTStats();
+        
+        if (osintStats) {
+            // Update OSINT Queries counter
+            const queriesElement = document.getElementById('osint-queries');
+            if (queriesElement) {
+                queriesElement.textContent = osintStats.queriesRun || 0;
+            }
+            
+            // Update alternative OSINT queries counter
+            const queriesCounterElement = document.getElementById('osint-queries-counter');
+            if (queriesCounterElement) {
+                queriesCounterElement.textContent = osintStats.queriesRun || 0;
+            }
+            
+            // Update threats found counter
+            const threatsElement = document.getElementById('threats-found');
+            if (threatsElement) {
+                threatsElement.textContent = osintStats.threatsFound || 0;
+            }
+            
+            console.log('✅ Intelligence Sources container metrics updated:', osintStats);
+        }
+    } catch (error) {
+        console.error('❌ Failed to update Intelligence Sources container metrics:', error);
+    }
+}
+
 window.clearOracleInput = function() {
     const indicator = document.getElementById('oracle-indicator');
     const input = document.getElementById('oracle-input');
@@ -311,6 +370,9 @@ window.refreshIntelligenceSources = async function() {
                 text: `OSINT Report: ${stats.queriesRun || 0} queries run, ${stats.threatsFound || 0} threats found`,
                 type: 'info'
             });
+            
+            // Update Intelligence Sources container metrics
+            updateIntelligenceSourcesContainerMetrics();
         } else {
             window.apolloDashboard.addActivity({
                 icon: '❌',
@@ -359,6 +421,9 @@ window.queryIOCIntelligence = async function() {
                 text: `IOC Report: Threat Level: ${result.threat_level?.toUpperCase() || 'UNKNOWN'}, Sources: ${result.sources?.map(s => s.source).join(', ') || 'None'}`,
                 type: 'info'
             });
+            
+            // Update Intelligence Sources container metrics after IOC query
+            updateIntelligenceSourcesContainerMetrics();
         } else {
             window.apolloDashboard.addActivity({
                 icon: '❌',
@@ -857,6 +922,10 @@ class ApolloDashboard {
         this.updateThreatLevel();
         this.loadRecentActivity();
         await this.loadRealAIOracleStats();
+        
+        // Load initial container metrics
+        updateAIOracleContainerMetrics();
+        updateIntelligenceSourcesContainerMetrics();
     }
 
     async loadRealAIOracleStats() {
@@ -2795,6 +2864,7 @@ async function exportThreatReport() {
         const recentActivity = await window.electronAPI.getRecentActivity();
         const osintStats = await window.electronAPI.getOSINTStats();
         const aiOracleStats = await window.electronAPI.getAIOracleStats();
+        const protectionStatus = await window.electronAPI.getProtectionStatus();
         
         // Generate comprehensive report data with enhanced details
         const reportData = {
@@ -2828,25 +2898,25 @@ async function exportThreatReport() {
                 lastUpdate: new Date().toLocaleString()
             },
             aptProtection: {
-                pegasusMonitoring: 'ACTIVE - NSO Group surveillance protection',
-                lazarusDetection: 'ACTIVE - North Korean APT monitoring',
-                apt28Monitoring: 'ACTIVE - Russian GRU threat detection',
-                behavioralAnalysis: 'ACTIVE - Zero-day pattern recognition',
-                processInjection: 'MONITORED - Memory injection detection'
+                pegasusMonitoring: protectionStatus?.active ? 'ACTIVE - NSO Group surveillance protection' : 'INACTIVE - Protection disabled',
+                lazarusDetection: protectionStatus?.active ? 'ACTIVE - North Korean APT monitoring' : 'INACTIVE - Protection disabled',
+                apt28Monitoring: protectionStatus?.active ? 'ACTIVE - Russian GRU threat detection' : 'INACTIVE - Protection disabled',
+                behavioralAnalysis: protectionStatus?.active ? 'ACTIVE - Zero-day pattern recognition' : 'INACTIVE - Protection disabled',
+                processInjection: protectionStatus?.active ? 'MONITORED - Memory injection detection' : 'INACTIVE - Protection disabled'
             },
             cryptoProtection: {
-                walletMonitoring: 'ACTIVE - Cryptocurrency wallet protection',
-                clipboardProtection: 'ACTIVE - Address hijacking prevention',
-                transactionAnalysis: 'ACTIVE - Smart contract threat assessment',
-                phishingDetection: 'ACTIVE - Crypto phishing site blocking',
-                walletConnectSecurity: 'ACTIVE - Mobile wallet connection security'
+                walletMonitoring: protectionStatus?.active ? 'ACTIVE - Cryptocurrency wallet protection' : 'INACTIVE - Protection disabled',
+                clipboardProtection: protectionStatus?.active ? 'ACTIVE - Address hijacking prevention' : 'INACTIVE - Protection disabled',
+                transactionAnalysis: protectionStatus?.active ? 'ACTIVE - Smart contract threat assessment' : 'INACTIVE - Protection disabled',
+                phishingDetection: protectionStatus?.active ? 'ACTIVE - Crypto phishing site blocking' : 'INACTIVE - Protection disabled',
+                walletConnectSecurity: protectionStatus?.active ? 'ACTIVE - Mobile wallet connection security' : 'INACTIVE - Protection disabled'
             },
             networkSecurity: {
-                c2Detection: 'ACTIVE - Command & control monitoring',
-                dataExfiltration: 'MONITORED - Outbound connection analysis',
-                dnsMonitoring: 'ACTIVE - Malicious domain blocking',
-                trafficAnalysis: 'ACTIVE - Network pattern recognition',
-                firewallIntegration: 'ACTIVE - Real-time threat blocking'
+                c2Detection: protectionStatus?.active ? 'ACTIVE - Command & control monitoring' : 'INACTIVE - Protection disabled',
+                dataExfiltration: protectionStatus?.active ? 'MONITORED - Outbound connection analysis' : 'INACTIVE - Protection disabled',
+                dnsMonitoring: protectionStatus?.active ? 'ACTIVE - Malicious domain blocking' : 'INACTIVE - Protection disabled',
+                trafficAnalysis: protectionStatus?.active ? 'ACTIVE - Network pattern recognition' : 'INACTIVE - Protection disabled',
+                firewallIntegration: protectionStatus?.active ? 'ACTIVE - Real-time threat blocking' : 'INACTIVE - Protection disabled'
             },
             recentThreatActivity: recentActivity || [],
             recommendations: [

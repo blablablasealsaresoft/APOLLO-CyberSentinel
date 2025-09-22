@@ -2786,14 +2786,187 @@ function refreshThreatIntel() {
     setTimeout(() => viewThreats(), 100);
 }
 
-function exportThreatReport() {
-    console.log('📊 Exporting threat report...');
-    window.apolloDashboard.addActivity({
-        icon: '📊',
-        text: 'Threat intelligence report exported',
-        type: 'info'
+async function exportThreatReport() {
+    console.log('📊 Generating real threat intelligence report...');
+    
+    try {
+        // Get real backend data for the report
+        const engineStats = await window.electronAPI.getEngineStats();
+        const recentActivity = await window.electronAPI.getRecentActivity();
+        const osintStats = await window.electronAPI.getOSINTStats();
+        const aiOracleStats = await window.apolloDashboard.loadRealAIOracleStats();
+        
+        // Generate comprehensive report data
+        const reportData = {
+            reportId: `THREAT-INTEL-${Date.now().toString(36).toUpperCase()}`,
+            timestamp: new Date().toISOString(),
+            systemSummary: {
+                threatsDetected: engineStats?.threatsDetected || 0,
+                threatsBlocked: engineStats?.threatsBlocked || 0,
+                filesScanned: engineStats?.filesScanned || 0,
+                networkConnections: engineStats?.networkConnectionsMonitored || 0
+            },
+            threatIntelligence: {
+                osintQueries: osintStats?.queriesRun || 0,
+                threatsFound: osintStats?.threatsFound || 0,
+                aiAnalyses: aiOracleStats?.total_analyses || 0,
+                lastUpdate: new Date().toLocaleString()
+            },
+            recentThreatActivity: recentActivity || [],
+            recommendations: [
+                'Continue regular system scanning',
+                'Keep threat signatures updated',
+                'Monitor network activity for anomalies',
+                'Review AI Oracle analysis results',
+                'Maintain security awareness training'
+            ]
+        };
+        
+        // Show the report in a modal instead of fake file download
+        showThreatIntelligenceReport(reportData);
+        
+        window.apolloDashboard.addActivity({
+            icon: '📊',
+            text: `Threat intelligence report generated: ${reportData.reportId}`,
+            type: 'success'
+        });
+        
+    } catch (error) {
+        console.error('❌ Report generation failed:', error);
+        window.apolloDashboard.addActivity({
+            icon: '❌',
+            text: `Report generation failed: ${error.message}`,
+            type: 'danger'
+        });
+    }
+}
+
+function showThreatIntelligenceReport(reportData) {
+    const reportModal = `
+        <div class="modal-overlay" id="threat-report-modal" style="display: flex;">
+            <div class="modal-content threat-report">
+                <div class="modal-header">
+                    <h3>📊 Threat Intelligence Report</h3>
+                    <button class="close-btn" onclick="closeThreatReportModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="report-header">
+                        <div class="report-id">Report ID: ${reportData.reportId}</div>
+                        <div class="report-timestamp">Generated: ${new Date(reportData.timestamp).toLocaleString()}</div>
+                    </div>
+                    
+                    <div class="report-section">
+                        <h4>🛡️ System Security Summary</h4>
+                        <div class="security-metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">${reportData.systemSummary.threatsDetected}</div>
+                                <div class="metric-label">Threats Detected</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">${reportData.systemSummary.threatsBlocked}</div>
+                                <div class="metric-label">Threats Blocked</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">${reportData.systemSummary.filesScanned.toLocaleString()}</div>
+                                <div class="metric-label">Files Scanned</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">${reportData.systemSummary.networkConnections}</div>
+                                <div class="metric-label">Network Connections</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-section">
+                        <h4>🧠 Intelligence Analysis</h4>
+                        <div class="intelligence-summary">
+                            <div class="intel-item">
+                                <span class="intel-label">OSINT Queries:</span>
+                                <span class="intel-value">${reportData.threatIntelligence.osintQueries}</span>
+                            </div>
+                            <div class="intel-item">
+                                <span class="intel-label">AI Analyses:</span>
+                                <span class="intel-value">${reportData.threatIntelligence.aiAnalyses}</span>
+                            </div>
+                            <div class="intel-item">
+                                <span class="intel-label">Threats Found:</span>
+                                <span class="intel-value">${reportData.threatIntelligence.threatsFound}</span>
+                            </div>
+                            <div class="intel-item">
+                                <span class="intel-label">Last Update:</span>
+                                <span class="intel-value">${reportData.threatIntelligence.lastUpdate}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-section">
+                        <h4>📋 Recent Threat Activity</h4>
+                        <div class="activity-summary">
+                            ${reportData.recentThreatActivity.length > 0 ? 
+                                reportData.recentThreatActivity.slice(0, 5).map(activity => `
+                                    <div class="activity-item">
+                                        <span class="activity-icon">${activity.icon || '🚨'}</span>
+                                        <span class="activity-text">${activity.message || activity.text}</span>
+                                    </div>
+                                `).join('') : 
+                                '<div class="no-activity">No recent threat activity detected</div>'
+                            }
+                        </div>
+                    </div>
+                    
+                    <div class="report-section">
+                        <h4>💡 Security Recommendations</h4>
+                        <div class="recommendations-list">
+                            ${reportData.recommendations.map(rec => `
+                                <div class="recommendation-item">
+                                    <span class="rec-icon">✅</span>
+                                    <span class="rec-text">${rec}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="action-btn primary" onclick="copyReportToClipboard('${reportData.reportId}')">📋 Copy Report</button>
+                    <button class="action-btn secondary" onclick="closeThreatReportModal()">Close</button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Remove any existing report modal
+    const existingModal = document.getElementById('threat-report-modal');
+    if (existingModal) {
+        existingModal.remove();
+    }
+    
+    // Add the new modal to the page
+    document.body.insertAdjacentHTML('beforeend', reportModal);
+}
+
+function closeThreatReportModal() {
+    const modal = document.getElementById('threat-report-modal');
+    if (modal) {
+        modal.remove();
+    }
+}
+
+function copyReportToClipboard(reportId) {
+    const reportContent = document.querySelector('#threat-report-modal .modal-body').innerText;
+    navigator.clipboard.writeText(reportContent).then(() => {
+        window.apolloDashboard.addActivity({
+            icon: '📋',
+            text: `Report ${reportId} copied to clipboard`,
+            type: 'success'
+        });
+    }).catch(error => {
+        console.error('Failed to copy report:', error);
+        window.apolloDashboard.addActivity({
+            icon: '❌',
+            text: 'Failed to copy report to clipboard',
+            type: 'danger'
+        });
     });
-    alert('📊 Threat Report Exported\n\nThreat intelligence report has been saved to:\nC:\\Apollo\\Reports\\threat-intel-' + new Date().toISOString().split('T')[0] + '.pdf');
 }
 
 function emergencyIsolation() {

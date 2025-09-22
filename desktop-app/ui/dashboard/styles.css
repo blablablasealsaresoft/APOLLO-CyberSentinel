@@ -2834,3 +2834,57 @@ textarea:focus {
     color: #e0e0e0;
     font-size: 14px;
 }
+
+.system-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 10px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: rgba(0, 255, 255, 0.05);
+    border-radius: 4px;
+    border: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+.info-label {
+    color: #e0e0e0;
+    font-weight: 500;
+}
+
+.info-value {
+    color: #00ffff;
+    font-weight: bold;
+}
+
+.protection-status {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.protection-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background: rgba(0, 255, 0, 0.05);
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    border-radius: 6px;
+}
+
+.protection-name {
+    color: #e0e0e0;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.protection-status {
+    color: #00ff00;
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: uppercase;
+}

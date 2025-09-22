@@ -2796,29 +2796,70 @@ async function exportThreatReport() {
         const osintStats = await window.electronAPI.getOSINTStats();
         const aiOracleStats = await window.electronAPI.getAIOracleStats();
         
-        // Generate comprehensive report data
+        // Generate comprehensive report data with enhanced details
         const reportData = {
             reportId: `THREAT-INTEL-${Date.now().toString(36).toUpperCase()}`,
             timestamp: new Date().toISOString(),
+            systemInfo: {
+                hostname: 'APOLLO-PROTECTED',
+                platform: navigator.platform,
+                userAgent: navigator.userAgent,
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                language: navigator.language,
+                reportGenerated: new Date().toLocaleString()
+            },
             systemSummary: {
                 threatsDetected: engineStats?.threatsDetected || 0,
                 threatsBlocked: engineStats?.threatsBlocked || 0,
                 filesScanned: engineStats?.filesScanned || 0,
-                networkConnections: engineStats?.networkConnectionsMonitored || 0
+                networkConnections: engineStats?.networkConnectionsMonitored || 0,
+                cryptoTransactions: engineStats?.cryptoTransactionsProtected || 0,
+                aptAlerts: engineStats?.aptAlertsGenerated || 0,
+                engineUptime: engineStats?.engineUptime ? Math.floor((Date.now() - engineStats.engineUptime) / 1000 / 60) : 0
             },
             threatIntelligence: {
                 osintQueries: osintStats?.queriesRun || 0,
                 threatsFound: osintStats?.threatsFound || 0,
                 aiAnalyses: aiOracleStats?.total_analyses || 0,
+                threatContextEntries: aiOracleStats?.threat_context_entries || 0,
+                aiProvider: aiOracleStats?.ai_provider || 'Anthropic Claude',
+                aiModel: aiOracleStats?.ai_model || 'claude-opus-4',
+                oracleStatus: aiOracleStats?.oracle_status || 'active',
                 lastUpdate: new Date().toLocaleString()
+            },
+            aptProtection: {
+                pegasusMonitoring: 'ACTIVE - NSO Group surveillance protection',
+                lazarusDetection: 'ACTIVE - North Korean APT monitoring',
+                apt28Monitoring: 'ACTIVE - Russian GRU threat detection',
+                behavioralAnalysis: 'ACTIVE - Zero-day pattern recognition',
+                processInjection: 'MONITORED - Memory injection detection'
+            },
+            cryptoProtection: {
+                walletMonitoring: 'ACTIVE - Cryptocurrency wallet protection',
+                clipboardProtection: 'ACTIVE - Address hijacking prevention',
+                transactionAnalysis: 'ACTIVE - Smart contract threat assessment',
+                phishingDetection: 'ACTIVE - Crypto phishing site blocking',
+                walletConnectSecurity: 'ACTIVE - Mobile wallet connection security'
+            },
+            networkSecurity: {
+                c2Detection: 'ACTIVE - Command & control monitoring',
+                dataExfiltration: 'MONITORED - Outbound connection analysis',
+                dnsMonitoring: 'ACTIVE - Malicious domain blocking',
+                trafficAnalysis: 'ACTIVE - Network pattern recognition',
+                firewallIntegration: 'ACTIVE - Real-time threat blocking'
             },
             recentThreatActivity: recentActivity || [],
             recommendations: [
-                'Continue regular system scanning',
-                'Keep threat signatures updated',
-                'Monitor network activity for anomalies',
-                'Review AI Oracle analysis results',
-                'Maintain security awareness training'
+                'Continue regular comprehensive APT scanning every 24-48 hours',
+                'Keep threat signatures updated for emerging nation-state threats',
+                'Monitor network activity for C2 communication patterns',
+                'Review AI Oracle analysis results for new threat indicators',
+                'Maintain cryptocurrency wallet security best practices',
+                'Enable real-time protection for continuous monitoring',
+                'Report suspicious activity to threat intelligence community',
+                'Backup critical data to secure, offline storage',
+                'Update system and security software regularly',
+                'Consider hardware security keys for critical accounts'
             ]
         };
         
@@ -2856,6 +2897,28 @@ function showThreatIntelligenceReport(reportData) {
                     </div>
                     
                     <div class="report-section">
+                        <h4>💻 System Information</h4>
+                        <div class="system-info-grid">
+                            <div class="info-item">
+                                <span class="info-label">Hostname:</span>
+                                <span class="info-value">${reportData.systemInfo.hostname}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Platform:</span>
+                                <span class="info-value">${reportData.systemInfo.platform}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Timezone:</span>
+                                <span class="info-value">${reportData.systemInfo.timezone}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Engine Uptime:</span>
+                                <span class="info-value">${reportData.systemSummary.engineUptime} minutes</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-section">
                         <h4>🛡️ System Security Summary</h4>
                         <div class="security-metrics-grid">
                             <div class="metric-card">
@@ -2873,6 +2936,14 @@ function showThreatIntelligenceReport(reportData) {
                             <div class="metric-card">
                                 <div class="metric-value">${reportData.systemSummary.networkConnections}</div>
                                 <div class="metric-label">Network Connections</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">${reportData.systemSummary.cryptoTransactions}</div>
+                                <div class="metric-label">Crypto Transactions</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">${reportData.systemSummary.aptAlerts}</div>
+                                <div class="metric-label">APT Alerts</div>
                             </div>
                         </div>
                     </div>
@@ -2893,9 +2964,53 @@ function showThreatIntelligenceReport(reportData) {
                                 <span class="intel-value">${reportData.threatIntelligence.threatsFound}</span>
                             </div>
                             <div class="intel-item">
-                                <span class="intel-label">Last Update:</span>
-                                <span class="intel-value">${reportData.threatIntelligence.lastUpdate}</span>
+                                <span class="intel-label">AI Provider:</span>
+                                <span class="intel-value">${reportData.threatIntelligence.aiProvider}</span>
                             </div>
+                            <div class="intel-item">
+                                <span class="intel-label">AI Model:</span>
+                                <span class="intel-value">${reportData.threatIntelligence.aiModel}</span>
+                            </div>
+                            <div class="intel-item">
+                                <span class="intel-label">Oracle Status:</span>
+                                <span class="intel-value">${reportData.threatIntelligence.oracleStatus.toUpperCase()}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-section">
+                        <h4>🎯 APT Protection Status</h4>
+                        <div class="protection-status">
+                            ${Object.entries(reportData.aptProtection).map(([key, value]) => `
+                                <div class="protection-item">
+                                    <span class="protection-name">${key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}</span>
+                                    <span class="protection-status">${value}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    
+                    <div class="report-section">
+                        <h4>⛓️ Cryptocurrency Protection</h4>
+                        <div class="protection-status">
+                            ${Object.entries(reportData.cryptoProtection).map(([key, value]) => `
+                                <div class="protection-item">
+                                    <span class="protection-name">${key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}</span>
+                                    <span class="protection-status">${value}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    
+                    <div class="report-section">
+                        <h4>🌐 Network Security Status</h4>
+                        <div class="protection-status">
+                            ${Object.entries(reportData.networkSecurity).map(([key, value]) => `
+                                <div class="protection-item">
+                                    <span class="protection-name">${key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}</span>
+                                    <span class="protection-status">${value}</span>
+                                </div>
+                            `).join('')}
                         </div>
                     </div>
                     

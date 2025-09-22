@@ -190,6 +190,386 @@
                 padding: 40px 30px;
             }
         }
+
+        /* ENHANCED BACKGROUND EFFECTS */
+        /* Installation Portal */
+        .installation-portal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            z-index: 5;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .portal-ring {
+            position: absolute;
+            border: 3px solid var(--brand-gold);
+            border-radius: 50%;
+            animation: portalRotate 8s linear infinite;
+        }
+
+        .portal-ring:nth-child(1) {
+            width: 100%;
+            height: 100%;
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+
+        .portal-ring:nth-child(2) {
+            width: 80%;
+            height: 80%;
+            top: 10%;
+            left: 10%;
+            animation-direction: reverse;
+            animation-duration: 6s;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .portal-ring:nth-child(3) {
+            width: 60%;
+            height: 60%;
+            top: 20%;
+            left: 20%;
+            animation-duration: 4s;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .portal-center {
+            position: absolute;
+            top: 30%;
+            left: 30%;
+            width: 40%;
+            height: 40%;
+            background: radial-gradient(circle, var(--brand-gold), transparent);
+            border-radius: 50%;
+            animation: portalPulse 2s ease-in-out infinite;
+        }
+
+        /* Apollo Guardian System */
+        .apollo-guardian {
+            position: fixed;
+            top: 50%;
+            left: -300px;
+            transform: translateY(-50%);
+            width: 400px;
+            height: 450px;
+            z-index: 12;
+            pointer-events: none;
+            opacity: 0.4;
+            transition: all 1s ease;
+        }
+
+        .guardian-bow {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            animation: epicGuardianWatch 6s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px var(--accent-glow));
+        }
+
+        .guardian-energy-aura {
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            top: -10%;
+            left: -10%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.15), transparent 70%);
+            border-radius: 50%;
+            animation: guardianAura 4s ease-in-out infinite;
+        }
+
+        .guardian-arc {
+            position: absolute;
+            left: 35%;
+            top: 5%;
+            height: 90%;
+            width: 60px;
+            border: 8px solid var(--brand-gold);
+            border-right: none;
+            border-radius: 100% 0 0 100%;
+            box-shadow:
+                0 0 40px var(--accent-glow),
+                inset 0 0 30px rgba(255, 215, 0, 0.4);
+            transform: rotateY(25deg);
+            background: linear-gradient(180deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+        }
+
+        .guardian-string {
+            position: absolute;
+            left: 48%;
+            top: 8%;
+            height: 84%;
+            width: 8px;
+            background: linear-gradient(180deg, #fff, var(--brand-gold), #b8860b, var(--brand-gold), #fff);
+            border-radius: 4px;
+            transform: translateX(-50%);
+            box-shadow:
+                0 0 20px var(--accent-glow),
+                0 0 40px rgba(255, 215, 0, 0.6);
+            animation: epicGuardianStringTension 3s ease-in-out infinite;
+        }
+
+        .ready-arrow {
+            position: absolute;
+            width: 160px;
+            height: 10px;
+            background: linear-gradient(90deg, #654321, var(--brand-gold), #ffed4a, #ff4444, #fff);
+            left: 28%;
+            top: 50%;
+            transform: translateY(-50%) rotateZ(-2deg);
+            border-radius: 5px;
+            box-shadow:
+                0 0 20px rgba(255, 215, 0, 1),
+                0 0 40px rgba(255, 68, 68, 0.6);
+            animation: epicArrowAim 5s ease-in-out infinite;
+            filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.5));
+        }
+
+        .ready-arrow::before {
+            content: '';
+            position: absolute;
+            right: -18px;
+            top: -15px;
+            width: 0;
+            height: 0;
+            border-left: 30px solid #ff4444;
+            border-top: 20px solid transparent;
+            border-bottom: 20px solid transparent;
+            box-shadow: 0 0 15px rgba(255, 68, 68, 1);
+            filter: drop-shadow(0 0 8px #ff4444);
+        }
+
+        /* Installation Shield */
+        .installation-shield {
+            position: fixed;
+            bottom: 60px;
+            right: 60px;
+            width: 120px;
+            height: 120px;
+            z-index: 18;
+            pointer-events: none;
+            transform-style: preserve-3d;
+            opacity: 0.6;
+        }
+
+        .shield-outer {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, var(--brand-gold), #b8860b, #8b7d00);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow:
+                0 0 40px var(--accent-glow),
+                0 0 80px rgba(255, 215, 0, 0.5);
+            animation: epicShieldRotate 8s linear infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shield-inner {
+            width: 75%;
+            height: 75%;
+            background: radial-gradient(circle, var(--brand-black), rgba(26, 26, 26, 0.9));
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--brand-gold);
+            font-weight: bold;
+            font-size: 9px;
+            text-align: center;
+            text-shadow: 0 0 10px var(--accent-glow);
+            z-index: 1;
+        }
+
+        /* Threat Radar */
+        .threat-radar {
+            position: fixed;
+            top: 15%;
+            right: -200px;
+            width: 200px;
+            height: 200px;
+            z-index: 10;
+            pointer-events: none;
+            opacity: 0.3;
+            transition: all 1s ease;
+        }
+
+        .radar-outer-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 4px solid var(--brand-gold);
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: epicRadarPulse 4s ease-out infinite;
+        }
+
+        .radar-sweep {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 3px;
+            height: 45%;
+            background: linear-gradient(to top, transparent, var(--brand-gold), #fff);
+            transform-origin: bottom center;
+            transform: translate(-50%, 0) rotate(0deg);
+            animation: epicRadarSweep 3s linear infinite;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        /* Digital Rain */
+        .digital-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+            opacity: 0.08;
+        }
+
+        .rain-drop {
+            position: absolute;
+            color: var(--brand-gold);
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            animation: epicDigitalFall 8s linear infinite;
+            text-shadow: 0 0 8px var(--accent-glow);
+        }
+
+        /* KEYFRAMES */
+        @keyframes portalRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes portalPulse {
+            0%, 100% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes epicGuardianWatch {
+            0%, 100% {
+                transform: translateY(-50%) rotateY(0deg) rotateX(0deg) rotateZ(0deg);
+                left: -300px;
+            }
+            25% {
+                transform: translateY(-50%) rotateY(20deg) rotateX(8deg) rotateZ(3deg);
+                left: -250px;
+            }
+            50% {
+                transform: translateY(-50%) rotateY(0deg) rotateX(15deg) rotateZ(0deg);
+                left: -200px;
+            }
+            75% {
+                transform: translateY(-50%) rotateY(-20deg) rotateX(8deg) rotateZ(-3deg);
+                left: -250px;
+            }
+        }
+
+        @keyframes guardianAura {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.15;
+            }
+            50% {
+                transform: scale(1.4);
+                opacity: 0.3;
+            }
+        }
+
+        @keyframes epicGuardianStringTension {
+            0%, 60% {
+                transform: translateX(-50%) scaleX(1) scaleY(1);
+            }
+            80% {
+                transform: translateX(-50%) scaleX(1.3) scaleY(0.9);
+            }
+            100% {
+                transform: translateX(-50%) scaleX(1) scaleY(1);
+            }
+        }
+
+        @keyframes epicArrowAim {
+            0%, 70% {
+                transform: translateY(-50%) rotateZ(-2deg) translateX(0px);
+                opacity: 1;
+            }
+            85% {
+                transform: translateY(-50%) rotateZ(-4deg) translateX(-10px);
+                opacity: 1;
+            }
+            95% {
+                transform: translateY(-50%) rotateZ(-1deg) translateX(-5px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-50%) rotateZ(-2deg) translateX(0px);
+                opacity: 1;
+            }
+        }
+
+        @keyframes epicShieldRotate {
+            0% {
+                transform: rotate(0deg) scale(1);
+            }
+            50% {
+                transform: rotate(180deg) scale(1.05);
+            }
+            100% {
+                transform: rotate(360deg) scale(1);
+            }
+        }
+
+        @keyframes epicRadarPulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.4;
+            }
+            50% {
+                transform: scale(1.3);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(0.8);
+                opacity: 0.4;
+            }
+        }
+
+        @keyframes epicRadarSweep {
+            0% {
+                transform: translate(-50%, 0) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, 0) rotate(360deg);
+            }
+        }
+
+        @keyframes epicDigitalFall {
+            0% {
+                top: -10vh;
+                opacity: 1;
+            }
+            100% {
+                top: 110vh;
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -236,6 +616,43 @@
         })();
     </script>
 
+    <!-- Enhanced Background Elements -->
+    <!-- Installation Portal -->
+    <div class="installation-portal" id="installPortal">
+        <div class="portal-ring"></div>
+        <div class="portal-ring"></div>
+        <div class="portal-ring"></div>
+        <div class="portal-center"></div>
+    </div>
+
+    <!-- Digital Rain Background -->
+    <div class="digital-rain" id="digitalRain"></div>
+
+    <!-- Apollo Guardian -->
+    <div class="apollo-guardian">
+        <div class="guardian-bow">
+            <div class="guardian-energy-aura"></div>
+            <div class="guardian-arc"></div>
+            <div class="guardian-string"></div>
+            <div class="ready-arrow"></div>
+        </div>
+    </div>
+
+    <!-- Installation Shield -->
+    <div class="installation-shield">
+        <div class="shield-outer">
+            <div class="shield-inner">
+                APOLLO<br>PRIVACY<br>SECURE
+            </div>
+        </div>
+    </div>
+
+    <!-- Threat Radar -->
+    <div class="threat-radar">
+        <div class="radar-outer-ring"></div>
+        <div class="radar-sweep"></div>
+    </div>
+
     <!-- Header -->
     <header class="header">
         <div class="nav-container">
@@ -255,129 +672,727 @@
         <p class="page-subtitle">How APOLLO CyberSentinel protects your privacy and data</p>
 
         <div class="content">
-            <h2>Our Commitment to Privacy</h2>
-            <p>At APOLLO CyberSentinel, protecting your privacy is fundamental to our mission. As a cybersecurity company dedicated to defending against nation-state threats, we understand the critical importance of data privacy and security.</p>
+            <div class="warning-box">
+                <p><strong>Important:</strong> This Privacy Policy governs the collection, use, and protection of personal information in connection with APOLLO CyberSentinel software. By using our software, you consent to the practices described in this policy.</p>
+            </div>
 
-            <h2>Information We Collect</h2>
+            <h2>1. Our Commitment to Privacy</h2>
+            <p>At APOLLO CyberSentinel, protecting your privacy is fundamental to our mission and core to our product design. As a cybersecurity company dedicated to defending against nation-state threats, we understand the critical importance of data privacy and security. This commitment extends beyond mere compliance—it's built into the very architecture of our software.</p>
 
-            <h3>Automatic Data Collection</h3>
-            <p>APOLLO CyberSentinel operates with <span class="highlight">zero telemetry</span> by design. We do not collect:</p>
+            <h3>Privacy by Design Principles</h3>
+            <p>APOLLO CyberSentinel is built on seven foundational privacy principles:</p>
             <ul>
-                <li>Personal browsing data</li>
-                <li>File contents or names</li>
-                <li>Usage analytics or telemetry</li>
-                <li>Location data</li>
-                <li>Communication content</li>
+                <li><strong>Proactive not Reactive</strong> - Privacy protection is built-in from the start</li>
+                <li><strong>Privacy as the Default</strong> - Maximum privacy protection without requiring action from you</li>
+                <li><strong>Local Processing</strong> - All analysis occurs on your device, not our servers</li>
+                <li><strong>Full Functionality</strong> - Privacy protection doesn't compromise security effectiveness</li>
+                <li><strong>End-to-End Security</strong> - Data protection throughout the entire system lifecycle</li>
+                <li><strong>Visibility and Transparency</strong> - Clear information about what data is processed and how</li>
+                <li><strong>Respect for User Privacy</strong> - Your privacy rights are paramount in all our decisions</li>
             </ul>
 
-            <h3>Threat Intelligence Data</h3>
-            <p>For protection purposes, APOLLO may process:</p>
+            <h2>2. Information We Collect and Process</h2>
+
+            <h3>2.1 Zero Telemetry Architecture</h3>
+            <p>APOLLO CyberSentinel operates with <span class="highlight">zero telemetry</span> by design. We have architected our system to provide military-grade protection without collecting personal data. Specifically, we do NOT collect:</p>
             <ul>
-                <li><strong>Threat signatures</strong> - Hashes and patterns of known threats (anonymized)</li>
-                <li><strong>Network indicators</strong> - Suspicious IP addresses and domains (no personal data)</li>
-                <li><strong>System health data</strong> - Operating system version and security status (local only)</li>
+                <li><strong>Personal browsing data</strong> - No web history, search queries, or browser information</li>
+                <li><strong>File contents or names</strong> - Files are analyzed locally without content transmission</li>
+                <li><strong>Usage analytics or telemetry</strong> - No tracking of software usage patterns or statistics</li>
+                <li><strong>Location data</strong> - No geolocation, IP address logging, or geographic tracking</li>
+                <li><strong>Communication content</strong> - No access to emails, messages, or communications</li>
+                <li><strong>Personal documents</strong> - Document content is never accessed or transmitted</li>
+                <li><strong>Financial information</strong> - No access to banking, payment, or financial data</li>
+                <li><strong>Biometric data</strong> - No collection of fingerprints, facial recognition, or biometric identifiers</li>
+                <li><strong>Social media activity</strong> - No monitoring of social media accounts or activity</li>
+                <li><strong>Device identifiers</strong> - No unique device tracking or persistent identifiers</li>
             </ul>
 
-            <h3>Support Communications</h3>
-            <p>When you contact us for support, we may collect:</p>
+            <h3>2.2 Threat Intelligence Data Processing</h3>
+            <p>For legitimate cybersecurity protection purposes, APOLLO may process the following data types <strong>locally on your device only</strong>:</p>
+
+            <h4>2.2.1 Cryptographic Hashes</h4>
             <ul>
-                <li>Email address and contact information you provide</li>
-                <li>Support ticket content and communications</li>
-                <li>System logs relevant to technical issues (only with your consent)</li>
+                <li><strong>File hashes (SHA-256)</strong> - Mathematical fingerprints of files for threat identification</li>
+                <li><strong>Process signatures</strong> - Cryptographic signatures of running applications</li>
+                <li><strong>Network connection hashes</strong> - Anonymized network activity fingerprints</li>
+                <li><strong>Behavioral pattern hashes</strong> - Mathematical representations of system behavior</li>
+            </ul>
+            <p><em>Note: Cryptographic hashes are one-way mathematical functions that cannot be reversed to reveal original data content.</em></p>
+
+            <h4>2.2.2 Network Security Indicators</h4>
+            <ul>
+                <li><strong>Suspicious IP addresses</strong> - Known malicious network endpoints (anonymized queries only)</li>
+                <li><strong>Domain patterns</strong> - Malicious domain structures without personal browsing data</li>
+                <li><strong>Network protocol anomalies</strong> - Unusual network behavior patterns</li>
+                <li><strong>Command and control indicators</strong> - Known APT communication patterns</li>
             </ul>
 
-            <h2>How We Use Information</h2>
-
-            <h3>Local Processing</h3>
-            <p>All threat analysis and protection occurs <span class="highlight">locally on your device</span>. APOLLO does not send your data to external servers for analysis.</p>
-
-            <h3>Threat Intelligence Updates</h3>
-            <p>We may update threat signatures and protection rules, but these updates:</p>
+            <h4>2.2.3 System Security Data</h4>
             <ul>
-                <li>Contain no personal data</li>
-                <li>Are delivered securely and encrypted</li>
-                <li>Do not track individual installations</li>
+                <li><strong>Operating system version</strong> - For compatibility and vulnerability assessment</li>
+                <li><strong>Security patch status</strong> - To identify potential system vulnerabilities</li>
+                <li><strong>Running process information</strong> - Process names and digital signatures (local analysis only)</li>
+                <li><strong>System configuration data</strong> - Security-relevant settings and configurations</li>
             </ul>
 
-            <h2>Data Sharing and Disclosure</h2>
-
-            <h3>Third-Party Services</h3>
-            <p>APOLLO integrates with threat intelligence services for enhanced protection:</p>
+            <h3>2.3 Support and Service Information</h3>
+            <p>When you voluntarily contact us for support, we may collect:</p>
             <ul>
-                <li><strong>VirusTotal</strong> - File hash checking (no file contents shared)</li>
-                <li><strong>Shodan</strong> - Network threat intelligence</li>
-                <li><strong>AlienVault OTX</strong> - Community threat feeds</li>
-            </ul>
-            <p>These services receive only anonymized threat indicators, never personal data.</p>
-
-            <h3>Legal Requirements</h3>
-            <p>We may disclose information only when:</p>
-            <ul>
-                <li>Required by valid legal process</li>
-                <li>Necessary to protect against imminent harm</li>
-                <li>To defend our legal rights</li>
+                <li><strong>Contact information</strong> - Email address, name, and other details you provide</li>
+                <li><strong>Support communications</strong> - Content of your support requests and our responses</li>
+                <li><strong>Technical logs</strong> - System logs relevant to technical issues (only with your explicit consent)</li>
+                <li><strong>Software version information</strong> - To provide appropriate technical assistance</li>
+                <li><strong>Hardware specifications</strong> - Only when relevant to resolving technical issues</li>
             </ul>
 
-            <h2>Data Security</h2>
-            <p>We employ industry-leading security measures:</p>
+            <h3>2.4 Website and Service Usage</h3>
+            <p>When you visit our website or use our services, we may collect:</p>
             <ul>
-                <li><strong>End-to-end encryption</strong> - All communications encrypted</li>
-                <li><strong>Local data storage</strong> - Your data stays on your device</li>
-                <li><strong>Zero-knowledge architecture</strong> - We cannot access your protected data</li>
-                <li><strong>Regular security audits</strong> - Continuous security assessment</li>
+                <li><strong>Server logs</strong> - Standard web server information for security and performance</li>
+                <li><strong>Error reports</strong> - Technical error information to improve software stability</li>
+                <li><strong>Update requests</strong> - Information about software update checks and downloads</li>
+                <li><strong>License validation</strong> - Verification of software licensing status</li>
             </ul>
 
-            <h2>Your Rights and Choices</h2>
+            <h2>3. How We Use Information</h2>
 
-            <h3>Data Control</h3>
-            <p>You have complete control over your data:</p>
+            <h3>3.1 Local-First Processing Philosophy</h3>
+            <p>All threat analysis and protection occurs <span class="highlight">exclusively on your device</span>. APOLLO does not send your personal data, file contents, or usage information to external servers for analysis. Our local-first approach ensures:</p>
             <ul>
-                <li><strong>Access</strong> - Review what data is processed locally</li>
-                <li><strong>Deletion</strong> - Uninstall removes all local data</li>
-                <li><strong>Portability</strong> - Export your configuration settings</li>
-                <li><strong>Opt-out</strong> - Disable specific protection features</li>
+                <li><strong>Data sovereignty</strong> - Your data remains under your control at all times</li>
+                <li><strong>Network independence</strong> - Core protection works even without internet connectivity</li>
+                <li><strong>Latency optimization</strong> - Real-time protection without network delays</li>
+                <li><strong>Privacy preservation</strong> - No central data repository or cloud processing</li>
             </ul>
 
-            <h3>Communication Preferences</h3>
-            <p>You can control:</p>
+            <h3>3.2 Threat Intelligence Integration</h3>
+            <p>We enhance protection through secure integration with threat intelligence sources:</p>
+
+            <h4>3.2.1 Anonymous Query Mechanism</h4>
+            <p>When querying external threat intelligence services:</p>
             <ul>
-                <li>Security notifications and alerts</li>
-                <li>Product updates and announcements</li>
-                <li>Support communications</li>
+                <li><strong>Only cryptographic hashes are transmitted</strong> - Never file contents or personal data</li>
+                <li><strong>No identifying information</strong> - Queries cannot be linked to your identity or device</li>
+                <li><strong>Encrypted transmission</strong> - All queries use TLS 1.3 or higher encryption</li>
+                <li><strong>No persistent tracking</strong> - Queries do not create permanent records</li>
             </ul>
 
-            <h2>Children's Privacy</h2>
-            <p>APOLLO CyberSentinel is not directed to children under 13. We do not knowingly collect personal information from children under 13. If we learn we have collected such information, we will delete it immediately.</p>
-
-            <h2>International Data Transfers</h2>
-            <p>As a local-first application, APOLLO processes data primarily on your device. Any necessary data transfers are:</p>
+            <h4>3.2.2 Government Intelligence Integration</h4>
+            <p>APOLLO integrates with official government cybersecurity sources:</p>
             <ul>
-                <li>Limited to threat intelligence updates</li>
-                <li>Encrypted and anonymized</li>
-                <li>Compliant with applicable data protection laws</li>
+                <li><strong>CISA (Cybersecurity and Infrastructure Security Agency)</strong> - Official US government threat indicators</li>
+                <li><strong>FBI Cyber Division</strong> - Federal law enforcement cyber threat data</li>
+                <li><strong>NCSC (National Cyber Security Centre)</strong> - UK government cybersecurity intelligence</li>
+                <li><strong>Academic research institutions</strong> - Peer-reviewed cybersecurity research</li>
             </ul>
 
-            <h2>Changes to This Policy</h2>
-            <p>We may update this Privacy Policy to reflect changes in our practices or legal requirements. We will:</p>
+            <h3>3.3 Data Processing Purposes</h3>
+            <p>We process information solely for the following legitimate purposes:</p>
+
+            <h4>3.3.1 Cybersecurity Protection</h4>
             <ul>
-                <li>Notify users of material changes</li>
-                <li>Post updates on our website</li>
-                <li>Maintain previous versions for reference</li>
+                <li>Detecting and preventing nation-state cyber attacks</li>
+                <li>Identifying advanced persistent threats (APTs)</li>
+                <li>Protecting against cryptocurrency theft and fraud</li>
+                <li>Preventing data exfiltration and system compromise</li>
+                <li>Blocking command and control communications</li>
+            </ul>
+
+            <h4>3.3.2 Software Functionality</h4>
+            <ul>
+                <li>Providing real-time threat analysis and alerts</li>
+                <li>Updating threat signatures and detection rules</li>
+                <li>Maintaining software compatibility and performance</li>
+                <li>Delivering security patches and vulnerability fixes</li>
+                <li>Enabling user preference and configuration management</li>
+            </ul>
+
+            <h4>3.3.3 Legal Compliance and Safety</h4>
+            <ul>
+                <li>Complying with applicable cybersecurity laws and regulations</li>
+                <li>Reporting suspected criminal activity to appropriate authorities</li>
+                <li>Protecting the security and integrity of our systems</li>
+                <li>Defending against legal claims and ensuring compliance</li>
+            </ul>
+
+            <h2>4. Data Sharing and Third-Party Integrations</h2>
+
+            <h3>4.1 Threat Intelligence Service Providers</h3>
+            <p>APOLLO integrates with the following threat intelligence services for enhanced protection:</p>
+
+            <h4>4.1.1 VirusTotal (Google)</h4>
+            <ul>
+                <li><strong>Data shared</strong> - Only SHA-256 file hashes (no file contents)</li>
+                <li><strong>Purpose</strong> - Malware detection and threat classification</li>
+                <li><strong>Privacy protection</strong> - Hashes cannot be reversed to reveal file contents</li>
+                <li><strong>API limits</strong> - Rate-limited queries to prevent abuse</li>
+            </ul>
+
+            <h4>4.1.2 AlienVault OTX (AT&T Cybersecurity)</h4>
+            <ul>
+                <li><strong>Data shared</strong> - Anonymous threat indicators and IOCs</li>
+                <li><strong>Purpose</strong> - Community-driven threat intelligence</li>
+                <li><strong>Privacy protection</strong> - No personally identifiable information transmitted</li>
+                <li><strong>Data retention</strong> - Queries are not logged or stored</li>
+            </ul>
+
+            <h4>4.1.3 Shodan (Shodan LLC)</h4>
+            <ul>
+                <li><strong>Data shared</strong> - Network indicators and IP addresses (anonymized)</li>
+                <li><strong>Purpose</strong> - Network infrastructure threat assessment</li>
+                <li><strong>Privacy protection</strong> - Only suspicious network indicators, never personal data</li>
+                <li><strong>Query encryption</strong> - All queries encrypted in transit</li>
+            </ul>
+
+            <h4>4.1.4 Anthropic Claude AI</h4>
+            <ul>
+                <li><strong>Data shared</strong> - Anonymized threat patterns and behavioral indicators</li>
+                <li><strong>Purpose</strong> - Advanced threat analysis and classification</li>
+                <li><strong>Privacy protection</strong> - No personal data or file contents shared</li>
+                <li><strong>Processing location</strong> - Anthropic's secure cloud infrastructure</li>
+            </ul>
+
+            <h3>4.2 Data Sharing Restrictions</h3>
+            <p>We do NOT share your personal information with:</p>
+            <ul>
+                <li><strong>Advertisers or marketing companies</strong> - No commercial data sharing</li>
+                <li><strong>Data brokers or aggregators</strong> - No sale or licensing of personal data</li>
+                <li><strong>Social media platforms</strong> - No integration with social networks</li>
+                <li><strong>Analytics companies</strong> - No behavioral tracking or profiling</li>
+                <li><strong>Affiliate marketing networks</strong> - No commercial partnerships involving data sharing</li>
+            </ul>
+
+            <h3>4.3 Legal Disclosure Requirements</h3>
+            <p>We may disclose information only in the following limited circumstances:</p>
+
+            <h4>4.3.1 Legal Process</h4>
+            <ul>
+                <li>Valid court orders or subpoenas</li>
+                <li>Search warrants with appropriate legal authority</li>
+                <li>National security letters (with applicable legal challenges)</li>
+                <li>Regulatory investigations with proper authorization</li>
+            </ul>
+
+            <h4>4.3.2 Emergency Situations</h4>
+            <ul>
+                <li>Imminent threat to life or safety</li>
+                <li>Active cyber attacks against critical infrastructure</li>
+                <li>Child protection and safety situations</li>
+                <li>Prevention of serious criminal activity</li>
+            </ul>
+
+            <h4>4.3.3 Business Protection</h4>
+            <ul>
+                <li>Protection of our legal rights and interests</li>
+                <li>Enforcement of terms of service and license agreements</li>
+                <li>Investigation of suspected fraudulent activity</li>
+                <li>Defense against legal claims and litigation</li>
+            </ul>
+
+            <h2>5. Data Security and Protection Measures</h2>
+
+            <h3>5.1 Technical Security Controls</h3>
+            <p>We implement comprehensive security measures to protect your information:</p>
+
+            <h4>5.1.1 Encryption</h4>
+            <ul>
+                <li><strong>Data in transit</strong> - TLS 1.3 encryption for all network communications</li>
+                <li><strong>Data at rest</strong> - AES-256 encryption for local data storage</li>
+                <li><strong>Key management</strong> - Hardware security modules (HSMs) for key protection</li>
+                <li><strong>Certificate pinning</strong> - Protection against man-in-the-middle attacks</li>
+            </ul>
+
+            <h4>5.1.2 Access Controls</h4>
+            <ul>
+                <li><strong>Principle of least privilege</strong> - Minimal necessary access permissions</li>
+                <li><strong>Multi-factor authentication</strong> - Required for all administrative access</li>
+                <li><strong>Regular access reviews</strong> - Quarterly audits of access permissions</li>
+                <li><strong>Privileged access management</strong> - Monitored and logged administrative activities</li>
+            </ul>
+
+            <h4>5.1.3 Network Security</h4>
+            <ul>
+                <li><strong>Network segmentation</strong> - Isolated systems and data environments</li>
+                <li><strong>Intrusion detection</strong> - Real-time monitoring of network activity</li>
+                <li><strong>DDoS protection</strong> - Mitigation of distributed denial-of-service attacks</li>
+                <li><strong>Vulnerability management</strong> - Regular security assessments and patching</li>
+            </ul>
+
+            <h3>5.2 Organizational Security Measures</h3>
+
+            <h4>5.2.1 Personnel Security</h4>
+            <ul>
+                <li><strong>Background checks</strong> - Comprehensive screening of all employees</li>
+                <li><strong>Security training</strong> - Regular cybersecurity awareness programs</li>
+                <li><strong>Confidentiality agreements</strong> - Legal obligations to protect user data</li>
+                <li><strong>Incident response training</strong> - Prepared response to security incidents</li>
+            </ul>
+
+            <h4>5.2.2 Compliance and Auditing</h4>
+            <ul>
+                <li><strong>SOC 2 Type II compliance</strong> - Independent security audits</li>
+                <li><strong>ISO 27001 certification</strong> - Information security management standards</li>
+                <li><strong>Regular penetration testing</strong> - Third-party security assessments</li>
+                <li><strong>Continuous monitoring</strong> - 24/7 security operations center</li>
+            </ul>
+
+            <h2>6. Your Privacy Rights and Choices</h2>
+
+            <h3>6.1 Data Subject Rights (GDPR/CCPA Compliance)</h3>
+            <p>You have the following rights regarding your personal information:</p>
+
+            <h4>6.1.1 Right to Access</h4>
+            <ul>
+                <li>Request copies of your personal data we hold</li>
+                <li>Understand how your data is being processed</li>
+                <li>Receive information about data sharing practices</li>
+                <li>Access data processing logs and records</li>
+            </ul>
+
+            <h4>6.1.2 Right to Rectification</h4>
+            <ul>
+                <li>Correct inaccurate or incomplete personal data</li>
+                <li>Update your contact and account information</li>
+                <li>Modify your communication preferences</li>
+                <li>Ensure data accuracy and completeness</li>
+            </ul>
+
+            <h4>6.1.3 Right to Erasure ("Right to be Forgotten")</h4>
+            <ul>
+                <li>Request deletion of your personal data</li>
+                <li>Complete removal of account and usage data</li>
+                <li>Cessation of data processing activities</li>
+                <li>Notification to third parties about erasure requests</li>
+            </ul>
+
+            <h4>6.1.4 Right to Data Portability</h4>
+            <ul>
+                <li>Receive your data in a machine-readable format</li>
+                <li>Transfer data to another service provider</li>
+                <li>Export your configuration and preference settings</li>
+                <li>Obtain historical data and usage records</li>
+            </ul>
+
+            <h4>6.1.5 Right to Object</h4>
+            <ul>
+                <li>Object to processing based on legitimate interests</li>
+                <li>Opt-out of specific data processing activities</li>
+                <li>Restrict certain types of data analysis</li>
+                <li>Limit automated decision-making processes</li>
+            </ul>
+
+            <h3>6.2 Communication and Marketing Preferences</h3>
+            <p>You can control various types of communications:</p>
+
+            <h4>6.2.1 Security Notifications</h4>
+            <ul>
+                <li><strong>Critical security alerts</strong> - Cannot be disabled for security reasons</li>
+                <li><strong>Threat intelligence updates</strong> - Can be limited to high-priority threats</li>
+                <li><strong>Software vulnerability notices</strong> - Recommended to keep enabled</li>
+                <li><strong>Incident response communications</strong> - Required during active threats</li>
+            </ul>
+
+            <h4>6.2.2 Product Communications</h4>
+            <ul>
+                <li><strong>Software updates and releases</strong> - Can be set to critical updates only</li>
+                <li><strong>Feature announcements</strong> - Optional marketing communications</li>
+                <li><strong>Beta testing invitations</strong> - Opt-in basis only</li>
+                <li><strong>User surveys and feedback requests</strong> - Always optional</li>
+            </ul>
+
+            <h3>6.3 Data Control and Configuration</h3>
+
+            <h4>6.3.1 Local Data Management</h4>
+            <ul>
+                <li><strong>Configuration backup</strong> - Export your settings and preferences</li>
+                <li><strong>Threat detection logs</strong> - Review local analysis and detection history</li>
+                <li><strong>Whitelist management</strong> - Control trusted applications and processes</li>
+                <li><strong>Complete uninstallation</strong> - Remove all software and data traces</li>
+            </ul>
+
+            <h4>6.3.2 Intelligence Feed Controls</h4>
+            <ul>
+                <li><strong>Selective intelligence sources</strong> - Choose which threat feeds to use</li>
+                <li><strong>Query frequency limits</strong> - Control how often external sources are queried</li>
+                <li><strong>Anonymous mode</strong> - Enhanced privacy with reduced functionality</li>
+                <li><strong>Offline mode</strong> - Complete independence from external services</li>
+            </ul>
+
+            <h2>7. Special Privacy Considerations</h2>
+
+            <h3>7.1 Children's Privacy Protection</h3>
+            <p>APOLLO CyberSentinel is not intended for use by children under 13 years of age. We do not knowingly collect personal information from children under 13. If we discover that we have inadvertently collected information from a child under 13:</p>
+            <ul>
+                <li>We will delete the information immediately upon discovery</li>
+                <li>We will not use the information for any purpose</li>
+                <li>We will not disclose the information to third parties</li>
+                <li>We will notify parents or guardians if contact information is available</li>
+                <li>We will take steps to prevent future collection from the same source</li>
+            </ul>
+
+            <h3>7.2 Sensitive Data Categories</h3>
+            <p>APOLLO does not intentionally collect or process sensitive personal data, including:</p>
+            <ul>
+                <li><strong>Health information</strong> - Medical records, health conditions, or health data</li>
+                <li><strong>Financial records</strong> - Bank accounts, credit card numbers, or financial transactions</li>
+                <li><strong>Biometric identifiers</strong> - Fingerprints, facial recognition, or biological characteristics</li>
+                <li><strong>Political opinions</strong> - Political beliefs, affiliations, or voting records</li>
+                <li><strong>Religious beliefs</strong> - Spiritual beliefs, religious affiliations, or practices</li>
+                <li><strong>Sexual orientation</strong> - Personal relationships or intimate preferences</li>
+                <li><strong>Trade union membership</strong> - Labor organization affiliations or activities</li>
+            </ul>
+
+            <h3>7.3 Cryptocurrency and Financial Privacy</h3>
+            <p>Given APOLLO's focus on cryptocurrency protection:</p>
+
+            <h4>7.3.1 Wallet Protection</h4>
+            <ul>
+                <li><strong>No wallet access</strong> - APOLLO never accesses wallet contents or private keys</li>
+                <li><strong>File monitoring only</strong> - Monitors file access patterns, not financial data</li>
+                <li><strong>Transaction privacy</strong> - No monitoring of cryptocurrency transactions</li>
+                <li><strong>Address protection</strong> - Protects against clipboard hijacking without storing addresses</li>
+            </ul>
+
+            <h4>7.3.2 Financial Data Safeguards</h4>
+            <ul>
+                <li><strong>PCI DSS compliance</strong> - Payment card industry data security standards</li>
+                <li><strong>Financial data isolation</strong> - No integration with financial systems</li>
+                <li><strong>Bank account protection</strong> - Monitors for threats without accessing account data</li>
+                <li><strong>Investment privacy</strong> - No collection of investment or trading information</li>
+            </ul>
+
+            <h2>8. International Data Transfers and Compliance</h2>
+
+            <h3>8.1 Cross-Border Data Processing</h3>
+            <p>As a local-first application, APOLLO processes data primarily on your device. However, limited data transfers may occur:</p>
+
+            <h4>8.1.1 Threat Intelligence Queries</h4>
+            <ul>
+                <li><strong>United States</strong> - VirusTotal, Anthropic Claude (with appropriate safeguards)</li>
+                <li><strong>European Union</strong> - GDPR-compliant data processors only</li>
+                <li><strong>United Kingdom</strong> - UK GDPR and Data Protection Act compliance</li>
+                <li><strong>Canada</strong> - PIPEDA-compliant service providers</li>
+            </ul>
+
+            <h4>8.1.2 Legal Basis for International Transfers</h4>
+            <ul>
+                <li><strong>Adequacy decisions</strong> - Transfers to countries with adequate protection</li>
+                <li><strong>Standard contractual clauses</strong> - EU-approved data transfer agreements</li>
+                <li><strong>Binding corporate rules</strong> - Internal data protection policies</li>
+                <li><strong>Explicit consent</strong> - Your clear consent for specific transfers</li>
+            </ul>
+
+            <h3>8.2 Regional Privacy Law Compliance</h3>
+
+            <h4>8.2.1 European Union (GDPR)</h4>
+            <ul>
+                <li><strong>Legal basis</strong> - Legitimate interests in cybersecurity protection</li>
+                <li><strong>Data minimization</strong> - Processing only necessary data</li>
+                <li><strong>Purpose limitation</strong> - Data used only for stated purposes</li>
+                <li><strong>Storage limitation</strong> - Data retained only as long as necessary</li>
+                <li><strong>DPO appointment</strong> - Data Protection Officer for GDPR compliance</li>
+            </ul>
+
+            <h4>8.2.2 California (CCPA/CPRA)</h4>
+            <ul>
+                <li><strong>Consumer rights</strong> - Right to know, delete, and opt-out</li>
+                <li><strong>Sale prohibition</strong> - No sale of personal information</li>
+                <li><strong>Discrimination protection</strong> - No penalties for exercising privacy rights</li>
+                <li><strong>Sensitive information</strong> - Enhanced protection for sensitive data</li>
+            </ul>
+
+            <h4>8.2.3 Other Jurisdictions</h4>
+            <ul>
+                <li><strong>Canada (PIPEDA)</strong> - Personal Information Protection and Electronic Documents Act</li>
+                <li><strong>Brazil (LGPD)</strong> - Lei Geral de Proteção de Dados compliance</li>
+                <li><strong>Australia (Privacy Act)</strong> - Australian Privacy Principles adherence</li>
+                <li><strong>Japan (APPI)</strong> - Act on Protection of Personal Information compliance</li>
+            </ul>
+
+            <h2>9. Data Retention and Deletion</h2>
+
+            <h3>9.1 Local Data Retention</h3>
+            <p>Data stored locally on your device is retained according to the following schedule:</p>
+
+            <h4>9.1.1 Threat Detection Logs</h4>
+            <ul>
+                <li><strong>Retention period</strong> - 90 days for security analysis</li>
+                <li><strong>Automatic deletion</strong> - Logs automatically purged after retention period</li>
+                <li><strong>User control</strong> - Manual deletion available at any time</li>
+                <li><strong>Storage location</strong> - Local encrypted database only</li>
+            </ul>
+
+            <h4>9.1.2 Configuration Data</h4>
+            <ul>
+                <li><strong>Retention period</strong> - Until software uninstallation</li>
+                <li><strong>User preferences</strong> - Retained to maintain user experience</li>
+                <li><strong>Whitelist data</strong> - Retained to prevent false positives</li>
+                <li><strong>Export capability</strong> - Can be backed up and restored by user</li>
+            </ul>
+
+            <h3>9.2 Support Data Retention</h3>
+            <p>Information collected through support interactions:</p>
+
+            <h4>9.2.1 Support Communications</h4>
+            <ul>
+                <li><strong>Retention period</strong> - 3 years for service improvement</li>
+                <li><strong>Purpose limitation</strong> - Used only for support and product improvement</li>
+                <li><strong>Access restriction</strong> - Limited to authorized support personnel</li>
+                <li><strong>Anonymization</strong> - Personal identifiers removed after case closure</li>
+            </ul>
+
+            <h4>9.2.2 Technical Logs</h4>
+            <ul>
+                <li><strong>Retention period</strong> - 1 year for technical analysis</li>
+                <li><strong>Automatic deletion</strong> - Systematic deletion after retention period</li>
+                <li><strong>Aggregation</strong> - Individual data aggregated for trend analysis</li>
+                <li><strong>Security purposes</strong> - May be retained longer for security investigations</li>
+            </ul>
+
+            <h3>9.3 Data Deletion Procedures</h3>
+
+            <h4>9.3.1 User-Initiated Deletion</h4>
+            <ul>
+                <li><strong>Immediate deletion</strong> - Local data removed immediately upon request</li>
+                <li><strong>Secure deletion</strong> - Multiple-pass overwriting of sensitive data</li>
+                <li><strong>Verification</strong> - Confirmation provided after successful deletion</li>
+                <li><strong>Third-party notification</strong> - External services notified of deletion requests</li>
+            </ul>
+
+            <h4>9.3.2 Automatic Deletion</h4>
+            <ul>
+                <li><strong>Scheduled processes</strong> - Automated deletion based on retention policies</li>
+                <li><strong>Audit trails</strong> - Logging of deletion activities for compliance</li>
+                <li><strong>Recovery prevention</strong> - Secure deletion prevents data recovery</li>
+                <li><strong>Compliance verification</strong> - Regular audits of deletion procedures</li>
+            </ul>
+
+            <h2>10. Changes to This Privacy Policy</h2>
+
+            <h3>10.1 Policy Updates and Notifications</h3>
+            <p>We may update this Privacy Policy to reflect changes in our practices, legal requirements, or service offerings. When we make changes:</p>
+
+            <h4>10.1.1 Notification Methods</h4>
+            <ul>
+                <li><strong>Email notification</strong> - Sent to all registered users for material changes</li>
+                <li><strong>In-app notifications</strong> - Prominent notices within the software interface</li>
+                <li><strong>Website posting</strong> - Updated policy posted on our website</li>
+                <li><strong>Version tracking</strong> - Clear version numbers and change dates</li>
+            </ul>
+
+            <h4>10.1.2 Implementation Timeline</h4>
+            <ul>
+                <li><strong>Advance notice</strong> - 30 days notice for material changes</li>
+                <li><strong>Immediate effect</strong> - Technical or legal requirement changes</li>
+                <li><strong>Opt-out period</strong> - Time to object or discontinue service</li>
+                <li><strong>Grace period</strong> - Continued service under previous terms during transition</li>
+            </ul>
+
+            <h3>10.2 Change Categories</h3>
+
+            <h4>10.2.1 Material Changes</h4>
+            <p>Changes requiring 30-day advance notice include:</p>
+            <ul>
+                <li>New data collection categories</li>
+                <li>Changes to data sharing practices</li>
+                <li>Modifications to user rights or choices</li>
+                <li>Changes to data retention periods</li>
+                <li>New third-party integrations</li>
+            </ul>
+
+            <h4>10.2.2 Non-Material Changes</h4>
+            <p>Changes that take effect immediately include:</p>
+            <ul>
+                <li>Clarifications to existing language</li>
+                <li>Contact information updates</li>
+                <li>Legal compliance requirements</li>
+                <li>Technical security improvements</li>
+                <li>Formatting and organizational changes</li>
+            </ul>
+
+            <h2>11. Contact Information and Data Protection</h2>
+
+            <h3>11.1 Privacy Contacts</h3>
+            <p>For privacy-related questions, concerns, or requests:</p>
+
+            <h4>11.1.1 Data Protection Officer</h4>
+            <ul>
+                <li><strong>Email:</strong> privacy@apollosentinel.com</li>
+                <li><strong>Subject Line:</strong> "Privacy Inquiry - [Your Topic]"</li>
+                <li><strong>Response Time:</strong> 72 hours for initial response</li>
+                <li><strong>Resolution Time:</strong> 30 days for complete resolution</li>
+            </ul>
+
+            <h4>11.1.2 Regional Representatives</h4>
+            <ul>
+                <li><strong>EU Representative:</strong> gdpr@apollosentinel.com</li>
+                <li><strong>UK Representative:</strong> ukprivacy@apollosentinel.com</li>
+                <li><strong>California Representative:</strong> ccpa@apollosentinel.com</li>
+                <li><strong>General Inquiries:</strong> contact@apollosentinel.com</li>
+            </ul>
+
+            <h3>11.2 Regulatory Authorities</h3>
+            <p>You have the right to lodge complaints with relevant data protection authorities:</p>
+
+            <h4>11.2.1 European Union</h4>
+            <ul>
+                <li>Your local EU data protection authority</li>
+                <li>European Data Protection Board (EDPB)</li>
+                <li>Right to judicial remedy for data protection violations</li>
+            </ul>
+
+            <h4>11.2.2 United States</h4>
+            <ul>
+                <li>Federal Trade Commission (FTC)</li>
+                <li>State attorneys general offices</li>
+                <li>California Privacy Protection Agency (for CCPA matters)</li>
+            </ul>
+
+            <h4>11.2.3 Other Jurisdictions</h4>
+            <ul>
+                <li><strong>Canada:</strong> Office of the Privacy Commissioner of Canada</li>
+                <li><strong>Australia:</strong> Office of the Australian Information Commissioner</li>
+                <li><strong>UK:</strong> Information Commissioner's Office (ICO)</li>
             </ul>
 
             <div class="contact-info">
                 <h3>Contact Information</h3>
-                <p>For privacy-related questions or concerns:</p>
-                <p><strong>Email:</strong> privacy@apollosentinel.com</p>
+                <p><strong>Data Protection Officer:</strong> privacy@apollosentinel.com</p>
+                <p><strong>EU Representative:</strong> gdpr@apollosentinel.com</p>
+                <p><strong>UK Representative:</strong> ukprivacy@apollosentinel.com</p>
+                <p><strong>California Representative:</strong> ccpa@apollosentinel.com</p>
                 <p><strong>General Contact:</strong> contact@apollosentinel.com</p>
-                <p><strong>Support:</strong> support@apollosentinel.com</p>
+                <p><strong>Technical Support:</strong> support@apollosentinel.com</p>
+                <p><strong>Security Issues:</strong> security@apollosentinel.com</p>
+                <p><strong>Legal Inquiries:</strong> legal@apollosentinel.com</p>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Important Legal Notice:</strong> This Privacy Policy is governed by the laws of the jurisdiction where Apollo CyberSentinel is incorporated. By using our software, you agree to the jurisdiction and venue of courts in that location for any disputes arising from this policy.</p>
             </div>
 
             <div class="last-updated">
                 <p><strong>Last Updated:</strong> September 22, 2025</p>
                 <p><strong>Effective Date:</strong> September 22, 2025</p>
+                <p><strong>Version:</strong> 2.0 (Comprehensive)</p>
+                <p><strong>Previous Version:</strong> Available upon request</p>
+                <p><strong>Next Review Date:</strong> September 22, 2026</p>
             </div>
         </div>
     </div>
+
+    <script>
+        function createDigitalRain() {
+            const rainContainer = document.getElementById('digitalRain');
+            const chars = '01アポロサイバーセンチネルAPOLLO防衛システムPRIVACY';
+
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const drop = document.createElement('div');
+                    drop.className = 'rain-drop';
+                    drop.style.left = Math.random() * 100 + '%';
+                    drop.style.animationDelay = Math.random() * 8 + 's';
+                    drop.style.animationDuration = (Math.random() * 6 + 4) + 's';
+                    drop.style.fontSize = (Math.random() * 8 + 10) + 'px';
+
+                    let dropText = '';
+                    for (let j = 0; j < 12; j++) {
+                        dropText += chars[Math.floor(Math.random() * chars.length)] + '<br>';
+                    }
+                    drop.innerHTML = dropText;
+
+                    rainContainer.appendChild(drop);
+
+                    setTimeout(() => {
+                        if (drop.parentNode) drop.parentNode.removeChild(drop);
+                    }, 12000);
+                }, i * 150);
+            }
+        }
+
+        function activatePrivacyPortal() {
+            const portal = document.getElementById('installPortal');
+            portal.style.opacity = '0.3';
+
+            setTimeout(() => {
+                portal.style.transform = 'translate(-50%, -50%) scale(1.05)';
+                setTimeout(() => {
+                    portal.style.transform = 'translate(-50%, -50%) scale(1)';
+                }, 1500);
+            }, 500);
+        }
+
+        function epicPrivacyGuardianActivation() {
+            const guardian = document.querySelector('.apollo-guardian');
+            const shield = document.querySelector('.installation-shield');
+            const radar = document.querySelector('.threat-radar');
+
+            console.log('🏹 APOLLO GUARDIAN SYSTEM ONLINE - Privacy Protection Active');
+
+            guardian.style.transform = 'translateY(-50%) translateX(30px)';
+            guardian.style.opacity = '0.4';
+
+            shield.style.transform = 'scale(1.05) rotateZ(180deg)';
+            setTimeout(() => {
+                shield.style.transform = 'scale(1) rotateZ(0deg)';
+            }, 1500);
+
+            radar.style.right = '20px';
+            radar.style.opacity = '0.3';
+
+            setTimeout(() => {
+                guardian.style.transform = 'translateY(-50%) translateX(0px)';
+                radar.style.right = '-200px';
+                radar.style.opacity = '0.3';
+            }, 4000);
+        }
+
+        function activateRadarSweep() {
+            const radar = document.querySelector('.threat-radar');
+            radar.style.right = '20px';
+            radar.style.opacity = '0.4';
+            radar.style.transform = 'scale(1.1)';
+
+            setTimeout(() => {
+                radar.style.transform = 'scale(1)';
+                radar.style.right = '-200px';
+                radar.style.opacity = '0.3';
+            }, 2500);
+        }
+
+        // Initialize background systems when page loads
+        window.addEventListener('load', () => {
+            console.log('🚀 Initializing APOLLO Privacy Policy Background Systems...');
+
+            createDigitalRain();
+            setInterval(createDigitalRain, 25000);
+
+            setTimeout(() => {
+                activatePrivacyPortal();
+            }, 1000);
+
+            setTimeout(() => {
+                epicPrivacyGuardianActivation();
+            }, 2000);
+
+            // Interactive effects on scroll
+            let lastScrollTop = 0;
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const guardian = document.querySelector('.apollo-guardian');
+
+                if (scrollTop > lastScrollTop) {
+                    guardian.style.opacity = '0.3';
+                } else {
+                    guardian.style.opacity = '0.4';
+                }
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+            });
+
+            // Periodic radar sweeps
+            setInterval(activateRadarSweep, 15000);
+        });
+    </script>
 </body>
 </html>

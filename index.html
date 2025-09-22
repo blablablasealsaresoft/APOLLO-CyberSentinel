@@ -531,6 +531,42 @@
                 flex-direction: column;
                 align-items: center;
             }
+
+            /* About Section Mobile */
+            .about-story {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .about-text h3 {
+                font-size: 1.8rem;
+            }
+
+            .mission-icon {
+                width: 150px;
+                height: 150px;
+                font-size: 60px;
+            }
+
+            .about-values h3,
+            .about-technology h3,
+            .about-team h3,
+            .about-future h3 {
+                font-size: 1.8rem;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-features {
+                grid-template-columns: 1fr;
+            }
+
+            .future-stats {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Animations */
@@ -550,6 +586,268 @@
         .animate-delay-1 { animation-delay: 0.2s; }
         .animate-delay-2 { animation-delay: 0.4s; }
         .animate-delay-3 { animation-delay: 0.6s; }
+
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background: linear-gradient(180deg, rgba(26, 26, 26, 0.95) 0%, var(--brand-black) 50%, rgba(26, 26, 26, 0.95) 100%);
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .about-content {
+            margin-top: 60px;
+        }
+
+        .about-story {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .about-text h3 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--brand-gold);
+            margin-bottom: 30px;
+            text-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .about-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mission-icon {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, var(--brand-gold), #b8860b);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            color: var(--brand-black);
+            box-shadow: 0 0 40px var(--accent-glow);
+            animation: pulse 3s infinite;
+        }
+
+        .about-values {
+            margin-bottom: 80px;
+        }
+
+        .about-values h3 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--brand-gold);
+            margin-bottom: 40px;
+            text-align: center;
+            text-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .value-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .value-item:hover {
+            border-color: var(--brand-gold);
+            background: rgba(255, 215, 0, 0.08);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(255, 215, 0, 0.15);
+        }
+
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--brand-gold), #ffed4a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 36px;
+            color: var(--brand-black);
+        }
+
+        .value-item h4 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--brand-white);
+            margin-bottom: 15px;
+        }
+
+        .value-item p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .about-technology {
+            margin-bottom: 80px;
+        }
+
+        .about-technology h3 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--brand-gold);
+            margin-bottom: 40px;
+            text-align: center;
+            text-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .tech-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .tech-column {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 20px;
+            padding: 40px 30px;
+            transition: all 0.3s ease;
+        }
+
+        .tech-column:hover {
+            border-color: var(--brand-gold);
+            background: rgba(255, 215, 0, 0.08);
+            transform: translateY(-3px);
+        }
+
+        .tech-column h4 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--brand-gold);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .tech-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tech-column li {
+            color: var(--text-secondary);
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .tech-column li::before {
+            content: '▸';
+            color: var(--brand-gold);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .about-team {
+            margin-bottom: 80px;
+            text-align: center;
+        }
+
+        .about-team h3 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--brand-gold);
+            margin-bottom: 30px;
+            text-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .about-team p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .about-future {
+            text-align: center;
+        }
+
+        .about-future h3 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--brand-gold);
+            margin-bottom: 30px;
+            text-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .about-future p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 40px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .future-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .future-stat {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid var(--brand-gold);
+            border-radius: 20px;
+            padding: 30px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .future-stat:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(255, 215, 0, 0.2);
+        }
+
+        .future-stat .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--brand-gold);
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .future-stat .stat-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--brand-white);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
         /* Contact Section */
         .contact-grid {
@@ -1200,6 +1498,133 @@
                     <p class="feature-description">
                         Protect 100+ mobile wallets including MetaMask, Trust Wallet, and Coinbase Wallet with real-time transaction monitoring.
                     </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">About APOLLO CyberSentinel</h2>
+                <p class="section-subtitle">Democratizing military-grade cybersecurity for the digital age</p>
+            </div>
+
+            <div class="about-content">
+                <div class="about-story fade-in animate-delay-1">
+                    <div class="about-text">
+                        <h3>Our Mission</h3>
+                        <p>
+                            APOLLO CyberSentinel represents a paradigm shift in cybersecurity, bringing enterprise-grade protection previously reserved for government agencies and Fortune 500 companies to individual users worldwide. In an era where nation-state actors increasingly target civilians, cryptocurrency holders, and small businesses, we bridge the critical security gap that traditional antivirus solutions cannot address.
+                        </p>
+                        <p>
+                            Born from the recognition that Pegasus spyware, APT groups, and sophisticated crypto theft operations now threaten everyday users, our platform leverages cutting-edge AI analysis, real-time threat intelligence, and behavioral detection to provide unprecedented protection without sacrificing usability.
+                        </p>
+                    </div>
+                    <div class="about-image">
+                        <div class="mission-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-values fade-in animate-delay-2">
+                    <h3>Core Principles</h3>
+                    <div class="values-grid">
+                        <div class="value-item">
+                            <div class="value-icon">
+                                <i class="fas fa-user-shield"></i>
+                            </div>
+                            <h4>Privacy by Design</h4>
+                            <p>Zero telemetry, local processing, and complete user control over data. Your security doesn't require sacrificing your privacy.</p>
+                        </div>
+                        <div class="value-item">
+                            <div class="value-icon">
+                                <i class="fas fa-balance-scale"></i>
+                            </div>
+                            <h4>Accessibility</h4>
+                            <p>Military-grade protection should not be limited to governments and corporations. Everyone deserves elite cybersecurity.</p>
+                        </div>
+                        <div class="value-item">
+                            <div class="value-icon">
+                                <i class="fas fa-microchip"></i>
+                            </div>
+                            <h4>Innovation</h4>
+                            <p>Pushing the boundaries of threat detection through AI integration, behavioral analysis, and proactive defense mechanisms.</p>
+                        </div>
+                        <div class="value-item">
+                            <div class="value-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <h4>Global Impact</h4>
+                            <p>Protecting digital freedom worldwide by empowering individuals against sophisticated state and criminal actors.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-technology fade-in animate-delay-3">
+                    <h3>Revolutionary Technology Stack</h3>
+                    <div class="tech-features">
+                        <div class="tech-column">
+                            <h4>AI-Powered Analysis</h4>
+                            <ul>
+                                <li>Claude AI Oracle for context-aware threat assessment</li>
+                                <li>Machine learning behavioral detection</li>
+                                <li>Confidence scoring for zero false positives</li>
+                                <li>Natural language threat explanation</li>
+                            </ul>
+                        </div>
+                        <div class="tech-column">
+                            <h4>Advanced Threat Intelligence</h4>
+                            <ul>
+                                <li>Real-time OSINT from premium sources</li>
+                                <li>MITRE ATT&CK technique mapping</li>
+                                <li>Nation-state actor attribution</li>
+                                <li>IoC correlation and analysis</li>
+                            </ul>
+                        </div>
+                        <div class="tech-column">
+                            <h4>Comprehensive Protection</h4>
+                            <ul>
+                                <li>Multi-chain cryptocurrency wallet monitoring</li>
+                                <li>Smart contract vulnerability assessment</li>
+                                <li>Process whitelisting and behavioral analysis</li>
+                                <li>Mobile wallet integration</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-team fade-in animate-delay-4">
+                    <h3>Leadership Excellence</h3>
+                    <p>
+                        Our development team combines decades of experience in cybersecurity research, nation-state threat analysis, and enterprise security architecture. With backgrounds spanning government security agencies, Fortune 500 security operations, and cryptocurrency protocol development, we understand the evolving threat landscape from multiple perspectives.
+                    </p>
+                    <p>
+                        We collaborate with leading security researchers, maintain relationships with threat intelligence providers, and actively contribute to the global cybersecurity community through responsible disclosure and open-source security tools.
+                    </p>
+                </div>
+
+                <div class="about-future fade-in animate-delay-5">
+                    <h3>The Road Ahead</h3>
+                    <p>
+                        As cyber threats continue to evolve, so does APOLLO CyberSentinel. Our roadmap includes advanced IoT protection, enhanced mobile security capabilities, and integration with emerging blockchain technologies. We're committed to staying ahead of threat actors through continuous innovation and community-driven security research.
+                    </p>
+                    <div class="future-stats">
+                        <div class="future-stat">
+                            <div class="stat-number">2025</div>
+                            <div class="stat-label">Multi-Platform Expansion</div>
+                        </div>
+                        <div class="future-stat">
+                            <div class="stat-number">2026</div>
+                            <div class="stat-label">Enterprise Suite Launch</div>
+                        </div>
+                        <div class="future-stat">
+                            <div class="stat-number">∞</div>
+                            <div class="stat-label">Continuous Innovation</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

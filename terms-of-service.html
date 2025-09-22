@@ -202,6 +202,386 @@
                 padding: 40px 30px;
             }
         }
+
+        /* ENHANCED BACKGROUND EFFECTS */
+        /* Installation Portal */
+        .installation-portal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            z-index: 5;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .portal-ring {
+            position: absolute;
+            border: 3px solid var(--brand-gold);
+            border-radius: 50%;
+            animation: portalRotate 8s linear infinite;
+        }
+
+        .portal-ring:nth-child(1) {
+            width: 100%;
+            height: 100%;
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+
+        .portal-ring:nth-child(2) {
+            width: 80%;
+            height: 80%;
+            top: 10%;
+            left: 10%;
+            animation-direction: reverse;
+            animation-duration: 6s;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .portal-ring:nth-child(3) {
+            width: 60%;
+            height: 60%;
+            top: 20%;
+            left: 20%;
+            animation-duration: 4s;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .portal-center {
+            position: absolute;
+            top: 30%;
+            left: 30%;
+            width: 40%;
+            height: 40%;
+            background: radial-gradient(circle, var(--brand-gold), transparent);
+            border-radius: 50%;
+            animation: portalPulse 2s ease-in-out infinite;
+        }
+
+        /* Apollo Guardian System */
+        .apollo-guardian {
+            position: fixed;
+            top: 50%;
+            left: -300px;
+            transform: translateY(-50%);
+            width: 400px;
+            height: 450px;
+            z-index: 12;
+            pointer-events: none;
+            opacity: 0.4;
+            transition: all 1s ease;
+        }
+
+        .guardian-bow {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            animation: epicGuardianWatch 6s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px var(--accent-glow));
+        }
+
+        .guardian-energy-aura {
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            top: -10%;
+            left: -10%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.15), transparent 70%);
+            border-radius: 50%;
+            animation: guardianAura 4s ease-in-out infinite;
+        }
+
+        .guardian-arc {
+            position: absolute;
+            left: 35%;
+            top: 5%;
+            height: 90%;
+            width: 60px;
+            border: 8px solid var(--brand-gold);
+            border-right: none;
+            border-radius: 100% 0 0 100%;
+            box-shadow:
+                0 0 40px var(--accent-glow),
+                inset 0 0 30px rgba(255, 215, 0, 0.4);
+            transform: rotateY(25deg);
+            background: linear-gradient(180deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+        }
+
+        .guardian-string {
+            position: absolute;
+            left: 48%;
+            top: 8%;
+            height: 84%;
+            width: 8px;
+            background: linear-gradient(180deg, #fff, var(--brand-gold), #b8860b, var(--brand-gold), #fff);
+            border-radius: 4px;
+            transform: translateX(-50%);
+            box-shadow:
+                0 0 20px var(--accent-glow),
+                0 0 40px rgba(255, 215, 0, 0.6);
+            animation: epicGuardianStringTension 3s ease-in-out infinite;
+        }
+
+        .ready-arrow {
+            position: absolute;
+            width: 160px;
+            height: 10px;
+            background: linear-gradient(90deg, #654321, var(--brand-gold), #ffed4a, #ff4444, #fff);
+            left: 28%;
+            top: 50%;
+            transform: translateY(-50%) rotateZ(-2deg);
+            border-radius: 5px;
+            box-shadow:
+                0 0 20px rgba(255, 215, 0, 1),
+                0 0 40px rgba(255, 68, 68, 0.6);
+            animation: epicArrowAim 5s ease-in-out infinite;
+            filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.5));
+        }
+
+        .ready-arrow::before {
+            content: '';
+            position: absolute;
+            right: -18px;
+            top: -15px;
+            width: 0;
+            height: 0;
+            border-left: 30px solid #ff4444;
+            border-top: 20px solid transparent;
+            border-bottom: 20px solid transparent;
+            box-shadow: 0 0 15px rgba(255, 68, 68, 1);
+            filter: drop-shadow(0 0 8px #ff4444);
+        }
+
+        /* Installation Shield */
+        .installation-shield {
+            position: fixed;
+            bottom: 60px;
+            right: 60px;
+            width: 120px;
+            height: 120px;
+            z-index: 18;
+            pointer-events: none;
+            transform-style: preserve-3d;
+            opacity: 0.6;
+        }
+
+        .shield-outer {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, var(--brand-gold), #b8860b, #8b7d00);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow:
+                0 0 40px var(--accent-glow),
+                0 0 80px rgba(255, 215, 0, 0.5);
+            animation: epicShieldRotate 8s linear infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shield-inner {
+            width: 75%;
+            height: 75%;
+            background: radial-gradient(circle, var(--brand-black), rgba(26, 26, 26, 0.9));
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--brand-gold);
+            font-weight: bold;
+            font-size: 9px;
+            text-align: center;
+            text-shadow: 0 0 10px var(--accent-glow);
+            z-index: 1;
+        }
+
+        /* Threat Radar */
+        .threat-radar {
+            position: fixed;
+            top: 15%;
+            right: -200px;
+            width: 200px;
+            height: 200px;
+            z-index: 10;
+            pointer-events: none;
+            opacity: 0.3;
+            transition: all 1s ease;
+        }
+
+        .radar-outer-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 4px solid var(--brand-gold);
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: epicRadarPulse 4s ease-out infinite;
+        }
+
+        .radar-sweep {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 3px;
+            height: 45%;
+            background: linear-gradient(to top, transparent, var(--brand-gold), #fff);
+            transform-origin: bottom center;
+            transform: translate(-50%, 0) rotate(0deg);
+            animation: epicRadarSweep 3s linear infinite;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        /* Digital Rain */
+        .digital-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+            opacity: 0.08;
+        }
+
+        .rain-drop {
+            position: absolute;
+            color: var(--brand-gold);
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            animation: epicDigitalFall 8s linear infinite;
+            text-shadow: 0 0 8px var(--accent-glow);
+        }
+
+        /* KEYFRAMES */
+        @keyframes portalRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes portalPulse {
+            0%, 100% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes epicGuardianWatch {
+            0%, 100% {
+                transform: translateY(-50%) rotateY(0deg) rotateX(0deg) rotateZ(0deg);
+                left: -300px;
+            }
+            25% {
+                transform: translateY(-50%) rotateY(20deg) rotateX(8deg) rotateZ(3deg);
+                left: -250px;
+            }
+            50% {
+                transform: translateY(-50%) rotateY(0deg) rotateX(15deg) rotateZ(0deg);
+                left: -200px;
+            }
+            75% {
+                transform: translateY(-50%) rotateY(-20deg) rotateX(8deg) rotateZ(-3deg);
+                left: -250px;
+            }
+        }
+
+        @keyframes guardianAura {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.15;
+            }
+            50% {
+                transform: scale(1.4);
+                opacity: 0.3;
+            }
+        }
+
+        @keyframes epicGuardianStringTension {
+            0%, 60% {
+                transform: translateX(-50%) scaleX(1) scaleY(1);
+            }
+            80% {
+                transform: translateX(-50%) scaleX(1.3) scaleY(0.9);
+            }
+            100% {
+                transform: translateX(-50%) scaleX(1) scaleY(1);
+            }
+        }
+
+        @keyframes epicArrowAim {
+            0%, 70% {
+                transform: translateY(-50%) rotateZ(-2deg) translateX(0px);
+                opacity: 1;
+            }
+            85% {
+                transform: translateY(-50%) rotateZ(-4deg) translateX(-10px);
+                opacity: 1;
+            }
+            95% {
+                transform: translateY(-50%) rotateZ(-1deg) translateX(-5px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-50%) rotateZ(-2deg) translateX(0px);
+                opacity: 1;
+            }
+        }
+
+        @keyframes epicShieldRotate {
+            0% {
+                transform: rotate(0deg) scale(1);
+            }
+            50% {
+                transform: rotate(180deg) scale(1.05);
+            }
+            100% {
+                transform: rotate(360deg) scale(1);
+            }
+        }
+
+        @keyframes epicRadarPulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.4;
+            }
+            50% {
+                transform: scale(1.3);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(0.8);
+                opacity: 0.4;
+            }
+        }
+
+        @keyframes epicRadarSweep {
+            0% {
+                transform: translate(-50%, 0) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, 0) rotate(360deg);
+            }
+        }
+
+        @keyframes epicDigitalFall {
+            0% {
+                top: -10vh;
+                opacity: 1;
+            }
+            100% {
+                top: 110vh;
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -248,6 +628,43 @@
         })();
     </script>
 
+    <!-- Enhanced Background Elements -->
+    <!-- Installation Portal -->
+    <div class="installation-portal" id="installPortal">
+        <div class="portal-ring"></div>
+        <div class="portal-ring"></div>
+        <div class="portal-ring"></div>
+        <div class="portal-center"></div>
+    </div>
+
+    <!-- Digital Rain Background -->
+    <div class="digital-rain" id="digitalRain"></div>
+
+    <!-- Apollo Guardian -->
+    <div class="apollo-guardian">
+        <div class="guardian-bow">
+            <div class="guardian-energy-aura"></div>
+            <div class="guardian-arc"></div>
+            <div class="guardian-string"></div>
+            <div class="ready-arrow"></div>
+        </div>
+    </div>
+
+    <!-- Installation Shield -->
+    <div class="installation-shield">
+        <div class="shield-outer">
+            <div class="shield-inner">
+                APOLLO<br>TERMS<br>SECURE
+            </div>
+        </div>
+    </div>
+
+    <!-- Threat Radar -->
+    <div class="threat-radar">
+        <div class="radar-outer-ring"></div>
+        <div class="radar-sweep"></div>
+    </div>
+
     <!-- Header -->
     <header class="header">
         <div class="nav-container">
@@ -267,182 +684,893 @@
         <p class="page-subtitle">Legal terms and conditions for using APOLLO CyberSentinel</p>
 
         <div class="content">
-            <h2>Agreement to Terms</h2>
-            <p>By downloading, installing, or using APOLLO CyberSentinel ("Software"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the Software.</p>
-
-            <h2>Beta Software Notice</h2>
             <div class="warning-box">
-                <p><strong>Important:</strong> APOLLO CyberSentinel is currently in beta testing. The software is provided for evaluation and testing purposes. While we strive for reliability, beta software may contain bugs or unexpected behavior.</p>
+                <p><strong>Important Legal Notice:</strong> These Terms of Service constitute a legally binding agreement between you and Apollo Security Research Institute. By downloading, installing, accessing, or using APOLLO CyberSentinel software, you acknowledge that you have read, understood, and agree to be bound by all terms and conditions set forth herein.</p>
             </div>
 
-            <h2>License Grant</h2>
+            <h2>1. Definitions and Interpretation</h2>
+            <p>For the purposes of this Agreement, the following terms shall have the meanings set forth below:</p>
 
-            <h3>Commercial License</h3>
-            <p>APOLLO CyberSentinel is <span class="highlight">proprietary commercial software</span>. We grant you a limited, non-exclusive, non-transferable license to:</p>
+            <h3>1.1 Key Definitions</h3>
             <ul>
-                <li>Install and use the Software on your personal devices</li>
-                <li>Receive software updates and security patches</li>
-                <li>Access customer support services</li>
+                <li><strong>"Software" or "APOLLO"</strong> - APOLLO CyberSentinel software application, including all updates, patches, and related components</li>
+                <li><strong>"Company," "we," "us," "our"</strong> - Apollo Security Research Institute and its affiliates</li>
+                <li><strong>"User," "you," "your"</strong> - The individual or entity using the Software</li>
+                <li><strong>"Beta Software"</strong> - Pre-release version of the Software provided for testing and evaluation</li>
+                <li><strong>"Threat Intelligence"</strong> - Data, indicators, and information about cybersecurity threats</li>
+                <li><strong>"APT"</strong> - Advanced Persistent Threat, sophisticated cyber attack campaigns</li>
+                <li><strong>"Nation-State Actors"</strong> - Cyber threat groups sponsored or directed by government entities</li>
+                <li><strong>"Device"</strong> - Computer, mobile device, or other electronic equipment on which the Software is installed</li>
+                <li><strong>"Personal Data"</strong> - Information that identifies or can be used to identify an individual</li>
+                <li><strong>"Documentation"</strong> - User guides, technical specifications, and other materials provided with the Software</li>
             </ul>
 
-            <h3>Restrictions</h3>
-            <p>You may NOT:</p>
+            <h3>1.2 Interpretation</h3>
             <ul>
-                <li>Reverse engineer, decompile, or disassemble the Software</li>
-                <li>Distribute, sell, or sublicense the Software</li>
-                <li>Use the Software for illegal or malicious purposes</li>
-                <li>Circumvent or disable security features</li>
-                <li>Extract or reuse threat intelligence data</li>
+                <li>References to "including" or "includes" shall be deemed to be followed by "without limitation"</li>
+                <li>Headings are for convenience only and do not affect interpretation</li>
+                <li>Words in the singular include the plural and vice versa</li>
+                <li>References to any law include all amendments, modifications, and replacements</li>
             </ul>
 
-            <h2>Acceptable Use</h2>
+            <h2>2. Agreement to Terms and Legal Capacity</h2>
 
-            <h3>Intended Use</h3>
-            <p>APOLLO CyberSentinel is designed for:</p>
+            <h3>2.1 Binding Agreement</h3>
+            <p>By downloading, installing, accessing, or using APOLLO CyberSentinel, you acknowledge that you have read, understood, and agree to be legally bound by these Terms of Service ("Terms" or "Agreement"). This Agreement becomes effective immediately upon your first use of the Software and remains in effect until terminated in accordance with the provisions herein.</p>
+
+            <h3>2.2 Legal Capacity and Authority</h3>
+            <p>You represent and warrant that:</p>
             <ul>
-                <li><strong>Defensive cybersecurity</strong> - Protecting your systems and data</li>
-                <li><strong>Threat detection</strong> - Identifying nation-state and advanced persistent threats</li>
+                <li>You are at least 18 years of age or the age of majority in your jurisdiction</li>
+                <li>You have the legal capacity to enter into binding agreements</li>
+                <li>If acting on behalf of an organization, you have the authority to bind that organization</li>
+                <li>Your use of the Software complies with all applicable laws and regulations</li>
+                <li>You are not located in a country subject to U.S. government embargo or designated as a "terrorist supporting" country</li>
+                <li>You are not listed on any U.S. government list of prohibited or restricted parties</li>
+            </ul>
+
+            <h3>2.3 Rejection of Terms</h3>
+            <p>If you do not agree to these Terms, you must:</p>
+            <ul>
+                <li>Immediately cease all use of the Software</li>
+                <li>Uninstall the Software from all devices</li>
+                <li>Delete all copies of the Software and Documentation</li>
+                <li>Destroy any materials containing proprietary information</li>
+            </ul>
+
+            <h2>3. Beta Software Notice and Limitations</h2>
+
+            <div class="warning-box">
+                <p><strong>Critical Beta Notice:</strong> APOLLO CyberSentinel is currently in beta testing phase. This pre-release software is provided for evaluation, testing, and feedback purposes. Beta software may contain bugs, errors, security vulnerabilities, or unexpected behaviors that could result in system instability, data loss, or security compromises.</p>
+            </div>
+
+            <h3>3.1 Beta Software Characteristics</h3>
+            <p>Beta software may exhibit the following characteristics:</p>
+            <ul>
+                <li><strong>Instability</strong> - Software may crash, freeze, or behave unpredictably</li>
+                <li><strong>Incomplete features</strong> - Some functionality may be partially implemented or non-functional</li>
+                <li><strong>Security vulnerabilities</strong> - Beta software may contain undiscovered security flaws</li>
+                <li><strong>Data compatibility issues</strong> - Configuration and data formats may change between versions</li>
+                <li><strong>Performance issues</strong> - Resource usage and response times may be suboptimal</li>
+                <li><strong>Documentation gaps</strong> - Documentation may be incomplete or outdated</li>
+                <li><strong>Limited support</strong> - Technical support may be limited during beta period</li>
+            </ul>
+
+            <h3>3.2 Beta User Responsibilities</h3>
+            <p>As a beta user, you acknowledge and agree to:</p>
+            <ul>
+                <li><strong>Assume all risks</strong> associated with using pre-release software</li>
+                <li><strong>Maintain backups</strong> of all important data before and during beta testing</li>
+                <li><strong>Use in non-production environments</strong> where possible</li>
+                <li><strong>Provide feedback</strong> regarding bugs, issues, and usability concerns</li>
+                <li><strong>Maintain confidentiality</strong> of proprietary features and information</li>
+                <li><strong>Not distribute</strong> beta software to third parties</li>
+                <li><strong>Understand</strong> that beta access may be revoked at any time</li>
+            </ul>
+
+            <h3>3.3 Beta Transition to Commercial</h3>
+            <p>Upon transition from beta to commercial release:</p>
+            <ul>
+                <li>Beta software licenses will automatically terminate</li>
+                <li>Users must agree to new commercial terms to continue use</li>
+                <li>Data migration tools may be provided but are not guaranteed</li>
+                <li>Beta users may receive preferential pricing or early access benefits</li>
+                <li>Configuration and customizations may need to be reconfigured</li>
+            </ul>
+
+            <h2>4. Software License Grant and Scope</h2>
+
+            <h3>4.1 Commercial Proprietary License</h3>
+            <p>APOLLO CyberSentinel is <span class="highlight">proprietary commercial software</span> protected by copyright, patent, trade secret, and other intellectual property laws. Subject to your compliance with these Terms, we grant you a limited, non-exclusive, non-transferable, revocable license to:</p>
+
+            <h4>4.1.1 Permitted Uses</h4>
+            <ul>
+                <li><strong>Install and Use</strong> - Install and use the Software on devices you own or control</li>
+                <li><strong>Personal/Commercial Protection</strong> - Use the Software to protect against cybersecurity threats</li>
+                <li><strong>Receive Updates</strong> - Download and install software updates, patches, and security fixes</li>
+                <li><strong>Access Support</strong> - Receive technical support services during the beta period</li>
+                <li><strong>Create Backups</strong> - Make reasonable backup copies for archival purposes</li>
+                <li><strong>Access Documentation</strong> - Use provided documentation for legitimate purposes</li>
+            </ul>
+
+            <h4>4.1.2 Device and User Limitations</h4>
+            <ul>
+                <li><strong>Personal Use</strong> - Install on devices you personally own or control</li>
+                <li><strong>Organization Use</strong> - Install on organization-owned devices if you have authority</li>
+                <li><strong>Reasonable Number</strong> - Install on a reasonable number of devices for your needs</li>
+                <li><strong>Single User Instance</strong> - Each installation should be used by one primary user</li>
+                <li><strong>Geographic Restrictions</strong> - Use only in jurisdictions where legally permitted</li>
+            </ul>
+
+            <h3>4.2 License Restrictions and Prohibitions</h3>
+            <p>You expressly agree that you will NOT, and will not permit others to:</p>
+
+            <h4>4.2.1 Reverse Engineering and Modification</h4>
+            <ul>
+                <li><strong>Reverse engineer</strong> - Attempt to derive source code, algorithms, or trade secrets</li>
+                <li><strong>Decompile or disassemble</strong> - Convert executable code back to human-readable form</li>
+                <li><strong>Modify or alter</strong> - Change, adapt, or create derivative works of the Software</li>
+                <li><strong>Remove protections</strong> - Circumvent or disable security, licensing, or copy protection</li>
+                <li><strong>Extract components</strong> - Separate or extract individual components for independent use</li>
+            </ul>
+
+            <h4>4.2.2 Distribution and Commercial Exploitation</h4>
+            <ul>
+                <li><strong>Distribute or redistribute</strong> - Share, upload, or make available to third parties</li>
+                <li><strong>Sell, lease, or license</strong> - Commercialize or monetize the Software</li>
+                <li><strong>Sublicense</strong> - Grant rights to third parties to use the Software</li>
+                <li><strong>Create competing products</strong> - Use Software insights to develop competitive solutions</li>
+                <li><strong>Benchmark without permission</strong> - Conduct performance comparisons for commercial purposes</li>
+            </ul>
+
+            <h4>4.2.3 Misuse and Malicious Activities</h4>
+            <ul>
+                <li><strong>Illegal activities</strong> - Use for any unlawful purpose or in violation of applicable laws</li>
+                <li><strong>Malicious purposes</strong> - Use to harm, attack, or compromise other systems</li>
+                <li><strong>Circumvent security</strong> - Disable or interfere with security features</li>
+                <li><strong>Extract threat data</strong> - Harvest or reuse threat intelligence for other purposes</li>
+                <li><strong>Interfere with operations</strong> - Disrupt our services or infrastructure</li>
+            </ul>
+
+            <h2>5. Acceptable Use Policy</h2>
+
+            <h3>5.1 Intended and Approved Uses</h3>
+            <p>APOLLO CyberSentinel is designed and licensed exclusively for legitimate cybersecurity purposes:</p>
+
+            <h4>5.1.1 Defensive Cybersecurity</h4>
+            <ul>
+                <li><strong>Endpoint protection</strong> - Protecting computers, mobile devices, and IoT devices</li>
+                <li><strong>Network security</strong> - Monitoring and protecting network communications</li>
+                <li><strong>Data protection</strong> - Safeguarding sensitive information and intellectual property</li>
+                <li><strong>System integrity</strong> - Maintaining the security and stability of computer systems</li>
+                <li><strong>Incident response</strong> - Detecting, analyzing, and responding to security incidents</li>
+            </ul>
+
+            <h4>5.1.2 Advanced Threat Detection</h4>
+            <ul>
+                <li><strong>Nation-state threats</strong> - Detecting government-sponsored cyber campaigns</li>
+                <li><strong>APT identification</strong> - Identifying advanced persistent threat activities</li>
+                <li><strong>Zero-day protection</strong> - Detecting previously unknown attack methods</li>
+                <li><strong>Cryptocurrency protection</strong> - Safeguarding digital assets and transactions</li>
                 <li><strong>Privacy protection</strong> - Defending against surveillance and spyware</li>
-                <li><strong>Personal security</strong> - Safeguarding your digital assets</li>
             </ul>
 
-            <h3>Prohibited Uses</h3>
-            <p>You agree NOT to use the Software for:</p>
+            <h4>5.1.3 Personal and Organizational Security</h4>
             <ul>
-                <li>Attacking, penetrating, or compromising other systems</li>
-                <li>Developing or distributing malware</li>
-                <li>Evading law enforcement or legal obligations</li>
-                <li>Violating others' privacy or rights</li>
-                <li>Any illegal activities</li>
+                <li><strong>Individual protection</strong> - Safeguarding personal devices and data</li>
+                <li><strong>Family security</strong> - Protecting household members and shared resources</li>
+                <li><strong>Small business protection</strong> - Securing small and medium enterprise environments</li>
+                <li><strong>Remote work security</strong> - Protecting distributed and mobile workers</li>
+                <li><strong>Educational use</strong> - Cybersecurity research and education in academic settings</li>
             </ul>
 
-            <h2>Subscription and Payment</h2>
+            <h3>5.2 Prohibited Uses and Activities</h3>
+            <p>You expressly agree NOT to use the Software for any of the following purposes:</p>
 
-            <h3>Beta Access</h3>
-            <p>During the beta period:</p>
+            <h4>5.2.1 Offensive Cyber Operations</h4>
             <ul>
-                <li>Access is provided free of charge</li>
-                <li>No payment information is required</li>
-                <li>Features may be limited or experimental</li>
-                <li>Service may be interrupted for updates</li>
+                <li><strong>Attacking systems</strong> - Penetrating, compromising, or gaining unauthorized access</li>
+                <li><strong>Developing malware</strong> - Creating, testing, or distributing malicious software</li>
+                <li><strong>Cyber espionage</strong> - Conducting surveillance or intelligence gathering against others</li>
+                <li><strong>Denial of service</strong> - Disrupting or overloading network services or resources</li>
+                <li><strong>Data theft</strong> - Stealing, copying, or exfiltrating data without authorization</li>
             </ul>
 
-            <h3>Future Commercial Terms</h3>
-            <p>Upon general availability:</p>
+            <h4>5.2.2 Illegal and Unethical Activities</h4>
             <ul>
-                <li>Subscription pricing will be announced</li>
-                <li>Beta users may receive preferential pricing</li>
-                <li>Payment terms will be clearly disclosed</li>
-                <li>Refund policies will apply</li>
+                <li><strong>Criminal activities</strong> - Any use in furtherance of criminal conduct</li>
+                <li><strong>Evading law enforcement</strong> - Obstructing justice or hiding criminal activity</li>
+                <li><strong>Violating privacy rights</strong> - Illegally accessing or monitoring personal information</li>
+                <li><strong>Stalking or harassment</strong> - Using technology to intimidate or harm others</li>
+                <li><strong>Financial fraud</strong> - Facilitating theft, money laundering, or financial crimes</li>
             </ul>
 
-            <h2>Privacy and Data</h2>
-
-            <h3>Zero Telemetry Design</h3>
-            <p>APOLLO CyberSentinel is built with <span class="highlight">privacy by design</span>:</p>
+            <h4>5.2.3 Intellectual Property Violations</h4>
             <ul>
-                <li>No telemetry or usage tracking</li>
-                <li>Local-first processing</li>
-                <li>No personal data collection</li>
-                <li>End-to-end encryption</li>
+                <li><strong>Copyright infringement</strong> - Facilitating unauthorized copying or distribution</li>
+                <li><strong>Trade secret theft</strong> - Stealing proprietary information or business secrets</li>
+                <li><strong>Patent violations</strong> - Using protected technologies without permission</li>
+                <li><strong>Trademark abuse</strong> - Misusing brand names or protected marks</li>
             </ul>
 
-            <h3>Threat Intelligence</h3>
-            <p>The Software may:</p>
+            <h4>5.2.4 Regulatory and Compliance Violations</h4>
             <ul>
-                <li>Query threat intelligence services with anonymized data</li>
-                <li>Download security updates and signatures</li>
-                <li>Validate file hashes against known threat databases</li>
+                <li><strong>Export control violations</strong> - Transferring technology to restricted countries or entities</li>
+                <li><strong>Sanctions evasion</strong> - Circumventing international sanctions or embargoes</li>
+                <li><strong>Privacy law violations</strong> - Violating GDPR, CCPA, or other privacy regulations</li>
+                <li><strong>Industry regulations</strong> - Violating sector-specific regulatory requirements</li>
             </ul>
 
-            <h2>Disclaimers and Limitations</h2>
+            <h2>6. Subscription, Payment, and Commercial Terms</h2>
 
-            <h3>Software Warranty</h3>
+            <h3>6.1 Beta Access Terms</h3>
+            <p>During the current beta testing period:</p>
+
+            <h4>6.1.1 Free Beta Access</h4>
+            <ul>
+                <li><strong>No cost</strong> - Beta access is provided free of charge</li>
+                <li><strong>No payment required</strong> - No credit card or payment information required</li>
+                <li><strong>No billing</strong> - No charges will be incurred during beta period</li>
+                <li><strong>Limited duration</strong> - Beta access may be terminated at any time</li>
+                <li><strong>No service level guarantees</strong> - No uptime or performance commitments</li>
+            </ul>
+
+            <h4>6.1.2 Beta Program Limitations</h4>
+            <ul>
+                <li><strong>Experimental features</strong> - Some functionality may be incomplete or unstable</li>
+                <li><strong>Service interruptions</strong> - Updates and maintenance may cause downtime</li>
+                <li><strong>Data loss risks</strong> - Beta software may not preserve all user data</li>
+                <li><strong>Limited support</strong> - Technical support may be restricted or delayed</li>
+                <li><strong>Feature changes</strong> - Features may be modified or removed without notice</li>
+            </ul>
+
+            <h3>6.2 Future Commercial Terms</h3>
+            <p>Upon transition to commercial availability:</p>
+
+            <h4>6.2.1 Subscription Model</h4>
+            <ul>
+                <li><strong>Subscription pricing</strong> - Commercial use will require paid subscription</li>
+                <li><strong>Multiple tiers</strong> - Different feature sets and pricing levels may be offered</li>
+                <li><strong>Annual/monthly options</strong> - Various billing cycles may be available</li>
+                <li><strong>Enterprise licensing</strong> - Volume discounts for organizational use</li>
+                <li><strong>Academic pricing</strong> - Special rates for educational institutions</li>
+            </ul>
+
+            <h4>6.2.2 Beta User Benefits</h4>
+            <ul>
+                <li><strong>Preferential pricing</strong> - Discounted rates for beta participants</li>
+                <li><strong>Early access</strong> - Priority access to new features and updates</li>
+                <li><strong>Grandfather pricing</strong> - Locked-in rates for initial subscription period</li>
+                <li><strong>Migration assistance</strong> - Support for transitioning from beta to commercial</li>
+                <li><strong>Extended trial</strong> - Additional time to evaluate commercial features</li>
+            </ul>
+
+            <h4>6.2.3 Payment and Billing Terms</h4>
+            <ul>
+                <li><strong>Advance payment</strong> - Subscriptions billed in advance</li>
+                <li><strong>Automatic renewal</strong> - Subscriptions renew automatically unless cancelled</li>
+                <li><strong>Payment methods</strong> - Credit cards, bank transfers, and other approved methods</li>
+                <li><strong>Currency</strong> - Pricing in USD with local currency options where available</li>
+                <li><strong>Tax responsibility</strong> - Users responsible for applicable taxes</li>
+            </ul>
+
+            <h4>6.2.4 Refund and Cancellation Policy</h4>
+            <ul>
+                <li><strong>Cancellation rights</strong> - Cancel subscription at any time</li>
+                <li><strong>Refund eligibility</strong> - Prorated refunds for certain circumstances</li>
+                <li><strong>Service continuation</strong> - Access continues through paid period after cancellation</li>
+                <li><strong>Data retention</strong> - Configuration data retained for reasonable period after cancellation</li>
+                <li><strong>Dispute resolution</strong> - Process for handling billing disputes</li>
+            </ul>
+
+            <h2>7. Privacy, Data Protection, and Security</h2>
+
+            <h3>7.1 Zero Telemetry Architecture</h3>
+            <p>APOLLO CyberSentinel is built with <span class="highlight">privacy by design</span> principles:</p>
+
+            <h4>7.1.1 No Personal Data Collection</h4>
+            <ul>
+                <li><strong>Zero telemetry</strong> - No usage analytics, metrics, or behavioral tracking</li>
+                <li><strong>Local processing</strong> - All analysis occurs on your device, not our servers</li>
+                <li><strong>No personal data transmission</strong> - Personal information never leaves your device</li>
+                <li><strong>Anonymous threat queries</strong> - External queries use only anonymized indicators</li>
+                <li><strong>End-to-end encryption</strong> - All necessary communications are encrypted</li>
+            </ul>
+
+            <h4>7.1.2 Data Minimization</h4>
+            <ul>
+                <li><strong>Minimal data processing</strong> - Only security-relevant data is analyzed</li>
+                <li><strong>Cryptographic hashes</strong> - Files identified by mathematical fingerprints, not content</li>
+                <li><strong>Local storage only</strong> - User data stored exclusively on user devices</li>
+                <li><strong>Automatic deletion</strong> - Temporary data automatically purged</li>
+                <li><strong>User control</strong> - Users can delete all local data at any time</li>
+            </ul>
+
+            <h3>7.2 Threat Intelligence Processing</h3>
+            <p>The Software may process the following data types for cybersecurity purposes:</p>
+
+            <h4>7.2.1 Security-Relevant Data</h4>
+            <ul>
+                <li><strong>File hashes</strong> - SHA-256 cryptographic fingerprints for threat identification</li>
+                <li><strong>Network indicators</strong> - IP addresses and domain names of suspicious entities</li>
+                <li><strong>Process information</strong> - Running application names and digital signatures</li>
+                <li><strong>System configuration</strong> - Security-relevant OS settings and patch levels</li>
+                <li><strong>Threat patterns</strong> - Behavioral indicators of malicious activity</li>
+            </ul>
+
+            <h4>7.2.2 External Intelligence Queries</h4>
+            <ul>
+                <li><strong>VirusTotal</strong> - File hash reputation checking (no file contents shared)</li>
+                <li><strong>Shodan</strong> - Network infrastructure threat intelligence</li>
+                <li><strong>AlienVault OTX</strong> - Community-driven threat indicators</li>
+                <li><strong>Government sources</strong> - Official cybersecurity advisories and indicators</li>
+                <li><strong>Academic research</strong> - Peer-reviewed cybersecurity intelligence</li>
+            </ul>
+
+            <h3>7.3 Data Protection Compliance</h3>
+            <p>Our data practices comply with applicable privacy laws:</p>
+
+            <h4>7.3.1 Regulatory Compliance</h4>
+            <ul>
+                <li><strong>GDPR compliance</strong> - European Union General Data Protection Regulation</li>
+                <li><strong>CCPA compliance</strong> - California Consumer Privacy Act requirements</li>
+                <li><strong>PIPEDA compliance</strong> - Canadian Personal Information Protection Act</li>
+                <li><strong>Industry standards</strong> - ISO 27001, SOC 2, and other security frameworks</li>
+            </ul>
+
+            <h4>7.3.2 User Rights</h4>
+            <ul>
+                <li><strong>Access rights</strong> - Review any personal data we may hold</li>
+                <li><strong>Correction rights</strong> - Correct inaccurate information</li>
+                <li><strong>Deletion rights</strong> - Request deletion of personal data</li>
+                <li><strong>Portability rights</strong> - Export data in machine-readable format</li>
+                <li><strong>Objection rights</strong> - Object to certain types of processing</li>
+            </ul>
+
+            <h2>8. Disclaimers, Warranties, and Limitations</h2>
+
+            <h3>8.1 Software Warranty Disclaimers</h3>
             <div class="warning-box">
-                <p><strong>Disclaimer:</strong> The Software is provided "AS IS" without warranties of any kind. While APOLLO CyberSentinel provides advanced protection, no security software can guarantee 100% protection against all threats.</p>
+                <p><strong>AS IS WARRANTY DISCLAIMER:</strong> The Software is provided "AS IS" and "AS AVAILABLE" without warranties of any kind, either express or implied. While APOLLO CyberSentinel provides advanced protection capabilities, no security software can guarantee 100% protection against all threats, including zero-day exploits, novel attack methods, or sophisticated nation-state campaigns.</p>
             </div>
 
-            <h3>Limitation of Liability</h3>
-            <p>To the maximum extent permitted by law:</p>
+            <h4>8.1.1 Express Warranty Disclaimers</h4>
+            <p>To the maximum extent permitted by applicable law, we expressly disclaim all warranties, including but not limited to:</p>
             <ul>
-                <li>We are not liable for damages from cyber attacks</li>
-                <li>Our liability is limited to the amount paid for the Software</li>
-                <li>We are not responsible for data loss or system damage</li>
-                <li>Users are responsible for maintaining backups</li>
+                <li><strong>Merchantability</strong> - No warranty that Software is suitable for commercial use</li>
+                <li><strong>Fitness for particular purpose</strong> - No guarantee Software meets specific requirements</li>
+                <li><strong>Non-infringement</strong> - No warranty regarding intellectual property rights</li>
+                <li><strong>Accuracy</strong> - No guarantee of error-free operation or perfect threat detection</li>
+                <li><strong>Reliability</strong> - No warranty of uninterrupted or error-free operation</li>
+                <li><strong>Security</strong> - No guarantee of complete protection against all threats</li>
+                <li><strong>Compatibility</strong> - No warranty of compatibility with all systems or software</li>
             </ul>
 
-            <h2>Updates and Modifications</h2>
-
-            <h3>Software Updates</h3>
-            <p>We may provide:</p>
+            <h4>8.1.2 Performance and Security Limitations</h4>
             <ul>
-                <li>Security patches and bug fixes</li>
-                <li>Feature updates and improvements</li>
-                <li>Threat signature updates</li>
-                <li>Compatibility updates</li>
+                <li><strong>Evolving threats</strong> - New attack methods may not be immediately detected</li>
+                <li><strong>Zero-day vulnerabilities</strong> - Unknown exploits cannot be prevented until discovered</li>
+                <li><strong>False positives/negatives</strong> - Some legitimate activity may be flagged or threats missed</li>
+                <li><strong>System limitations</strong> - Performance dependent on hardware and network conditions</li>
+                <li><strong>Update dependencies</strong> - Protection effectiveness requires regular updates</li>
             </ul>
 
-            <h3>Terms Changes</h3>
-            <p>We may update these Terms by:</p>
+            <h3>8.2 Limitation of Liability</h3>
+            <p>To the maximum extent permitted by applicable law:</p>
+
+            <h4>8.2.1 Damages Exclusion</h4>
+            <p>IN NO EVENT SHALL WE BE LIABLE FOR:</p>
             <ul>
-                <li>Posting changes on our website</li>
-                <li>Notifying users through the Software</li>
-                <li>Sending email notifications</li>
-                <li>Providing 30 days notice for material changes</li>
+                <li><strong>Cyber attack damages</strong> - Any damages resulting from successful cyber attacks</li>
+                <li><strong>Data loss or corruption</strong> - Loss or damage to files, databases, or other data</li>
+                <li><strong>System damage</strong> - Hardware damage, software corruption, or system instability</li>
+                <li><strong>Business interruption</strong> - Lost profits, revenue, or business opportunities</li>
+                <li><strong>Consequential damages</strong> - Indirect, incidental, or consequential losses</li>
+                <li><strong>Punitive damages</strong> - Exemplary or punitive damage awards</li>
+                <li><strong>Third-party claims</strong> - Claims by other parties related to Software use</li>
             </ul>
 
-            <h2>Termination</h2>
-
-            <h3>User Termination</h3>
-            <p>You may terminate this agreement by:</p>
+            <h4>8.2.2 Liability Cap</h4>
             <ul>
-                <li>Uninstalling the Software</li>
-                <li>Discontinuing all use</li>
-                <li>Deleting all copies</li>
+                <li><strong>Maximum liability</strong> - Our total liability limited to amount paid for Software</li>
+                <li><strong>Beta software</strong> - For beta software, liability limited to $100 USD</li>
+                <li><strong>Cumulative cap</strong> - All claims aggregated for purposes of liability limit</li>
+                <li><strong>Time limitation</strong> - Claims must be brought within one year of incident</li>
             </ul>
 
-            <h3>Company Termination</h3>
-            <p>We may terminate access for:</p>
+            <h4>8.2.3 User Responsibilities</h4>
             <ul>
-                <li>Violation of these Terms</li>
-                <li>Illegal or harmful use</li>
-                <li>End of beta program</li>
-                <li>Technical or business reasons</li>
+                <li><strong>Backup obligations</strong> - Users responsible for maintaining data backups</li>
+                <li><strong>Security practices</strong> - Users must follow basic cybersecurity hygiene</li>
+                <li><strong>Update compliance</strong> - Users should install security updates promptly</li>
+                <li><strong>Incident reporting</strong> - Users should report security incidents promptly</li>
+                <li><strong>Mitigation efforts</strong> - Users must take reasonable steps to minimize damages</li>
             </ul>
 
-            <h2>Intellectual Property</h2>
+            <h2>9. Software Updates, Modifications, and Support</h2>
 
-            <h3>Ownership</h3>
-            <p>APOLLO CyberSentinel and all related intellectual property are owned by us, including:</p>
+            <h3>9.1 Software Updates and Patches</h3>
+            <p>We may provide various types of software updates:</p>
+
+            <h4>9.1.1 Security Updates</h4>
             <ul>
-                <li>Software code and algorithms</li>
-                <li>Threat detection signatures</li>
-                <li>User interfaces and designs</li>
-                <li>Documentation and materials</li>
+                <li><strong>Critical patches</strong> - Emergency fixes for serious security vulnerabilities</li>
+                <li><strong>Threat signatures</strong> - Updated detection patterns for new threats</li>
+                <li><strong>Intelligence feeds</strong> - Real-time threat indicator updates</li>
+                <li><strong>Vulnerability fixes</strong> - Patches for discovered software vulnerabilities</li>
+                <li><strong>Performance improvements</strong> - Optimizations for better security effectiveness</li>
             </ul>
 
-            <h3>Patents and Trademarks</h3>
-            <p>The Software may be protected by patents and patent applications. All trademarks and service marks are our property or used under license.</p>
+            <h4>9.1.2 Feature Updates</h4>
+            <ul>
+                <li><strong>New capabilities</strong> - Additional security features and functionality</li>
+                <li><strong>User interface improvements</strong> - Enhanced usability and user experience</li>
+                <li><strong>Integration enhancements</strong> - Better compatibility with other security tools</li>
+                <li><strong>API extensions</strong> - New programming interfaces for advanced users</li>
+                <li><strong>Platform support</strong> - Support for new operating systems and hardware</li>
+            </ul>
 
-            <h2>Governing Law</h2>
-            <p>These Terms are governed by the laws of the jurisdiction where our company is incorporated, without regard to conflict of law principles.</p>
+            <h4>9.1.3 Update Delivery and Installation</h4>
+            <ul>
+                <li><strong>Automatic updates</strong> - Critical security updates installed automatically</li>
+                <li><strong>User-controlled updates</strong> - Feature updates require user approval</li>
+                <li><strong>Update notifications</strong> - Users notified of available updates</li>
+                <li><strong>Rollback capability</strong> - Ability to revert problematic updates when possible</li>
+                <li><strong>Staged deployment</strong> - Updates may be rolled out gradually</li>
+            </ul>
 
-            <h2>Export Controls</h2>
-            <p>The Software may be subject to export control laws. Users are responsible for compliance with all applicable export and import regulations.</p>
+            <h3>9.2 Terms of Service Modifications</h3>
+            <p>We may update these Terms to reflect changes in law, business practices, or software functionality:</p>
+
+            <h4>9.2.1 Notification Methods</h4>
+            <ul>
+                <li><strong>Website posting</strong> - Updated Terms posted on our website</li>
+                <li><strong>Email notification</strong> - Direct email to registered users</li>
+                <li><strong>In-app notifications</strong> - Notices displayed within the Software</li>
+                <li><strong>Documentation updates</strong> - Changes reflected in user documentation</li>
+            </ul>
+
+            <h4>9.2.2 Change Implementation</h4>
+            <ul>
+                <li><strong>Material changes</strong> - 30 days advance notice for significant modifications</li>
+                <li><strong>Legal compliance</strong> - Immediate effect for legally required changes</li>
+                <li><strong>Security updates</strong> - Immediate effect for security-related modifications</li>
+                <li><strong>User acceptance</strong> - Continued use constitutes acceptance of changes</li>
+                <li><strong>Objection rights</strong> - Users may terminate agreement if they object to changes</li>
+            </ul>
+
+            <h3>9.3 Technical Support Services</h3>
+
+            <h4>9.3.1 Beta Support Limitations</h4>
+            <ul>
+                <li><strong>Best effort support</strong> - Support provided on best-effort basis during beta</li>
+                <li><strong>Limited availability</strong> - Support hours and response times not guaranteed</li>
+                <li><strong>Community forums</strong> - User community may provide peer support</li>
+                <li><strong>Documentation</strong> - Self-service resources and guides provided</li>
+                <li><strong>Bug reporting</strong> - Users encouraged to report issues and provide feedback</li>
+            </ul>
+
+            <h4>9.3.2 Commercial Support (Future)</h4>
+            <ul>
+                <li><strong>Tiered support</strong> - Different support levels based on subscription tier</li>
+                <li><strong>Response time commitments</strong> - Guaranteed response times for paid subscribers</li>
+                <li><strong>Multiple channels</strong> - Email, chat, phone, and portal support options</li>
+                <li><strong>Technical expertise</strong> - Access to specialized cybersecurity professionals</li>
+                <li><strong>Priority handling</strong> - Expedited support for critical issues</li>
+            </ul>
+
+            <h2>10. Termination and Post-Termination Effects</h2>
+
+            <h3>10.1 User-Initiated Termination</h3>
+            <p>You may terminate this Agreement at any time by:</p>
+
+            <h4>10.1.1 Termination Actions</h4>
+            <ul>
+                <li><strong>Uninstalling software</strong> - Remove Software from all devices</li>
+                <li><strong>Discontinuing use</strong> - Cease all use of Software and services</li>
+                <li><strong>Deleting copies</strong> - Destroy all copies of Software and Documentation</li>
+                <li><strong>Data deletion</strong> - Remove all Software-generated data and configurations</li>
+                <li><strong>Account closure</strong> - Request closure of any associated accounts</li>
+            </ul>
+
+            <h4>10.1.2 Termination Confirmation</h4>
+            <ul>
+                <li><strong>Termination notice</strong> - Written notice of termination may be required</li>
+                <li><strong>Data export</strong> - Export any desired data before termination</li>
+                <li><strong>License cessation</strong> - All license rights terminate immediately</li>
+                <li><strong>Ongoing obligations</strong> - Certain obligations survive termination</li>
+            </ul>
+
+            <h3>10.2 Company-Initiated Termination</h3>
+            <p>We may terminate or suspend your access for various reasons:</p>
+
+            <h4>10.2.1 Cause-Based Termination</h4>
+            <ul>
+                <li><strong>Terms violation</strong> - Breach of any provision of this Agreement</li>
+                <li><strong>Illegal use</strong> - Use of Software for unlawful purposes</li>
+                <li><strong>Harmful activities</strong> - Use that harms our systems or other users</li>
+                <li><strong>Misrepresentation</strong> - Providing false information during registration or use</li>
+                <li><strong>Security risks</strong> - Activities that pose security risks to our infrastructure</li>
+            </ul>
+
+            <h4>10.2.2 No-Cause Termination</h4>
+            <ul>
+                <li><strong>Beta program end</strong> - Termination of beta testing program</li>
+                <li><strong>Business reasons</strong> - Strategic business decisions</li>
+                <li><strong>Technical limitations</strong> - Infrastructure or capacity constraints</li>
+                <li><strong>Legal requirements</strong> - Compliance with laws or regulations</li>
+                <li><strong>Service discontinuation</strong> - End of life for Software or services</li>
+            </ul>
+
+            <h3>10.3 Post-Termination Effects</h3>
+
+            <h4>10.3.1 Immediate Effects</h4>
+            <ul>
+                <li><strong>License termination</strong> - All rights to use Software cease immediately</li>
+                <li><strong>Access suspension</strong> - Access to services and updates terminated</li>
+                <li><strong>Support cessation</strong> - Technical support no longer available</li>
+                <li><strong>Data retention</strong> - Local data may be retained by user but unsupported</li>
+            </ul>
+
+            <h4>10.3.2 Surviving Provisions</h4>
+            <p>The following provisions survive termination of this Agreement:</p>
+            <ul>
+                <li><strong>Intellectual property</strong> - All IP ownership and protection provisions</li>
+                <li><strong>Disclaimer and limitations</strong> - Warranty disclaimers and liability limitations</li>
+                <li><strong>Governing law</strong> - Legal jurisdiction and applicable law provisions</li>
+                <li><strong>Dispute resolution</strong> - Arbitration and litigation procedures</li>
+                <li><strong>Confidentiality</strong> - Protection of proprietary information</li>
+            </ul>
+
+            <h2>11. Intellectual Property Rights and Protection</h2>
+
+            <h3>11.1 Software Ownership and Rights</h3>
+            <p>APOLLO CyberSentinel and all related intellectual property are exclusively owned by us:</p>
+
+            <h4>11.1.1 Proprietary Assets</h4>
+            <ul>
+                <li><strong>Source code and algorithms</strong> - All software code, logic, and algorithmic implementations</li>
+                <li><strong>Threat detection signatures</strong> - Proprietary patterns and indicators for threat identification</li>
+                <li><strong>User interfaces and designs</strong> - All visual designs, layouts, and user experience elements</li>
+                <li><strong>Documentation and materials</strong> - User guides, technical specifications, and training materials</li>
+                <li><strong>Databases and datasets</strong> - Threat intelligence databases and analytical datasets</li>
+                <li><strong>Artificial intelligence models</strong> - Machine learning models and AI training data</li>
+                <li><strong>Cryptographic implementations</strong> - Security protocols and encryption implementations</li>
+            </ul>
+
+            <h4>11.1.2 Third-Party Components</h4>
+            <ul>
+                <li><strong>Open source licenses</strong> - Compliance with applicable open source license terms</li>
+                <li><strong>Commercial libraries</strong> - Licensed third-party components and libraries</li>
+                <li><strong>Government data</strong> - Publicly available threat intelligence incorporated under license</li>
+                <li><strong>Academic research</strong> - Peer-reviewed research incorporated with permission</li>
+            </ul>
+
+            <h3>11.2 Patent and Trademark Protection</h3>
+
+            <h4>11.2.1 Patent Rights</h4>
+            <ul>
+                <li><strong>Filed patents</strong> - Software may be protected by issued and pending patents</li>
+                <li><strong>Patent applications</strong> - Additional patent applications may be filed</li>
+                <li><strong>International protection</strong> - Patent protection sought in multiple jurisdictions</li>
+                <li><strong>Defensive patents</strong> - Patents used to protect against litigation</li>
+                <li><strong>Patent licensing</strong> - Patents may be licensed to compatible products</li>
+            </ul>
+
+            <h4>11.2.2 Trademark Rights</h4>
+            <ul>
+                <li><strong>APOLLO CyberSentinel</strong> - Registered trademark for cybersecurity software</li>
+                <li><strong>Company marks</strong> - All company names and logos are protected trademarks</li>
+                <li><strong>Service marks</strong> - Marks identifying our services and offerings</li>
+                <li><strong>Domain names</strong> - Associated internet domain names and URLs</li>
+                <li><strong>Brand protection</strong> - Active enforcement against trademark infringement</li>
+            </ul>
+
+            <h3>11.3 User-Generated Content and Feedback</h3>
+
+            <h4>11.3.1 User Content Rights</h4>
+            <ul>
+                <li><strong>User retention</strong> - Users retain ownership of their original content</li>
+                <li><strong>Limited license to us</strong> - Users grant us license to use feedback for improvement</li>
+                <li><strong>Anonymization rights</strong> - We may anonymize and aggregate user data</li>
+                <li><strong>No compensation</strong> - No payment for user feedback or suggestions</li>
+            </ul>
+
+            <h4>11.3.2 Feedback and Suggestions</h4>
+            <ul>
+                <li><strong>Voluntary submission</strong> - All feedback is provided voluntarily</li>
+                <li><strong>Improvement license</strong> - Feedback may be used to improve Software</li>
+                <li><strong>No confidentiality</strong> - Feedback not treated as confidential unless explicitly agreed</li>
+                <li><strong>Incorporation rights</strong> - We may incorporate suggestions into future versions</li>
+            </ul>
+
+            <h2>12. Governing Law, Jurisdiction, and Dispute Resolution</h2>
+
+            <h3>12.1 Applicable Law</h3>
+            <p>These Terms are governed by and construed in accordance with:</p>
+
+            <h4>12.1.1 Primary Jurisdiction</h4>
+            <ul>
+                <li><strong>Governing law</strong> - Laws of the jurisdiction where our company is incorporated</li>
+                <li><strong>Federal law</strong> - Applicable federal laws and regulations</li>
+                <li><strong>International treaties</strong> - Relevant international agreements and conventions</li>
+                <li><strong>Conflict of laws</strong> - Without regard to conflict of law principles</li>
+            </ul>
+
+            <h4>12.1.2 Regulatory Compliance</h4>
+            <ul>
+                <li><strong>Export controls</strong> - U.S. Export Administration Regulations (EAR)</li>
+                <li><strong>Privacy laws</strong> - GDPR, CCPA, and other applicable privacy regulations</li>
+                <li><strong>Cybersecurity laws</strong> - Relevant cybersecurity and data protection statutes</li>
+                <li><strong>Industry regulations</strong> - Sector-specific regulatory requirements</li>
+            </ul>
+
+            <h3>12.2 Dispute Resolution Procedures</h3>
+
+            <h4>12.2.1 Informal Resolution</h4>
+            <p>Before initiating formal proceedings, parties agree to attempt informal resolution:</p>
+            <ul>
+                <li><strong>Direct negotiation</strong> - Good faith discussions to resolve disputes</li>
+                <li><strong>30-day period</strong> - Minimum 30 days for informal resolution attempts</li>
+                <li><strong>Written notice</strong> - Formal notice of dispute required</li>
+                <li><strong>Senior management</strong> - Escalation to appropriate decision-makers</li>
+            </ul>
+
+            <h4>12.2.2 Binding Arbitration</h4>
+            <p>If informal resolution fails, disputes shall be resolved through binding arbitration:</p>
+            <ul>
+                <li><strong>Arbitration organization</strong> - American Arbitration Association (AAA) or equivalent</li>
+                <li><strong>Rules</strong> - Commercial Arbitration Rules or expedited procedures</li>
+                <li><strong>Single arbitrator</strong> - One arbitrator with relevant expertise</li>
+                <li><strong>Location</strong> - Arbitration conducted in our primary business location</li>
+                <li><strong>Language</strong> - Proceedings conducted in English</li>
+                <li><strong>Confidentiality</strong> - Arbitration proceedings kept confidential</li>
+                <li><strong>Final and binding</strong> - Arbitration decisions are final and binding</li>
+            </ul>
+
+            <h4>12.2.3 Exceptions to Arbitration</h4>
+            <p>The following matters may be brought in court:</p>
+            <ul>
+                <li><strong>Intellectual property</strong> - Patent, trademark, copyright, or trade secret disputes</li>
+                <li><strong>Injunctive relief</strong> - Requests for immediate court intervention</li>
+                <li><strong>Small claims</strong> - Disputes within small claims court jurisdiction</li>
+                <li><strong>Regulatory matters</strong> - Issues requiring regulatory agency involvement</li>
+            </ul>
+
+            <h3>12.3 Class Action Waiver</h3>
+            <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW:</p>
+            <ul>
+                <li><strong>Individual disputes only</strong> - All disputes must be brought individually</li>
+                <li><strong>No class actions</strong> - No participation in class action lawsuits</li>
+                <li><strong>No representative actions</strong> - No representative or collective proceedings</li>
+                <li><strong>No consolidation</strong> - Individual arbitrations cannot be consolidated</li>
+                <li><strong>Severability</strong> - If class action waiver unenforceable, arbitration clause remains</li>
+            </ul>
+
+            <h2>13. Export Controls and International Compliance</h2>
+
+            <h3>13.1 Export Control Compliance</h3>
+            <p>The Software may be subject to export control laws and regulations:</p>
+
+            <h4>13.1.1 U.S. Export Controls</h4>
+            <ul>
+                <li><strong>EAR classification</strong> - Subject to U.S. Export Administration Regulations</li>
+                <li><strong>ECCN classification</strong> - Export Control Classification Number assigned</li>
+                <li><strong>Restricted countries</strong> - Prohibited export to embargoed countries</li>
+                <li><strong>Denied persons</strong> - No export to sanctioned individuals or entities</li>
+                <li><strong>End-user verification</strong> - Compliance with end-user requirements</li>
+            </ul>
+
+            <h4>13.1.2 International Regulations</h4>
+            <ul>
+                <li><strong>Wassenaar Arrangement</strong> - Dual-use technology export controls</li>
+                <li><strong>EU export controls</strong> - European Union export control regulations</li>
+                <li><strong>National regulations</strong> - Local export control requirements</li>
+                <li><strong>Re-export restrictions</strong> - Limitations on further distribution</li>
+            </ul>
+
+            <h3>13.2 User Compliance Obligations</h3>
+            <p>Users are responsible for compliance with applicable export and import regulations:</p>
+
+            <h4>13.2.1 User Representations</h4>
+            <ul>
+                <li><strong>Location verification</strong> - User not located in restricted jurisdiction</li>
+                <li><strong>Identity confirmation</strong> - User not on denied persons lists</li>
+                <li><strong>End-use compliance</strong> - Software used only for authorized purposes</li>
+                <li><strong>Re-export prohibition</strong> - No unauthorized re-export or transfer</li>
+            </ul>
+
+            <h4>13.2.2 Compliance Monitoring</h4>
+            <ul>
+                <li><strong>Ongoing verification</strong> - Continued compliance required throughout use</li>
+                <li><strong>Change notification</strong> - Must notify us of material changes in status</li>
+                <li><strong>Audit cooperation</strong> - Cooperation with export control audits if required</li>
+                <li><strong>Violation reporting</strong> - Report any suspected violations immediately</li>
+            </ul>
+
+            <h2>14. Miscellaneous Provisions</h2>
+
+            <h3>14.1 Entire Agreement and Modifications</h3>
+            <ul>
+                <li><strong>Complete agreement</strong> - These Terms constitute the complete agreement</li>
+                <li><strong>Supersedes prior agreements</strong> - Replaces all previous oral and written agreements</li>
+                <li><strong>Amendment procedures</strong> - Modifications must be in writing and signed</li>
+                <li><strong>Integration clause</strong> - No external agreements or understandings</li>
+            </ul>
+
+            <h3>14.2 Severability and Waiver</h3>
+            <ul>
+                <li><strong>Severability</strong> - Invalid provisions do not affect remaining terms</li>
+                <li><strong>Reformation</strong> - Courts may modify provisions to make them enforceable</li>
+                <li><strong>No waiver</strong> - Failure to enforce provisions does not constitute waiver</li>
+                <li><strong>Continuing effect</strong> - Rights and obligations continue despite partial invalidity</li>
+            </ul>
+
+            <h3>14.3 Assignment and Transfer</h3>
+            <ul>
+                <li><strong>User restrictions</strong> - Users may not assign rights without written consent</li>
+                <li><strong>Company rights</strong> - We may assign Agreement in connection with business transfers</li>
+                <li><strong>Successor obligations</strong> - Assignees bound by all Agreement terms</li>
+                <li><strong>Notice requirements</strong> - Notification of assignment when legally required</li>
+            </ul>
+
+            <h3>14.4 Force Majeure</h3>
+            <ul>
+                <li><strong>Excused performance</strong> - Performance excused for events beyond reasonable control</li>
+                <li><strong>Covered events</strong> - Natural disasters, war, terrorism, government actions</li>
+                <li><strong>Mitigation efforts</strong> - Parties must make reasonable efforts to minimize impact</li>
+                <li><strong>Notice requirements</strong> - Prompt notice of force majeure events</li>
+            </ul>
 
             <div class="contact-info">
-                <h3>Contact Information</h3>
-                <p>For legal questions or concerns:</p>
-                <p><strong>Legal:</strong> legal@apollosentinel.com</p>
+                <h3>Contact Information and Legal Notices</h3>
+                <p><strong>Legal Counsel:</strong> legal@apollosentinel.com</p>
+                <p><strong>Contract Administration:</strong> contracts@apollosentinel.com</p>
+                <p><strong>Compliance Officer:</strong> compliance@apollosentinel.com</p>
+                <p><strong>Privacy Officer:</strong> privacy@apollosentinel.com</p>
+                <p><strong>Security Issues:</strong> security@apollosentinel.com</p>
                 <p><strong>General Contact:</strong> contact@apollosentinel.com</p>
-                <p><strong>Support:</strong> support@apollosentinel.com</p>
+                <p><strong>Technical Support:</strong> support@apollosentinel.com</p>
+                <p><strong>Business Development:</strong> business@apollosentinel.com</p>
+                <p><strong>Intellectual Property:</strong> ip@apollosentinel.com</p>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Legal Binding Notice:</strong> By using APOLLO CyberSentinel software, you acknowledge that you have read, understood, and agree to be legally bound by all provisions of this Terms of Service agreement. This agreement is governed by applicable law and any disputes shall be resolved according to the dispute resolution procedures outlined herein.</p>
+            </div>
+
+            <div class="contact-info">
+                <h3>Regulatory and Compliance Information</h3>
+                <p><strong>Export Control Classification:</strong> Subject to U.S. Export Administration Regulations (EAR)</p>
+                <p><strong>Privacy Compliance:</strong> GDPR, CCPA, PIPEDA, and other applicable privacy laws</p>
+                <p><strong>Security Standards:</strong> ISO 27001, SOC 2 Type II, and industry best practices</p>
+                <p><strong>Industry Classification:</strong> Cybersecurity software and threat intelligence services</p>
+                <p><strong>Business Registration:</strong> Apollo Security Research Institute (registration details available upon request)</p>
             </div>
 
             <div class="last-updated">
+                <p><strong>Terms of Service Version:</strong> 3.0 (Comprehensive Legal Framework)</p>
                 <p><strong>Last Updated:</strong> September 22, 2025</p>
                 <p><strong>Effective Date:</strong> September 22, 2025</p>
+                <p><strong>Previous Version:</strong> 2.0 (Available upon request for comparison)</p>
+                <p><strong>Next Scheduled Review:</strong> September 22, 2026</p>
+                <p><strong>Emergency Amendment Authority:</strong> Reserved for critical security or legal requirements</p>
+                <p><strong>Translation Availability:</strong> English is the authoritative version; translations available for reference only</p>
             </div>
         </div>
     </div>
+
+    <script>
+        function createDigitalRain() {
+            const rainContainer = document.getElementById('digitalRain');
+            const chars = '01アポロサイバーセンチネルAPOLLO防衛システムTERMS';
+
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const drop = document.createElement('div');
+                    drop.className = 'rain-drop';
+                    drop.style.left = Math.random() * 100 + '%';
+                    drop.style.animationDelay = Math.random() * 8 + 's';
+                    drop.style.animationDuration = (Math.random() * 6 + 4) + 's';
+                    drop.style.fontSize = (Math.random() * 8 + 10) + 'px';
+
+                    let dropText = '';
+                    for (let j = 0; j < 12; j++) {
+                        dropText += chars[Math.floor(Math.random() * chars.length)] + '<br>';
+                    }
+                    drop.innerHTML = dropText;
+
+                    rainContainer.appendChild(drop);
+
+                    setTimeout(() => {
+                        if (drop.parentNode) drop.parentNode.removeChild(drop);
+                    }, 12000);
+                }, i * 150);
+            }
+        }
+
+        function activateTermsPortal() {
+            const portal = document.getElementById('installPortal');
+            portal.style.opacity = '0.3';
+
+            setTimeout(() => {
+                portal.style.transform = 'translate(-50%, -50%) scale(1.05)';
+                setTimeout(() => {
+                    portal.style.transform = 'translate(-50%, -50%) scale(1)';
+                }, 1500);
+            }, 500);
+        }
+
+        function epicTermsGuardianActivation() {
+            const guardian = document.querySelector('.apollo-guardian');
+            const shield = document.querySelector('.installation-shield');
+            const radar = document.querySelector('.threat-radar');
+
+            console.log('🏹 APOLLO GUARDIAN SYSTEM ONLINE - Terms Protection Active');
+
+            guardian.style.transform = 'translateY(-50%) translateX(30px)';
+            guardian.style.opacity = '0.4';
+
+            shield.style.transform = 'scale(1.05) rotateZ(180deg)';
+            setTimeout(() => {
+                shield.style.transform = 'scale(1) rotateZ(0deg)';
+            }, 1500);
+
+            radar.style.right = '20px';
+            radar.style.opacity = '0.3';
+
+            setTimeout(() => {
+                guardian.style.transform = 'translateY(-50%) translateX(0px)';
+                radar.style.right = '-200px';
+                radar.style.opacity = '0.3';
+            }, 4000);
+        }
+
+        function activateRadarSweep() {
+            const radar = document.querySelector('.threat-radar');
+            radar.style.right = '20px';
+            radar.style.opacity = '0.4';
+            radar.style.transform = 'scale(1.1)';
+
+            setTimeout(() => {
+                radar.style.transform = 'scale(1)';
+                radar.style.right = '-200px';
+                radar.style.opacity = '0.3';
+            }, 2500);
+        }
+
+        // Initialize background systems when page loads
+        window.addEventListener('load', () => {
+            console.log('🚀 Initializing APOLLO Terms of Service Background Systems...');
+
+            createDigitalRain();
+            setInterval(createDigitalRain, 25000);
+
+            setTimeout(() => {
+                activateTermsPortal();
+            }, 1000);
+
+            setTimeout(() => {
+                epicTermsGuardianActivation();
+            }, 2000);
+
+            // Interactive effects on scroll
+            let lastScrollTop = 0;
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const guardian = document.querySelector('.apollo-guardian');
+
+                if (scrollTop > lastScrollTop) {
+                    guardian.style.opacity = '0.3';
+                } else {
+                    guardian.style.opacity = '0.4';
+                }
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+            });
+
+            // Periodic radar sweeps
+            setInterval(activateRadarSweep, 15000);
+        });
+    </script>
 </body>
 </html>

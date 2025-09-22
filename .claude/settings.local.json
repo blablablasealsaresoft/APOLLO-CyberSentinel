@@ -38,7 +38,19 @@
       "Bash(\"C:/Program Files/GitHub CLI/gh.exe\" release view v1.0.0)",
       "WebFetch(domain:github.com)",
       "Bash(\"C:/Program Files/GitHub CLI/gh.exe\" repo view blablablasealsaresoft/APOLLO-CyberSentinel)",
-      "Bash(\"C:/Program Files/GitHub CLI/gh.exe\" release list)"
+      "Bash(\"C:/Program Files/GitHub CLI/gh.exe\" release list)",
+      "WebFetch(domain:blablablasealsaresoft.github.io)",
+      "Bash(\"C:/Program Files/GitHub CLI/gh.exe\" api repos/blablablasealsaresoft/APOLLO-CyberSentinel/pages)",
+      "Bash(\"C:/Program Files/GitHub CLI/gh.exe\" repo edit blablablasealsaresoft/APOLLO-CyberSentinel --visibility public)",
+      "Bash(\"C:/Program Files/GitHub CLI/gh.exe\" repo edit blablablasealsaresoft/APOLLO-CyberSentinel --visibility public --accept-visibility-change-consequences)",
+      "Bash(\"C:/Program Files/GitHub CLI/gh.exe\" api repos/blablablasealsaresoft/APOLLO-CyberSentinel/pages -X POST --field 'source[branch]=main' --field 'source[path]=/')",
+      "Bash(\"C:/Program Files/GitHub CLI/gh.exe\" api repos/blablablasealsaresoft/APOLLO-CyberSentinel/pages/builds)",
+      "WebFetch(domain:apollo-cybersentinel.com)",
+      "Bash(\"C:/Program Files/GitHub CLI/gh.exe\" api repos/blablablasealsaresoft/APOLLO-CyberSentinel/pages/builds/781191466)",
+      "Bash(\"C:/Program Files/GitHub CLI/gh.exe\" api repos/blablablasealsaresoft/APOLLO-CyberSentinel/pages/builds/781514469)",
+      "Bash(\"C:/Program Files/GitHub CLI/gh.exe\" repo edit blablablasealsaresoft/APOLLO-CyberSentinel --visibility private)",
+      "Bash(grep:*)",
+      "WebSearch"
     ],
     "deny": [],
     "ask": []

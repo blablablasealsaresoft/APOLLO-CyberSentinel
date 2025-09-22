@@ -1266,6 +1266,38 @@
     </style>
 </head>
 <body>
+    <!-- Authentication Check -->
+    <script>
+        // Check for beta access authentication
+        (function() {
+            const access = sessionStorage.getItem('apolloBetaAccess');
+            const authTime = sessionStorage.getItem('apolloAuthTime');
+
+            // Check if access is granted and still valid
+            if (!access || access !== 'granted') {
+                window.location.href = 'beta-access.html';
+                return;
+            }
+
+            // Check if session is still valid (24 hours)
+            if (authTime) {
+                const timeDiff = Date.now() - parseInt(authTime);
+                const hoursDiff = timeDiff / (1000 * 60 * 60);
+
+                if (hoursDiff >= 24) {
+                    // Session expired
+                    sessionStorage.removeItem('apolloBetaAccess');
+                    sessionStorage.removeItem('apolloAuthTime');
+                    window.location.href = 'beta-access.html';
+                    return;
+                }
+            } else {
+                // No auth time, redirect to login
+                window.location.href = 'beta-access.html';
+                return;
+            }
+        })();
+    </script>
     <!-- Epic Installation Portal -->
     <div class="installation-portal" id="installPortal">
         <div class="portal-ring"></div>
@@ -1320,7 +1352,7 @@
                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" alt="Apollo Logo" class="logo-img" id="logo-placeholder">
                 <div class="logo-text">APOLLO CyberSentinel</div>
             </div>
-            <a href="landing-page.html" class="back-btn">
+            <a href="index.html" class="back-btn">
                 <i class="fas fa-arrow-left"></i> Back to Home
             </a>
         </div>
@@ -1341,10 +1373,10 @@
 
             <!-- Security Notice -->
             <div class="security-notice fade-in animate-delay-1">
-                <h3><i class="fas fa-shield-alt"></i> Verified & Secure Download</h3>
+                <h3><i class="fas fa-shield-alt"></i> Beta Product - Commercial License</h3>
                 <p>
-                    All downloads are cryptographically signed and verified. APOLLO CyberSentinel is built with zero telemetry 
-                    and operates entirely offline for maximum privacy and security.
+                    APOLLO CyberSentinel is a commercial cybersecurity product currently in beta.
+                    This is proprietary software designed for enterprise deployment. All downloads are cryptographically signed and verified.
                 </p>
             </div>
 
@@ -1544,10 +1576,10 @@
                             <div class="additional-icon">
                                 <i class="fab fa-github"></i>
                             </div>
-                            <h4>Source Code</h4>
-                            <p>View and contribute to the open-source project</p>
+                            <h4>Beta Release</h4>
+                            <p>Early access to our commercial cybersecurity platform</p>
                             <a href="https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel" class="additional-btn secondary" target="_blank">
-                                <i class="fab fa-github"></i> View on GitHub
+                                <i class="fab fa-github"></i> View Beta Releases
                             </a>
                         </div>
                     </div>

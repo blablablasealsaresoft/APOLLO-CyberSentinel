@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://apollo-cybersentinel.com/</loc>
+    <lastmod>2025-09-22</lastmod>
+    <priority>1.0</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://apollo-cybersentinel.com/installer.html</loc>
+    <lastmod>2025-09-22</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel</loc>
+    <lastmod>2025-09-22</lastmod>
+    <priority>0.6</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel/releases</loc>
+    <lastmod>2025-09-22</lastmod>
+    <priority>0.7</priority>
+    <changefreq>daily</changefreq>
+  </url>
+</urlset>

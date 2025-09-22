@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://apollo-cybersentinel.com/sitemap.xml
+
+# Specific pages
+Allow: /index.html
+Allow: /installer.html
+Allow: /assets/
+
+# Block sensitive areas
+Disallow: /admin/
+Disallow: /private/
+Disallow: /.git/

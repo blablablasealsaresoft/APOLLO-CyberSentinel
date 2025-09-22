@@ -27,7 +27,18 @@
       "Bash(chmod:*)",
       "Bash(./build-release.sh:*)",
       "Bash(gh release create:*)",
-      "Bash(releases/dist/*)"
+      "Bash(releases/dist/*)",
+      "Bash(winget install:*)",
+      "Bash(refreshenv)",
+      "Bash(gh:*)",
+      "Bash(\"C:/Program Files/GitHub CLI/gh.exe\" --version)",
+      "Bash(\"C:/Program Files/GitHub CLI/gh.exe\" auth status)",
+      "Bash(\"C:/Program Files/GitHub CLI/gh.exe\" auth login --web)",
+      "Bash(\"C:/Program Files/GitHub CLI/gh.exe\" release create v1.0.0 )",
+      "Bash(\"C:/Program Files/GitHub CLI/gh.exe\" release view v1.0.0)",
+      "WebFetch(domain:github.com)",
+      "Bash(\"C:/Program Files/GitHub CLI/gh.exe\" repo view blablablasealsaresoft/APOLLO-CyberSentinel)",
+      "Bash(\"C:/Program Files/GitHub CLI/gh.exe\" release list)"
     ],
     "deny": [],
     "ask": []

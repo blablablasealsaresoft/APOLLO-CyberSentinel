@@ -1,0 +1,45 @@
+# GitHub Pages Configuration for APOLLO CyberSentinel
+title: "APOLLO CyberSentinel"
+description: "Military-grade cybersecurity for everyone. Advanced Persistent Threat Detection Platform with AI-powered analysis."
+baseurl: ""
+url: "https://blablablasealsaresoft.github.io"
+repository: "blablablasealsaresoft/APOLLO-CyberSentinel"
+
+# Build settings
+markdown: kramdown
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Exclude files from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+
+# SEO settings
+lang: en_US
+author:
+  name: "APOLLO CyberSentinel Team"
+  twitter: apollo_cybersec
+
+# Social media
+twitter:
+  username: apollo_cybersec
+  card: summary_large_image
+
+facebook:
+  app_id: 1234567890
+  publisher: https://www.facebook.com/apollocybersec
+
+# Logo and images
+logo: /assets/apollo-logo.png
+social:
+  name: APOLLO CyberSentinel
+  links:
+    - https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel

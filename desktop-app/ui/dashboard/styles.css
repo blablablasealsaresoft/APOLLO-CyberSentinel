@@ -2906,6 +2906,125 @@ textarea:focus {
     font-size: 14px;
 }
 
+/* Intelligence Sources Report Modal Styles */
+.intelligence-sources-report {
+    max-width: 1000px;
+    width: 90vw;
+    max-height: 85vh;
+    overflow-y: auto;
+    background: linear-gradient(135deg, rgba(40, 0, 40, 0.95), rgba(60, 0, 80, 0.95));
+    border: 2px solid #ff00ff;
+}
+
+.intelligence-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.sources-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.source-detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background: rgba(255, 0, 255, 0.05);
+    border: 1px solid rgba(255, 0, 255, 0.2);
+    border-radius: 6px;
+}
+
+.source-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.source-name {
+    color: #e0e0e0;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.source-queries {
+    color: #ff00ff;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.source-status {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.source-status.active {
+    background: rgba(0, 255, 0, 0.2);
+    color: #00ff00;
+    border: 1px solid #00ff00;
+}
+
+.source-status.inactive {
+    background: rgba(255, 0, 0, 0.2);
+    color: #ff0000;
+    border: 1px solid #ff0000;
+}
+
+.capabilities-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.capability-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: rgba(255, 0, 255, 0.05);
+    border: 1px solid rgba(255, 0, 255, 0.2);
+    border-radius: 4px;
+}
+
+.capability-icon {
+    color: #ff00ff;
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+}
+
+.capability-text {
+    color: #e0e0e0;
+    font-size: 14px;
+}
+
+/* Clickable Activity Feed Styles */
+.clickable-activity {
+    border: 1px solid rgba(0, 212, 255, 0.3) !important;
+    background: rgba(0, 212, 255, 0.05) !important;
+    transition: all 0.3s ease;
+}
+
+.clickable-activity:hover {
+    border-color: rgba(0, 212, 255, 0.6) !important;
+    background: rgba(0, 212, 255, 0.1) !important;
+    transform: translateX(5px);
+}
+
+.click-indicator {
+    color: #00d4ff;
+    font-size: 12px;
+    margin-left: 5px;
+    opacity: 0.7;
+}
+
 .system-info-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));

@@ -1,0 +1,2140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download APOLLO CyberSentinel - Installation Center</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --brand-black: #1a1a1a;
+            --brand-white: #ffffff;
+            --brand-gold: #ffd700;
+            --text-secondary: rgba(255, 255, 255, 0.8);
+            --accent-glow: rgba(255, 215, 0, 0.3);
+            --success-green: #00ff41;
+            --warning-orange: #ff9500;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--brand-black);
+            color: var(--brand-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--brand-gold);
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--brand-gold);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--brand-gold);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .back-btn {
+            background: transparent;
+            color: var(--brand-white);
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid var(--brand-white);
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            border-color: var(--brand-gold);
+            color: var(--brand-gold);
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 100px;
+            padding: 60px 0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--brand-white) 0%, var(--brand-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+
+        .page-subtitle {
+            font-size: 1.3rem;
+            color: var(--brand-gold);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .page-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Download Section */
+        .download-section {
+            background: var(--brand-black);
+            border: 2px solid var(--brand-gold);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 0 40px var(--accent-glow);
+        }
+
+        .download-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .download-title {
+            font-size: 2rem;
+            color: var(--brand-gold);
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .version-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .version-badge {
+            background: var(--brand-gold);
+            color: var(--brand-black);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .download-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .download-card {
+            background: var(--brand-black);
+            border: 2px solid var(--brand-white);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .download-card:hover::before {
+            left: 100%;
+        }
+
+        .download-card:hover {
+            border-color: var(--brand-gold);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(255, 215, 0, 0.2);
+        }
+
+        .download-icon {
+            font-size: 3rem;
+            color: var(--brand-gold);
+            margin-bottom: 20px;
+        }
+
+        .download-label {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--brand-white);
+            margin-bottom: 15px;
+        }
+
+        .download-details {
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .download-btn {
+            background: var(--brand-gold);
+            color: var(--brand-black);
+            padding: 15px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--accent-glow);
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--accent-glow);
+        }
+
+        .download-btn.secondary {
+            background: transparent;
+            color: var(--brand-white);
+            border: 2px solid var(--brand-white);
+        }
+
+        .download-btn.secondary:hover {
+            border-color: var(--brand-gold);
+            color: var(--brand-gold);
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        /* System Requirements */
+        .requirements-section {
+            background: var(--brand-black);
+            border: 2px solid var(--brand-white);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .requirements-title {
+            font-size: 1.8rem;
+            color: var(--brand-gold);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .requirement-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: var(--brand-black);
+            border-radius: 10px;
+            border: 1px solid var(--brand-white);
+        }
+
+        .requirement-icon {
+            font-size: 1.5rem;
+            color: var(--success-green);
+            width: 30px;
+            text-align: center;
+        }
+
+        .requirement-text {
+            color: var(--brand-white);
+            font-weight: 500;
+        }
+
+        /* Installation Steps */
+        .installation-section {
+            background: var(--brand-black);
+            border: 2px solid var(--brand-white);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .installation-title {
+            font-size: 1.8rem;
+            color: var(--brand-gold);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .installation-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 20px;
+            background: var(--brand-black);
+            border-radius: 10px;
+            border: 1px solid var(--brand-white);
+        }
+
+        .step-number {
+            background: var(--brand-gold);
+            color: var(--brand-black);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--brand-white);
+            margin-bottom: 10px;
+        }
+
+        .step-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Security Notice */
+        .security-notice {
+            background: linear-gradient(135deg, var(--brand-gold), #ffed4a);
+            color: var(--brand-black);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .security-notice h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .security-notice p {
+            font-weight: 600;
+            line-height: 1.6;
+        }
+
+        /* Progress Bar for Downloads */
+        .download-progress {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            height: 20px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            background: var(--brand-gold);
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .progress-text {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .download-options {
+                grid-template-columns: 1fr;
+            }
+
+            .requirements-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .version-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        /* MASSIVELY ENHANCED INSTALLER 4D ELEMENTS */
+        
+        /* Epic Installation Portal */
+        .installation-portal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            z-index: 5;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .portal-ring {
+            position: absolute;
+            border: 3px solid var(--brand-gold);
+            border-radius: 50%;
+            animation: portalRotate 8s linear infinite;
+        }
+
+        .portal-ring:nth-child(1) {
+            width: 100%;
+            height: 100%;
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+
+        .portal-ring:nth-child(2) {
+            width: 80%;
+            height: 80%;
+            top: 10%;
+            left: 10%;
+            animation-direction: reverse;
+            animation-duration: 6s;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .portal-ring:nth-child(3) {
+            width: 60%;
+            height: 60%;
+            top: 20%;
+            left: 20%;
+            animation-duration: 4s;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .portal-center {
+            position: absolute;
+            top: 30%;
+            left: 30%;
+            width: 40%;
+            height: 40%;
+            background: radial-gradient(circle, var(--brand-gold), transparent);
+            border-radius: 50%;
+            animation: portalPulse 2s ease-in-out infinite;
+        }
+
+        /* Advanced Apollo Guardian System */
+        .apollo-guardian {
+            position: fixed;
+            top: 50%;
+            left: -300px;
+            transform: translateY(-50%);
+            width: 400px;
+            height: 450px;
+            z-index: 12;
+            pointer-events: none;
+            opacity: 0.9;
+            transition: all 1s ease;
+        }
+
+        .guardian-bow {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            animation: epicGuardianWatch 6s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px var(--accent-glow));
+        }
+
+        .guardian-energy-aura {
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            top: -10%;
+            left: -10%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.15), transparent 70%);
+            border-radius: 50%;
+            animation: guardianAura 4s ease-in-out infinite;
+        }
+
+        .guardian-arc {
+            position: absolute;
+            left: 35%;
+            top: 5%;
+            height: 90%;
+            width: 60px;
+            border: 8px solid var(--brand-gold);
+            border-right: none;
+            border-radius: 100% 0 0 100%;
+            box-shadow: 
+                0 0 40px var(--accent-glow),
+                inset 0 0 30px rgba(255, 215, 0, 0.4);
+            transform: rotateY(25deg);
+            background: linear-gradient(180deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+        }
+
+        .guardian-string {
+            position: absolute;
+            left: 48%;
+            top: 8%;
+            height: 84%;
+            width: 8px;
+            background: linear-gradient(180deg, #fff, var(--brand-gold), #b8860b, var(--brand-gold), #fff);
+            border-radius: 4px;
+            transform: translateX(-50%);
+            box-shadow: 
+                0 0 20px var(--accent-glow),
+                0 0 40px rgba(255, 215, 0, 0.6);
+            animation: epicGuardianStringTension 3s ease-in-out infinite;
+        }
+
+        .ready-arrow {
+            position: absolute;
+            width: 160px;
+            height: 10px;
+            background: linear-gradient(90deg, #654321, var(--brand-gold), #ffed4a, #ff4444, #fff);
+            left: 28%;
+            top: 50%;
+            transform: translateY(-50%) rotateZ(-2deg);
+            border-radius: 5px;
+            box-shadow: 
+                0 0 20px rgba(255, 215, 0, 1),
+                0 0 40px rgba(255, 68, 68, 0.6);
+            animation: epicArrowAim 5s ease-in-out infinite;
+            filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.5));
+        }
+
+        .ready-arrow::before {
+            content: '';
+            position: absolute;
+            right: -18px;
+            top: -15px;
+            width: 0;
+            height: 0;
+            border-left: 30px solid #ff4444;
+            border-top: 20px solid transparent;
+            border-bottom: 20px solid transparent;
+            box-shadow: 0 0 15px rgba(255, 68, 68, 1);
+            filter: drop-shadow(0 0 8px #ff4444);
+        }
+
+        .arrow-energy-trail {
+            position: absolute;
+            width: 200px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--brand-gold), #fff, transparent);
+            left: -40px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            animation: epicTrailEffect 5s ease-in-out infinite;
+        }
+
+        /* Epic Installation Shield Evolution */
+        .installation-shield {
+            position: fixed;
+            bottom: 60px;
+            right: 60px;
+            width: 150px;
+            height: 150px;
+            z-index: 18;
+            pointer-events: none;
+            transform-style: preserve-3d;
+        }
+
+        .shield-outer {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, var(--brand-gold), #b8860b, #8b7d00);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 
+                0 0 40px var(--accent-glow),
+                0 0 80px rgba(255, 215, 0, 0.5);
+            animation: epicShieldRotate 8s linear infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shield-outer::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.3), 
+                transparent, 
+                rgba(255, 255, 255, 0.3), 
+                transparent);
+            animation: shieldScan 4s linear infinite;
+        }
+
+        .shield-inner {
+            width: 75%;
+            height: 75%;
+            background: radial-gradient(circle, var(--brand-black), rgba(26, 26, 26, 0.9));
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--brand-gold);
+            font-weight: bold;
+            font-size: 11px;
+            text-align: center;
+            text-shadow: 0 0 10px var(--accent-glow);
+            z-index: 1;
+        }
+
+        /* Advanced Threat Radar Evolution */
+        .threat-radar {
+            position: fixed;
+            top: 15%;
+            right: -250px;
+            width: 250px;
+            height: 250px;
+            z-index: 10;
+            pointer-events: none;
+            opacity: 0.7;
+            transition: all 1s ease;
+        }
+
+        .radar-outer-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 4px solid var(--brand-gold);
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: epicRadarPulse 4s ease-out infinite;
+        }
+
+        .radar-middle-ring {
+            position: absolute;
+            width: 70%;
+            height: 70%;
+            top: 15%;
+            left: 15%;
+            border: 3px solid var(--brand-gold);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: epicRadarPulse 3s ease-out infinite;
+            animation-delay: 0.5s;
+        }
+
+        .radar-inner-ring {
+            position: absolute;
+            width: 40%;
+            height: 40%;
+            top: 30%;
+            left: 30%;
+            border: 2px solid var(--brand-gold);
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: epicRadarPulse 2s ease-out infinite;
+            animation-delay: 1s;
+        }
+
+        .radar-sweep {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 3px;
+            height: 45%;
+            background: linear-gradient(to top, transparent, var(--brand-gold), #fff);
+            transform-origin: bottom center;
+            transform: translate(-50%, 0) rotate(0deg);
+            animation: epicRadarSweep 3s linear infinite;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .radar-blip {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: radial-gradient(circle, #ff4444, #cc0000);
+            border-radius: 50%;
+            animation: epicBlipDetection 4s ease-in-out infinite;
+            box-shadow: 0 0 10px #ff4444;
+        }
+
+        .blip-1 { top: 25%; left: 65%; animation-delay: 0s; }
+        .blip-2 { top: 75%; left: 35%; animation-delay: 1.5s; }
+        .blip-3 { top: 45%; left: 85%; animation-delay: 3s; }
+        .blip-4 { top: 60%; left: 20%; animation-delay: 2s; }
+
+        /* Epic Download Progress Arrows Evolution */
+        .progress-arrows {
+            position: absolute;
+            top: 50%;
+            left: -80px;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .progress-arrow {
+            position: absolute;
+            width: 50px;
+            height: 6px;
+            background: linear-gradient(90deg, var(--brand-gold), #ffed4a, #fff);
+            border-radius: 3px;
+            animation: epicProgressArrowFly 2.5s ease-out infinite;
+            box-shadow: 
+                0 0 15px var(--accent-glow),
+                0 0 30px rgba(255, 215, 0, 0.8);
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+        }
+
+        .progress-arrow::before {
+            content: '';
+            position: absolute;
+            right: -10px;
+            top: -8px;
+            width: 0;
+            height: 0;
+            border-left: 20px solid #fff;
+            border-top: 11px solid transparent;
+            border-bottom: 11px solid transparent;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+
+        .progress-arrow::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), transparent);
+            animation: epicArrowGlow 0.8s ease-out infinite;
+        }
+
+        .progress-arrow:nth-child(1) { animation-delay: 0s; top: -15px; }
+        .progress-arrow:nth-child(2) { animation-delay: 0.8s; top: 0px; }
+        .progress-arrow:nth-child(3) { animation-delay: 1.6s; top: 15px; }
+
+        /* Holographic Download Interface */
+        .holographic-interface {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                transparent, 
+                rgba(255, 215, 0, 0.05), 
+                transparent, 
+                rgba(255, 215, 0, 0.05), 
+                transparent);
+            z-index: 1;
+            opacity: 0;
+            animation: hologramGrid 6s linear infinite;
+            pointer-events: none;
+        }
+
+        /* Epic Digital Rain */
+        .digital-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+            opacity: 0.1;
+        }
+
+        .rain-drop {
+            position: absolute;
+            color: var(--brand-gold);
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            animation: epicDigitalFall 8s linear infinite;
+            text-shadow: 0 0 8px var(--accent-glow);
+        }
+
+        /* EPIC KEYFRAMES FOR INSTALLER */
+        @keyframes portalRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes portalPulse {
+            0%, 100% { 
+                opacity: 0.8;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes epicGuardianWatch {
+            0%, 100% { 
+                transform: translateY(-50%) rotateY(0deg) rotateX(0deg) rotateZ(0deg);
+                left: -300px;
+                filter: drop-shadow(0 0 30px var(--accent-glow));
+            }
+            25% { 
+                transform: translateY(-50%) rotateY(20deg) rotateX(8deg) rotateZ(3deg);
+                left: -250px;
+                filter: drop-shadow(0 0 50px var(--accent-glow));
+            }
+            50% { 
+                transform: translateY(-50%) rotateY(0deg) rotateX(15deg) rotateZ(0deg);
+                left: -200px;
+                filter: drop-shadow(0 0 70px var(--accent-glow));
+            }
+            75% { 
+                transform: translateY(-50%) rotateY(-20deg) rotateX(8deg) rotateZ(-3deg);
+                left: -250px;
+                filter: drop-shadow(0 0 50px var(--accent-glow));
+            }
+        }
+
+        @keyframes guardianAura {
+            0%, 100% { 
+                transform: scale(1);
+                opacity: 0.15;
+            }
+            50% { 
+                transform: scale(1.4);
+                opacity: 0.3;
+            }
+        }
+
+        @keyframes epicGuardianStringTension {
+            0%, 60% { 
+                transform: translateX(-50%) scaleX(1) scaleY(1);
+                box-shadow: 0 0 20px var(--accent-glow);
+            }
+            80% { 
+                transform: translateX(-50%) scaleX(1.3) scaleY(0.9);
+                box-shadow: 0 0 40px var(--accent-glow);
+            }
+            100% { 
+                transform: translateX(-50%) scaleX(1) scaleY(1);
+                box-shadow: 0 0 20px var(--accent-glow);
+            }
+        }
+
+        @keyframes epicArrowAim {
+            0%, 70% { 
+                transform: translateY(-50%) rotateZ(-2deg) translateX(0px);
+                opacity: 1;
+                box-shadow: 0 0 20px rgba(255, 215, 0, 1);
+            }
+            85% { 
+                transform: translateY(-50%) rotateZ(-4deg) translateX(-10px);
+                opacity: 1;
+                box-shadow: 0 0 30px rgba(255, 215, 0, 1);
+            }
+            95% { 
+                transform: translateY(-50%) rotateZ(-1deg) translateX(-5px);
+                opacity: 1;
+                box-shadow: 0 0 40px rgba(255, 215, 0, 1);
+            }
+            100% { 
+                transform: translateY(-50%) rotateZ(-2deg) translateX(0px);
+                opacity: 1;
+                box-shadow: 0 0 20px rgba(255, 215, 0, 1);
+            }
+        }
+
+        @keyframes epicTrailEffect {
+            0%, 80% { opacity: 0; }
+            85% { 
+                opacity: 1; 
+                transform: translateY(-50%) scaleX(1); 
+            }
+            100% { 
+                opacity: 0; 
+                transform: translateY(-50%) scaleX(2.5); 
+            }
+        }
+
+        @keyframes epicShieldRotate {
+            0% { 
+                transform: rotate(0deg) scale(1);
+                box-shadow: 0 0 40px var(--accent-glow);
+            }
+            50% { 
+                transform: rotate(180deg) scale(1.05);
+                box-shadow: 0 0 60px var(--accent-glow);
+            }
+            100% { 
+                transform: rotate(360deg) scale(1);
+                box-shadow: 0 0 40px var(--accent-glow);
+            }
+        }
+
+        @keyframes shieldScan {
+            0% { transform: translateY(-100%) rotate(0deg); }
+            100% { transform: translateY(100%) rotate(360deg); }
+        }
+
+        @keyframes epicRadarPulse {
+            0% { 
+                transform: scale(0.8);
+                opacity: 0.4;
+                box-shadow: 0 0 20px var(--accent-glow);
+            }
+            50% { 
+                transform: scale(1.3);
+                opacity: 0.8;
+                box-shadow: 0 0 40px var(--accent-glow);
+            }
+            100% { 
+                transform: scale(0.8);
+                opacity: 0.4;
+                box-shadow: 0 0 20px var(--accent-glow);
+            }
+        }
+
+        @keyframes epicRadarSweep {
+            0% { 
+                transform: translate(-50%, 0) rotate(0deg);
+                box-shadow: 0 0 15px var(--accent-glow);
+            }
+            100% { 
+                transform: translate(-50%, 0) rotate(360deg);
+                box-shadow: 0 0 30px var(--accent-glow);
+            }
+        }
+
+        @keyframes epicBlipDetection {
+            0%, 85% { 
+                opacity: 0;
+                transform: scale(0.5);
+                box-shadow: 0 0 5px #ff4444;
+            }
+            90% { 
+                opacity: 1;
+                transform: scale(2);
+                box-shadow: 0 0 20px #ff4444;
+            }
+            95% { 
+                opacity: 0.8;
+                transform: scale(1.5);
+                box-shadow: 0 0 30px #ff4444;
+            }
+            100% { 
+                opacity: 0;
+                transform: scale(0.5);
+                box-shadow: 0 0 5px #ff4444;
+            }
+        }
+
+        @keyframes epicProgressArrowFly {
+            0% { 
+                opacity: 0;
+                transform: translateX(0px) rotateZ(0deg) scale(0.5);
+                box-shadow: 0 0 10px var(--accent-glow);
+            }
+            20% { 
+                opacity: 1;
+                transform: translateX(30px) rotateZ(-2deg) scale(1);
+                box-shadow: 0 0 20px var(--accent-glow);
+            }
+            80% { 
+                opacity: 1;
+                transform: translateX(150px) rotateZ(-5deg) scale(1.1);
+                box-shadow: 0 0 30px var(--accent-glow);
+            }
+            100% { 
+                opacity: 0;
+                transform: translateX(250px) rotateZ(-8deg) scale(0.8);
+                box-shadow: 0 0 15px var(--accent-glow);
+            }
+        }
+
+        @keyframes epicArrowGlow {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes hologramGrid {
+            0% { 
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+            50% { 
+                opacity: 0.3;
+                transform: translateX(0%);
+            }
+            100% { 
+                opacity: 0;
+                transform: translateX(100%);
+            }
+        }
+
+        @keyframes epicDigitalFall {
+            0% { 
+                top: -10vh;
+                opacity: 1;
+            }
+            100% { 
+                top: 110vh;
+                opacity: 0;
+            }
+        }
+
+        /* Enhanced Download Button 4D */
+        .download-btn {
+            background: linear-gradient(135deg, var(--brand-gold), #ffed4a);
+            color: var(--brand-black);
+            padding: 18px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.4s ease;
+            box-shadow: 
+                0 6px 20px var(--accent-glow),
+                inset 0 2px 4px rgba(255, 255, 255, 0.3);
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            justify-content: center;
+            transform-style: preserve-3d;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px) rotateX(8deg) scale(1.02);
+            box-shadow: 
+                0 12px 30px var(--accent-glow),
+                inset 0 2px 4px rgba(255, 255, 255, 0.5);
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            transition: left 0.8s ease;
+        }
+
+        .download-btn:hover::before {
+            left: 100%;
+        }
+
+        .download-btn:active {
+            transform: translateY(-1px) rotateX(5deg) scale(0.98);
+        }
+
+        /* Responsive Epic Elements */
+        @media (max-width: 768px) {
+            .apollo-guardian {
+                left: -250px;
+                width: 300px;
+                height: 350px;
+            }
+            
+            .installation-shield {
+                width: 100px;
+                height: 100px;
+                bottom: 40px;
+                right: 40px;
+            }
+            
+            .threat-radar {
+                width: 180px;
+                height: 180px;
+                right: -180px;
+            }
+
+            .installation-portal {
+                width: 250px;
+                height: 250px;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-delay-1 { animation-delay: 0.2s; }
+        .animate-delay-2 { animation-delay: 0.4s; }
+        .animate-delay-3 { animation-delay: 0.6s; }
+
+        /* Download Status Messages */
+        .status-message {
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+
+        .status-success {
+            background: rgba(0, 255, 65, 0.2);
+            color: var(--success-green);
+            border: 1px solid var(--success-green);
+        }
+
+        .status-warning {
+            background: rgba(255, 149, 0, 0.2);
+            color: var(--warning-orange);
+            border: 1px solid var(--warning-orange);
+        }
+
+        /* Additional Downloads Section */
+        .additional-downloads {
+            background: var(--brand-black);
+            border: 2px solid var(--brand-white);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .additional-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .additional-card {
+            background: var(--brand-black);
+            border: 1px solid var(--brand-white);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .additional-card:hover {
+            border-color: var(--brand-gold);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.2);
+        }
+
+        .additional-icon {
+            font-size: 2rem;
+            color: var(--brand-gold);
+            margin-bottom: 15px;
+        }
+
+        .additional-card h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--brand-white);
+            margin-bottom: 10px;
+        }
+
+        .additional-card p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .additional-btn {
+            background: var(--brand-gold);
+            color: var(--brand-black);
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--brand-gold);
+        }
+
+        .additional-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .additional-btn.secondary {
+            background: transparent;
+            color: var(--brand-white);
+            border: 2px solid var(--brand-white);
+        }
+
+        .additional-btn.secondary:hover {
+            border-color: var(--brand-gold);
+            color: var(--brand-gold);
+            background: rgba(255, 215, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Epic Installation Portal -->
+    <div class="installation-portal" id="installPortal">
+        <div class="portal-ring"></div>
+        <div class="portal-ring"></div>
+        <div class="portal-ring"></div>
+        <div class="portal-center"></div>
+    </div>
+
+    <!-- Digital Rain Background -->
+    <div class="digital-rain" id="digitalRain"></div>
+
+    <!-- Holographic Interface -->
+    <div class="holographic-interface"></div>
+
+    <!-- Enhanced 4D Apollo Guardian -->
+    <div class="apollo-guardian">
+        <div class="guardian-bow">
+            <div class="guardian-energy-aura"></div>
+            <div class="guardian-arc"></div>
+            <div class="guardian-string"></div>
+            <div class="ready-arrow">
+                <div class="arrow-energy-trail"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Epic Installation Shield -->
+    <div class="installation-shield">
+        <div class="shield-outer">
+            <div class="shield-inner">
+                APOLLO<br>SHIELD<br>ACTIVE
+            </div>
+        </div>
+    </div>
+
+    <!-- Advanced Threat Detection Radar -->
+    <div class="threat-radar">
+        <div class="radar-outer-ring"></div>
+        <div class="radar-middle-ring"></div>
+        <div class="radar-inner-ring"></div>
+        <div class="radar-sweep"></div>
+        <div class="radar-blip blip-1"></div>
+        <div class="radar-blip blip-2"></div>
+        <div class="radar-blip blip-3"></div>
+        <div class="radar-blip blip-4"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo-section">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" alt="Apollo Logo" class="logo-img" id="logo-placeholder">
+                <div class="logo-text">APOLLO CyberSentinel</div>
+            </div>
+            <a href="landing-page.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header fade-in">
+                <h1 class="page-title">Download Center</h1>
+                <div class="page-subtitle">Military-Grade Cybersecurity Installation</div>
+                <p class="page-description">
+                    Get instant protection against nation-state hackers, APT groups, and cryptocurrency threats. 
+                    Download APOLLO CyberSentinel and join the defense against advanced persistent threats.
+                </p>
+            </div>
+
+            <!-- Security Notice -->
+            <div class="security-notice fade-in animate-delay-1">
+                <h3><i class="fas fa-shield-alt"></i> Verified & Secure Download</h3>
+                <p>
+                    All downloads are cryptographically signed and verified. APOLLO CyberSentinel is built with zero telemetry 
+                    and operates entirely offline for maximum privacy and security.
+                </p>
+            </div>
+
+            <!-- Download Section -->
+            <div class="download-section fade-in animate-delay-2">
+                <div class="download-header">
+                    <h2 class="download-title">Choose Your Installation Method</h2>
+                    <div class="version-info">
+                        <div class="version-badge">Version 3.0.0</div>
+                        <div class="version-badge">Enterprise Grade</div>
+                        <div class="version-badge">95% Protection Score</div>
+                    </div>
+                </div>
+
+                <div class="download-options">
+                    <!-- Windows Installer -->
+                    <div class="download-card">
+                        <div class="download-icon">
+                            <i class="fab fa-windows"></i>
+                        </div>
+                        <h3 class="download-label">Windows Installer</h3>
+                        <p class="download-details">
+                            Complete installation package with all dependencies.
+                            Automatic updates and system integration included.
+                        </p>
+                        <a href="#" class="download-btn" onclick="downloadForOS('windows')">
+                            <i class="fas fa-download"></i>
+                            Download for Windows
+                        </a>
+                        <div class="progress-arrows">
+                            <div class="progress-arrow"></div>
+                            <div class="progress-arrow"></div>
+                            <div class="progress-arrow"></div>
+                        </div>
+                        <div class="download-progress" id="windows-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="windows-progress-fill"></div>
+                            </div>
+                            <div class="progress-text" id="windows-progress-text">Preparing download...</div>
+                        </div>
+                        <div class="status-message status-success" id="windows-success">
+                            <i class="fas fa-check-circle"></i> Download completed successfully!
+                        </div>
+                    </div>
+
+                    <!-- Linux Version -->
+                    <div class="download-card">
+                        <div class="download-icon">
+                            <i class="fab fa-linux"></i>
+                        </div>
+                        <h3 class="download-label">Linux AppImage</h3>
+                        <p class="download-details">
+                            Universal Linux package that runs on all distributions.
+                            No installation required, just download and run.
+                        </p>
+                        <a href="#" class="download-btn" onclick="downloadForOS('linux')">
+                            <i class="fas fa-download"></i>
+                            Download for Linux
+                        </a>
+                        <div class="progress-arrows">
+                            <div class="progress-arrow"></div>
+                            <div class="progress-arrow"></div>
+                            <div class="progress-arrow"></div>
+                        </div>
+                        <div class="download-progress" id="portable-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="portable-progress-fill"></div>
+                            </div>
+                            <div class="progress-text" id="portable-progress-text">Preparing download...</div>
+                        </div>
+                        <div class="status-message status-success" id="portable-success">
+                            <i class="fas fa-check-circle"></i> Download completed successfully!
+                        </div>
+                    </div>
+
+                    <!-- macOS Version -->
+                    <div class="download-card">
+                        <div class="download-icon">
+                            <i class="fab fa-apple"></i>
+                        </div>
+                        <h3 class="download-label">macOS Package</h3>
+                        <p class="download-details">
+                            Native macOS application with full system integration.
+                            Optimized for Intel and Apple Silicon Macs.
+                        </p>
+                        <a href="#" class="download-btn" onclick="downloadForOS('macos')">
+                            <i class="fas fa-download"></i>
+                            Download for macOS
+                        </a>
+                </div>
+            </div>
+
+            <!-- System Requirements -->
+            <div class="requirements-section fade-in animate-delay-3">
+                <h2 class="requirements-title">System Requirements</h2>
+                <div class="requirements-grid">
+                    <div class="requirement-item">
+                        <div class="requirement-icon">
+                            <i class="fab fa-windows"></i>
+                        </div>
+                        <div class="requirement-text">Windows 10/11 (64-bit)</div>
+                    </div>
+                    <div class="requirement-item">
+                        <div class="requirement-icon">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                        <div class="requirement-text">4GB RAM (8GB recommended)</div>
+                    </div>
+                    <div class="requirement-item">
+                        <div class="requirement-icon">
+                            <i class="fas fa-hdd"></i>
+                        </div>
+                        <div class="requirement-text">2GB free disk space</div>
+                    </div>
+                    <div class="requirement-item">
+                        <div class="requirement-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="requirement-text">Administrator privileges</div>
+                    </div>
+                    <div class="requirement-item">
+                        <div class="requirement-icon">
+                            <i class="fas fa-wifi"></i>
+                        </div>
+                        <div class="requirement-text">Internet connection (optional)</div>
+                    </div>
+                    <div class="requirement-item">
+                        <div class="requirement-icon">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <div class="requirement-text">API Keys for enhanced features</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Installation Steps -->
+            <div class="installation-section fade-in">
+                <h2 class="installation-title">Installation Guide</h2>
+                <div class="installation-steps">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Download the Installer</h3>
+                            <p class="step-description">
+                                Click the download button above to get the latest version of APOLLO CyberSentinel. 
+                                The download will be verified automatically.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Run as Administrator</h3>
+                            <p class="step-description">
+                                Right-click the installer and select "Run as administrator" to ensure proper installation 
+                                of system-level protection components.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Configure API Keys</h3>
+                            <p class="step-description">
+                                Add your Anthropic, VirusTotal, and other API keys to enable full threat intelligence 
+                                capabilities. Keys are stored locally and encrypted.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Start Protection</h3>
+                            <p class="step-description">
+                                Launch APOLLO CyberSentinel and enable real-time protection. The system will immediately 
+                                begin defending against nation-state threats.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Download Options -->
+                <div class="additional-downloads">
+                    <h3 style="text-align: center; color: var(--brand-gold); margin: 40px 0 30px 0; font-size: 1.5rem;">Additional Options</h3>
+                    <div class="additional-grid">
+                        <div class="additional-card">
+                            <div class="additional-icon">
+                                <i class="fas fa-cube"></i>
+                            </div>
+                            <h4>Portable Version</h4>
+                            <p>Windows portable executable - no installation required</p>
+                            <a href="#" class="additional-btn" onclick="downloadPortable()">
+                                <i class="fas fa-download"></i> Download Portable
+                            </a>
+                        </div>
+                        <div class="additional-card">
+                            <div class="additional-icon">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <h4>Source Code</h4>
+                            <p>View and contribute to the open-source project</p>
+                            <a href="https://github.com/yourusername/apollo-cybersentinel" class="additional-btn secondary" target="_blank">
+                                <i class="fab fa-github"></i> View on GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Load the actual logo image
+        const logoPlaceholder = document.getElementById('logo-placeholder');
+        const logoSrc = '/mnt/user-data/uploads/1758526181417_image.png';
+        
+        logoPlaceholder.src = logoSrc;
+        logoPlaceholder.onerror = function() {
+            this.style.display = 'none';
+        };
+
+        // EPIC DIGITAL RAIN SYSTEM
+        function createDigitalRain() {
+            const rainContainer = document.getElementById('digitalRain');
+            const chars = '01アポロサイバーセンチネルAPOLLO防衛システム';
+            
+            for (let i = 0; i < 150; i++) {
+                setTimeout(() => {
+                    const drop = document.createElement('div');
+                    drop.className = 'rain-drop';
+                    drop.style.left = Math.random() * 100 + '%';
+                    drop.style.animationDelay = Math.random() * 8 + 's';
+                    drop.style.animationDuration = (Math.random() * 6 + 4) + 's';
+                    drop.style.fontSize = (Math.random() * 8 + 10) + 'px';
+                    
+                    let dropText = '';
+                    for (let j = 0; j < 15; j++) {
+                        dropText += chars[Math.floor(Math.random() * chars.length)] + '<br>';
+                    }
+                    drop.innerHTML = dropText;
+                    
+                    rainContainer.appendChild(drop);
+                    
+                    setTimeout(() => {
+                        if (drop.parentNode) drop.parentNode.removeChild(drop);
+                    }, 12000);
+                }, i * 50);
+            }
+        }
+
+        // INSTALLATION PORTAL ACTIVATION
+        function activateInstallationPortal() {
+            const portal = document.getElementById('installPortal');
+            portal.style.opacity = '1';
+            
+            setTimeout(() => {
+                portal.style.transform = 'translate(-50%, -50%) scale(1.2)';
+                setTimeout(() => {
+                    portal.style.transform = 'translate(-50%, -50%) scale(1)';
+                }, 2000);
+            }, 500);
+        }
+
+        // EPIC APOLLO GUARDIAN CONTROLLER
+        function epicGuardianActivation() {
+            const guardian = document.querySelector('.apollo-guardian');
+            const shield = document.querySelector('.installation-shield');
+            const radar = document.querySelector('.threat-radar');
+            
+            console.log('🏹 APOLLO GUARDIAN SYSTEM ONLINE - Installation Protection Active');
+            
+            // Guardian emergence
+            guardian.style.transform = 'translateY(-50%) translateX(100px)';
+            guardian.style.opacity = '1';
+            
+            // Shield activation
+            shield.style.transform = 'scale(1.2) rotateZ(360deg)';
+            setTimeout(() => {
+                shield.style.transform = 'scale(1) rotateZ(0deg)';
+            }, 2000);
+            
+            // Radar activation
+            radar.style.right = '80px';
+            radar.style.opacity = '1';
+            
+            setTimeout(() => {
+                guardian.style.transform = 'translateY(-50%) translateX(20px)';
+                radar.style.right = '-250px';
+                radar.style.opacity = '0.7';
+            }, 5000);
+        }
+
+        // ENHANCED DOWNLOAD SIMULATION WITH CINEMATIC EFFECTS
+        function simulateEpicDownload(type, downloadUrl = '#', filename = 'apollo-cybersentinel.exe') {
+            // Map new OS types to existing progress elements
+            let progressType = type;
+            if (type === 'linux' || type === 'macos') {
+                progressType = 'windows'; // Use windows progress elements for now
+            }
+
+            const progressElement = document.getElementById(`${progressType}-progress`);
+            const progressFill = document.getElementById(`${progressType}-progress-fill`);
+            const progressText = document.getElementById(`${progressType}-progress-text`);
+            const successElement = document.getElementById(`${progressType}-success`);
+            const progressArrows = document.querySelector(`#${progressType}-progress`).parentNode.querySelector('.progress-arrows');
+            
+            // Activate all epic systems
+            epicGuardianActivation();
+            activateInstallationPortal();
+            
+            // Show progress arrows with epic effect
+            if (progressArrows) {
+                progressArrows.style.opacity = '1';
+            }
+            
+            // Show progress bar
+            progressElement.style.display = 'block';
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 10;
+                if (progress > 100) progress = 100;
+                
+                progressFill.style.width = progress + '%';
+                
+                // Epic progress messages
+                if (progress < 15) {
+                    progressText.textContent = 'Apollo Guardian systems initializing...';
+                } else if (progress < 30) {
+                    progressText.textContent = 'Establishing quantum encryption tunnel...';
+                } else if (progress < 45) {
+                    progressText.textContent = 'Downloading military-grade threat intelligence...';
+                } else if (progress < 60) {
+                    progressText.textContent = 'Installing nation-state defense protocols...';
+                } else if (progress < 75) {
+                    progressText.textContent = 'Verifying cryptographic signatures...';
+                } else if (progress < 90) {
+                    progressText.textContent = 'Deploying AI-powered threat detection...';
+                } else if (progress < 98) {
+                    progressText.textContent = 'Activating Apollo cybersecurity matrix...';
+                } else {
+                    progressText.textContent = 'Apollo CyberSentinel deployment complete!';
+                }
+                
+                // Progress milestone effects
+                if (progress > 25 && progress < 30) {
+                    createInstallationExplosion();
+                }
+                if (progress > 50 && progress < 55) {
+                    triggerShieldBurst();
+                }
+                if (progress > 75 && progress < 80) {
+                    activateRadarSweep();
+                }
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        progressElement.style.display = 'none';
+                        if (progressArrows) {
+                            progressArrows.style.opacity = '0';
+                        }
+                        successElement.style.display = 'block';
+                        
+                        // EPIC COMPLETION CELEBRATION
+                        triggerEpicVictorySequence();
+                        
+                        // Create and trigger download link
+                        const link = document.createElement('a');
+                        link.href = downloadUrl;
+                        link.download = filename;
+                        link.style.display = 'none';
+                        document.body.appendChild(link);
+
+                        // Only actually trigger download if URL is valid (not placeholder)
+                        if (downloadUrl !== '#') {
+                            link.click();
+                        } else {
+                            console.log('Download placeholder - replace with actual download URL');
+                            // Show message that download will be available soon
+                            progressText.textContent = 'Download will be available soon! Check GitHub releases.';
+                        }
+
+                        document.body.removeChild(link);
+                        
+                        // Hide success message after 8 seconds
+                        setTimeout(() => {
+                            successElement.style.display = 'none';
+                        }, 8000);
+                    }, 2000);
+                }
+            }, 200);
+        }
+
+        // EPIC EXPLOSION EFFECTS FOR INSTALLATION
+        function createInstallationExplosion() {
+            const explosion = document.createElement('div');
+            explosion.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                width: 100px;
+                height: 100px;
+                background: radial-gradient(circle, #fff, var(--brand-gold), #ff4444, transparent);
+                border-radius: 50%;
+                transform: translate(-50%, -50%) scale(0);
+                animation: installExplosion 1.5s ease-out;
+                z-index: 1000;
+                pointer-events: none;
+                box-shadow: 0 0 100px var(--brand-gold);
+            `;
+            
+            const explosionKeyframes = `
+                @keyframes installExplosion {
+                    0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+                    50% { transform: translate(-50%, -50%) scale(3); opacity: 0.8; }
+                    100% { transform: translate(-50%, -50%) scale(6); opacity: 0; }
+                }
+            `;
+            
+            const styleSheet = document.createElement('style');
+            styleSheet.textContent = explosionKeyframes;
+            document.head.appendChild(styleSheet);
+            
+            document.body.appendChild(explosion);
+            
+            setTimeout(() => {
+                if (explosion.parentNode) explosion.parentNode.removeChild(explosion);
+            }, 1500);
+        }
+
+        // SHIELD BURST EFFECT
+        function triggerShieldBurst() {
+            const shield = document.querySelector('.shield-outer');
+            const originalAnimation = shield.style.animation;
+            
+            shield.style.animation = 'shieldBurst 2s ease-out';
+            
+            const burstKeyframes = `
+                @keyframes shieldBurst {
+                    0% { 
+                        transform: rotate(0deg) scale(1);
+                        box-shadow: 0 0 40px var(--accent-glow);
+                    }
+                    50% { 
+                        transform: rotate(180deg) scale(1.5);
+                        box-shadow: 0 0 80px var(--accent-glow), 0 0 120px rgba(255, 215, 0, 0.8);
+                    }
+                    100% { 
+                        transform: rotate(360deg) scale(1);
+                        box-shadow: 0 0 40px var(--accent-glow);
+                    }
+                }
+            `;
+            
+            const styleSheet = document.createElement('style');
+            styleSheet.textContent = burstKeyframes;
+            document.head.appendChild(styleSheet);
+            
+            setTimeout(() => {
+                shield.style.animation = originalAnimation;
+            }, 2000);
+        }
+
+        // RADAR SWEEP ACTIVATION
+        function activateRadarSweep() {
+            const radar = document.querySelector('.threat-radar');
+            radar.style.right = '50px';
+            radar.style.opacity = '1';
+            radar.style.transform = 'scale(1.3)';
+            
+            setTimeout(() => {
+                radar.style.transform = 'scale(1)';
+                radar.style.right = '-250px';
+                radar.style.opacity = '0.7';
+            }, 3000);
+        }
+
+        // EPIC VICTORY SEQUENCE
+        function triggerEpicVictorySequence() {
+            console.log('🎉 APOLLO INSTALLATION COMPLETE - VICTORY SEQUENCE INITIATED');
+            
+            const guardian = document.querySelector('.guardian-bow');
+            const shield = document.querySelector('.shield-outer');
+            const portal = document.getElementById('installPortal');
+            
+            // Guardian victory pose
+            guardian.style.animation = 'guardianVictory 3s ease-out';
+            
+            // Shield victory spin
+            shield.style.animation = 'shieldVictory 3s ease-out';
+            
+            // Portal celebration
+            portal.style.transform = 'translate(-50%, -50%) scale(2)';
+            portal.style.opacity = '0.8';
+            
+            // Victory keyframes
+            const victoryStyles = `
+                @keyframes guardianVictory {
+                    0% { transform: translateY(-50%) rotateY(0deg) scale(1); }
+                    25% { transform: translateY(-50%) rotateY(-30deg) scale(1.1); }
+                    50% { transform: translateY(-50%) rotateY(30deg) scale(1.2); }
+                    75% { transform: translateY(-50%) rotateY(-15deg) scale(1.1); }
+                    100% { transform: translateY(-50%) rotateY(0deg) scale(1); }
+                }
+                
+                @keyframes shieldVictory {
+                    0% { 
+                        transform: rotate(0deg) scale(1);
+                        box-shadow: 0 0 40px var(--accent-glow);
+                    }
+                    25% { 
+                        transform: rotate(90deg) scale(1.3);
+                        box-shadow: 0 0 80px var(--accent-glow);
+                    }
+                    50% { 
+                        transform: rotate(180deg) scale(1.5);
+                        box-shadow: 0 0 120px var(--accent-glow), 0 0 200px rgba(255, 215, 0, 0.8);
+                    }
+                    75% { 
+                        transform: rotate(270deg) scale(1.3);
+                        box-shadow: 0 0 80px var(--accent-glow);
+                    }
+                    100% { 
+                        transform: rotate(360deg) scale(1);
+                        box-shadow: 0 0 40px var(--accent-glow);
+                    }
+                }
+            `;
+            
+            const styleSheet = document.createElement('style');
+            styleSheet.textContent = victoryStyles;
+            document.head.appendChild(styleSheet);
+            
+            setTimeout(() => {
+                guardian.style.animation = 'epicGuardianWatch 6s ease-in-out infinite';
+                shield.style.animation = 'epicShieldRotate 8s linear infinite';
+                portal.style.transform = 'translate(-50%, -50%) scale(1)';
+                portal.style.opacity = '0';
+            }, 3000);
+            
+            // Create victory particles
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => createVictoryParticle(), i * 50);
+            }
+        }
+
+        // VICTORY PARTICLES
+        function createVictoryParticle() {
+            const particle = document.createElement('div');
+            particle.style.cssText = `
+                position: fixed;
+                width: 6px;
+                height: 6px;
+                background: radial-gradient(circle, var(--brand-gold), #ffed4a);
+                border-radius: 50%;
+                left: ${Math.random() * 100}%;
+                top: ${Math.random() * 100}%;
+                animation: victoryFloat 4s ease-out;
+                z-index: 1000;
+                pointer-events: none;
+                box-shadow: 0 0 10px var(--accent-glow);
+            `;
+            
+            const floatKeyframes = `
+                @keyframes victoryFloat {
+                    0% { 
+                        opacity: 1;
+                        transform: scale(0) translateY(0px);
+                    }
+                    50% { 
+                        opacity: 1;
+                        transform: scale(1.5) translateY(-100px);
+                    }
+                    100% { 
+                        opacity: 0;
+                        transform: scale(0.3) translateY(-200px);
+                    }
+                }
+            `;
+            
+            if (!document.querySelector('#victory-keyframes')) {
+                const styleSheet = document.createElement('style');
+                styleSheet.id = 'victory-keyframes';
+                styleSheet.textContent = floatKeyframes;
+                document.head.appendChild(styleSheet);
+            }
+            
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                if (particle.parentNode) particle.parentNode.removeChild(particle);
+            }, 4000);
+        }
+
+        // OS-SPECIFIC DOWNLOAD FUNCTIONS
+        function downloadForOS(os) {
+            console.log(`🚀 Initiating download for ${os.toUpperCase()}`);
+
+            let downloadUrl;
+            let filename;
+
+            switch(os) {
+                case 'windows':
+                    downloadUrl = 'https://github.com/yourusername/apollo-cybersentinel/releases/latest/download/apollo-cybersentinel-windows-x64.exe';
+                    filename = 'apollo-cybersentinel-windows-x64.exe';
+                    break;
+                case 'linux':
+                    downloadUrl = 'https://github.com/yourusername/apollo-cybersentinel/releases/latest/download/apollo-cybersentinel-linux-x64.AppImage';
+                    filename = 'apollo-cybersentinel-linux-x64.AppImage';
+                    break;
+                case 'macos':
+                    downloadUrl = 'https://github.com/yourusername/apollo-cybersentinel/releases/latest/download/apollo-cybersentinel-macos-x64.dmg';
+                    filename = 'apollo-cybersentinel-macos-x64.dmg';
+                    break;
+                default:
+                    console.error('Unsupported OS:', os);
+                    return;
+            }
+
+            // Trigger epic download simulation
+            simulateEpicDownload(os, downloadUrl, filename);
+        }
+
+        // Legacy download functions for compatibility
+        function downloadWindows() {
+            downloadForOS('windows');
+        }
+
+        function downloadPortable() {
+            // Portable version - Windows executable without installer
+            const downloadUrl = 'https://github.com/yourusername/apollo-cybersentinel/releases/latest/download/apollo-cybersentinel-portable.exe';
+            const filename = 'apollo-cybersentinel-portable.exe';
+
+            console.log('🚀 Downloading Portable Version');
+            simulateEpicDownload('portable', downloadUrl, filename);
+        }
+
+        // INTERACTIVE HOVER EFFECTS FOR DOWNLOAD CARDS
+        document.querySelectorAll('.download-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const guardian = document.querySelector('.apollo-guardian');
+                const radar = document.querySelector('.threat-radar');
+                
+                guardian.style.transform = 'translateY(-50%) translateX(40px)';
+                guardian.style.opacity = '1';
+                
+                radar.style.right = '100px';
+                radar.style.opacity = '0.9';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                const guardian = document.querySelector('.apollo-guardian');
+                const radar = document.querySelector('.threat-radar');
+                
+                guardian.style.transform = 'translateY(-50%) translateX(0px)';
+                guardian.style.opacity = '0.9';
+                
+                radar.style.right = '-250px';
+                radar.style.opacity = '0.7';
+            });
+        });
+
+        // INITIALIZE EPIC INSTALLER SYSTEMS
+        function initializeEpicInstallerSystems() {
+            console.log('🚀 Initializing APOLLO CyberSentinel Epic Installer Systems...');
+            
+            // Start digital rain
+            createDigitalRain();
+            setInterval(createDigitalRain, 15000);
+            
+            // Initial guardian activation
+            setTimeout(() => {
+                epicGuardianActivation();
+            }, 2000);
+            
+            // Periodic radar sweeps
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    activateRadarSweep();
+                }
+            }, 10000);
+        }
+
+        // Initialize Apollo Guardian on page load
+        window.addEventListener('load', () => {
+            setTimeout(initializeEpicInstallerSystems, 1000);
+        });
+
+        // ENHANCED INSTALLATION BATTLE STATS
+        let installationThreats = 0;
+        let guardiansActive = 0;
+        let shieldsDeployed = 0;
+        
+        const epicInstallCounter = document.createElement('div');
+        epicInstallCounter.style.cssText = `
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            background: linear-gradient(135deg, var(--brand-black), rgba(26, 26, 26, 0.95));
+            border: 3px solid var(--brand-gold);
+            border-radius: 20px;
+            padding: 25px;
+            color: var(--brand-gold);
+            font-weight: bold;
+            z-index: 1000;
+            opacity: 0;
+            transition: all 0.5s ease;
+            transform: translateY(-50%);
+            min-width: 180px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 0 40px var(--accent-glow);
+        `;
+        epicInstallCounter.innerHTML = `
+            <div style="font-size: 16px; text-align: center; margin-bottom: 15px; color: var(--brand-gold); text-shadow: 0 0 10px var(--accent-glow);">APOLLO INSTALLATION</div>
+            <div style="font-size: 14px; text-align: center; margin-bottom: 20px; color: var(--brand-white);">DEFENSE STATUS</div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                <span style="font-size: 12px;">THREATS:</span>
+                <span style="font-size: 12px; color: #ff4444;" id="install-threat-count">0</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                <span style="font-size: 12px;">GUARDIANS:</span>
+                <span style="font-size: 12px; color: var(--brand-gold);" id="guardian-count">0</span>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+                <span style="font-size: 12px;">SHIELDS:</span>
+                <span style="font-size: 12px; color: #fff;" id="shield-count">0</span>
+            </div>
+        `;
+        document.body.appendChild(epicInstallCounter);
+
+        // Show installation counter after 2 seconds
+        setTimeout(() => {
+            epicInstallCounter.style.opacity = '0.95';
+            guardiansActive = 1;
+            shieldsDeployed = 1;
+            document.getElementById('guardian-count').textContent = guardiansActive;
+            document.getElementById('shield-count').textContent = shieldsDeployed;
+        }, 2000);
+
+        // Update installation battle stats
+        function updateInstallationStats() {
+            installationThreats++;
+            
+            document.getElementById('install-threat-count').textContent = installationThreats;
+            
+            // Epic pulse effect
+            epicInstallCounter.style.transform = 'translateY(-50%) scale(1.1)';
+            epicInstallCounter.style.boxShadow = '0 0 60px var(--accent-glow)';
+            setTimeout(() => {
+                epicInstallCounter.style.transform = 'translateY(-50%) scale(1)';
+                epicInstallCounter.style.boxShadow = '0 0 40px var(--accent-glow)';
+            }, 400);
+        }
+
+        setInterval(updateInstallationStats, 6000);
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    
+                    // Special animation for download section
+                    if (entry.target.classList.contains('download-section')) {
+                        setTimeout(() => {
+                            activateRadarSweep();
+                        }, 500);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+
+        // Add click tracking for analytics (placeholder)
+        document.querySelectorAll('.download-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                // Analytics tracking would go here
+                console.log('🏹 Apollo Guardian activated for epic download:', e.target.textContent);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -23,7 +23,11 @@
       "Bash(git branch:*)",
       "Bash(git rm:*)",
       "Bash(git restore:*)",
-      "Read(//c/SECURE_THREAT_INTEL/Fortress/**)"
+      "Read(//c/SECURE_THREAT_INTEL/Fortress/**)",
+      "Bash(chmod:*)",
+      "Bash(./build-release.sh:*)",
+      "Bash(gh release create:*)",
+      "Bash(releases/dist/*)"
     ],
     "deny": [],
     "ask": []

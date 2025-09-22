@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - APOLLO CyberSentinel</title>
+    <meta name="description" content="APOLLO CyberSentinel Terms of Service - Legal terms and conditions">
+    <link rel="canonical" href="https://apollosentinel.com/terms-of-service.html">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --brand-black: #1a1a1a;
+            --brand-white: #ffffff;
+            --brand-gold: #ffd700;
+            --text-secondary: rgba(255, 255, 255, 0.8);
+            --accent-glow: rgba(255, 215, 0, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--brand-black);
+            color: var(--brand-white);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--brand-gold);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--brand-white) 0%, var(--brand-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .back-btn {
+            color: var(--brand-gold);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: var(--brand-white);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .page-title {
+            font-size: 48px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--brand-white) 0%, var(--brand-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 18px;
+            margin-bottom: 60px;
+        }
+
+        .content {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+            padding: 60px;
+            line-height: 1.8;
+        }
+
+        .content h2 {
+            color: var(--brand-gold);
+            font-size: 28px;
+            font-weight: 700;
+            margin: 40px 0 20px 0;
+            border-bottom: 2px solid var(--brand-gold);
+            padding-bottom: 10px;
+        }
+
+        .content h2:first-child {
+            margin-top: 0;
+        }
+
+        .content h3 {
+            color: var(--brand-white);
+            font-size: 22px;
+            font-weight: 600;
+            margin: 30px 0 15px 0;
+        }
+
+        .content p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .content ul {
+            color: var(--text-secondary);
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .content li {
+            margin-bottom: 10px;
+        }
+
+        .highlight {
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--brand-gold);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .warning-box {
+            background: rgba(255, 68, 68, 0.1);
+            border: 1px solid #ff4444;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .warning-box strong {
+            color: #ff4444;
+        }
+
+        .contact-info {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid var(--brand-gold);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .contact-info strong {
+            color: var(--brand-gold);
+        }
+
+        .last-updated {
+            text-align: center;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 36px;
+            }
+
+            .content {
+                padding: 40px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Authentication Check -->
+    <script>
+        // Check for beta access authentication
+        (function() {
+            const access = sessionStorage.getItem('apolloBetaAccess');
+            const authTime = sessionStorage.getItem('apolloAuthTime');
+
+            // Check if access is granted and still valid
+            if (!access || access !== 'granted') {
+                window.location.href = 'beta-access.html';
+                return;
+            }
+
+            // Check if session is still valid (24 hours)
+            if (authTime) {
+                const timeDiff = Date.now() - parseInt(authTime);
+                const hoursDiff = timeDiff / (1000 * 60 * 60);
+
+                if (hoursDiff >= 24) {
+                    // Session expired
+                    sessionStorage.removeItem('apolloBetaAccess');
+                    sessionStorage.removeItem('apolloAuthTime');
+                    window.location.href = 'beta-access.html';
+                    return;
+                }
+            } else {
+                // No auth time, redirect to login
+                window.location.href = 'beta-access.html';
+                return;
+            }
+        })();
+    </script>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo-section">
+                <img src="Logo.jpg" alt="Apollo Logo" class="logo-img" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--brand-gold); box-shadow: 0 0 20px var(--accent-glow);">
+                <div class="logo-text">APOLLO CyberSentinel</div>
+            </div>
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1 class="page-title">Terms of Service</h1>
+        <p class="page-subtitle">Legal terms and conditions for using APOLLO CyberSentinel</p>
+
+        <div class="content">
+            <h2>Agreement to Terms</h2>
+            <p>By downloading, installing, or using APOLLO CyberSentinel ("Software"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the Software.</p>
+
+            <h2>Beta Software Notice</h2>
+            <div class="warning-box">
+                <p><strong>Important:</strong> APOLLO CyberSentinel is currently in beta testing. The software is provided for evaluation and testing purposes. While we strive for reliability, beta software may contain bugs or unexpected behavior.</p>
+            </div>
+
+            <h2>License Grant</h2>
+
+            <h3>Commercial License</h3>
+            <p>APOLLO CyberSentinel is <span class="highlight">proprietary commercial software</span>. We grant you a limited, non-exclusive, non-transferable license to:</p>
+            <ul>
+                <li>Install and use the Software on your personal devices</li>
+                <li>Receive software updates and security patches</li>
+                <li>Access customer support services</li>
+            </ul>
+
+            <h3>Restrictions</h3>
+            <p>You may NOT:</p>
+            <ul>
+                <li>Reverse engineer, decompile, or disassemble the Software</li>
+                <li>Distribute, sell, or sublicense the Software</li>
+                <li>Use the Software for illegal or malicious purposes</li>
+                <li>Circumvent or disable security features</li>
+                <li>Extract or reuse threat intelligence data</li>
+            </ul>
+
+            <h2>Acceptable Use</h2>
+
+            <h3>Intended Use</h3>
+            <p>APOLLO CyberSentinel is designed for:</p>
+            <ul>
+                <li><strong>Defensive cybersecurity</strong> - Protecting your systems and data</li>
+                <li><strong>Threat detection</strong> - Identifying nation-state and advanced persistent threats</li>
+                <li><strong>Privacy protection</strong> - Defending against surveillance and spyware</li>
+                <li><strong>Personal security</strong> - Safeguarding your digital assets</li>
+            </ul>
+
+            <h3>Prohibited Uses</h3>
+            <p>You agree NOT to use the Software for:</p>
+            <ul>
+                <li>Attacking, penetrating, or compromising other systems</li>
+                <li>Developing or distributing malware</li>
+                <li>Evading law enforcement or legal obligations</li>
+                <li>Violating others' privacy or rights</li>
+                <li>Any illegal activities</li>
+            </ul>
+
+            <h2>Subscription and Payment</h2>
+
+            <h3>Beta Access</h3>
+            <p>During the beta period:</p>
+            <ul>
+                <li>Access is provided free of charge</li>
+                <li>No payment information is required</li>
+                <li>Features may be limited or experimental</li>
+                <li>Service may be interrupted for updates</li>
+            </ul>
+
+            <h3>Future Commercial Terms</h3>
+            <p>Upon general availability:</p>
+            <ul>
+                <li>Subscription pricing will be announced</li>
+                <li>Beta users may receive preferential pricing</li>
+                <li>Payment terms will be clearly disclosed</li>
+                <li>Refund policies will apply</li>
+            </ul>
+
+            <h2>Privacy and Data</h2>
+
+            <h3>Zero Telemetry Design</h3>
+            <p>APOLLO CyberSentinel is built with <span class="highlight">privacy by design</span>:</p>
+            <ul>
+                <li>No telemetry or usage tracking</li>
+                <li>Local-first processing</li>
+                <li>No personal data collection</li>
+                <li>End-to-end encryption</li>
+            </ul>
+
+            <h3>Threat Intelligence</h3>
+            <p>The Software may:</p>
+            <ul>
+                <li>Query threat intelligence services with anonymized data</li>
+                <li>Download security updates and signatures</li>
+                <li>Validate file hashes against known threat databases</li>
+            </ul>
+
+            <h2>Disclaimers and Limitations</h2>
+
+            <h3>Software Warranty</h3>
+            <div class="warning-box">
+                <p><strong>Disclaimer:</strong> The Software is provided "AS IS" without warranties of any kind. While APOLLO CyberSentinel provides advanced protection, no security software can guarantee 100% protection against all threats.</p>
+            </div>
+
+            <h3>Limitation of Liability</h3>
+            <p>To the maximum extent permitted by law:</p>
+            <ul>
+                <li>We are not liable for damages from cyber attacks</li>
+                <li>Our liability is limited to the amount paid for the Software</li>
+                <li>We are not responsible for data loss or system damage</li>
+                <li>Users are responsible for maintaining backups</li>
+            </ul>
+
+            <h2>Updates and Modifications</h2>
+
+            <h3>Software Updates</h3>
+            <p>We may provide:</p>
+            <ul>
+                <li>Security patches and bug fixes</li>
+                <li>Feature updates and improvements</li>
+                <li>Threat signature updates</li>
+                <li>Compatibility updates</li>
+            </ul>
+
+            <h3>Terms Changes</h3>
+            <p>We may update these Terms by:</p>
+            <ul>
+                <li>Posting changes on our website</li>
+                <li>Notifying users through the Software</li>
+                <li>Sending email notifications</li>
+                <li>Providing 30 days notice for material changes</li>
+            </ul>
+
+            <h2>Termination</h2>
+
+            <h3>User Termination</h3>
+            <p>You may terminate this agreement by:</p>
+            <ul>
+                <li>Uninstalling the Software</li>
+                <li>Discontinuing all use</li>
+                <li>Deleting all copies</li>
+            </ul>
+
+            <h3>Company Termination</h3>
+            <p>We may terminate access for:</p>
+            <ul>
+                <li>Violation of these Terms</li>
+                <li>Illegal or harmful use</li>
+                <li>End of beta program</li>
+                <li>Technical or business reasons</li>
+            </ul>
+
+            <h2>Intellectual Property</h2>
+
+            <h3>Ownership</h3>
+            <p>APOLLO CyberSentinel and all related intellectual property are owned by us, including:</p>
+            <ul>
+                <li>Software code and algorithms</li>
+                <li>Threat detection signatures</li>
+                <li>User interfaces and designs</li>
+                <li>Documentation and materials</li>
+            </ul>
+
+            <h3>Patents and Trademarks</h3>
+            <p>The Software may be protected by patents and patent applications. All trademarks and service marks are our property or used under license.</p>
+
+            <h2>Governing Law</h2>
+            <p>These Terms are governed by the laws of the jurisdiction where our company is incorporated, without regard to conflict of law principles.</p>
+
+            <h2>Export Controls</h2>
+            <p>The Software may be subject to export control laws. Users are responsible for compliance with all applicable export and import regulations.</p>
+
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <p>For legal questions or concerns:</p>
+                <p><strong>Legal:</strong> legal@apollosentinel.com</p>
+                <p><strong>General Contact:</strong> contact@apollosentinel.com</p>
+                <p><strong>Support:</strong> support@apollosentinel.com</p>
+            </div>
+
+            <div class="last-updated">
+                <p><strong>Last Updated:</strong> September 22, 2025</p>
+                <p><strong>Effective Date:</strong> September 22, 2025</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

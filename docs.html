@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation - APOLLO CyberSentinel</title>
+    <meta name="description" content="Complete documentation for APOLLO CyberSentinel - User guides, technical specifications, and developer resources">
+    <link rel="canonical" href="https://apollosentinel.com/docs.html">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --brand-black: #1a1a1a;
+            --brand-white: #ffffff;
+            --brand-gold: #ffd700;
+            --text-secondary: rgba(255, 255, 255, 0.8);
+            --accent-glow: rgba(255, 215, 0, 0.3);
+            --sidebar-width: 280px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--brand-black);
+            color: var(--brand-white);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--brand-gold);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--brand-white) 0%, var(--brand-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .back-btn {
+            color: var(--brand-gold);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: var(--brand-white);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        /* Documentation Layout */
+        .docs-container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: calc(100vh - 80px);
+        }
+
+        /* Sidebar */
+        .docs-sidebar {
+            width: var(--sidebar-width);
+            background: rgba(255, 255, 255, 0.05);
+            border-right: 1px solid rgba(255, 215, 0, 0.3);
+            padding: 40px 0;
+            position: sticky;
+            top: 80px;
+            height: calc(100vh - 80px);
+            overflow-y: auto;
+        }
+
+        .sidebar-title {
+            color: var(--brand-gold);
+            font-size: 24px;
+            font-weight: 700;
+            padding: 0 30px 30px;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+            margin-bottom: 30px;
+        }
+
+        .nav-section {
+            margin-bottom: 30px;
+        }
+
+        .nav-section-title {
+            color: var(--brand-white);
+            font-size: 16px;
+            font-weight: 600;
+            padding: 0 30px 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-item {
+            display: block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 12px 30px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--brand-gold);
+            border-left-color: var(--brand-gold);
+        }
+
+        .nav-item.active {
+            background: rgba(255, 215, 0, 0.15);
+            color: var(--brand-gold);
+            border-left-color: var(--brand-gold);
+            font-weight: 600;
+        }
+
+        .nav-item i {
+            margin-right: 10px;
+            width: 16px;
+        }
+
+        /* Main Content */
+        .docs-content {
+            flex: 1;
+            padding: 40px 60px;
+            max-width: calc(100% - var(--sidebar-width));
+        }
+
+        .content-header {
+            margin-bottom: 50px;
+        }
+
+        .content-title {
+            font-size: 48px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--brand-white) 0%, var(--brand-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+
+        .content-subtitle {
+            color: var(--text-secondary);
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .breadcrumb {
+            color: var(--brand-gold);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .breadcrumb a {
+            color: var(--brand-gold);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        /* Documentation Cards */
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .doc-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+            padding: 40px 30px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .doc-card:hover {
+            border-color: var(--brand-gold);
+            background: rgba(255, 215, 0, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+        }
+
+        .doc-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--brand-gold), #ffed4a);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            font-size: 32px;
+            color: var(--brand-black);
+        }
+
+        .doc-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--brand-white);
+            margin-bottom: 15px;
+        }
+
+        .doc-card p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .doc-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .doc-badge {
+            background: var(--brand-gold);
+            color: var(--brand-black);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Search */
+        .search-container {
+            margin-bottom: 40px;
+        }
+
+        .search-box {
+            width: 100%;
+            max-width: 500px;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            color: var(--brand-white);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--brand-gold);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .search-box::placeholder {
+            color: var(--text-secondary);
+        }
+
+        /* Quick Links */
+        .quick-links {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid var(--brand-gold);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .quick-links h3 {
+            color: var(--brand-gold);
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .quick-links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .quick-link {
+            color: var(--brand-white);
+            text-decoration: none;
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .quick-link:hover {
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--brand-gold);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .docs-container {
+                flex-direction: column;
+            }
+
+            .docs-sidebar {
+                width: 100%;
+                position: static;
+                height: auto;
+            }
+
+            .docs-content {
+                max-width: 100%;
+                padding: 20px;
+            }
+
+            .content-title {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Authentication Check -->
+    <script>
+        // Check for beta access authentication
+        (function() {
+            const access = sessionStorage.getItem('apolloBetaAccess');
+            const authTime = sessionStorage.getItem('apolloAuthTime');
+
+            // Check if access is granted and still valid
+            if (!access || access !== 'granted') {
+                window.location.href = 'beta-access.html';
+                return;
+            }
+
+            // Check if session is still valid (24 hours)
+            if (authTime) {
+                const timeDiff = Date.now() - parseInt(authTime);
+                const hoursDiff = timeDiff / (1000 * 60 * 60);
+
+                if (hoursDiff >= 24) {
+                    // Session expired
+                    sessionStorage.removeItem('apolloBetaAccess');
+                    sessionStorage.removeItem('apolloAuthTime');
+                    window.location.href = 'beta-access.html';
+                    return;
+                }
+            } else {
+                // No auth time, redirect to login
+                window.location.href = 'beta-access.html';
+                return;
+            }
+        })();
+    </script>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo-section">
+                <img src="Logo.jpg" alt="Apollo Logo" class="logo-img" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--brand-gold); box-shadow: 0 0 20px var(--accent-glow);">
+                <div class="logo-text">APOLLO CyberSentinel</div>
+            </div>
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+        </div>
+    </header>
+
+    <!-- Documentation Container -->
+    <div class="docs-container">
+        <!-- Sidebar Navigation -->
+        <aside class="docs-sidebar">
+            <h2 class="sidebar-title">Documentation</h2>
+
+            <nav>
+                <div class="nav-section">
+                    <div class="nav-section-title">Getting Started</div>
+                    <a href="#user-guide" class="nav-item active">
+                        <i class="fas fa-book"></i> User Guide
+                    </a>
+                    <a href="#installation" class="nav-item">
+                        <i class="fas fa-download"></i> Installation
+                    </a>
+                    <a href="#quick-start" class="nav-item">
+                        <i class="fas fa-rocket"></i> Quick Start
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Technical Docs</div>
+                    <a href="#technical-whitepaper" class="nav-item">
+                        <i class="fas fa-file-alt"></i> Technical Whitepaper
+                    </a>
+                    <a href="#patent-specification" class="nav-item">
+                        <i class="fas fa-certificate"></i> Patent Specification
+                    </a>
+                    <a href="#api-reference" class="nav-item">
+                        <i class="fas fa-code"></i> API Reference
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Research</div>
+                    <a href="#case-studies" class="nav-item">
+                        <i class="fas fa-search"></i> Nation-State Case Studies
+                    </a>
+                    <a href="#threat-intelligence" class="nav-item">
+                        <i class="fas fa-shield-virus"></i> Threat Intelligence
+                    </a>
+                    <a href="#research-papers" class="nav-item">
+                        <i class="fas fa-microscope"></i> Research Papers
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Support</div>
+                    <a href="#troubleshooting" class="nav-item">
+                        <i class="fas fa-tools"></i> Troubleshooting
+                    </a>
+                    <a href="#faq" class="nav-item">
+                        <i class="fas fa-question-circle"></i> FAQ
+                    </a>
+                    <a href="mailto:support@apollosentinel.com" class="nav-item">
+                        <i class="fas fa-headset"></i> Contact Support
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="docs-content">
+            <div class="content-header">
+                <div class="breadcrumb">
+                    <a href="index.html">Home</a> / Documentation
+                </div>
+                <h1 class="content-title">Documentation</h1>
+                <p class="content-subtitle">Complete guides, technical specifications, and resources for APOLLO CyberSentinel</p>
+            </div>
+
+            <!-- Search -->
+            <div class="search-container">
+                <input type="text" placeholder="Search documentation..." class="search-box" id="searchBox">
+            </div>
+
+            <!-- Quick Links -->
+            <div class="quick-links">
+                <h3>Quick Access</h3>
+                <div class="quick-links-grid">
+                    <a href="#user-guide" class="quick-link">User Guide</a>
+                    <a href="#installation" class="quick-link">Installation Guide</a>
+                    <a href="#technical-whitepaper" class="quick-link">Technical Specs</a>
+                    <a href="#case-studies" class="quick-link">Case Studies</a>
+                    <a href="mailto:support@apollosentinel.com" class="quick-link">Get Support</a>
+                    <a href="installer.html" class="quick-link">Download</a>
+                </div>
+            </div>
+
+            <!-- Documentation Grid -->
+            <div class="docs-grid">
+                <div class="doc-card" onclick="loadDoc('user-guide')">
+                    <div class="doc-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>User Guide</h3>
+                    <p>Complete guide to using APOLLO CyberSentinel. Learn about features, configuration, and best practices for maximum protection.</p>
+                    <div class="doc-meta">
+                        <span>Updated: Sept 2025</span>
+                        <span class="doc-badge">Essential</span>
+                    </div>
+                </div>
+
+                <div class="doc-card" onclick="loadDoc('technical-whitepaper')">
+                    <div class="doc-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>Technical Whitepaper</h3>
+                    <p>Deep dive into APOLLO's architecture, AI-powered threat detection, and advanced security mechanisms.</p>
+                    <div class="doc-meta">
+                        <span>20 pages</span>
+                        <span class="doc-badge">Technical</span>
+                    </div>
+                </div>
+
+                <div class="doc-card" onclick="loadDoc('patent-specification')">
+                    <div class="doc-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3>Patent Specification</h3>
+                    <p>Detailed patent documentation covering APOLLO's innovative cybersecurity technologies and methodologies.</p>
+                    <div class="doc-meta">
+                        <span>Legal Document</span>
+                        <span class="doc-badge">Patent</span>
+                    </div>
+                </div>
+
+                <div class="doc-card" onclick="loadDoc('case-studies')">
+                    <div class="doc-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Nation-State Case Studies</h3>
+                    <p>Real-world analysis of nation-state attacks and how APOLLO's technology provides defense against APTs.</p>
+                    <div class="doc-meta">
+                        <span>Research</span>
+                        <span class="doc-badge">Analysis</span>
+                    </div>
+                </div>
+
+                <div class="doc-card" onclick="loadDoc('api-reference')">
+                    <div class="doc-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>API Reference</h3>
+                    <p>Developer documentation for integrating with APOLLO CyberSentinel's APIs and extending functionality.</p>
+                    <div class="doc-meta">
+                        <span>Developer</span>
+                        <span class="doc-badge">Code</span>
+                    </div>
+                </div>
+
+                <div class="doc-card" onclick="window.open('installer.html', '_blank')">
+                    <div class="doc-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <h3>Installation Guide</h3>
+                    <p>Step-by-step installation instructions for Windows, macOS, and Linux. Get APOLLO running in minutes.</p>
+                    <div class="doc-meta">
+                        <span>Multi-platform</span>
+                        <span class="doc-badge">Guide</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div id="docContent" style="display: none;">
+                <!-- Dynamic content will be loaded here -->
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Documentation loading functionality
+        function loadDoc(docType) {
+            const contentArea = document.getElementById('docContent');
+            const docsGrid = document.querySelector('.docs-grid');
+            const quickLinks = document.querySelector('.quick-links');
+            const searchContainer = document.querySelector('.search-container');
+
+            // Hide overview elements
+            docsGrid.style.display = 'none';
+            quickLinks.style.display = 'none';
+            searchContainer.style.display = 'none';
+            contentArea.style.display = 'block';
+
+            // Update navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelector(`a[href="#${docType}"]`).classList.add('active');
+
+            // Load content based on document type
+            let content = '';
+            switch(docType) {
+                case 'user-guide':
+                    content = generateUserGuideContent();
+                    break;
+                case 'technical-whitepaper':
+                    content = generateWhitepaperContent();
+                    break;
+                case 'patent-specification':
+                    content = generatePatentContent();
+                    break;
+                case 'case-studies':
+                    content = generateCaseStudiesContent();
+                    break;
+                case 'api-reference':
+                    content = generateAPIContent();
+                    break;
+                default:
+                    content = '<h2>Document not found</h2>';
+            }
+
+            contentArea.innerHTML = content;
+
+            // Update breadcrumb
+            const breadcrumb = document.querySelector('.breadcrumb');
+            breadcrumb.innerHTML = `<a href="index.html">Home</a> / <a href="#" onclick="showOverview()">Documentation</a> / ${getDocTitle(docType)}`;
+        }
+
+        function showOverview() {
+            const contentArea = document.getElementById('docContent');
+            const docsGrid = document.querySelector('.docs-grid');
+            const quickLinks = document.querySelector('.quick-links');
+            const searchContainer = document.querySelector('.search-container');
+
+            // Show overview elements
+            docsGrid.style.display = 'grid';
+            quickLinks.style.display = 'block';
+            searchContainer.style.display = 'block';
+            contentArea.style.display = 'none';
+
+            // Update breadcrumb
+            const breadcrumb = document.querySelector('.breadcrumb');
+            breadcrumb.innerHTML = `<a href="index.html">Home</a> / Documentation`;
+
+            // Reset navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+        }
+
+        function getDocTitle(docType) {
+            const titles = {
+                'user-guide': 'User Guide',
+                'technical-whitepaper': 'Technical Whitepaper',
+                'patent-specification': 'Patent Specification',
+                'case-studies': 'Nation-State Case Studies',
+                'api-reference': 'API Reference'
+            };
+            return titles[docType] || 'Unknown Document';
+        }
+
+        function generateUserGuideContent() {
+            return `
+                <h2 style="color: var(--brand-gold); font-size: 36px; margin-bottom: 30px;">User Guide</h2>
+                <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 15px; padding: 40px; line-height: 1.8;">
+                    <h3 style="color: var(--brand-white); font-size: 24px; margin: 30px 0 15px 0;">Getting Started</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">APOLLO CyberSentinel provides military-grade protection against nation-state threats, Pegasus spyware, and advanced persistent threats (APTs).</p>
+
+                    <h3 style="color: var(--brand-white); font-size: 24px; margin: 30px 0 15px 0;">Key Features</h3>
+                    <ul style="color: var(--text-secondary); margin-left: 30px; margin-bottom: 20px;">
+                        <li style="margin-bottom: 10px;"><strong>AI-Powered Threat Detection</strong> - Real-time analysis using Claude AI</li>
+                        <li style="margin-bottom: 10px;"><strong>Context-Aware Protection</strong> - Smart decisions based on file context</li>
+                        <li style="margin-bottom: 10px;"><strong>Process Whitelisting</strong> - Prevent unauthorized executions</li>
+                        <li style="margin-bottom: 10px;"><strong>OSINT Intelligence</strong> - Community-driven threat feeds</li>
+                        <li style="margin-bottom: 10px;"><strong>Zero Telemetry</strong> - Complete privacy protection</li>
+                    </ul>
+
+                    <h3 style="color: var(--brand-white); font-size: 24px; margin: 30px 0 15px 0;">Dashboard Overview</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">The APOLLO dashboard provides real-time security status, threat alerts, and system health monitoring. Access all features through the intuitive interface.</p>
+
+                    <h3 style="color: var(--brand-white); font-size: 24px; margin: 30px 0 15px 0;">Emergency Features</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">In case of compromise, APOLLO provides emergency lockdown features to immediately secure your system and preserve evidence.</p>
+
+                    <div style="background: rgba(255, 215, 0, 0.1); border: 1px solid var(--brand-gold); border-radius: 10px; padding: 20px; margin: 30px 0;">
+                        <p><strong style="color: var(--brand-gold);">Need Help?</strong> Contact our support team at <a href="mailto:support@apollosentinel.com" style="color: var(--brand-gold);">support@apollosentinel.com</a></p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateWhitepaperContent() {
+            return `
+                <h2 style="color: var(--brand-gold); font-size: 36px; margin-bottom: 30px;">Technical Whitepaper</h2>
+                <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 15px; padding: 40px; line-height: 1.8;">
+                    <h3 style="color: var(--brand-white); font-size: 24px; margin: 30px 0 15px 0;">Executive Summary</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">APOLLO CyberSentinel represents a paradigm shift in cybersecurity, combining artificial intelligence, behavioral analysis, and community intelligence to provide unprecedented protection against nation-state actors.</p>
+
+                    <h3 style="color: var(--brand-white); font-size: 24px; margin: 30px 0 15px 0;">Architecture Overview</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">Built on a modular architecture with the following core components:</p>
+                    <ul style="color: var(--text-secondary); margin-left: 30px; margin-bottom: 20px;">
+                        <li style="margin-bottom: 10px;"><strong>AI Oracle Engine</strong> - Real-time threat analysis using Claude 3.5 Sonnet</li>
+                        <li style="margin-bottom: 10px;"><strong>Behavioral Monitor</strong> - Process and system behavior analysis</li>
+                        <li style="margin-bottom: 10px;"><strong>OSINT Aggregator</strong> - Community threat intelligence integration</li>
+                        <li style="margin-bottom: 10px;"><strong>Context Engine</strong> - Smart file and process categorization</li>
+                    </ul>
+
+                    <h3 style="color: var(--brand-white); font-size: 24px; margin: 30px 0 15px 0;">Threat Detection Methodology</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">APOLLO employs a multi-layered detection approach that combines signature-based detection, heuristic analysis, and AI-powered behavioral assessment to identify both known and zero-day threats.</p>
+
+                    <h3 style="color: var(--brand-white); font-size: 24px; margin: 30px 0 15px 0;">Privacy by Design</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">All processing occurs locally on the user's device. No telemetry data is transmitted, ensuring complete privacy while maintaining maximum security effectiveness.</p>
+                </div>
+            `;
+        }
+
+        function generatePatentContent() {
+            return `
+                <h2 style="color: var(--brand-gold); font-size: 36px; margin-bottom: 30px;">Patent Specification</h2>
+                <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 15px; padding: 40px; line-height: 1.8;">
+                    <h3 style="color: var(--brand-white); font-size: 24px; margin: 30px 0 15px 0;">Innovation Overview</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">APOLLO CyberSentinel incorporates several patented and patent-pending technologies that provide unique advantages in cybersecurity defense.</p>
+
+                    <h3 style="color: var(--brand-white); font-size: 24px; margin: 30px 0 15px 0;">Key Innovations</h3>
+                    <ul style="color: var(--text-secondary); margin-left: 30px; margin-bottom: 20px;">
+                        <li style="margin-bottom: 10px;"><strong>Context-Aware Threat Classification</strong> - AI-driven file categorization system</li>
+                        <li style="margin-bottom: 10px;"><strong>Adaptive User Confirmation</strong> - Smart prompting based on threat severity</li>
+                        <li style="margin-bottom: 10px;"><strong>Behavioral Process Whitelisting</strong> - Dynamic trust assignment methodology</li>
+                        <li style="margin-bottom: 10px;"><strong>Zero-Telemetry Security Architecture</strong> - Privacy-preserving threat detection</li>
+                    </ul>
+
+                    <h3 style="color: var(--brand-white); font-size: 24px; margin: 30px 0 15px 0;">Technical Claims</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">Our patent portfolio covers novel methods for combining artificial intelligence with traditional cybersecurity approaches, enabling detection of previously unknown attack vectors.</p>
+
+                    <div style="background: rgba(255, 68, 68, 0.1); border: 1px solid #ff4444; border-radius: 10px; padding: 20px; margin: 30px 0;">
+                        <p><strong style="color: #ff4444;">Legal Notice:</strong> This technology is protected by patents and patent applications. Unauthorized use may result in legal action.</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateCaseStudiesContent() {
+            return `
+                <h2 style="color: var(--brand-gold); font-size: 36px; margin-bottom: 30px;">Nation-State Case Studies</h2>
+                <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 15px; padding: 40px; line-height: 1.8;">
+                    <h3 style="color: var(--brand-white); font-size: 24px; margin: 30px 0 15px 0;">APT Research Analysis</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">Comprehensive analysis of advanced persistent threat campaigns and how APOLLO's technology provides effective defense mechanisms.</p>
+
+                    <h3 style="color: var(--brand-white); font-size: 24px; margin: 30px 0 15px 0;">Pegasus Spyware Defense</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">Detailed study of NSO Group's Pegasus spyware and APOLLO's multi-layered approach to detecting and preventing such sophisticated attacks.</p>
+
+                    <h3 style="color: var(--brand-white); font-size: 24px; margin: 30px 0 15px 0;">State-Sponsored Threats</h3>
+                    <ul style="color: var(--text-secondary); margin-left: 30px; margin-bottom: 20px;">
+                        <li style="margin-bottom: 10px;"><strong>APT28 (Fancy Bear)</strong> - Russian military intelligence operations</li>
+                        <li style="margin-bottom: 10px;"><strong>APT29 (Cozy Bear)</strong> - Russian SVR foreign intelligence</li>
+                        <li style="margin-bottom: 10px;"><strong>Lazarus Group</strong> - North Korean cybercrime operations</li>
+                        <li style="margin-bottom: 10px;"><strong>Equation Group</strong> - Advanced malware frameworks</li>
+                    </ul>
+
+                    <h3 style="color: var(--brand-white); font-size: 24px; margin: 30px 0 15px 0;">Defense Strategies</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">Analysis of how APOLLO's AI-driven approach successfully identifies and mitigates threats that traditional security solutions miss.</p>
+                </div>
+            `;
+        }
+
+        function generateAPIContent() {
+            return `
+                <h2 style="color: var(--brand-gold); font-size: 36px; margin-bottom: 30px;">API Reference</h2>
+                <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 15px; padding: 40px; line-height: 1.8;">
+                    <h3 style="color: var(--brand-white); font-size: 24px; margin: 30px 0 15px 0;">Integration Overview</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">APOLLO CyberSentinel provides RESTful APIs for enterprise integration and custom security workflows.</p>
+
+                    <h3 style="color: var(--brand-white); font-size: 24px; margin: 30px 0 15px 0;">Authentication</h3>
+                    <div style="background: rgba(0, 0, 0, 0.5); border-radius: 8px; padding: 20px; margin: 20px 0; font-family: 'Courier New', monospace;">
+                        <span style="color: #ff6b6b;">POST</span> <span style="color: var(--brand-gold);">/api/v1/auth</span><br>
+                        <span style="color: var(--text-secondary);">Headers: Content-Type: application/json</span><br>
+                        <span style="color: var(--text-secondary);">Body: {"api_key": "your-api-key"}</span>
+                    </div>
+
+                    <h3 style="color: var(--brand-white); font-size: 24px; margin: 30px 0 15px 0;">Threat Analysis</h3>
+                    <div style="background: rgba(0, 0, 0, 0.5); border-radius: 8px; padding: 20px; margin: 20px 0; font-family: 'Courier New', monospace;">
+                        <span style="color: #4ecdc4;">GET</span> <span style="color: var(--brand-gold);">/api/v1/analyze/file</span><br>
+                        <span style="color: var(--text-secondary);">Parameters: file_hash, context</span><br>
+                        <span style="color: var(--text-secondary);">Returns: threat_level, confidence, recommendations</span>
+                    </div>
+
+                    <h3 style="color: var(--brand-white); font-size: 24px; margin: 30px 0 15px 0;">System Status</h3>
+                    <div style="background: rgba(0, 0, 0, 0.5); border-radius: 8px; padding: 20px; margin: 20px 0; font-family: 'Courier New', monospace;">
+                        <span style="color: #4ecdc4;">GET</span> <span style="color: var(--brand-gold);">/api/v1/status</span><br>
+                        <span style="color: var(--text-secondary);">Returns: protection_status, last_update, active_threats</span>
+                    </div>
+
+                    <div style="background: rgba(255, 215, 0, 0.1); border: 1px solid var(--brand-gold); border-radius: 10px; padding: 20px; margin: 30px 0;">
+                        <p><strong style="color: var(--brand-gold);">Developer Access:</strong> API access is available for enterprise customers. Contact <a href="mailto:info@apollosentinel.com" style="color: var(--brand-gold);">info@apollosentinel.com</a> for details.</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Search functionality
+        document.getElementById('searchBox').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const docCards = document.querySelectorAll('.doc-card');
+
+            docCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = searchTerm === '' ? 'block' : 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

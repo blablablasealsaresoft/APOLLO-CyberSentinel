@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - APOLLO CyberSentinel</title>
+    <meta name="description" content="APOLLO CyberSentinel Privacy Policy - How we protect your data and privacy">
+    <link rel="canonical" href="https://apollosentinel.com/privacy-policy.html">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --brand-black: #1a1a1a;
+            --brand-white: #ffffff;
+            --brand-gold: #ffd700;
+            --text-secondary: rgba(255, 255, 255, 0.8);
+            --accent-glow: rgba(255, 215, 0, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--brand-black);
+            color: var(--brand-white);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--brand-gold);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--brand-white) 0%, var(--brand-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .back-btn {
+            color: var(--brand-gold);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: var(--brand-white);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .page-title {
+            font-size: 48px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--brand-white) 0%, var(--brand-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 18px;
+            margin-bottom: 60px;
+        }
+
+        .content {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+            padding: 60px;
+            line-height: 1.8;
+        }
+
+        .content h2 {
+            color: var(--brand-gold);
+            font-size: 28px;
+            font-weight: 700;
+            margin: 40px 0 20px 0;
+            border-bottom: 2px solid var(--brand-gold);
+            padding-bottom: 10px;
+        }
+
+        .content h2:first-child {
+            margin-top: 0;
+        }
+
+        .content h3 {
+            color: var(--brand-white);
+            font-size: 22px;
+            font-weight: 600;
+            margin: 30px 0 15px 0;
+        }
+
+        .content p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .content ul {
+            color: var(--text-secondary);
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .content li {
+            margin-bottom: 10px;
+        }
+
+        .highlight {
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--brand-gold);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .contact-info {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid var(--brand-gold);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .contact-info strong {
+            color: var(--brand-gold);
+        }
+
+        .last-updated {
+            text-align: center;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 36px;
+            }
+
+            .content {
+                padding: 40px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Authentication Check -->
+    <script>
+        // Check for beta access authentication
+        (function() {
+            const access = sessionStorage.getItem('apolloBetaAccess');
+            const authTime = sessionStorage.getItem('apolloAuthTime');
+
+            // Check if access is granted and still valid
+            if (!access || access !== 'granted') {
+                window.location.href = 'beta-access.html';
+                return;
+            }
+
+            // Check if session is still valid (24 hours)
+            if (authTime) {
+                const timeDiff = Date.now() - parseInt(authTime);
+                const hoursDiff = timeDiff / (1000 * 60 * 60);
+
+                if (hoursDiff >= 24) {
+                    // Session expired
+                    sessionStorage.removeItem('apolloBetaAccess');
+                    sessionStorage.removeItem('apolloAuthTime');
+                    window.location.href = 'beta-access.html';
+                    return;
+                }
+            } else {
+                // No auth time, redirect to login
+                window.location.href = 'beta-access.html';
+                return;
+            }
+        })();
+    </script>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo-section">
+                <img src="Logo.jpg" alt="Apollo Logo" class="logo-img" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--brand-gold); box-shadow: 0 0 20px var(--accent-glow);">
+                <div class="logo-text">APOLLO CyberSentinel</div>
+            </div>
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1 class="page-title">Privacy Policy</h1>
+        <p class="page-subtitle">How APOLLO CyberSentinel protects your privacy and data</p>
+
+        <div class="content">
+            <h2>Our Commitment to Privacy</h2>
+            <p>At APOLLO CyberSentinel, protecting your privacy is fundamental to our mission. As a cybersecurity company dedicated to defending against nation-state threats, we understand the critical importance of data privacy and security.</p>
+
+            <h2>Information We Collect</h2>
+
+            <h3>Automatic Data Collection</h3>
+            <p>APOLLO CyberSentinel operates with <span class="highlight">zero telemetry</span> by design. We do not collect:</p>
+            <ul>
+                <li>Personal browsing data</li>
+                <li>File contents or names</li>
+                <li>Usage analytics or telemetry</li>
+                <li>Location data</li>
+                <li>Communication content</li>
+            </ul>
+
+            <h3>Threat Intelligence Data</h3>
+            <p>For protection purposes, APOLLO may process:</p>
+            <ul>
+                <li><strong>Threat signatures</strong> - Hashes and patterns of known threats (anonymized)</li>
+                <li><strong>Network indicators</strong> - Suspicious IP addresses and domains (no personal data)</li>
+                <li><strong>System health data</strong> - Operating system version and security status (local only)</li>
+            </ul>
+
+            <h3>Support Communications</h3>
+            <p>When you contact us for support, we may collect:</p>
+            <ul>
+                <li>Email address and contact information you provide</li>
+                <li>Support ticket content and communications</li>
+                <li>System logs relevant to technical issues (only with your consent)</li>
+            </ul>
+
+            <h2>How We Use Information</h2>
+
+            <h3>Local Processing</h3>
+            <p>All threat analysis and protection occurs <span class="highlight">locally on your device</span>. APOLLO does not send your data to external servers for analysis.</p>
+
+            <h3>Threat Intelligence Updates</h3>
+            <p>We may update threat signatures and protection rules, but these updates:</p>
+            <ul>
+                <li>Contain no personal data</li>
+                <li>Are delivered securely and encrypted</li>
+                <li>Do not track individual installations</li>
+            </ul>
+
+            <h2>Data Sharing and Disclosure</h2>
+
+            <h3>Third-Party Services</h3>
+            <p>APOLLO integrates with threat intelligence services for enhanced protection:</p>
+            <ul>
+                <li><strong>VirusTotal</strong> - File hash checking (no file contents shared)</li>
+                <li><strong>Shodan</strong> - Network threat intelligence</li>
+                <li><strong>AlienVault OTX</strong> - Community threat feeds</li>
+            </ul>
+            <p>These services receive only anonymized threat indicators, never personal data.</p>
+
+            <h3>Legal Requirements</h3>
+            <p>We may disclose information only when:</p>
+            <ul>
+                <li>Required by valid legal process</li>
+                <li>Necessary to protect against imminent harm</li>
+                <li>To defend our legal rights</li>
+            </ul>
+
+            <h2>Data Security</h2>
+            <p>We employ industry-leading security measures:</p>
+            <ul>
+                <li><strong>End-to-end encryption</strong> - All communications encrypted</li>
+                <li><strong>Local data storage</strong> - Your data stays on your device</li>
+                <li><strong>Zero-knowledge architecture</strong> - We cannot access your protected data</li>
+                <li><strong>Regular security audits</strong> - Continuous security assessment</li>
+            </ul>
+
+            <h2>Your Rights and Choices</h2>
+
+            <h3>Data Control</h3>
+            <p>You have complete control over your data:</p>
+            <ul>
+                <li><strong>Access</strong> - Review what data is processed locally</li>
+                <li><strong>Deletion</strong> - Uninstall removes all local data</li>
+                <li><strong>Portability</strong> - Export your configuration settings</li>
+                <li><strong>Opt-out</strong> - Disable specific protection features</li>
+            </ul>
+
+            <h3>Communication Preferences</h3>
+            <p>You can control:</p>
+            <ul>
+                <li>Security notifications and alerts</li>
+                <li>Product updates and announcements</li>
+                <li>Support communications</li>
+            </ul>
+
+            <h2>Children's Privacy</h2>
+            <p>APOLLO CyberSentinel is not directed to children under 13. We do not knowingly collect personal information from children under 13. If we learn we have collected such information, we will delete it immediately.</p>
+
+            <h2>International Data Transfers</h2>
+            <p>As a local-first application, APOLLO processes data primarily on your device. Any necessary data transfers are:</p>
+            <ul>
+                <li>Limited to threat intelligence updates</li>
+                <li>Encrypted and anonymized</li>
+                <li>Compliant with applicable data protection laws</li>
+            </ul>
+
+            <h2>Changes to This Policy</h2>
+            <p>We may update this Privacy Policy to reflect changes in our practices or legal requirements. We will:</p>
+            <ul>
+                <li>Notify users of material changes</li>
+                <li>Post updates on our website</li>
+                <li>Maintain previous versions for reference</li>
+            </ul>
+
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <p>For privacy-related questions or concerns:</p>
+                <p><strong>Email:</strong> privacy@apollosentinel.com</p>
+                <p><strong>General Contact:</strong> contact@apollosentinel.com</p>
+                <p><strong>Support:</strong> support@apollosentinel.com</p>
+            </div>
+
+            <div class="last-updated">
+                <p><strong>Last Updated:</strong> September 22, 2025</p>
+                <p><strong>Effective Date:</strong> September 22, 2025</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

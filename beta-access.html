@@ -121,7 +121,6 @@
         .logo-shield {
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, var(--brand-gold), #b8860b);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -130,18 +129,18 @@
                 0 0 40px var(--accent-glow),
                 inset 0 0 20px rgba(0, 0, 0, 0.3);
             animation: shieldRotate 20s linear infinite;
+            overflow: hidden;
+        }
+
+        .logo-shield img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         @keyframes shieldRotate {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
-        }
-
-        .logo-text {
-            font-size: 36px;
-            font-weight: 900;
-            color: var(--brand-black);
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .brand-name {
@@ -452,7 +451,7 @@
         <div class="logo-section">
             <div class="logo-container">
                 <div class="logo-shield">
-                    <div class="logo-text">A</div>
+                    <img src="logo.jpg" alt="Apollo CyberSentinel">
                 </div>
             </div>
             <h1 class="brand-name">APOLLO CyberSentinel</h1>

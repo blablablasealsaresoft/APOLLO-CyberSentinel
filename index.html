@@ -551,6 +551,69 @@
         .animate-delay-2 { animation-delay: 0.4s; }
         .animate-delay-3 { animation-delay: 0.6s; }
 
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            border-color: var(--brand-gold);
+            background: rgba(255, 215, 0, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+        }
+
+        .contact-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--brand-gold), #ffed4a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 32px;
+            color: var(--brand-black);
+        }
+
+        .contact-item h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--brand-white);
+            margin-bottom: 10px;
+        }
+
+        .contact-item p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .contact-link {
+            color: var(--brand-gold);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            color: var(--brand-white);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
         /* EPIC BACKGROUND EFFECTS FROM INSTALLER */
 
         /* Installation Portal */
@@ -1013,6 +1076,7 @@
             <nav class="nav-links">
                 <a href="#features" class="nav-link">Features</a>
                 <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
                 <a href="#download" class="nav-link">Download</a>
                 <a href="installer.html" class="download-btn">
                     <i class="fas fa-download"></i> Get Protected Now
@@ -1174,6 +1238,45 @@
         </div>
     </section>
 
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Get in Touch</h2>
+                <p class="section-subtitle">Professional support for your cybersecurity needs</p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-item fade-in">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>General Inquiries</h3>
+                    <p>Questions about APOLLO CyberSentinel</p>
+                    <a href="mailto:contact@apollosentinel.com" class="contact-link">contact@apollosentinel.com</a>
+                </div>
+
+                <div class="contact-item fade-in animate-delay-1">
+                    <div class="contact-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>Technical Support</h3>
+                    <p>Help with installation and configuration</p>
+                    <a href="mailto:support@apollosentinel.com" class="contact-link">support@apollosentinel.com</a>
+                </div>
+
+                <div class="contact-item fade-in animate-delay-2">
+                    <div class="contact-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <h3>Information</h3>
+                    <p>Product information and partnerships</p>
+                    <a href="mailto:info@apollosentinel.com" class="contact-link">info@apollosentinel.com</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-container">
@@ -1181,10 +1284,10 @@
                 &copy; 2025 APOLLO CyberSentinel. Military-grade cybersecurity for everyone.
             </p>
             <div class="footer-links">
-                <a href="#" class="footer-link">Privacy Policy</a>
-                <a href="#" class="footer-link">Terms of Service</a>
-                <a href="#" class="footer-link">Documentation</a>
-                <a href="#" class="footer-link">Support</a>
+                <a href="mailto:info@apollosentinel.com" class="footer-link">Privacy Policy</a>
+                <a href="mailto:info@apollosentinel.com" class="footer-link">Terms of Service</a>
+                <a href="mailto:info@apollosentinel.com" class="footer-link">Documentation</a>
+                <a href="mailto:support@apollosentinel.com" class="footer-link">Support</a>
             </div>
         </div>
     </footer>

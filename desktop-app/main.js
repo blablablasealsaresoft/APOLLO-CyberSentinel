@@ -1,6 +1,16 @@
 // Load environment variables first
 require('dotenv').config();
 
+// Initialize bundled API keys for immediate functionality
+const { initializeBundledKeys, validateBundledKeys } = require('./src/core/bundledApiKeys');
+initializeBundledKeys();
+
+// Validate critical API keys are available
+const keyValidation = validateBundledKeys();
+if (!keyValidation.valid) {
+    console.warn('⚠️  Some critical API keys are missing:', keyValidation.missing);
+}
+
 const { app, BrowserWindow, Menu, Tray, ipcMain, dialog, shell } = require('electron');
 const path = require('path');
 const fs = require('fs-extra');

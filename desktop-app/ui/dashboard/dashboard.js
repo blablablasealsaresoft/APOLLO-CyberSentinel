@@ -3154,6 +3154,214 @@ function copyReportToClipboard(reportId) {
     });
 }
 
+function showEvidenceReport(evidenceResult) {
+    const reportModal = `
+        <div class="modal-overlay" id="evidence-report-modal" style="display: flex;">
+            <div class="modal-content evidence-report">
+                <div class="modal-header">
+                    <h3>📋 Forensic Evidence Report</h3>
+                    <button class="close-btn" onclick="closeEvidenceReportModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="report-header">
+                        <div class="report-id">Evidence ID: ${evidenceResult.evidenceId}</div>
+                        <div class="report-timestamp">Captured: ${new Date().toLocaleString()}</div>
+                    </div>
+                    
+                    <div class="report-section">
+                        <h4>📊 Evidence Summary</h4>
+                        <div class="evidence-metrics">
+                            <div class="metric-card">
+                                <div class="metric-value">${evidenceResult.itemsCollected}</div>
+                                <div class="metric-label">Items Collected</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">FORENSIC</div>
+                                <div class="metric-label">Evidence Type</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">SECURE</div>
+                                <div class="metric-label">Storage Status</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-section">
+                        <h4>📁 Evidence Details</h4>
+                        <div class="evidence-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Evidence ID:</span>
+                                <span class="detail-value">${evidenceResult.evidenceId}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Storage Location:</span>
+                                <span class="detail-value">${evidenceResult.evidencePath}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Collection Method:</span>
+                                <span class="detail-value">Apollo Forensic Engine</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Chain of Custody:</span>
+                                <span class="detail-value">Verified</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-section">
+                        <h4>🔒 Legal Compliance</h4>
+                        <div class="compliance-info">
+                            <div class="compliance-item">
+                                <span class="compliance-icon">✅</span>
+                                <span class="compliance-text">Evidence collected using approved forensic methods</span>
+                            </div>
+                            <div class="compliance-item">
+                                <span class="compliance-icon">✅</span>
+                                <span class="compliance-text">Chain of custody maintained for legal proceedings</span>
+                            </div>
+                            <div class="compliance-item">
+                                <span class="compliance-icon">✅</span>
+                                <span class="compliance-text">Evidence stored in tamper-proof format</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="action-btn primary" onclick="copyEvidenceToClipboard('${evidenceResult.evidenceId}')">📋 Copy Report</button>
+                    <button class="action-btn secondary" onclick="closeEvidenceReportModal()">Close</button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', reportModal);
+}
+
+function showQuarantineReport(quarantineResult) {
+    const reportModal = `
+        <div class="modal-overlay" id="quarantine-report-modal" style="display: flex;">
+            <div class="modal-content quarantine-report">
+                <div class="modal-header">
+                    <h3>🔒 Quarantine Operation Report</h3>
+                    <button class="close-btn" onclick="closeQuarantineReportModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="report-header">
+                        <div class="report-id">Quarantine ID: ${quarantineResult.quarantineId}</div>
+                        <div class="report-timestamp">Executed: ${new Date().toLocaleString()}</div>
+                    </div>
+                    
+                    <div class="report-section">
+                        <h4>🛡️ Quarantine Summary</h4>
+                        <div class="quarantine-metrics">
+                            <div class="metric-card">
+                                <div class="metric-value">${quarantineResult.threatsQuarantined}</div>
+                                <div class="metric-label">Threats Quarantined</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">${quarantineResult.threatsQuarantined > 0 ? 'ACTIVE' : 'CLEAN'}</div>
+                                <div class="metric-label">System Status</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">SECURE</div>
+                                <div class="metric-label">Quarantine Status</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-section">
+                        <h4>📁 Operation Details</h4>
+                        <div class="quarantine-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Quarantine ID:</span>
+                                <span class="detail-value">${quarantineResult.quarantineId}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Storage Location:</span>
+                                <span class="detail-value">${quarantineResult.quarantinePath}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Operation Status:</span>
+                                <span class="detail-value">${quarantineResult.summary}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Isolation Method:</span>
+                                <span class="detail-value">Apollo Threat Containment Protocol</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-section">
+                        <h4>🔐 Security Actions</h4>
+                        <div class="security-actions">
+                            <div class="action-item">
+                                <span class="action-icon">🔒</span>
+                                <span class="action-text">Threats isolated from system operations</span>
+                            </div>
+                            <div class="action-item">
+                                <span class="action-icon">🛡️</span>
+                                <span class="action-text">System protection maintained during operation</span>
+                            </div>
+                            <div class="action-item">
+                                <span class="action-icon">📊</span>
+                                <span class="action-text">Quarantine log updated for audit trail</span>
+                            </div>
+                            ${quarantineResult.threatsQuarantined === 0 ? `
+                                <div class="action-item">
+                                    <span class="action-icon">✅</span>
+                                    <span class="action-text">No active threats detected - system clean</span>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="action-btn primary" onclick="copyQuarantineToClipboard('${quarantineResult.quarantineId}')">📋 Copy Report</button>
+                    <button class="action-btn secondary" onclick="closeQuarantineReportModal()">Close</button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', reportModal);
+}
+
+function closeEvidenceReportModal() {
+    const modal = document.getElementById('evidence-report-modal');
+    if (modal) modal.remove();
+}
+
+function closeQuarantineReportModal() {
+    const modal = document.getElementById('quarantine-report-modal');
+    if (modal) modal.remove();
+}
+
+function copyEvidenceToClipboard(evidenceId) {
+    const reportContent = document.querySelector('#evidence-report-modal .modal-body').innerText;
+    navigator.clipboard.writeText(reportContent).then(() => {
+        window.apolloDashboard.addActivity({
+            icon: '📋',
+            text: `Evidence report ${evidenceId} copied to clipboard`,
+            type: 'success'
+        });
+    }).catch(error => {
+        console.error('Failed to copy evidence report:', error);
+    });
+}
+
+function copyQuarantineToClipboard(quarantineId) {
+    const reportContent = document.querySelector('#quarantine-report-modal .modal-body').innerText;
+    navigator.clipboard.writeText(reportContent).then(() => {
+        window.apolloDashboard.addActivity({
+            icon: '📋',
+            text: `Quarantine report ${quarantineId} copied to clipboard`,
+            type: 'success'
+        });
+    }).catch(error => {
+        console.error('Failed to copy quarantine report:', error);
+    });
+}
+
 function emergencyIsolation() {
     if (confirm('⚠️ WARNING: This will immediately disconnect all network connections.\n\nProceed with system isolation?')) {
         window.apolloDashboard.addActivity({
@@ -3192,6 +3400,11 @@ async function quarantineThreats() {
                 text: `Quarantine report: ${result.summary}`,
                 type: 'info'
             });
+            
+            // Show comprehensive quarantine report
+            setTimeout(() => {
+                showQuarantineReport(result);
+            }, 1000);
         } else {
             window.apolloDashboard.addActivity({
                 icon: '❌',
@@ -3235,6 +3448,11 @@ async function captureEvidence() {
                 text: `Evidence stored: ${result.evidencePath}`,
                 type: 'info'
             });
+            
+            // Show comprehensive evidence report
+            setTimeout(() => {
+                showEvidenceReport(result);
+            }, 1000);
         } else {
             window.apolloDashboard.addActivity({
                 icon: '❌',

@@ -2835,6 +2835,77 @@ textarea:focus {
     font-size: 14px;
 }
 
+/* Evidence and Quarantine Report Modal Styles */
+.evidence-report, .quarantine-report {
+    max-width: 900px;
+    width: 85vw;
+    max-height: 80vh;
+    overflow-y: auto;
+    background: linear-gradient(135deg, rgba(0, 40, 20, 0.95), rgba(0, 60, 40, 0.95));
+    border: 2px solid #00ff88;
+}
+
+.evidence-metrics, .quarantine-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.evidence-details, .quarantine-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    background: rgba(0, 255, 136, 0.05);
+    border-radius: 4px;
+    border: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+.detail-label {
+    color: #e0e0e0;
+    font-weight: 500;
+}
+
+.detail-value {
+    color: #00ff88;
+    font-weight: bold;
+    font-family: monospace;
+}
+
+.compliance-info, .security-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.compliance-item, .action-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: rgba(0, 255, 0, 0.05);
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    border-radius: 4px;
+}
+
+.compliance-icon, .action-icon {
+    color: #00ff00;
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+}
+
+.compliance-text, .action-text {
+    color: #e0e0e0;
+    font-size: 14px;
+}
+
 .system-info-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));

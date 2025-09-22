@@ -3025,6 +3025,54 @@ textarea:focus {
     opacity: 0.7;
 }
 
+/* Enhanced Evidence and Quarantine Report Styles */
+.forensic-categories, .threat-analysis {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.category-item, .analysis-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    background: rgba(0, 255, 136, 0.05);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 6px;
+}
+
+.category-icon, .analysis-icon {
+    color: #00ff88;
+    font-size: 18px;
+    width: 25px;
+    text-align: center;
+}
+
+.category-name, .analysis-name {
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    min-width: 150px;
+}
+
+.category-detail {
+    color: #b0b0b0;
+    font-size: 12px;
+    flex: 1;
+}
+
+.analysis-result {
+    color: #00ff88;
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    background: rgba(0, 255, 136, 0.1);
+    border-radius: 4px;
+    border: 1px solid rgba(0, 255, 136, 0.3);
+}
+
 .system-info-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));

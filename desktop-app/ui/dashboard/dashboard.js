@@ -2794,7 +2794,7 @@ async function exportThreatReport() {
         const engineStats = await window.electronAPI.getEngineStats();
         const recentActivity = await window.electronAPI.getRecentActivity();
         const osintStats = await window.electronAPI.getOSINTStats();
-        const aiOracleStats = await window.apolloDashboard.loadRealAIOracleStats();
+        const aiOracleStats = await window.electronAPI.getAIOracleStats();
         
         // Generate comprehensive report data
         const reportData = {

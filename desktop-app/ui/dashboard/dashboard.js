@@ -194,6 +194,17 @@ window.analyzeWithClaude = async function() {
                     type: 'info'
                 });
             }
+            
+            // CRITICAL: Refresh AI Oracle stats after analysis completes
+            if (window.apolloDashboard && window.apolloDashboard.loadRealAIOracleStats) {
+                console.log('🔄 Refreshing AI Oracle stats after analysis...');
+                await window.apolloDashboard.loadRealAIOracleStats();
+            }
+            
+            // Generate comprehensive analysis report
+            setTimeout(() => {
+                generateAIAnalysisReport(indicator, result);
+            }, 1000);
         }
     } catch (error) {
         window.apolloDashboard.addActivity({
@@ -204,6 +215,55 @@ window.analyzeWithClaude = async function() {
     }
 };
 console.log('🔥 CHECKPOINT 5: analyzeWithClaude function defined successfully');
+
+function generateAIAnalysisReport(indicator, analysisResult) {
+    console.log('📋 Generating comprehensive AI analysis report...');
+    
+    const reportData = {
+        reportId: `AI-ANALYSIS-${Date.now().toString(36).toUpperCase()}`,
+        timestamp: new Date().toISOString(),
+        indicator: indicator,
+        threatLevel: analysisResult.threat_level,
+        confidence: analysisResult.confidence,
+        threatFamily: analysisResult.threat_family,
+        technicalAnalysis: analysisResult.technical_analysis,
+        recommendations: analysisResult.recommendations || [],
+        indicators: analysisResult.indicators || [],
+        rawResponse: analysisResult.raw_response
+    };
+    
+    // Show comprehensive report summary
+    window.apolloDashboard.addActivity({
+        icon: '📋',
+        text: `AI Analysis Report Generated: ${reportData.reportId}`,
+        type: 'success'
+    });
+    
+    // Show report details
+    window.apolloDashboard.addActivity({
+        icon: '📊',
+        text: `Report Summary: ${indicator} analyzed as ${analysisResult.threat_level} (${analysisResult.confidence}% confidence)`,
+        type: 'info'
+    });
+    
+    // Show threat family attribution
+    if (analysisResult.threat_family) {
+        window.apolloDashboard.addActivity({
+            icon: '🎯',
+            text: `Attribution: ${analysisResult.threat_family} threat group identified`,
+            type: 'warning'
+        });
+    }
+    
+    // Offer to export detailed report
+    window.apolloDashboard.addActivity({
+        icon: '💾',
+        text: 'Click "Export Report" in Threat Intelligence modal for detailed analysis',
+        type: 'info'
+    });
+    
+    console.log('✅ AI Analysis report generated:', reportData);
+}
 
 window.clearOracleInput = function() {
     const indicator = document.getElementById('oracle-indicator');

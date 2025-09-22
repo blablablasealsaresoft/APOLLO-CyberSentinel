@@ -977,9 +977,9 @@ class ApolloUnifiedProtectionEngine extends EventEmitter {
                         
                         this.stats.filesScanned++;
                         
-                        // Reduced progress logging
-                        if (this.stats.filesScanned % 1000 === 0) {
-                            console.log(`📊 Safe scan progress: ${this.stats.filesScanned} files analyzed`);
+                        // Minimal progress logging (only every 10,000 files to reduce spam)
+                        if (this.stats.filesScanned % 10000 === 0) {
+                            console.log(`📊 Scan milestone: ${this.stats.filesScanned} files analyzed`);
                         }
                         
                     } else if (itemStats.isDirectory() && !fullPath.includes('quarantine')) {

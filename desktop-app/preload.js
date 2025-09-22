@@ -24,6 +24,14 @@ contextBridge.exposeInMainWorld('electronAPI', {
     getEngineStats: () => ipcRenderer.invoke('get-engine-stats'),
     getRecentActivity: () => ipcRenderer.invoke('get-recent-activity'),
     getAIOracleStats: () => ipcRenderer.invoke('get-ai-oracle-stats'),
+    
+    // Real OSINT intelligence operations
+    refreshThreatFeeds: () => ipcRenderer.invoke('refresh-threat-feeds'),
+    queryIOC: (indicator, type) => ipcRenderer.invoke('query-ioc', indicator, type),
+    
+    // Evidence capture and quarantine operations
+    captureEvidence: () => ipcRenderer.invoke('capture-evidence'),
+    quarantineThreats: () => ipcRenderer.invoke('quarantine-threats'),
 
     // Real-time event listeners
     onThreatDetected: (callback) => ipcRenderer.on('threat-detected', callback),

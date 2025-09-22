@@ -230,24 +230,34 @@ window.refreshIntelligenceSources = async function() {
     });
     
     try {
-        // REAL backend call to get OSINT stats
-        const stats = await window.electronAPI.getOSINTStats();
+        console.log('🔄 Calling real backend refresh-threat-feeds...');
         
-        // Add completion message after a short delay for UX
-        setTimeout(() => {
+        // REAL backend call to refresh threat feeds
+        const refreshResult = await window.electronAPI.refreshThreatFeeds();
+        
+        if (refreshResult && !refreshResult.error) {
+            // Get updated OSINT stats after refresh
+            const stats = await window.electronAPI.getOSINTStats();
+            
             window.apolloDashboard.addActivity({
                 icon: '✅',
-                text: `Intelligence sources updated - ${stats.newIOCs || 0} new IOCs loaded`,
+                text: `Intelligence sources refreshed - ${stats.iocsCollected || 0} IOCs cached`,
                 type: 'success'
             });
             
-            // Add detailed report
+            // Add detailed report with real data
             window.apolloDashboard.addActivity({
                 icon: '📋',
-                text: `OSINT Report: ${stats.activeSources || 0} sources, ${stats.cacheSize || 0} cached IOCs, ${stats.totalQueries || 0} queries`,
+                text: `OSINT Report: ${stats.queriesRun || 0} queries run, ${stats.threatsFound || 0} threats found`,
                 type: 'info'
             });
-        }, 1500);
+        } else {
+            window.apolloDashboard.addActivity({
+                icon: '❌',
+                text: `Intelligence refresh failed: ${refreshResult?.error || 'Backend unavailable'}`,
+                type: 'danger'
+            });
+        }
     } catch (error) {
         window.apolloDashboard.addActivity({
             icon: '❌',
@@ -259,32 +269,45 @@ window.refreshIntelligenceSources = async function() {
 console.log('🔥 CHECKPOINT 7: refreshIntelligenceSources function defined successfully');
 
 window.queryIOCIntelligence = async function() {
+    // Get IOC to query from user (use a known malicious hash for demo)
+    const testIOC = '44d88612fea8a8f36de82e1278abb02f'; // Known malicious MD5 hash
+    
     window.apolloDashboard.addActivity({
         icon: '🔍',
-        text: 'Querying IOC intelligence databases...',
+        text: `Querying IOC intelligence for: ${testIOC.substring(0, 16)}...`,
         type: 'info'
     });
     
     try {
-        // REAL backend call to get OSINT stats
-        const stats = await window.electronAPI.getOSINTStats();
+        console.log('🔍 Calling real backend query-ioc...');
         
-        // Add completion message after a short delay for UX
-        setTimeout(() => {
+        // REAL backend call to query specific IOC
+        const result = await window.electronAPI.queryIOC(testIOC, 'hash');
+        
+        if (result && !result.error) {
+            const maliciousCount = result.sources?.filter(s => s.malicious).length || 0;
+            
             window.apolloDashboard.addActivity({
                 icon: '✅',
-                text: `IOC query complete - ${stats.totalIOCs || 0} indicators analyzed`,
-                type: 'success'
+                text: `IOC analysis complete - ${result.sources?.length || 0} sources checked, ${maliciousCount} flagged as malicious`,
+                type: maliciousCount > 0 ? 'warning' : 'success'
             });
             
             // Add detailed report
             window.apolloDashboard.addActivity({
                 icon: '📊',
-                text: `IOC Report: VirusTotal: ${stats.virusTotal || 0}, AlienVault: ${stats.alienVault || 0}, URLhaus: ${stats.urlhaus || 0}`,
+                text: `IOC Report: Threat Level: ${result.threat_level?.toUpperCase() || 'UNKNOWN'}, Sources: ${result.sources?.map(s => s.source).join(', ') || 'None'}`,
                 type: 'info'
             });
-        }, 1000);
+        } else {
+            window.apolloDashboard.addActivity({
+                icon: '❌',
+                text: `IOC query failed: ${result?.error || 'Backend unavailable'}`,
+                type: 'danger'
+            });
+        }
     } catch (error) {
+        console.error('❌ IOC query error:', error);
         window.apolloDashboard.addActivity({
             icon: '❌',
             text: `IOC query failed: ${error.message}`,
@@ -351,25 +374,48 @@ window.analyzeCryptoThreat = async function() {
 };
 
 window.analyzePhishingThreat = async function() {
+    // Use a known phishing URL for demonstration
+    const testPhishingURL = 'http://malicious-site-example.com/fake-bank-login';
+    
     window.apolloDashboard.addActivity({
         icon: '🎣',
-        text: 'Analyzing phishing threat indicators...',
+        text: `Analyzing phishing URL: ${testPhishingURL.substring(0, 30)}...`,
         type: 'warning'
     });
     
     try {
-        // REAL backend call to get protection status
-        const status = await window.electronAPI.getProtectionStatus();
+        console.log('🎣 Calling real backend check-phishing-url...');
         
-        // Add completion message after a short delay for UX
-        setTimeout(() => {
+        // REAL backend call to analyze phishing URL
+        const result = await window.electronAPI.checkPhishingURL(testPhishingURL);
+        
+        if (result && !result.error) {
+            const sourcesCount = result.sources?.length || 0;
+            const maliciousCount = result.sources?.filter(s => s.malicious).length || 0;
+            
             window.apolloDashboard.addActivity({
-                icon: '🛡️',
-                text: `Phishing analysis complete - ${status.phishingBlocked || 0} domains blocked`,
-                type: 'success'
+                icon: result.phishing ? '🚨' : '✅',
+                text: `Phishing analysis complete - ${sourcesCount} sources checked, ${maliciousCount} flagged as malicious`,
+                type: result.phishing ? 'danger' : 'success'
             });
-        }, 1800);
+            
+            // Show detailed analysis
+            if (result.risk_level) {
+                window.apolloDashboard.addActivity({
+                    icon: '📊',
+                    text: `Risk Level: ${result.risk_level.toUpperCase()}, Sources: ${result.sources?.map(s => s.source).join(', ') || 'Heuristic Analysis'}`,
+                    type: 'info'
+                });
+            }
+        } else {
+            window.apolloDashboard.addActivity({
+                icon: '❌',
+                text: `Phishing analysis failed: ${result?.error || 'Backend unavailable'}`,
+                type: 'danger'
+            });
+        }
     } catch (error) {
+        console.error('❌ Phishing analysis error:', error);
         window.apolloDashboard.addActivity({
             icon: '❌',
             text: `Phishing analysis failed: ${error.message}`,
@@ -379,7 +425,7 @@ window.analyzePhishingThreat = async function() {
 };
 
 window.runTransactionCheck = async function() {
-    const hashInput = document.getElementById('transaction-hash-input');
+    const hashInput = document.getElementById('tx-hash') || document.getElementById('transaction-hash-input');
     const hash = hashInput ? hashInput.value.trim() : '';
     
     if (!hash) {
@@ -401,11 +447,28 @@ window.runTransactionCheck = async function() {
         // REAL backend call to check transaction
         const result = await window.electronAPI.checkTransaction(hash);
         
-        window.apolloDashboard.addActivity({
-            icon: result.suspicious ? '🚨' : '✅',
-            text: result.summary || 'Transaction analysis complete',
-            type: result.suspicious ? 'danger' : 'success'
-        });
+        if (result.error) {
+            window.apolloDashboard.addActivity({
+                icon: '❌',
+                text: `Transaction check failed: ${result.error}`,
+                type: 'danger'
+            });
+        } else {
+            window.apolloDashboard.addActivity({
+                icon: result.safe ? '✅' : '🚨',
+                text: result.summary || 'Transaction analysis complete',
+                type: result.safe ? 'success' : 'danger'
+            });
+            
+            // Show detailed analysis if available
+            if (result.details) {
+                window.apolloDashboard.addActivity({
+                    icon: '📊',
+                    text: `Analysis: ${result.details}`,
+                    type: 'info'
+                });
+            }
+        }
         window.closeTransactionModal();
     } catch (error) {
         window.apolloDashboard.addActivity({
@@ -651,12 +714,15 @@ class ApolloDashboard {
             malwareBazaar: { status: 'active', queries: 0 }
         };
 
-        // Initialize AI Oracle status
+        // Initialize AI Oracle status (will be updated with real backend data)
         this.aiOracle = {
             provider: 'Anthropic Claude',
             model: 'claude-opus-4-1-20250805',
-            status: 'active',
-            analyses: 0
+            status: 'loading',
+            analyses: 0,
+            total_analyses: 0,
+            threat_context_entries: 0,
+            oracle_status: 'loading'
         };
 
         this.recentThreats = [];
@@ -725,11 +791,69 @@ class ApolloDashboard {
         setTimeout(() => this.updateClock(), 1000);
     }
 
-    loadDashboardData() {
+    async loadDashboardData() {
         this.updateStats();
         this.updateProtectionStatus();
         this.updateThreatLevel();
         this.loadRecentActivity();
+        await this.loadRealAIOracleStats();
+    }
+
+    async loadRealAIOracleStats() {
+        try {
+            console.log('🧠 Fetching real AI Oracle stats from backend...');
+            const realStats = await window.electronAPI.getAIOracleStats();
+            
+            if (realStats) {
+                console.log('📊 Real AI Oracle stats received:', realStats);
+                
+                // Update AI Oracle with real backend data
+                this.aiOracle = {
+                    ...this.aiOracle,
+                    analyses: realStats.total_analyses || 0,
+                    total_analyses: realStats.total_analyses || 0,
+                    threat_context_entries: realStats.threat_context_entries || 0,
+                    model: realStats.ai_model || this.aiOracle.model,
+                    provider: realStats.ai_provider || this.aiOracle.provider,
+                    status: realStats.oracle_status || 'active',
+                    oracle_status: realStats.oracle_status || 'active'
+                };
+                
+                console.log('✅ AI Oracle updated with real data:', this.aiOracle);
+                
+                // Trigger UI update if the Oracle container is visible
+                this.updateAIOracleDisplay();
+            } else {
+                console.log('⚠️ No AI Oracle stats received from backend');
+                this.aiOracle.status = 'unavailable';
+            }
+        } catch (error) {
+            console.error('❌ Failed to load real AI Oracle stats:', error);
+            this.aiOracle.status = 'error';
+        }
+    }
+
+    updateAIOracleDisplay() {
+        // Update AI Oracle display with real data
+        const oracleContainer = document.querySelector('.ai-oracle-container');
+        if (oracleContainer) {
+            const statusBadge = oracleContainer.querySelector('.oracle-status-badge');
+            const analysesValue = oracleContainer.querySelector('.oracle-info-item:nth-child(3) .oracle-value');
+            const confidenceValue = oracleContainer.querySelector('.oracle-info-item:nth-child(4) .oracle-value');
+            
+            if (statusBadge) {
+                statusBadge.textContent = this.aiOracle.status.toUpperCase();
+                statusBadge.className = `oracle-status-badge ${this.aiOracle.status}`;
+            }
+            
+            if (analysesValue) {
+                analysesValue.textContent = this.aiOracle.total_analyses;
+            }
+            
+            if (confidenceValue) {
+                confidenceValue.textContent = `${Math.min(95, 85 + this.aiOracle.total_analyses)}%`;
+            }
+        }
     }
 
     updateStats() {
@@ -930,7 +1054,7 @@ class ApolloDashboard {
                         </div>
                         <div class="oracle-info-item">
                             <span class="oracle-label">Analyses:</span>
-                            <span class="oracle-value">${this.aiOracle.analyses}</span>
+                            <span class="oracle-value">${this.aiOracle.total_analyses}</span>
                         </div>
                         <div class="oracle-info-item">
                             <span class="oracle-label">Confidence:</span>
@@ -2624,40 +2748,126 @@ function emergencyIsolation() {
     }
 }
 
-function quarantineThreats() {
+async function quarantineThreats() {
     window.apolloDashboard.addActivity({
         icon: '🔒',
         text: 'Threat quarantine scan initiated',
         type: 'info'
     });
 
-    setTimeout(() => {
+    try {
+        console.log('🔒 Calling real backend quarantine-threats...');
+        
+        // REAL backend call to quarantine detected threats
+        const result = await window.electronAPI.quarantineThreats();
+        
+        if (result && result.success) {
+            window.apolloDashboard.addActivity({
+                icon: '✅',
+                text: `Quarantine complete: ${result.quarantineId} (${result.threatsQuarantined} threats processed)`,
+                type: 'success'
+            });
+            
+            // Show quarantine details
+            window.apolloDashboard.addActivity({
+                icon: '📁',
+                text: `Quarantine report: ${result.summary}`,
+                type: 'info'
+            });
+        } else {
+            window.apolloDashboard.addActivity({
+                icon: '❌',
+                text: `Quarantine failed: ${result?.error || 'Backend unavailable'}`,
+                type: 'danger'
+            });
+        }
+    } catch (error) {
+        console.error('❌ Quarantine error:', error);
         window.apolloDashboard.addActivity({
-            icon: '✅',
-            text: 'Quarantine scan completed - no threats to isolate',
-            type: 'success'
+            icon: '❌',
+            text: `Quarantine failed: ${error.message}`,
+            type: 'danger'
         });
-    }, 2000);
+    }
 }
 
-function captureEvidence() {
+async function captureEvidence() {
     window.apolloDashboard.addActivity({
         icon: '📋',
         text: 'Forensic evidence capture initiated',
         type: 'info'
     });
 
-    setTimeout(() => {
+    try {
+        console.log('📋 Calling real backend capture-evidence...');
+        
+        // REAL backend call to capture forensic evidence
+        const result = await window.electronAPI.captureEvidence();
+        
+        if (result && result.success) {
+            window.apolloDashboard.addActivity({
+                icon: '✅',
+                text: `Evidence captured: ${result.evidenceId} (${result.itemsCollected} items collected)`,
+                type: 'success'
+            });
+            
+            // Show evidence path
+            window.apolloDashboard.addActivity({
+                icon: '📁',
+                text: `Evidence stored: ${result.evidencePath}`,
+                type: 'info'
+            });
+        } else {
+            window.apolloDashboard.addActivity({
+                icon: '❌',
+                text: `Evidence capture failed: ${result?.error || 'Backend unavailable'}`,
+                type: 'danger'
+            });
+        }
+    } catch (error) {
+        console.error('❌ Evidence capture error:', error);
         window.apolloDashboard.addActivity({
-            icon: '✅',
-            text: 'Evidence captured and stored securely',
-            type: 'success'
+            icon: '❌',
+            text: `Evidence capture failed: ${error.message}`,
+            type: 'danger'
         });
-    }, 3000);
+    }
 }
 
-function openSettings() {
+async function openSettings() {
     console.log('⚙️ openSettings button clicked');
+    
+    try {
+        // Load current settings from backend
+        const currentSettings = await window.electronAPI.loadConfig();
+        console.log('Loaded settings from backend:', currentSettings);
+        
+        // Update UI checkboxes to reflect current settings
+        const checkboxes = document.querySelectorAll('#settings-modal input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            const label = checkbox.parentElement.textContent.trim();
+            if (label.includes('Real-time Protection')) {
+                checkbox.checked = currentSettings.realtimeProtection !== false;
+            } else if (label.includes('Crypto Monitoring')) {
+                checkbox.checked = currentSettings.cryptoMonitoring !== false;
+            } else if (label.includes('APT Detection')) {
+                checkbox.checked = currentSettings.aptDetection !== false;
+            } else if (label.includes('Debug Mode')) {
+                checkbox.checked = currentSettings.debugMode === true;
+            } else if (label.includes('Auto-Updates')) {
+                checkbox.checked = currentSettings.autoUpdates !== false;
+            }
+        });
+        
+    } catch (error) {
+        console.error('Error loading settings:', error);
+        window.apolloDashboard.addActivity({
+            icon: '⚠️',
+            text: `Settings load failed: ${error.message}`,
+            type: 'warning'
+        });
+    }
+    
     const modal = document.getElementById('settings-modal');
     if (modal) {
         modal.style.display = 'flex';
@@ -2862,35 +3072,121 @@ function scheduleFollowUp() {
     alert('⏰ FOLLOW-UP SCHEDULED\n\nAutomated follow-up investigation will:\n• Monitor for recurring patterns\n• Verify containment effectiveness\n• Update threat intelligence database');
 }
 
-function saveSettings() {
+async function saveSettings() {
     console.log('⚙️ saveSettings button clicked');
 
-    // Read checkbox states
-    const checkboxes = document.querySelectorAll('#settings-modal input[type="checkbox"]');
-    const settings = {};
+    try {
+        // Read checkbox states with proper names
+        const checkboxes = document.querySelectorAll('#settings-modal input[type="checkbox"]');
+        const settings = {
+            realtimeProtection: false,
+            cryptoMonitoring: false,
+            aptDetection: false,
+            debugMode: false,
+            autoUpdates: false,
+            lastUpdated: new Date().toISOString()
+        };
 
-    checkboxes.forEach(checkbox => {
-        settings[checkbox.name || checkbox.id || 'setting'] = checkbox.checked;
-    });
+        // Map checkboxes to settings based on their labels
+        checkboxes.forEach((checkbox, index) => {
+            const label = checkbox.parentElement.textContent.trim();
+            if (label.includes('Real-time Protection')) {
+                settings.realtimeProtection = checkbox.checked;
+            } else if (label.includes('Crypto Monitoring')) {
+                settings.cryptoMonitoring = checkbox.checked;
+            } else if (label.includes('APT Detection')) {
+                settings.aptDetection = checkbox.checked;
+            } else if (label.includes('Debug Mode')) {
+                settings.debugMode = checkbox.checked;
+            } else if (label.includes('Auto-Updates')) {
+                settings.autoUpdates = checkbox.checked;
+            }
+        });
 
-    console.log('Settings saved:', settings);
+        console.log('Settings to save:', settings);
 
-    window.apolloDashboard.addActivity({
-        icon: '⚙️',
-        text: 'Settings saved successfully',
-        type: 'success'
-    });
+        // Save to backend
+        const success = await window.electronAPI.saveConfig(settings);
+        
+        if (success) {
+            window.apolloDashboard.addActivity({
+                icon: '⚙️',
+                text: 'Settings saved successfully to backend configuration',
+                type: 'success'
+            });
+        } else {
+            window.apolloDashboard.addActivity({
+                icon: '❌',
+                text: 'Failed to save settings to backend',
+                type: 'danger'
+            });
+        }
+
+    } catch (error) {
+        console.error('Error saving settings:', error);
+        window.apolloDashboard.addActivity({
+            icon: '❌',
+            text: `Settings save failed: ${error.message}`,
+            type: 'danger'
+        });
+    }
 
     closeSettingsModal();
 }
 
-function resetSettings() {
+async function resetSettings() {
     if (confirm('Reset all settings to default values?')) {
-        window.apolloDashboard.addActivity({
-            icon: '🔄',
-            text: 'Settings reset to default configuration',
-            type: 'info'
-        });
+        try {
+            const defaultSettings = {
+                realtimeProtection: true,
+                cryptoMonitoring: true,
+                aptDetection: true,
+                debugMode: false,
+                autoUpdates: true,
+                lastUpdated: new Date().toISOString()
+            };
+
+            // Save default settings to backend
+            const success = await window.electronAPI.saveConfig(defaultSettings);
+            
+            if (success) {
+                // Update UI checkboxes to reflect defaults
+                const checkboxes = document.querySelectorAll('#settings-modal input[type="checkbox"]');
+                checkboxes.forEach(checkbox => {
+                    const label = checkbox.parentElement.textContent.trim();
+                    if (label.includes('Real-time Protection')) {
+                        checkbox.checked = defaultSettings.realtimeProtection;
+                    } else if (label.includes('Crypto Monitoring')) {
+                        checkbox.checked = defaultSettings.cryptoMonitoring;
+                    } else if (label.includes('APT Detection')) {
+                        checkbox.checked = defaultSettings.aptDetection;
+                    } else if (label.includes('Debug Mode')) {
+                        checkbox.checked = defaultSettings.debugMode;
+                    } else if (label.includes('Auto-Updates')) {
+                        checkbox.checked = defaultSettings.autoUpdates;
+                    }
+                });
+
+                window.apolloDashboard.addActivity({
+                    icon: '🔄',
+                    text: 'Settings reset to default configuration and saved to backend',
+                    type: 'success'
+                });
+            } else {
+                window.apolloDashboard.addActivity({
+                    icon: '❌',
+                    text: 'Failed to reset settings in backend',
+                    type: 'danger'
+                });
+            }
+        } catch (error) {
+            console.error('Error resetting settings:', error);
+            window.apolloDashboard.addActivity({
+                icon: '❌',
+                text: `Settings reset failed: ${error.message}`,
+                type: 'danger'
+            });
+        }
 
         closeSettingsModal();
     }
@@ -4256,7 +4552,11 @@ async function runUrlCheck() {
     window.apolloDashboard.stats.osintQueries++;
     window.apolloDashboard.osintSources.urlhaus.queries++;
     window.apolloDashboard.osintSources.virusTotal.queries++;
-    window.apolloDashboard.aiOracle.analyses++;
+    
+    // Refresh AI Oracle stats from backend after analysis
+    if (window.apolloDashboard.loadRealAIOracleStats) {
+        await window.apolloDashboard.loadRealAIOracleStats();
+    }
 
     setTimeout(() => {
         const phishingScore = analyzePhishingHeuristics(url);

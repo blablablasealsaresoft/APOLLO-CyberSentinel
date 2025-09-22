@@ -256,7 +256,7 @@ class ApolloUnifiedProtectionEngine extends EventEmitter {
             // System cache & temp
             'temp', 'tmp', 'cache', 'logs', 'prefetch', 'recent', 'cookies', 'history', 'cachestorage', 'serviceworker', 'webappcache',
             // Microsoft products
-            'microsoft', 'office', 'solutionpackages', 'tokenbroker', 'windowsapps', 'powershell', 'startupprofiledata', 'system32', 'syswow64', 'drivers', 'winsxs', 'assembly', 'windows.web.dll', 'aadwamextension.dll', 'appcontracts.dll', 'apphelp.dll', 'imm32.dll', 'bcrypt.dll',
+            'microsoft', 'office', 'solutionpackages', 'tokenbroker', 'windowsapps', 'powershell', 'startupprofiledata', 'system32', 'syswow64', 'drivers', 'winsxs', 'assembly', 'windows.web.dll', 'aadwamextension.dll', 'appcontracts.dll', 'apphelp.dll', 'imm32.dll', 'bcrypt.dll', 'windows kits', 'windows sdk', 'microsoft sdks', 'visual studio',
             // Gaming & Graphics - CRITICAL RAZER PROTECTION
             'razer', 'razercentral', 'razerappengine', 'intel', 'shadercache', 'nvidia', 'amd',
             // VPN & Security
@@ -271,35 +271,32 @@ class ApolloUnifiedProtectionEngine extends EventEmitter {
             'cursor', 'resources', 'app', 'node_modules', '@connectrpc', '@fastify', '@isaacs', '@lukeed', '@microsoft', '@opentelemetry', '@parcel', '@pkgjs', '@prisma', '@sentry', '@sentry-internal', '@tanstack', '@tootallnate', '@types', '@vscode', '@xterm', 'abort-controller', 'acorn', 'acorn-import-attributes', 'agent-base', 'ansi-styles', 'archiver', 'archiver-utils', 'asn1.js', 'asynckit', 'b4a', 'balanced-match', 'bare-events', 'base64-js', 'bindings', 'bl', 'bn.js', 'brace-expansion', 'braces', 'buffer', 'buffer-crc32', 'chownr', 'chrome-remote-interface', 'cjs-module-lexer', 'color-convert', 'color-name', 'combined-stream', 'compress-commons', 'core-util-is', 'crc-32', 'crc32-stream', 'cross-spawn', 'csstype', 'debug', 'decompress-response', 'deep-extend', 'define-lazy-prop', 'detect-libc', 'eastasianwidth', 'ecdsa-sig-formatter', 'emoji-regex', 'encoding', 'end-of-stream', 'event-target-shim', 'events', 'eventsource-parser', 'expand-template', 'fast-fifo', 'fast-jwt', 'file-uri-to-path', 'fill-range', 'font-finder', 'font-ligatures', 'foreground-child', 'form-data', 'forwarded-parse', 'fs-constants', 'fs-extra'
         ];
 
-        // Skip legitimate directories to prevent false positives
+        // Skip legitimate directories to prevent false positives (silent operation)
         for (const legitDir of legitimateDirectories) {
             if (lowerPath.includes(legitDir)) {
-                console.log(`⚪ UNIFIED WHITELIST: Skipping legitimate file: ${filePath}`);
+                // Silent whitelist - no logging to prevent startup spam
                 return true;
             }
         }
 
-        // CRITICAL: Skip any cache storage files with hexadecimal names (browser/app cache)
+        // CRITICAL: Skip any cache storage files with hexadecimal names (browser/app cache) - Silent
         if (lowerPath.includes('cachestorage') || lowerPath.includes('service worker')) {
-            console.log(`⚪ UNIFIED CACHE WHITELIST: Skipping cache storage file: ${filePath}`);
             return true;
         }
 
-        // CRITICAL: Skip files with pure hexadecimal names in cache directories
+        // CRITICAL: Skip files with pure hexadecimal names in cache directories - Silent
         const fileName = path.basename(filePath).toLowerCase();
         if (/^[0-9a-f]{8,}_[0-9]$/.test(fileName) && (lowerPath.includes('cache') || lowerPath.includes('storage'))) {
-            console.log(`⚪ UNIFIED HEX CACHE WHITELIST: Skipping hex cache file: ${filePath}`);
             return true;
         }
 
-        // CRITICAL: Skip ALL Go development files - MAJOR FALSE POSITIVE SOURCE
+        // CRITICAL: Skip ALL Go development files - MAJOR FALSE POSITIVE SOURCE - Silent
         if (lowerPath.includes('\\go\\') || lowerPath.includes('/go/') || 
             lowerPath.includes('golang.org') || lowerPath.includes('github.com') ||
             lowerPath.includes('pkg\\mod') || lowerPath.includes('pkg/mod') ||
             fileName.endsWith('.go') || fileName.includes('go-') ||
             lowerPath.includes('twilio') || lowerPath.includes('eapache') ||
             lowerPath.includes('pelletier') || lowerPath.includes('klauspost')) {
-            console.log(`⚪ GO DEVELOPMENT WHITELIST: Skipping Go development file: ${filePath}`);
             return true;
         }
 

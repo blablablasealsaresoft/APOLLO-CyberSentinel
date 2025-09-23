@@ -216,7 +216,8 @@ class ApolloApplication {
 
     createSystemTray() {
         try {
-            const iconPath = path.join(__dirname, 'assets', 'apollo-tray.jpg');
+            // Use PNG for better transparency support in system tray
+            const iconPath = path.join(__dirname, 'assets', 'apollo-tray.png');
             this.tray = new Tray(iconPath);
         } catch (error) {
             console.warn('⚠️ System tray icon could not be loaded:', error.message);

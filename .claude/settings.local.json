@@ -50,7 +50,8 @@
       "Bash(\"C:/Program Files/GitHub CLI/gh.exe\" api repos/blablablasealsaresoft/APOLLO-CyberSentinel/pages/builds/781514469)",
       "Bash(\"C:/Program Files/GitHub CLI/gh.exe\" repo edit blablablasealsaresoft/APOLLO-CyberSentinel --visibility private)",
       "Bash(grep:*)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(python:*)"
     ],
     "deny": [],
     "ask": []

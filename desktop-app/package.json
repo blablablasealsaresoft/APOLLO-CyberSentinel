@@ -83,7 +83,7 @@
           ]
         }
       ],
-      "icon": "assets/apollo-icon.ico",
+      "icon": "assets/apollo-icon.png",
       "requestedExecutionLevel": "requireAdministrator",
       "artifactName": "Apollo-Setup-${version}-${arch}.${ext}",
       "sign": false,
@@ -107,7 +107,7 @@
           ]
         }
       ],
-      "icon": "assets/apollo-icon.jpg",
+      "icon": "assets/apollo-icon.png",
       "category": "public.app-category.security",
       "hardenedRuntime": true,
       "entitlements": "build/entitlements.mac.plist",
@@ -135,16 +135,16 @@
           ]
         }
       ],
-      "icon": "assets/apollo-icon.jpg",
+      "icon": "assets/apollo-icon.png",
       "category": "Security",
       "artifactName": "Apollo-${version}-${arch}.${ext}"
     },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
-      "installerIcon": "assets/apollo-icon.ico",
-      "uninstallerIcon": "assets/apollo-icon.ico",
-      "installerHeaderIcon": "assets/apollo-icon.ico",
+      "installerIcon": "assets/apollo-icon.png",
+      "uninstallerIcon": "assets/apollo-icon.png",
+      "installerHeaderIcon": "assets/apollo-icon.png",
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
       "shortcutName": "Apollo",
@@ -155,7 +155,7 @@
     },
     "dmg": {
       "title": "Apollo ${version}",
-      "icon": "assets/apollo-icon.jpg",
+      "icon": "assets/apollo-icon.png",
       "background": "assets/dmg-background.png",
       "contents": [
         {

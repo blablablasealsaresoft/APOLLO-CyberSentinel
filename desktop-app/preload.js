@@ -24,14 +24,20 @@ contextBridge.exposeInMainWorld('electronAPI', {
     getEngineStats: () => ipcRenderer.invoke('get-engine-stats'),
     getRecentActivity: () => ipcRenderer.invoke('get-recent-activity'),
     getAIOracleStats: () => ipcRenderer.invoke('get-ai-oracle-stats'),
+    getNetworkStats: () => ipcRenderer.invoke('get-network-stats'),
+    getSystemPerformance: () => ipcRenderer.invoke('get-system-performance'),
     
     // Real OSINT intelligence operations
     refreshThreatFeeds: () => ipcRenderer.invoke('refresh-threat-feeds'),
+    refreshOSINT: () => ipcRenderer.invoke('refresh-threat-feeds'),
+    getThreatIntelligence: () => ipcRenderer.invoke('get-threat-intelligence'),
     queryIOC: (indicator, type) => ipcRenderer.invoke('query-ioc', indicator, type),
+    executeEmergencyIsolation: () => ipcRenderer.invoke('emergency-isolation'),
     
     // Evidence capture and quarantine operations
     captureEvidence: () => ipcRenderer.invoke('capture-evidence'),
     quarantineThreats: () => ipcRenderer.invoke('quarantine-threats'),
+    refreshThreats: () => ipcRenderer.invoke('refresh-threat-feeds'),
 
     // Real-time event listeners
     onThreatDetected: (callback) => ipcRenderer.on('threat-detected', callback),
@@ -76,7 +82,13 @@ contextBridge.exposeInMainWorld('apolloAPI', {
     checkPhishingURL: (url) => ipcRenderer.invoke('check-phishing-url', url),
     analyzeWithAI: (indicator, context) => ipcRenderer.invoke('analyze-with-ai', indicator, context),
     getOSINTStats: () => ipcRenderer.invoke('get-osint-stats'),
+    getThreatIntelligence: () => ipcRenderer.invoke('get-threat-intelligence'),
+    refreshOSINT: () => ipcRenderer.invoke('refresh-threat-feeds'),
+    executeEmergencyIsolation: () => ipcRenderer.invoke('emergency-isolation'),
     analyzeSmartContract: (address, bytecode) => ipcRenderer.invoke('analyze-smart-contract', address, bytecode),
+    refreshThreats: () => ipcRenderer.invoke('refresh-threat-feeds'),
+    getNetworkStats: () => ipcRenderer.invoke('get-network-stats'),
+    getSystemPerformance: () => ipcRenderer.invoke('get-system-performance'),
 
     onThreatAlert: (callback) => ipcRenderer.on('threat-alert', callback),
     onCryptoAlert: (callback) => ipcRenderer.on('crypto-alert', callback),

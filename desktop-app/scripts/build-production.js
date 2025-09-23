@@ -68,7 +68,7 @@ async function buildProduction() {
                             arch: ['x64']
                         }
                     ],
-                    icon: 'assets/apollo-icon.ico',
+                    icon: 'assets/apollo-icon.png',
                     requestedExecutionLevel: 'requireAdministrator',
                     certificateFile: process.env.WINDOWS_CERTIFICATE,
                     certificatePassword: process.env.WINDOWS_CERTIFICATE_PASSWORD,
@@ -137,9 +137,9 @@ async function buildProduction() {
                     oneClick: false,
                     perMachine: true,
                     allowToChangeInstallationDirectory: true,
-                    installerIcon: 'assets/apollo-icon.ico',
-                    uninstallerIcon: 'assets/apollo-icon.ico',
-                    installerHeaderIcon: 'assets/apollo-icon.ico',
+                    installerIcon: 'assets/apollo-icon.png',
+                    uninstallerIcon: 'assets/apollo-icon.png',
+                    installerHeaderIcon: 'assets/apollo-icon.png',
                     createDesktopShortcut: true,
                     createStartMenuShortcut: true,
                     shortcutName: 'Apollo Security',

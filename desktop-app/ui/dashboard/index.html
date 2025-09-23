@@ -63,7 +63,7 @@
         <header class="dashboard-header">
             <div class="header-left">
                 <div class="apollo-logo">
-                    <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+                    <img src="../../assets/Logo.png" alt="Apollo Logo" class="logo-image">
                     <span class="logo-text">APOLLO CyberSentinel</span>
                 </div>
                 <div class="protection-status active" id="protection-status">
@@ -109,8 +109,8 @@
                         <div class="protection-visual">
                             <canvas id="protectionChart"></canvas>
                         </div>
+                        </div>
                     </div>
-                </div>
 
                 <div class="overview-card epic-glow fade-in animate-delay-2">
                     <div class="card-header">
@@ -129,7 +129,7 @@
                             <div class="threat-item safe">
                                 <i class="fas fa-check-circle"></i>
                                 <span>No active threats detected</span>
-                            </div>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -146,15 +146,15 @@
                                 <div>
                                     <div class="stat-value">0 MB/s</div>
                                     <div class="stat-label">Download</div>
-                                </div>
                             </div>
+                        </div>
                             <div class="stat-item">
                                 <i class="fas fa-arrow-up"></i>
                                 <div>
                                     <div class="stat-value">0 MB/s</div>
                                     <div class="stat-label">Upload</div>
-                                </div>
                             </div>
+                        </div>
                             <div class="stat-item">
                                 <i class="fas fa-globe"></i>
                                 <div>
@@ -177,36 +177,36 @@
                         <h3><i class="fas fa-chart-line"></i> SYSTEM PERFORMANCE</h3>
                     </div>
                     <div class="card-content">
-                        <div class="performance-metrics">
+                        <div class="system-performance performance-metrics">
                             <div class="perf-item">
                                 <div class="perf-label">CPU Usage</div>
                                 <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 45%;"></div>
+                                    <div class="progress-fill cpu-fill" style="width: 0%;"></div>
                                 </div>
-                                <div class="perf-value">45%</div>
+                                <div class="perf-value cpu-value">0%</div>
                             </div>
                             <div class="perf-item">
                                 <div class="perf-label">Memory</div>
                                 <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 62%;"></div>
+                                    <div class="progress-fill memory-fill" style="width: 0%;"></div>
                                 </div>
-                                <div class="perf-value">62%</div>
+                                <div class="perf-value memory-value">0%</div>
                             </div>
                             <div class="perf-item">
                                 <div class="perf-label">Disk</div>
                                 <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 38%;"></div>
+                                    <div class="progress-fill disk-fill" style="width: 0%;"></div>
                                 </div>
-                                <div class="perf-value">38%</div>
+                                <div class="perf-value disk-value">0%</div>
                             </div>
                             <div class="perf-item">
                                 <div class="perf-label">Network</div>
                                 <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 28%;"></div>
+                                    <div class="progress-fill network-fill" style="width: 0%;"></div>
                                 </div>
-                                <div class="perf-value">28%</div>
+                                <div class="perf-value network-value">0%</div>
                             </div>
-                        </div>
+                    </div>
                     </div>
                 </div>
 
@@ -217,8 +217,8 @@
                             <i class="fas fa-sync-alt"></i>
                         </button>
                     </div>
-                    <div class="card-content">
-                        <div class="activity-feed" id="activity-feed">
+                    <div class="card-content activity-feed-container">
+                        <div class="activity-feed full-width" id="activity-feed">
                             <div class="activity-item">
                                 <div class="activity-icon success">
                                     <i class="fas fa-shield-check"></i>
@@ -240,12 +240,13 @@
                             <div class="activity-item">
                                 <div class="activity-icon warning">
                                     <i class="fas fa-exclamation-triangle"></i>
-                                </div>
+                    </div>
                                 <div class="activity-details">
                                     <div class="activity-title">Suspicious Activity Blocked</div>
                                     <div class="activity-time">15 minutes ago</div>
-                                </div>
-                            </div>
+                        </div>
+                        </div>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -260,16 +261,16 @@
                     </div>
                     <h4>Claude AI Oracle</h4>
                     <p>AI-powered threat analysis</p>
-                    <div class="oracle-input-section">
+                        <div class="oracle-input-section">
                         <input type="text" id="oracle-indicator" placeholder="Enter threat indicator..." class="oracle-input">
                         <select id="oracle-type" class="oracle-select">
-                            <option value="auto">Auto-detect</option>
-                            <option value="hash">File Hash</option>
-                            <option value="ip">IP Address</option>
-                            <option value="domain">Domain</option>
-                            <option value="url">URL</option>
-                            <option value="contract">Smart Contract</option>
-                        </select>
+                                <option value="auto">Auto-detect</option>
+                                <option value="hash">File Hash</option>
+                                <option value="ip">IP Address</option>
+                                <option value="domain">Domain</option>
+                                <option value="url">URL</option>
+                                <option value="contract">Smart Contract</option>
+                            </select>
                     </div>
                     <div class="feature-stats">
                         <div class="feature-stat">
@@ -280,14 +281,14 @@
                             <div class="stat-number" id="threat-classifications">0</div>
                             <div class="stat-desc">Classifications</div>
                         </div>
-                    </div>
-                    <div class="feature-actions">
+                        </div>
+                        <div class="feature-actions">
                         <button class="action-btn primary" onclick="analyzeWithClaude()">
                             <i class="fas fa-brain"></i> Analyze
-                        </button>
-                        <button class="action-btn secondary" onclick="clearOracleInput()">
+                            </button>
+                            <button class="action-btn secondary" onclick="clearOracleInput()">
                             <i class="fas fa-times"></i> Clear
-                        </button>
+                            </button>
                     </div>
                 </div>
 
@@ -302,27 +303,27 @@
                         <div class="feature-stat">
                             <div class="stat-number" id="last-scan">Never</div>
                             <div class="stat-desc">Last Scan</div>
-                        </div>
+                            </div>
                         <div class="feature-stat">
                             <div class="stat-number" id="scan-depth">MAX</div>
                             <div class="stat-desc">Scan Depth</div>
+                            </div>
                         </div>
-                    </div>
                     <button class="action-btn primary" onclick="runDeepScan()">
                         <i class="fas fa-radar"></i> Run Deep Scan
                     </button>
-                </div>
+                            </div>
 
                 <!-- CRYPTO GUARDIAN SECTION -->
                 <div class="feature-card epic-glow fade-in animate-delay-8">
                     <div class="feature-icon">
                         <i class="fas fa-wallet"></i>
-                    </div>
+                            </div>
                     <h4>Crypto Guardian</h4>
                     <p>Blockchain security</p>
                     <div id="wallet-status" class="wallet-status disconnected">
                         <span id="wallet-address">Not Connected</span>
-                    </div>
+                            </div>
                     <div class="feature-stats">
                         <div class="feature-stat">
                             <div class="stat-number" id="protected-wallets">0</div>
@@ -331,15 +332,15 @@
                         <div class="feature-stat">
                             <div class="stat-number" id="analyzed-contracts">0</div>
                             <div class="stat-desc">Contracts</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="feature-actions">
+                        <div class="feature-actions">
                         <button class="action-btn primary" onclick="connectWalletConnect()">
                             <i class="fas fa-link"></i> Connect
-                        </button>
+                            </button>
                         <button class="action-btn secondary" onclick="analyzeSmartContract()">
                             <i class="fas fa-file-contract"></i> Analyze
-                        </button>
+                            </button>
                     </div>
                 </div>
 
@@ -350,25 +351,25 @@
                     </div>
                     <h4>Digital Forensics</h4>
                     <p>Evidence capture & analysis</p>
-                    <div class="feature-stats">
-                        <div class="feature-stat">
+                        <div class="feature-stats">
+                            <div class="feature-stat">
                             <div class="stat-number" id="evidence-captured">0</div>
                             <div class="stat-desc">Evidence</div>
-                        </div>
-                        <div class="feature-stat">
+                            </div>
+                            <div class="feature-stat">
                             <div class="stat-number" id="quarantined">0</div>
                             <div class="stat-desc">Quarantined</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="feature-actions">
+                        <div class="feature-actions">
                         <button class="action-btn primary" onclick="captureEvidence()">
                             <i class="fas fa-camera"></i> Capture
-                        </button>
+                            </button>
                         <button class="action-btn secondary" onclick="quarantineThreats()">
                             <i class="fas fa-virus-slash"></i> Quarantine
-                        </button>
+                            </button>
+                        </div>
                     </div>
-                </div>
 
                 <!-- IOC ANALYSIS SECTION -->
                 <div class="feature-card epic-glow fade-in animate-delay-11">
@@ -403,12 +404,12 @@
                         <div class="feature-stat">
                             <div class="stat-number" id="active-threats">0</div>
                             <div class="stat-desc">Active</div>
-                        </div>
+                    </div>
                         <div class="feature-stat">
                             <div class="stat-number">Live</div>
                             <div class="stat-desc">Updates</div>
-                        </div>
-                    </div>
+                                </div>
+                            </div>
                     <button class="action-btn primary" onclick="viewThreats()">
                         <i class="fas fa-binoculars"></i> View Threats
                     </button>
@@ -429,8 +430,8 @@
                         <div class="feature-stat">
                             <div class="stat-number">256-bit</div>
                             <div class="stat-desc">Encryption</div>
-                        </div>
-                    </div>
+                                </div>
+                            </div>
                     <button class="action-btn secondary" onclick="configureBiometrics()">
                         <i class="fas fa-cog"></i> Configure
                     </button>
@@ -451,8 +452,8 @@
                         <div class="feature-stat">
                             <div class="stat-number">Live</div>
                             <div class="stat-desc">Updates</div>
-                        </div>
-                    </div>
+                                </div>
+                            </div>
                     <button class="action-btn primary" onclick="openThreatMap()">
                         <i class="fas fa-map"></i> View Map
                     </button>
@@ -465,7 +466,7 @@
                     <div class="card-header danger">
                         <h3><i class="fas fa-exclamation-circle"></i> EMERGENCY CONTROLS</h3>
                         <div class="emergency-status">STANDBY</div>
-                    </div>
+                        </div>
                     <div class="card-content">
                         <div class="emergency-grid">
                             <button class="emergency-btn lockdown" onclick="emergencyIsolation()">
@@ -528,17 +529,17 @@
                             <button class="quick-action-btn" onclick="viewThreats()" title="View Threats">
                                 <i class="fas fa-eye"></i>
                                 <span>Threats</span>
-                            </button>
+                        </button>
                             <button class="quick-action-btn" onclick="captureEvidence()" title="Capture Evidence">
                                 <i class="fas fa-camera"></i>
                                 <span>Evidence</span>
-                            </button>
+                        </button>
                             <button class="quick-action-btn" onclick="emergencyIsolation()" title="Emergency">
                                 <i class="fas fa-exclamation-triangle"></i>
                                 <span>Emergency</span>
-                            </button>
-                        </div>
+                        </button>
                     </div>
+                </div>
                 </div>
             </section>
 
@@ -560,8 +561,8 @@
                     <div class="stat-content">
                         <div class="stat-value" id="protection-time">0</div>
                         <div class="stat-label">Hours Protected</div>
+                        </div>
                     </div>
-                </div>
                 <div class="stats-card epic-glow">
                     <div class="stat-icon">
                         <i class="fas fa-database"></i>
@@ -569,12 +570,12 @@
                     <div class="stat-content">
                         <div class="stat-value" id="data-protected">0 GB</div>
                         <div class="stat-label">Data Protected</div>
-                    </div>
                 </div>
+            </div>
                 <div class="stats-card epic-glow">
                     <div class="stat-icon">
                         <i class="fas fa-trophy"></i>
-                    </div>
+        </div>
                     <div class="stat-content">
                         <div class="stat-value">Elite</div>
                         <div class="stat-label">Protection Level</div>
@@ -595,63 +596,63 @@
                     <a href="#" class="footer-link">Support</a>
                     <a href="#" class="footer-link">Documentation</a>
                     <a href="#" class="footer-link">Updates</a>
-                </div>
+            </div>
             </div>
         </footer>
-    </div>
+        </div>
 
-    <!-- Settings Modal -->
+        <!-- Settings Modal -->
     <div id="settingsModal" class="modal">
         <div class="modal-content">
-            <div class="modal-header">
+                <div class="modal-header">
                 <h2><i class="fas fa-cog"></i> System Settings</h2>
                 <button class="modal-close" onclick="closeSettings()">
                     <i class="fas fa-times"></i>
                 </button>
-            </div>
-            <div class="modal-body">
-                <div class="settings-section">
-                    <h4>Protection Settings</h4>
-                    <div class="setting-item">
-                        <label class="setting-label">
-                            <input type="checkbox" checked> Real-time Protection
-                        </label>
-                    </div>
-                    <div class="setting-item">
-                        <label class="setting-label">
+                </div>
+                <div class="modal-body">
+                    <div class="settings-section">
+                        <h4>Protection Settings</h4>
+                        <div class="setting-item">
+                            <label class="setting-label">
+                                <input type="checkbox" checked> Real-time Protection
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label class="setting-label">
                             <input type="checkbox" checked> Behavioral Analysis
-                        </label>
-                    </div>
-                    <div class="setting-item">
-                        <label class="setting-label">
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label class="setting-label">
                             <input type="checkbox" checked> Cloud Intelligence
-                        </label>
+                            </label>
+                        </div>
                     </div>
-                </div>
-                <div class="settings-section">
+                    <div class="settings-section">
                     <h4>Network Settings</h4>
-                    <div class="setting-item">
-                        <label class="setting-label">
+                        <div class="setting-item">
+                            <label class="setting-label">
                             <input type="checkbox" checked> Firewall Enabled
-                        </label>
-                    </div>
-                    <div class="setting-item">
-                        <label class="setting-label">
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label class="setting-label">
                             <input type="checkbox"> VPN Auto-Connect
-                        </label>
+                            </label>
+                        </div>
                     </div>
-                </div>
-                <div class="settings-actions">
+                    <div class="settings-actions">
                     <button class="action-btn primary" onclick="saveSettings()">
                         <i class="fas fa-save"></i> Save Settings
                     </button>
                     <button class="action-btn secondary" onclick="resetSettings()">
                         <i class="fas fa-undo"></i> Reset to Default
                     </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
     <script src="dashboard.js"></script>
 </body>

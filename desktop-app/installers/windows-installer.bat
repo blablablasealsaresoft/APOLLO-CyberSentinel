@@ -207,7 +207,7 @@ echo 🖥️ Creating desktop shortcut...
 set "DESKTOP=%USERPROFILE%\Desktop"
 set "SHORTCUT=%DESKTOP%\Apollo Security.lnk"
 
-powershell -Command "$WScriptShell = New-Object -ComObject WScript.Shell; $Shortcut = $WScriptShell.CreateShortcut('%SHORTCUT%'); $Shortcut.TargetPath = '%APOLLO_DIR%\apollo.bat'; $Shortcut.WorkingDirectory = '%APOLLO_DIR%'; $Shortcut.IconLocation = '%APOLLO_DIR%\assets\apollo-icon.ico'; $Shortcut.Description = 'Apollo - Military-Grade Cyber Protection'; $Shortcut.Save()" >nul 2>&1
+powershell -Command "$WScriptShell = New-Object -ComObject WScript.Shell; $Shortcut = $WScriptShell.CreateShortcut('%SHORTCUT%'); $Shortcut.TargetPath = '%APOLLO_DIR%\apollo.bat'; $Shortcut.WorkingDirectory = '%APOLLO_DIR%'; $Shortcut.IconLocation = '%APOLLO_DIR%\assets\apollo-icon.png'; $Shortcut.Description = 'Apollo - Military-Grade Cyber Protection'; $Shortcut.Save()" >nul 2>&1
 
 if exist "%SHORTCUT%" (
     echo ✅ Desktop shortcut created

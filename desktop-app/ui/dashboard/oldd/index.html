@@ -343,6 +343,33 @@
                     </div>
                 </div>
 
+                <!-- THREAT INTELLIGENCE SECTION -->
+                <div class="feature-card epic-glow fade-in animate-delay-9">
+                    <div class="feature-icon">
+                        <i class="fas fa-satellite-dish"></i>
+                    </div>
+                    <h4>Intelligence Sources</h4>
+                    <p>15+ OSINT feeds active</p>
+                    <div class="feature-stats">
+                        <div class="feature-stat">
+                            <div class="stat-number" id="osint-queries">0</div>
+                            <div class="stat-desc">Queries</div>
+                        </div>
+                        <div class="feature-stat">
+                            <div class="stat-number" id="intel-feeds">15+</div>
+                            <div class="stat-desc">Sources</div>
+                        </div>
+                    </div>
+                    <div class="feature-actions">
+                        <button class="action-btn primary" onclick="refreshIntelligenceSources()">
+                            <i class="fas fa-sync"></i> Refresh
+                        </button>
+                        <button class="action-btn secondary" onclick="viewThreatFeeds()">
+                            <i class="fas fa-rss"></i> Feeds
+                        </button>
+                    </div>
+                </div>
+
                 <!-- FORENSICS & EVIDENCE SECTION -->
                 <div class="feature-card epic-glow fade-in animate-delay-10">
                     <div class="feature-icon">
@@ -370,8 +397,30 @@
                     </div>
                 </div>
 
-                <!-- IOC ANALYSIS SECTION -->
+                <!-- PHISHING DETECTION SECTION -->
                 <div class="feature-card epic-glow fade-in animate-delay-11">
+                    <div class="feature-icon">
+                        <i class="fas fa-fish"></i>
+                    </div>
+                    <h4>Phishing Detection</h4>
+                    <p>URL & email protection</p>
+                    <div class="feature-stats">
+                        <div class="feature-stat">
+                            <div class="stat-number" id="phishing-blocked">0</div>
+                            <div class="stat-desc">Blocked</div>
+                        </div>
+                        <div class="feature-stat">
+                            <div class="stat-number">Real-time</div>
+                            <div class="stat-desc">Protection</div>
+                        </div>
+                    </div>
+                    <button class="action-btn primary" onclick="detectPhishingURL()">
+                        <i class="fas fa-shield-check"></i> Check URL
+                    </button>
+                </div>
+
+                <!-- IOC ANALYSIS SECTION -->
+                <div class="feature-card epic-glow fade-in animate-delay-12">
                     <div class="feature-icon">
                         <i class="fas fa-microscope"></i>
                     </div>
@@ -393,7 +442,7 @@
                 </div>
 
                 <!-- THREAT VIEWER SECTION -->
-                <div class="feature-card epic-glow fade-in animate-delay-12">
+                <div class="feature-card epic-glow fade-in animate-delay-13">
                     <div class="feature-icon">
                         <i class="fas fa-eye"></i>
                     </div>
@@ -415,7 +464,7 @@
                 </div>
 
                 <!-- BIOMETRIC SECURITY SECTION -->
-                <div class="feature-card epic-glow fade-in animate-delay-13">
+                <div class="feature-card epic-glow fade-in animate-delay-14">
                     <div class="feature-icon">
                         <i class="fas fa-fingerprint"></i>
                     </div>
@@ -437,7 +486,7 @@
                 </div>
 
                 <!-- GLOBAL THREAT MAP SECTION -->
-                <div class="feature-card epic-glow fade-in animate-delay-14">
+                <div class="feature-card epic-glow fade-in animate-delay-15">
                     <div class="feature-icon">
                         <i class="fas fa-globe-americas"></i>
                     </div>
@@ -455,6 +504,28 @@
                     </div>
                     <button class="action-btn primary" onclick="openThreatMap()">
                         <i class="fas fa-map"></i> View Map
+                    </button>
+                </div>
+
+                <!-- PRIVACY GUARDIAN SECTION -->
+                <div class="feature-card epic-glow fade-in animate-delay-16">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <h4>Privacy Guardian</h4>
+                    <p>Identity protection</p>
+                    <div class="feature-stats">
+                        <div class="feature-stat">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-desc">Anonymous</div>
+                        </div>
+                        <div class="feature-stat">
+                            <div class="stat-number">VPN</div>
+                            <div class="stat-desc">Enabled</div>
+                        </div>
+                    </div>
+                    <button class="action-btn secondary" onclick="managePrivacy()">
+                        <i class="fas fa-shield-alt"></i> Manage
                     </button>
                 </div>
             </section>
@@ -521,17 +592,17 @@
                                 <i class="fas fa-exchange-alt"></i>
                                 <span>TX Check</span>
                             </button>
+                            <button class="quick-action-btn" onclick="detectPhishingURL()" title="Phishing Check">
+                                <i class="fas fa-fish"></i>
+                                <span>Phishing</span>
+                            </button>
                             <button class="quick-action-btn" onclick="queryIOCIntelligence()" title="IOC Analysis">
                                 <i class="fas fa-fingerprint"></i>
                                 <span>IOC</span>
                             </button>
-                            <button class="quick-action-btn" onclick="viewThreats()" title="View Threats">
-                                <i class="fas fa-eye"></i>
-                                <span>Threats</span>
-                            </button>
-                            <button class="quick-action-btn" onclick="captureEvidence()" title="Capture Evidence">
-                                <i class="fas fa-camera"></i>
-                                <span>Evidence</span>
+                            <button class="quick-action-btn" onclick="viewThreatFeeds()" title="Threat Feeds">
+                                <i class="fas fa-rss"></i>
+                                <span>Feeds</span>
                             </button>
                             <button class="quick-action-btn" onclick="emergencyIsolation()" title="Emergency">
                                 <i class="fas fa-exclamation-triangle"></i>

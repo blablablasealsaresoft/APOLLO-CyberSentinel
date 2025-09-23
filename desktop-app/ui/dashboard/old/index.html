@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data:; connect-src 'self' https://api.etherscan.io https://api.virustotal.com https://otx.alienvault.com https://api.shodan.io https://api.anthropic.com wss://relay.walletconnect.com https://relay.walletconnect.com; worker-src 'self' blob:;">
     <title>APOLLO CyberSentinel - Military-Grade Protection Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css">\n    <link rel="stylesheet" href="wallet-modal.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -253,169 +253,31 @@
 
             <!-- PREMIUM FEATURES GRID -->
             <section class="features-grid">
-                <!-- AI ORACLE SECTION -->
                 <div class="feature-card epic-glow fade-in animate-delay-6">
                     <div class="feature-icon">
                         <i class="fas fa-brain"></i>
                     </div>
-                    <h4>Claude AI Oracle</h4>
-                    <p>AI-powered threat analysis</p>
-                    <div class="oracle-input-section">
-                        <input type="text" id="oracle-indicator" placeholder="Enter threat indicator..." class="oracle-input">
-                        <select id="oracle-type" class="oracle-select">
-                            <option value="auto">Auto-detect</option>
-                            <option value="hash">File Hash</option>
-                            <option value="ip">IP Address</option>
-                            <option value="domain">Domain</option>
-                            <option value="url">URL</option>
-                            <option value="contract">Smart Contract</option>
-                        </select>
-                    </div>
+                    <h4>AI Threat Intelligence</h4>
+                    <p>Claude-powered analysis</p>
                     <div class="feature-stats">
                         <div class="feature-stat">
-                            <div class="stat-number" id="ai-analyses">0</div>
-                            <div class="stat-desc">Analyses</div>
+                            <div class="stat-number">99.9%</div>
+                            <div class="stat-desc">Accuracy</div>
                         </div>
                         <div class="feature-stat">
-                            <div class="stat-number" id="threat-classifications">0</div>
-                            <div class="stat-desc">Classifications</div>
+                            <div class="stat-number">24/7</div>
+                            <div class="stat-desc">Monitoring</div>
                         </div>
                     </div>
-                    <div class="feature-actions">
-                        <button class="action-btn primary" onclick="analyzeWithClaude()">
-                            <i class="fas fa-brain"></i> Analyze
-                        </button>
-                        <button class="action-btn secondary" onclick="clearOracleInput()">
-                            <i class="fas fa-times"></i> Clear
+                    <div class="ai-input-section">
+                        <input type="text" id="threat-input" placeholder="Enter threat indicator (hash, URL, IP, domain...)" />
+                        <button class="action-btn primary" onclick="openAIAnalysis()">
+                            <i class="fas fa-brain"></i> Analyze with AI
                         </button>
                     </div>
                 </div>
 
-                <!-- DEEP SCAN SECTION -->
                 <div class="feature-card epic-glow fade-in animate-delay-7">
-                    <div class="feature-icon">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <h4>Deep System Scan</h4>
-                    <p>Comprehensive threat detection</p>
-                    <div class="feature-stats">
-                        <div class="feature-stat">
-                            <div class="stat-number" id="last-scan">Never</div>
-                            <div class="stat-desc">Last Scan</div>
-                        </div>
-                        <div class="feature-stat">
-                            <div class="stat-number" id="scan-depth">MAX</div>
-                            <div class="stat-desc">Scan Depth</div>
-                        </div>
-                    </div>
-                    <button class="action-btn primary" onclick="runDeepScan()">
-                        <i class="fas fa-radar"></i> Run Deep Scan
-                    </button>
-                </div>
-
-                <!-- CRYPTO GUARDIAN SECTION -->
-                <div class="feature-card epic-glow fade-in animate-delay-8">
-                    <div class="feature-icon">
-                        <i class="fas fa-wallet"></i>
-                    </div>
-                    <h4>Crypto Guardian</h4>
-                    <p>Blockchain security</p>
-                    <div id="wallet-status" class="wallet-status disconnected">
-                        <span id="wallet-address">Not Connected</span>
-                    </div>
-                    <div class="feature-stats">
-                        <div class="feature-stat">
-                            <div class="stat-number" id="protected-wallets">0</div>
-                            <div class="stat-desc">Wallets</div>
-                        </div>
-                        <div class="feature-stat">
-                            <div class="stat-number" id="analyzed-contracts">0</div>
-                            <div class="stat-desc">Contracts</div>
-                        </div>
-                    </div>
-                    <div class="feature-actions">
-                        <button class="action-btn primary" onclick="connectWalletConnect()">
-                            <i class="fas fa-link"></i> Connect
-                        </button>
-                        <button class="action-btn secondary" onclick="analyzeSmartContract()">
-                            <i class="fas fa-file-contract"></i> Analyze
-                        </button>
-                    </div>
-                </div>
-
-                <!-- FORENSICS & EVIDENCE SECTION -->
-                <div class="feature-card epic-glow fade-in animate-delay-10">
-                    <div class="feature-icon">
-                        <i class="fas fa-fingerprint"></i>
-                    </div>
-                    <h4>Digital Forensics</h4>
-                    <p>Evidence capture & analysis</p>
-                    <div class="feature-stats">
-                        <div class="feature-stat">
-                            <div class="stat-number" id="evidence-captured">0</div>
-                            <div class="stat-desc">Evidence</div>
-                        </div>
-                        <div class="feature-stat">
-                            <div class="stat-number" id="quarantined">0</div>
-                            <div class="stat-desc">Quarantined</div>
-                        </div>
-                    </div>
-                    <div class="feature-actions">
-                        <button class="action-btn primary" onclick="captureEvidence()">
-                            <i class="fas fa-camera"></i> Capture
-                        </button>
-                        <button class="action-btn secondary" onclick="quarantineThreats()">
-                            <i class="fas fa-virus-slash"></i> Quarantine
-                        </button>
-                    </div>
-                </div>
-
-                <!-- IOC ANALYSIS SECTION -->
-                <div class="feature-card epic-glow fade-in animate-delay-11">
-                    <div class="feature-icon">
-                        <i class="fas fa-microscope"></i>
-                    </div>
-                    <h4>IOC Analysis</h4>
-                    <p>Indicator investigation</p>
-                    <div class="feature-stats">
-                        <div class="feature-stat">
-                            <div class="stat-number" id="iocs-analyzed">0</div>
-                            <div class="stat-desc">IOCs</div>
-                        </div>
-                        <div class="feature-stat">
-                            <div class="stat-number">Multi-source</div>
-                            <div class="stat-desc">Intel</div>
-                        </div>
-                    </div>
-                    <button class="action-btn primary" onclick="queryIOCIntelligence()">
-                        <i class="fas fa-search-plus"></i> Analyze IOC
-                    </button>
-                </div>
-
-                <!-- THREAT VIEWER SECTION -->
-                <div class="feature-card epic-glow fade-in animate-delay-12">
-                    <div class="feature-icon">
-                        <i class="fas fa-eye"></i>
-                    </div>
-                    <h4>Threat Viewer</h4>
-                    <p>Active threat monitoring</p>
-                    <div class="feature-stats">
-                        <div class="feature-stat">
-                            <div class="stat-number" id="active-threats">0</div>
-                            <div class="stat-desc">Active</div>
-                        </div>
-                        <div class="feature-stat">
-                            <div class="stat-number">Live</div>
-                            <div class="stat-desc">Updates</div>
-                        </div>
-                    </div>
-                    <button class="action-btn primary" onclick="viewThreats()">
-                        <i class="fas fa-binoculars"></i> View Threats
-                    </button>
-                </div>
-
-                <!-- BIOMETRIC SECURITY SECTION -->
-                <div class="feature-card epic-glow fade-in animate-delay-13">
                     <div class="feature-icon">
                         <i class="fas fa-fingerprint"></i>
                     </div>
@@ -436,8 +298,7 @@
                     </button>
                 </div>
 
-                <!-- GLOBAL THREAT MAP SECTION -->
-                <div class="feature-card epic-glow fade-in animate-delay-14">
+                <div class="feature-card epic-glow fade-in animate-delay-8">
                     <div class="feature-icon">
                         <i class="fas fa-globe-americas"></i>
                     </div>
@@ -457,6 +318,33 @@
                         <i class="fas fa-map"></i> View Map
                     </button>
                 </div>
+
+                <div class="feature-card epic-glow fade-in animate-delay-9">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <h4>Privacy Guardian</h4>
+                    <p>Identity protection</p>
+                    <div class="feature-stats">
+                        <div class="feature-stat">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-desc">Anonymous</div>
+                        </div>
+                        <div class="feature-stat">
+                            <div class="stat-number">VPN</div>
+                            <div class="stat-desc">Enabled</div>
+                        </div>
+                    </div>
+                    <button class="action-btn secondary" onclick="managePrivacy()">
+                        <i class="fas fa-shield-alt"></i> Manage
+                    </button>
+                    <button class="action-btn success" onclick="openWalletModal()">
+                        <i class="fas fa-wallet"></i> Connect Wallet
+                    </button>
+                    <div id="wallet-status" class="wallet-status" style="display: none;">
+                        <i class="fas fa-wallet"></i> No wallet connected
+                    </div>
+                </div>
             </section>
 
             <!-- PREMIUM EMERGENCY CONTROLS -->
@@ -468,74 +356,21 @@
                     </div>
                     <div class="card-content">
                         <div class="emergency-grid">
-                            <button class="emergency-btn lockdown" onclick="emergencyIsolation()">
+                            <button class="emergency-btn lockdown" onclick="initiateEmergencyLockdown()">
                                 <i class="fas fa-lock"></i>
-                                <span>Emergency Isolation</span>
+                                <span>Emergency Lockdown</span>
                             </button>
-                            <button class="emergency-btn quarantine" onclick="quarantineThreats()">
+                            <button class="emergency-btn quarantine" onclick="isolateSystem()">
                                 <i class="fas fa-virus-slash"></i>
-                                <span>Quarantine All</span>
+                                <span>Isolate System</span>
                             </button>
-                            <button class="emergency-btn backup" onclick="captureEvidence()">
-                                <i class="fas fa-camera"></i>
-                                <span>Capture Evidence</span>
+                            <button class="emergency-btn backup" onclick="emergencyBackup()">
+                                <i class="fas fa-database"></i>
+                                <span>Emergency Backup</span>
                             </button>
                             <button class="emergency-btn restore" onclick="systemRestore()">
                                 <i class="fas fa-undo-alt"></i>
                                 <span>System Restore</span>
-                            </button>
-                            <button class="emergency-btn scan" onclick="runDeepScan()">
-                                <i class="fas fa-radar"></i>
-                                <span>Deep Scan</span>
-                            </button>
-                            <button class="emergency-btn disconnect" onclick="isolateSystem()">
-                                <i class="fas fa-network-wired"></i>
-                                <span>Network Isolation</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- QUICK ACTIONS BAR -->
-            <section class="quick-actions-section">
-                <div class="quick-actions-card epic-glow">
-                    <div class="card-header">
-                        <h3><i class="fas fa-bolt"></i> QUICK ACTIONS</h3>
-                    </div>
-                    <div class="card-content">
-                        <div class="quick-actions-grid">
-                            <button class="quick-action-btn" onclick="runDeepScan()" title="Deep System Scan">
-                                <i class="fas fa-radar"></i>
-                                <span>Scan</span>
-                            </button>
-                            <button class="quick-action-btn" onclick="analyzeWithClaude()" title="AI Analysis">
-                                <i class="fas fa-brain"></i>
-                                <span>AI Oracle</span>
-                            </button>
-                            <button class="quick-action-btn" onclick="connectWalletConnect()" title="Connect Wallet">
-                                <i class="fas fa-wallet"></i>
-                                <span>Wallet</span>
-                            </button>
-                            <button class="quick-action-btn" onclick="checkTransaction()" title="Check Transaction">
-                                <i class="fas fa-exchange-alt"></i>
-                                <span>TX Check</span>
-                            </button>
-                            <button class="quick-action-btn" onclick="queryIOCIntelligence()" title="IOC Analysis">
-                                <i class="fas fa-fingerprint"></i>
-                                <span>IOC</span>
-                            </button>
-                            <button class="quick-action-btn" onclick="viewThreats()" title="View Threats">
-                                <i class="fas fa-eye"></i>
-                                <span>Threats</span>
-                            </button>
-                            <button class="quick-action-btn" onclick="captureEvidence()" title="Capture Evidence">
-                                <i class="fas fa-camera"></i>
-                                <span>Evidence</span>
-                            </button>
-                            <button class="quick-action-btn" onclick="emergencyIsolation()" title="Emergency">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                <span>Emergency</span>
                             </button>
                         </div>
                     </div>
@@ -653,6 +488,6 @@
         </div>
     </div>
 
-    <script src="dashboard.js"></script>
+    <script src="dashboard.js"></script>\n    <script src="functions-addon.js"></script>
 </body>
 </html>

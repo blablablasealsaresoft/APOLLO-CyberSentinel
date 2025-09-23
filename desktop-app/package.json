@@ -86,12 +86,9 @@
       "icon": "assets/apollo-icon.ico",
       "requestedExecutionLevel": "requireAdministrator",
       "artifactName": "Apollo-Setup-${version}-${arch}.${ext}",
-      "sign": {
-        "certificateFile": "certificates/apollo-code-sign.p12",
-        "certificatePassword": "${env.CERTIFICATE_PASSWORD}"
-      },
-      "signAndEditExecutable": true,
-      "signDlls": true
+      "sign": false,
+      "signAndEditExecutable": false,
+      "signDlls": false
     },
     "mac": {
       "target": [

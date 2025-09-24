@@ -5749,19 +5749,46 @@ function initializeBiometricAuthContainer() {
         updateSecurityScore(0);
         updateWalletAuthStatus('denied');
         
-        // Load current authentication status
-        if (window.electronAPI) {
-            window.electronAPI.getAuthStatus().then(authStatus => {
-                if (authStatus && !authStatus.error) {
+        // Load current authentication status with error handling
+        if (window.electronAPI && typeof window.electronAPI.getAuthStatus === 'function') {
+            try {
+                window.electronAPI.getAuthStatus().then(authStatus => {
+                    if (authStatus && !authStatus.error) {
+                        updateBiometricUIMetrics({
+                            authenticated: authStatus.authenticated,
+                            securityScore: authStatus.authenticated ? 85 : 0,
+                            walletAccess: authStatus.wallet_connection_allowed,
+                            failedAttempts: authStatus.failed_attempts
+                        });
+                    }
+                }).catch(error => {
+                    console.warn('⚠️ Failed to load initial auth status:', error);
+                    // Set default values if authentication not available
                     updateBiometricUIMetrics({
-                        authenticated: authStatus.authenticated,
-                        securityScore: authStatus.authenticated ? 85 : 0,
-                        walletAccess: authStatus.wallet_connection_allowed,
-                        failedAttempts: authStatus.failed_attempts
+                        authenticated: false,
+                        securityScore: 0,
+                        walletAccess: false,
+                        failedAttempts: 0
                     });
-                }
-            }).catch(error => {
-                console.warn('⚠️ Failed to load initial auth status:', error);
+                });
+            } catch (error) {
+                console.warn('⚠️ Auth status function not available:', error);
+                // Set default values
+                updateBiometricUIMetrics({
+                    authenticated: false,
+                    securityScore: 0,
+                    walletAccess: false,
+                    failedAttempts: 0
+                });
+            }
+        } else {
+            console.warn('⚠️ electronAPI.getAuthStatus not available - using defaults');
+            // Set default values
+            updateBiometricUIMetrics({
+                authenticated: false,
+                securityScore: 0,
+                walletAccess: false,
+                failedAttempts: 0
             });
         }
         
@@ -5774,7 +5801,7 @@ function initializeBiometricAuthContainer() {
 // Auto-update authentication status every 30 seconds
 setInterval(async () => {
     try {
-        if (window.electronAPI) {
+        if (window.electronAPI && typeof window.electronAPI.getAuthStatus === 'function') {
             const authStatus = await window.electronAPI.getAuthStatus();
             if (authStatus && !authStatus.error) {
                 updateBiometricUIMetrics({
@@ -5786,7 +5813,8 @@ setInterval(async () => {
             }
         }
     } catch (error) {
-        // Silent fail for background updates
+        // Silent fail for background updates - biometric auth may not be initialized yet
+        console.debug('🔐 Biometric auth status update skipped - system initializing');
     }
 }, 30000);
 

@@ -330,3 +330,309 @@
         border-color: rgba(244, 67, 54, 0.5);
     }
 }
+
+/* ============================================================================
+   REVOLUTIONARY BIOMETRIC CRYPTO AUTHENTICATION UI (NEW)
+   ============================================================================ */
+
+/* Biometric crypto authentication card */
+.biometric-crypto-auth {
+    background: linear-gradient(135deg, rgba(244, 67, 54, 0.1), rgba(156, 39, 176, 0.1));
+    border: 2px solid rgba(244, 67, 54, 0.4);
+    position: relative;
+    overflow: hidden;
+    min-height: 400px;
+}
+
+.biometric-crypto-auth::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.15), transparent);
+    animation: revolutionaryScan 4s infinite;
+}
+
+@keyframes revolutionaryScan {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.biometric-crypto-auth:hover {
+    border-color: rgba(244, 67, 54, 0.6);
+    box-shadow: 0 0 30px rgba(244, 67, 54, 0.4);
+}
+
+/* Revolutionary icon with pulsing effect */
+.revolutionary-icon {
+    position: relative;
+    color: #f44336;
+    font-size: 48px;
+}
+
+.biometric-pulse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80px;
+    height: 80px;
+    border: 2px solid rgba(244, 67, 54, 0.6);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: biometricPulse 2s infinite;
+}
+
+@keyframes biometricPulse {
+    0% {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* Biometric status container */
+.biometric-status-container {
+    margin: 20px 0;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+/* Authentication method grid */
+.auth-status-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.auth-method-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 8px;
+    background: rgba(33, 150, 243, 0.05);
+    border: 1px solid rgba(33, 150, 243, 0.2);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.auth-method-indicator:hover {
+    border-color: rgba(33, 150, 243, 0.5);
+    background: rgba(33, 150, 243, 0.1);
+}
+
+.auth-method-indicator i {
+    font-size: 18px;
+    color: #2196f3;
+    margin-bottom: 4px;
+}
+
+.method-name {
+    font-size: 10px;
+    color: #fff;
+    margin-bottom: 2px;
+    text-align: center;
+}
+
+.method-status {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.method-status.ready { color: #4caf50; }
+.method-status.testing { color: #ffc107; animation: statusBlink 1s infinite; }
+.method-status.failed { color: #f44336; }
+.method-status.success { color: #4caf50; }
+.method-status.inactive { color: #666; }
+
+@keyframes statusBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+/* Security score display */
+.security-score-display {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+}
+
+.score-circle {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, #f44336 0deg, #ff9800 72deg, #ffc107 144deg, #4caf50 252deg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 3px;
+}
+
+.score-circle::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    background: #1a1a1a;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.score-value {
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    z-index: 2;
+    position: relative;
+}
+
+.score-label {
+    font-size: 8px;
+    color: #888;
+    z-index: 2;
+    position: relative;
+    text-align: center;
+}
+
+/* Wallet authentication status */
+.wallet-auth-status {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.auth-badge {
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.3s ease;
+}
+
+.auth-badge.denied {
+    background: rgba(244, 67, 54, 0.2);
+    border: 1px solid rgba(244, 67, 54, 0.5);
+    color: #f44336;
+}
+
+.auth-badge.authorized {
+    background: rgba(76, 175, 80, 0.2);
+    border: 1px solid rgba(76, 175, 80, 0.5);
+    color: #4caf50;
+}
+
+.auth-badge.pending {
+    background: rgba(255, 193, 7, 0.2);
+    border: 1px solid rgba(255, 193, 7, 0.5);
+    color: #ffc107;
+    animation: pendingPulse 2s infinite;
+}
+
+@keyframes pendingPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+/* Revolutionary authentication button */
+.revolutionary-btn {
+    background: linear-gradient(135deg, rgba(244, 67, 54, 0.9), rgba(156, 39, 176, 0.9));
+    border: 2px solid rgba(255, 215, 0, 0.5);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    font-size: 11px;
+}
+
+.revolutionary-btn:hover {
+    background: linear-gradient(135deg, rgba(244, 67, 54, 1), rgba(156, 39, 176, 1));
+    border-color: rgba(255, 215, 0, 0.8);
+    box-shadow: 0 0 25px rgba(244, 67, 54, 0.6);
+    transform: translateY(-2px);
+}
+
+.revolutionary-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s;
+}
+
+.revolutionary-btn:hover::before {
+    left: 100%;
+}
+
+/* Authentication progress display */
+.auth-progress-container {
+    margin-top: 15px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.auth-progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #f44336, #ff9800, #ffc107, #4caf50);
+    border-radius: 3px;
+    width: 0%;
+    transition: width 0.5s ease;
+}
+
+.auth-step-indicator {
+    text-align: center;
+    font-size: 12px;
+    color: #ffc107;
+    font-weight: bold;
+}
+
+/* Tertiary button styling */
+.action-btn.tertiary {
+    background: rgba(158, 158, 158, 0.2);
+    border: 1px solid rgba(158, 158, 158, 0.4);
+    color: #9e9e9e;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action-btn.tertiary:hover {
+    background: rgba(158, 158, 158, 0.3);
+    border-color: rgba(158, 158, 158, 0.6);
+    color: #fff;
+    transform: translateY(-1px);
+}

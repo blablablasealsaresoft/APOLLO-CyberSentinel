@@ -538,26 +538,84 @@
                     </div>
                 </div>
 
-                <!-- BIOMETRIC SECURITY SECTION -->
-                <div class="feature-card epic-glow fade-in animate-delay-13">
-                    <div class="feature-icon">
-                        <i class="fas fa-fingerprint"></i>
+                <!-- REVOLUTIONARY BIOMETRIC CRYPTO AUTHENTICATION SECTION -->
+                <div class="feature-card biometric-crypto-auth epic-glow fade-in animate-delay-13">
+                    <div class="feature-icon revolutionary-icon">
+                        <i class="fas fa-shield-alt"></i>
+                        <div class="biometric-pulse"></div>
                     </div>
-                    <h4>Biometric Security</h4>
-                    <p>Advanced authentication</p>
+                    <h4>🚨 Biometric Crypto Auth</h4>
+                    <p>Revolutionary wallet protection</p>
+                    
+                    <!-- Biometric Authentication Status -->
+                    <div class="biometric-status-container">
+                        <div class="auth-status-grid">
+                            <div class="auth-method-indicator" id="fingerprint-status">
+                                <i class="fas fa-fingerprint"></i>
+                                <span class="method-name">Fingerprint</span>
+                                <span class="method-status" id="fingerprint-indicator">●</span>
+                            </div>
+                            <div class="auth-method-indicator" id="faceid-status">
+                                <i class="fas fa-user"></i>
+                                <span class="method-name">Face ID</span>
+                                <span class="method-status" id="faceid-indicator">●</span>
+                            </div>
+                            <div class="auth-method-indicator" id="voice-status">
+                                <i class="fas fa-microphone"></i>
+                                <span class="method-name">Voice</span>
+                                <span class="method-status" id="voice-indicator">●</span>
+                            </div>
+                        </div>
+                        
+                        <div class="security-score-display">
+                            <div class="score-circle" id="security-score-circle">
+                                <div class="score-value" id="security-score-value">0</div>
+                                <div class="score-label">Security Score</div>
+                            </div>
+                        </div>
+                        
+                        <div class="wallet-auth-status" id="wallet-auth-status">
+                            <div class="auth-badge denied" id="wallet-auth-badge">
+                                <i class="fas fa-lock"></i>
+                                <span id="wallet-auth-text">WALLET BLOCKED</span>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="feature-stats">
                         <div class="feature-stat">
-                            <div class="stat-number">5</div>
-                            <div class="stat-desc">Methods</div>
+                            <div class="stat-number" id="biometric-methods">5</div>
+                            <div class="stat-desc">Biometric Methods</div>
                         </div>
                         <div class="feature-stat">
-                            <div class="stat-number">256-bit</div>
-                            <div class="stat-desc">Encryption</div>
-                                </div>
-                            </div>
-                    <button class="action-btn secondary" onclick="configureBiometrics()">
-                        <i class="fas fa-cog"></i> Configure
-                    </button>
+                            <div class="stat-number" id="two-factor-providers">5</div>
+                            <div class="stat-desc">2FA Providers</div>
+                        </div>
+                        <div class="feature-stat">
+                            <div class="stat-number" id="auth-attempts">0</div>
+                            <div class="stat-desc">Failed Attempts</div>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-actions">
+                        <button class="action-btn primary revolutionary-btn" onclick="startBiometricAuthentication()">
+                            <i class="fas fa-fingerprint"></i> Authenticate
+                        </button>
+                        <button class="action-btn secondary" onclick="configureBiometrics()">
+                            <i class="fas fa-cog"></i> Configure
+                        </button>
+                        <button class="action-btn tertiary" onclick="viewAuthStatus()">
+                            <i class="fas fa-chart-line"></i> Status
+                        </button>
+                    </div>
+                    
+                    <!-- Real-time Authentication Progress -->
+                    <div class="auth-progress-container" id="auth-progress" style="display: none;">
+                        <div class="auth-progress-bar">
+                            <div class="progress-fill" id="auth-progress-fill"></div>
+                        </div>
+                        <div class="auth-step-indicator" id="auth-step-text">Starting authentication...</div>
+                    </div>
                 </div>
 
                 <!-- GLOBAL THREAT MAP SECTION -->

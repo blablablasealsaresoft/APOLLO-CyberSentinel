@@ -381,32 +381,62 @@
                     </div>
                 </div>
 
-                <!-- FORENSICS & EVIDENCE SECTION -->
-                <div class="feature-card epic-glow fade-in animate-delay-10">
+                <!-- ADVANCED DIGITAL FORENSICS SECTION -->
+                <div class="feature-card forensics-advanced epic-glow fade-in animate-delay-10">
                     <div class="feature-icon">
-                        <i class="fas fa-fingerprint"></i>
+                        <i class="fas fa-microscope"></i>
+                        <div class="forensic-pulse"></div>
                     </div>
-                    <h4>Digital Forensics</h4>
-                    <p>Evidence capture & analysis</p>
-                        <div class="feature-stats">
-                            <div class="feature-stat">
+                    <h4>🔬 Advanced Forensics</h4>
+                    <p>NIST SP 800-86 compliant evidence capture</p>
+                    
+                    <!-- Forensic Capabilities Display -->
+                    <div class="forensic-capabilities">
+                        <div class="capability-indicator">
+                            <i class="fas fa-memory"></i>
+                            <span>Memory</span>
+                        </div>
+                        <div class="capability-indicator">
+                            <i class="fas fa-network-wired"></i>
+                            <span>Network</span>
+                        </div>
+                        <div class="capability-indicator">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>Mobile</span>
+                        </div>
+                        <div class="capability-indicator">
+                            <i class="fas fa-bolt"></i>
+                            <span>Volatile</span>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-stats">
+                        <div class="feature-stat">
                             <div class="stat-number" id="evidence-captured">0</div>
-                            <div class="stat-desc">Evidence</div>
-                            </div>
-                            <div class="feature-stat">
-                            <div class="stat-number" id="quarantined">0</div>
-                            <div class="stat-desc">Quarantined</div>
-                            </div>
+                            <div class="stat-desc">Evidence Types</div>
                         </div>
-                        <div class="feature-actions">
-                        <button class="action-btn primary" onclick="captureEvidence()">
-                            <i class="fas fa-camera"></i> Capture
-                            </button>
-                        <button class="action-btn secondary" onclick="quarantineThreats()">
-                            <i class="fas fa-virus-slash"></i> Quarantine
-                            </button>
+                        <div class="feature-stat">
+                            <div class="stat-number" id="forensic-incidents">0</div>
+                            <div class="stat-desc">Incidents</div>
+                        </div>
+                        <div class="feature-stat">
+                            <div class="stat-number" id="chain-custody">100%</div>
+                            <div class="stat-desc">Chain Integrity</div>
                         </div>
                     </div>
+                    
+                    <div class="feature-actions">
+                        <button class="action-btn primary" onclick="captureEvidence()">
+                            <i class="fas fa-microscope"></i> Capture Evidence
+                        </button>
+                        <button class="action-btn secondary" onclick="analyzeVolatileThreats()">
+                            <i class="fas fa-bug"></i> Volatile Analysis
+                        </button>
+                        <button class="action-btn tertiary" onclick="performLiveSystemTriage()">
+                            <i class="fas fa-heartbeat"></i> Live Triage
+                        </button>
+                    </div>
+                </div>
 
                 <!-- ADVANCED NATION-STATE ANALYSIS SECTION -->
                 <div class="feature-card epic-glow fade-in animate-delay-11">

@@ -113,6 +113,12 @@ contextBridge.exposeInMainWorld('apolloAPI', {
     authorizeWalletConnection: (walletProvider, walletAddress, connectionType) => ipcRenderer.invoke('authorize-wallet-connection', walletProvider, walletAddress, connectionType),
     getAuthStatus: () => ipcRenderer.invoke('get-auth-status'),
     getTelemetryAnalytics: () => ipcRenderer.invoke('get-telemetry-analytics'),
+    
+    // Advanced Forensic Evidence Capture (NIST SP 800-86 COMPLIANT)
+    captureForensicEvidence: (incidentId, evidenceType, priority) => ipcRenderer.invoke('capture-forensic-evidence', incidentId, evidenceType, priority),
+    analyzeVolatileThreat: (threatIndicator, analysisType) => ipcRenderer.invoke('analyze-volatile-threat', threatIndicator, analysisType),
+    analyzeMemoryForensics: (memoryDumpPath) => ipcRenderer.invoke('analyze-memory-forensics', memoryDumpPath),
+    performLiveTriage: () => ipcRenderer.invoke('perform-live-triage'),
 
     onThreatAlert: (callback) => ipcRenderer.on('threat-alert', callback),
     onCryptoAlert: (callback) => ipcRenderer.on('crypto-alert', callback),

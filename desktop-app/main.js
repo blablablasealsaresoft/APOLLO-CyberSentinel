@@ -41,6 +41,7 @@ const OSINTThreatIntelligence = require('./src/intelligence/osint-sources');
 const ApolloAIOracle = require('./src/ai/oracle-integration');
 const ApolloBetaTelemetry = require('./src/telemetry/beta-telemetry');
 const EnterpriseBiometricAuthSystem = require('./src/auth/enterprise-biometric-auth');
+const AdvancedForensicEngine = require('./src/forensics/advanced-forensic-engine');
 
 // WalletConnect imports - Apollo acts as a dApp to connect to mobile wallets
 const { Core } = require('@walletconnect/core');
@@ -428,6 +429,11 @@ class ApolloApplication {
             console.log('🔐 Enterprise Biometric Authentication System initializing...');
             this.biometricAuth = new EnterpriseBiometricAuthSystem(this.telemetrySystem);
             console.log('🚨 REVOLUTIONARY SECURITY: Biometric + 2FA REQUIRED for ALL wallet connections!');
+            
+            // Initialize Advanced Forensic Evidence Capture Engine (NIST SP 800-86 COMPLIANT)
+            console.log('🔬 Advanced Forensic Evidence Capture Engine initializing...');
+            this.forensicEngine = new AdvancedForensicEngine(this.telemetrySystem, this.biometricAuth);
+            console.log('✅ FORENSIC CAPABILITIES: NIST SP 800-86 compliant evidence capture ready!');
 
             // Set up unified alert handler
             this.unifiedProtectionEngine.on('threat-detected', (alert) => this.handleUnifiedThreatAlert(alert));
@@ -893,6 +899,74 @@ class ApolloApplication {
                 return { error: 'Telemetry system not initialized' };
             } catch (error) {
                 console.error('❌ Error getting telemetry analytics:', error);
+                return { error: error.message };
+            }
+        });
+        
+        // ========================================================================
+        // ADVANCED FORENSIC EVIDENCE CAPTURE HANDLERS (NIST SP 800-86 COMPLIANT)
+        // ========================================================================
+        
+        // Comprehensive forensic evidence capture
+        ipcMain.handle('capture-forensic-evidence', async (event, incidentId, evidenceType = 'comprehensive', priority = 'high') => {
+            try {
+                if (this.forensicEngine) {
+                    console.log(`🔬 Forensic evidence capture requested for incident: ${incidentId} (${evidenceType})`);
+                    const captureResult = await this.forensicEngine.captureComprehensiveEvidence(incidentId, evidenceType, priority);
+                    console.log(`✅ Forensic evidence capture completed: ${captureResult.volatilityOrder.length} evidence types collected`);
+                    return captureResult;
+                }
+                return { error: 'Forensic engine not initialized' };
+            } catch (error) {
+                console.error('❌ Error in forensic evidence capture:', error);
+                return { error: error.message, incidentId: incidentId };
+            }
+        });
+        
+        // Volatile threat analysis
+        ipcMain.handle('analyze-volatile-threat', async (event, threatIndicator, analysisType = 'comprehensive') => {
+            try {
+                if (this.forensicEngine) {
+                    console.log(`🕵️ Volatile threat analysis requested for: ${threatIndicator}`);
+                    const analysisResult = await this.forensicEngine.analyzeVolatileThreat(threatIndicator, analysisType);
+                    console.log(`✅ Volatile threat analysis completed: ${analysisResult.evasionTechniques.length} evasion techniques detected`);
+                    return analysisResult;
+                }
+                return { error: 'Forensic engine not initialized' };
+            } catch (error) {
+                console.error('❌ Error in volatile threat analysis:', error);
+                return { error: error.message, indicator: threatIndicator };
+            }
+        });
+        
+        // Memory forensics analysis
+        ipcMain.handle('analyze-memory-forensics', async (event, memoryDumpPath) => {
+            try {
+                if (this.forensicEngine && this.forensicEngine.forensicCapabilities.memoryForensics) {
+                    console.log(`🧠 Memory forensics analysis requested for: ${memoryDumpPath}`);
+                    const analysisResult = await this.forensicEngine.forensicCapabilities.memoryForensics.analyzeMemoryDump(memoryDumpPath);
+                    console.log(`✅ Memory forensics analysis completed`);
+                    return analysisResult;
+                }
+                return { error: 'Memory forensics capability not available' };
+            } catch (error) {
+                console.error('❌ Error in memory forensics analysis:', error);
+                return { error: error.message, memoryDumpPath: memoryDumpPath };
+            }
+        });
+        
+        // Live system triage
+        ipcMain.handle('perform-live-triage', async (event) => {
+            try {
+                if (this.forensicEngine && this.forensicEngine.forensicCapabilities.liveSystemTriage) {
+                    console.log('🚨 Live system triage requested');
+                    const triageResult = await this.forensicEngine.forensicCapabilities.liveSystemTriage.performLiveTriage();
+                    console.log(`✅ Live system triage completed: ${triageResult.immediateThreats.length} immediate threats detected`);
+                    return triageResult;
+                }
+                return { error: 'Live triage capability not available' };
+            } catch (error) {
+                console.error('❌ Error in live system triage:', error);
                 return { error: error.message };
             }
         });

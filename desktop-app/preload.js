@@ -102,19 +102,19 @@ contextBridge.exposeInMainWorld('apolloAPI', {
     queryThreatIntelligence: (indicator, type) => ipcRenderer.invoke('query-threat-intelligence', indicator, type),
     getComprehensiveOSINTStats: () => ipcRenderer.invoke('get-osint-stats'),
     
-    // Advanced Nation-State Threat Analysis (NEW)
+    // Advanced Nation-State Threat Analysis (ALSO IN APOLLO API)
     analyzeNationStateThreat: (indicator, type, context) => ipcRenderer.invoke('analyze-nation-state-threat', indicator, type, context),
     analyzeAPTThreat: (indicator, type) => ipcRenderer.invoke('analyze-apt-threat', indicator, type),
     analyzeCryptoThreat: (indicator, type) => ipcRenderer.invoke('analyze-crypto-threat', indicator, type),
     analyzeMobileSpyware: (backupPath, platform) => ipcRenderer.invoke('analyze-mobile-spyware', backupPath, platform),
     
-    // Enterprise Biometric Authentication (REVOLUTIONARY)
+    // Enterprise Biometric Authentication (ALSO IN APOLLO API)
     authenticateForWallet: (walletType, securityLevel) => ipcRenderer.invoke('authenticate-for-wallet', walletType, securityLevel),
     authorizeWalletConnection: (walletProvider, walletAddress, connectionType) => ipcRenderer.invoke('authorize-wallet-connection', walletProvider, walletAddress, connectionType),
     getAuthStatus: () => ipcRenderer.invoke('get-auth-status'),
     getTelemetryAnalytics: () => ipcRenderer.invoke('get-telemetry-analytics'),
     
-    // Advanced Forensic Evidence Capture (NIST SP 800-86 COMPLIANT)
+    // Advanced Forensic Evidence Capture (ALSO IN APOLLO API)
     captureForensicEvidence: (incidentId, evidenceType, priority) => ipcRenderer.invoke('capture-forensic-evidence', incidentId, evidenceType, priority),
     analyzeVolatileThreat: (threatIndicator, analysisType) => ipcRenderer.invoke('analyze-volatile-threat', threatIndicator, analysisType),
     analyzeMemoryForensics: (memoryDumpPath) => ipcRenderer.invoke('analyze-memory-forensics', memoryDumpPath),

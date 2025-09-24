@@ -1,5 +1,42 @@
 /* APOLLO CYBERSENTINEL - PREMIUM 4D DASHBOARD ENGINE WITH FULL BACKEND INTEGRATION */
 
+/**
+ * Universal Report Modal System - Displays all reports consistently
+ */
+function showReportModal(title, content) {
+    // Remove any existing modal first
+    const existingModal = document.querySelector('.report-modal');
+    if (existingModal) {
+        existingModal.remove();
+    }
+
+    // Create modal structure
+    const modal = document.createElement('div');
+    modal.className = 'report-modal';
+    modal.innerHTML = `
+        <div class="modal-backdrop"></div>
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2>${title}</h2>
+                <button class="modal-close" onclick="this.closest('.report-modal').remove()">×</button>
+            </div>
+            <div class="modal-body">
+                ${content}
+            </div>
+            <div class="modal-footer">
+                <button class="btn-premium" onclick="this.closest('.report-modal').remove()">CLOSE</button>
+            </div>
+        </div>
+    `;
+
+    // Add modal to page
+    document.body.appendChild(modal);
+    console.log(`📋 Report modal displayed: ${title}`);
+}
+
+// Make showReportModal globally available
+window.showReportModal = showReportModal;
+
 // Modal System for User Input (Replaces prompt() calls)
 function showInputModal(title, message, defaultValue, callback) {
     const modal = document.createElement('div');
@@ -734,15 +771,14 @@ function initializeRealAPIFunctions() {
     };
     
     window.analyzeSmartContract = async function() {
-        const contractAddress = prompt('Enter smart contract address:');
-        
-        if (!contractAddress || !contractAddress.startsWith('0x')) {
-            window.apolloDashboard.addActivity({
-                text: 'Invalid contract address',
-                type: 'warning'
-            });
-            return;
-        }
+        showInputModal('Smart Contract Analysis', 'Enter smart contract address:', '', async (contractAddress) => {
+            if (!contractAddress || !contractAddress.startsWith('0x')) {
+                window.apolloDashboard.addActivity({
+                    text: 'Invalid contract address',
+                    type: 'warning'
+                });
+                return;
+            }
         
         showContractAnalysisModal(contractAddress);
         
@@ -766,6 +802,7 @@ function initializeRealAPIFunctions() {
                 type: 'danger'
             });
         }
+        }); // Close the showInputModal callback
     };
     
     window.checkTransaction = async function() {
@@ -986,12 +1023,13 @@ function initializeRealAPIFunctions() {
     
     // Query IOC Intelligence (continued from above)
     window.queryIOCIntelligence = async function() {
-        const testIOC = prompt('Enter IOC to analyze (hash, IP, domain):') || '44d88612fea8a8f36de82e1278abb02f';
-        
-        window.apolloDashboard.addActivity({
-            text: `Querying IOC: ${testIOC.substring(0, 20)}...`,
-            type: 'info'
-        });
+        showInputModal('IOC Intelligence Analysis', 'Enter IOC to analyze (hash, IP, domain):', '44d88612fea8a8f36de82e1278abb02f', async (testIOC) => {
+            if (!testIOC) return;
+            
+            window.apolloDashboard.addActivity({
+                text: `Querying IOC: ${testIOC.substring(0, 20)}...`,
+                type: 'info'
+            });
         
         showIOCAnalysisModal(testIOC);
         

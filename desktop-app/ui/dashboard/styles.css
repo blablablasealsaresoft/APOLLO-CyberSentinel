@@ -1,5 +1,84 @@
 /* APOLLO CYBERSENTINEL - PREMIUM 4D UI STYLESHEET */
 
+/* Report Modal System */
+.report-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.report-modal .modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+.report-modal .modal-container {
+    position: relative;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    border: 2px solid var(--apollo-primary);
+    border-radius: 12px;
+    max-width: 90vw;
+    max-height: 90vh;
+    width: 800px;
+    box-shadow: 0 25px 50px rgba(0, 255, 157, 0.3);
+    overflow: hidden;
+}
+
+.report-modal .modal-header {
+    background: linear-gradient(135deg, var(--apollo-primary) 0%, var(--apollo-secondary) 100%);
+    color: var(--apollo-dark);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.report-modal .modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.report-modal .modal-close {
+    background: none;
+    border: none;
+    color: var(--apollo-dark);
+    font-size: 2rem;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.report-modal .modal-close:hover {
+    opacity: 1;
+}
+
+.report-modal .modal-body {
+    padding: 30px;
+    color: var(--apollo-text);
+    max-height: 60vh;
+    overflow-y: auto;
+    background: var(--apollo-dark);
+}
+
+.report-modal .modal-footer {
+    padding: 20px;
+    background: #1a1a1a;
+    text-align: right;
+    border-top: 1px solid var(--apollo-primary);
+}
+
 * {
     margin: 0;
     padding: 0;

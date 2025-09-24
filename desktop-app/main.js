@@ -686,7 +686,7 @@ class ApolloApplication {
 
         ipcMain.handle('get-osint-stats', async () => {
             try {
-                if (this.osintIntelligence) {
+            if (this.osintIntelligence) {
                     // Get comprehensive stats including Python system
                     const comprehensiveStats = await this.osintIntelligence.getOSINTStats();
                     console.log('📊 Retrieved comprehensive OSINT statistics');

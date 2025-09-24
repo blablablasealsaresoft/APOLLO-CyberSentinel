@@ -1754,11 +1754,10 @@
                         link.download = filename;
                         link.style.display = 'none';
                         document.body.appendChild(link);
-
-                        // Download is handled by the calling function
-                        console.log('Download completed successfully:', filename);
-
+                        link.click();
                         document.body.removeChild(link);
+                        
+                        console.log('Download triggered successfully:', filename);
                         
                         // Hide success message after 8 seconds
                         setTimeout(() => {
@@ -1979,13 +1978,13 @@
 
             switch(os) {
                 case 'windows':
-                    // For now, provide instructions to get the file
-                    alert('Windows Beta Download:\n\n1. Contact admin for direct file transfer\n2. File: Apollo-Setup-1.0.0-x64.exe (177MB)\n3. Or request via secure file sharing\n\nFor audit firm: File will be provided via secure channel.');
-                    return;
+                    downloadUrl = 'https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel/releases/latest/download/Apollo-Setup-1.0.0-x64.exe';
+                    filename = 'Apollo-Setup-1.0.0-x64.exe';
+                    break;
                 case 'linux':
-                    // For now, provide instructions to get the file  
-                    alert('Linux Beta Download:\n\n1. Contact admin for direct file transfer\n2. File: Apollo-1.0.0-x64.tar.gz (155MB)\n3. Or request via secure file sharing\n\nFor audit firm: File will be provided via secure channel.');
-                    return;
+                    downloadUrl = 'https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel/releases/latest/download/Apollo-1.0.0-x64.tar.gz';
+                    filename = 'Apollo-1.0.0-x64.tar.gz';
+                    break;
                 case 'macos':
                     // macOS build not available yet - show message
                     alert('macOS build coming soon! Currently available: Windows and Linux versions.');
@@ -1995,19 +1994,8 @@
                     return;
             }
 
-            // Create and trigger immediate download
-            const link = document.createElement('a');
-            link.href = downloadUrl;
-            link.download = filename;
-            link.style.display = 'none';
-            document.body.appendChild(link);
-            
-            // Show epic download animation
+            // Trigger epic download simulation
             simulateEpicDownload(os, downloadUrl, filename);
-            
-            // Trigger actual download
-            link.click();
-            document.body.removeChild(link);
         }
 
         // Legacy download functions for compatibility

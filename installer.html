@@ -1431,8 +1431,8 @@
                         </div>
                         <h3 class="download-label">Windows Beta</h3>
                         <p class="download-details">
-                            Beta version - Portable executable, no installation required.
-                            Direct launch from downloaded file.
+                            Complete portable package with all dependencies included.
+                            Extract ZIP file and run Apollo-Start.bat or Apollo.exe.
                         </p>
                         <a href="#" class="download-btn" onclick="downloadForOS('windows')">
                             <i class="fas fa-download"></i>
@@ -1978,9 +1978,9 @@
 
             switch(os) {
                 case 'windows':
-                    // Direct GitHub raw download (will work with Git LFS)
-                    downloadUrl = 'https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel/raw/main/desktop-app/releases/Apollo-Setup-1.0.0-x64.exe';
-                    filename = 'Apollo-Setup-1.0.0-x64.exe';
+                    // Complete package with all dependencies (fixes ffmpeg.dll error)
+                    downloadUrl = 'https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel/raw/main/desktop-app/releases/Apollo-Complete-1.0.0-x64.zip';
+                    filename = 'Apollo-Complete-1.0.0-x64.zip';
                     break;
                 case 'linux':
                     // Direct GitHub raw download (will work with Git LFS)

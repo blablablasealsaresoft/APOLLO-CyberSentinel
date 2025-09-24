@@ -5,7 +5,7 @@ desktop-app/Apollo.exe
 desktop-app/dist/
 # desktop-app/releases/*.exe  # Now handled by Git LFS
 # desktop-app/releases/*.tar.gz  # Now handled by Git LFS
-desktop-app/releases/*.zip
+# desktop-app/releases/*.zip  # Now handled by Git LFS
 # desktop-app/releases/*.dmg  # Now handled by Git LFS
 desktop-app/releases/*.deb
 desktop-app/releases/*.rpm

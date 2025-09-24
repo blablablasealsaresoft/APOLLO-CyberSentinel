@@ -2344,7 +2344,7 @@ async function analyzeContractFunction(contractAddress, functionSig, transaction
 async function checkContractReputation(contractAddress) {
     try {
         // CHECK ETHERSCAN FOR CONTRACT VERIFICATION
-        const response = await fetch(`https://api.etherscan.io/api?module=contract&action=getsourcecode&address=${contractAddress}&apikey=VXVJX5N1UM44KUYMJDAVZBKJ3I5ATWDB6E`);
+        const response = await fetch(`https://api.etherscan.io/api?module=contract&action=getsourcecode&address=${contractAddress}&apikey=your_etherscan_api_key`);
         const data = await response.json();
 
         if (data.status === '1' && data.result[0]) {
@@ -5962,7 +5962,7 @@ function setupWalletMonitoring(address) {
     const monitoringInterval = setInterval(async () => {
         try {
             // ACTUAL ETHERSCAN API INTEGRATION
-            const response = await fetch(`https://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&page=1&offset=10&sort=desc&apikey=VXVJX5N1UM44KUYMJDAVZBKJ3I5ATWDB6E`);
+            const response = await fetch(`https://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&page=1&offset=10&sort=desc&apikey=your_etherscan_api_key`);
             const data = await response.json();
 
             if (data.status === '1' && data.result && data.result.length > 0) {
@@ -5986,7 +5986,7 @@ function setupWalletMonitoring(address) {
             }
 
             // REAL BALANCE MONITORING
-            const balanceResponse = await fetch(`https://api.etherscan.io/api?module=account&action=balance&address=${address}&tag=latest&apikey=VXVJX5N1UM44KUYMJDAVZBKJ3I5ATWDB6E`);
+            const balanceResponse = await fetch(`https://api.etherscan.io/api?module=account&action=balance&address=${address}&tag=latest&apikey=your_etherscan_api_key`);
             const balanceData = await balanceResponse.json();
 
             if (balanceData.status === '1') {

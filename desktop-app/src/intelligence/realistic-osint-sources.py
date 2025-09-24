@@ -502,7 +502,7 @@ class RealisticOSINTManager:
     async def query_alienvault_otx(self, indicator: str, indicator_type: str = 'domain') -> Dict[str, Any]:
         """Query AlienVault OTX using user's API key"""
         try:
-            api_key = os.getenv('ALIENVAULT_OTX_API_KEY', '762c4e5345c0c5b61c5896bc0e4de2a7fc52fc930b2209e5478c5367d646a777')
+            api_key = os.getenv('ALIENVAULT_OTX_API_KEY', 'your_alienvault_api_key')
             url = f"https://otx.alienvault.com/api/v1/indicators/{indicator_type}/{indicator}/general"
             headers = {'X-OTX-API-KEY': api_key}
             
@@ -577,7 +577,7 @@ class RealisticOSINTManager:
     async def query_etherscan_address(self, address: str) -> Dict[str, Any]:
         """Query Etherscan using user's API key"""
         try:
-            api_key = os.getenv('ETHERSCAN_API_KEY', 'VXVJX5N1UM44KUYMJDAVZBKJ3I5ATWDB6E')
+            api_key = os.getenv('ETHERSCAN_API_KEY', 'your_etherscan_api_key')
             
             # Get balance
             balance_url = f"https://api.etherscan.io/api?module=account&action=balance&address={address}&tag=latest&apikey={api_key}"
@@ -620,7 +620,7 @@ class RealisticOSINTManager:
     async def query_multi_chain_address(self, address: str, networks: list = None) -> Dict[str, Any]:
         """Query address across multiple EVM chains using user's Etherscan API key"""
         try:
-            api_key = os.getenv('ETHERSCAN_API_KEY', 'VXVJX5N1UM44KUYMJDAVZBKJ3I5ATWDB6E')
+            api_key = os.getenv('ETHERSCAN_API_KEY', 'your_etherscan_api_key')
             
             # EVM-compatible chains using Etherscan V2 API (single endpoint, different chainids)
             chain_configs = {
@@ -721,7 +721,7 @@ class RealisticOSINTManager:
     async def query_newsapi(self, query: str) -> Dict[str, Any]:
         """Query NewsAPI using user's API key"""
         try:
-            api_key = os.getenv('NEWSAPI_KEY', '43f407a4aceb41c4a588224bfbf7f528')
+            api_key = os.getenv('NEWSAPI_KEY', 'your_newsapi_key')
             url = f"https://newsapi.org/v2/everything?q={quote(query)}&sortBy=publishedAt&pageSize=10&apiKey={api_key}"
             
             async with self.session.get(url) as response:
@@ -752,7 +752,7 @@ class RealisticOSINTManager:
     async def query_hunter_io(self, domain: str) -> Dict[str, Any]:
         """Query Hunter.io using user's API key"""
         try:
-            api_key = os.getenv('HUNTER_IO_API_KEY', '98df4bbbac21d3f2dfae2e657e09520b82b94bb0')
+            api_key = os.getenv('HUNTER_IO_API_KEY', 'your_hunter_api_key')
             url = f"https://api.hunter.io/v2/domain-search?domain={domain}&api_key={api_key}"
             
             async with self.session.get(url) as response:

@@ -55,11 +55,11 @@ class PythonOSINTInterface {
                 env: { 
                     ...process.env,
                     // Ensure user's API keys are available to Python
-                    ALIENVAULT_OTX_API_KEY: process.env.ALIENVAULT_OTX_API_KEY || '762c4e5345c0c5b61c5896bc0e4de2a7fc52fc930b2209e5478c5367d646a777',
+                    ALIENVAULT_OTX_API_KEY: process.env.ALIENVAULT_OTX_API_KEY || 'your_alienvault_api_key',
                     GITHUB_API_TOKEN: process.env.GITHUB_API_TOKEN || 'your_github_token_here',
-                    ETHERSCAN_API_KEY: process.env.ETHERSCAN_API_KEY || 'VXVJX5N1UM44KUYMJDAVZBKJ3I5ATWDB6E',
-                    NEWSAPI_KEY: process.env.NEWSAPI_KEY || '43f407a4aceb41c4a588224bfbf7f528',
-                    HUNTER_IO_API_KEY: process.env.HUNTER_IO_API_KEY || '98df4bbbac21d3f2dfae2e657e09520b82b94bb0',
+                    ETHERSCAN_API_KEY: process.env.ETHERSCAN_API_KEY || 'your_etherscan_api_key',
+                    NEWSAPI_KEY: process.env.NEWSAPI_KEY || 'your_newsapi_key',
+                    HUNTER_IO_API_KEY: process.env.HUNTER_IO_API_KEY || 'your_hunter_api_key',
                     SHODAN_API_KEY: process.env.SHODAN_API_KEY || '',
                     VIRUSTOTAL_API_KEY: process.env.VIRUSTOTAL_API_KEY || '',
                     ABUSEIPDB_API_KEY: process.env.ABUSEIPDB_API_KEY || '',

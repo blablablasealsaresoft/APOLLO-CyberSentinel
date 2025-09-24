@@ -23,20 +23,20 @@ class OSINTThreatIntelligence {
 
     loadApiKeys() {
         return {
-            ALIENVAULT_OTX_API_KEY: "762c4e5345c0c5b61c5896bc0e4de2a7fc52fc930b2209e5478c5367d646a777",
-            DNSDUMPSTER_API_KEY: "3fe5b5589a224236d5c0135718527610206fa89604d6caf0894f10f6c7a04956",
-            REDDIT_API_KEY: "_dlqVgssQQwhGCFw4XYadfI64odO4g",
+            ALIENVAULT_OTX_API_KEY: process.env.ALIENVAULT_OTX_API_KEY || "your_alienvault_api_key",
+            DNSDUMPSTER_API_KEY: process.env.DNSDUMPSTER_API_KEY || "your_dnsdumpster_api_key",
+            REDDIT_API_KEY: process.env.REDDIT_API_KEY || "your_reddit_api_key",
             GITHUB_API_TOKEN: "your_github_token_here",
-            YOUTUBE_API_KEY: "403400722686-csavof85lv18toj2lo778cibdk9qhjc7.apps.googleusercontent.com",
-            COINGECKO_API_KEY: "CG-AsaEzdeEeHeHf8CRRLk7iKfa",
-            ETHERSCAN_API_KEY: "VXVJX5N1UM44KUYMJDAVZBKJ3I5ATWDB6E",
-            NEWSAPI_KEY: "43f407a4aceb41c4a588224bfbf7f528",
-            HUNTER_IO_API_KEY: "98df4bbbac21d3f2dfae2e657e09520b82b94bb0",
+            YOUTUBE_API_KEY: process.env.YOUTUBE_API_KEY || "your_youtube_api_key",
+            COINGECKO_API_KEY: process.env.COINGECKO_API_KEY || "your_coingecko_api_key",
+            ETHERSCAN_API_KEY: process.env.ETHERSCAN_API_KEY || "your_etherscan_api_key",
+            NEWSAPI_KEY: process.env.NEWSAPI_KEY || "your_newsapi_key",
+            HUNTER_IO_API_KEY: process.env.HUNTER_IO_API_KEY || "your_hunter_api_key",
             TRUTHFINDER_ACCOUNT_ID: "26676",
             TRUTHFINDER_MEMBER_ID: "212900365",
-            VIRUSTOTAL_API_KEY: "7ba1673d04b68c794a5a5617d213a44697040d4fcd6df10bd27cda46566f90ca",
-            VIRUSTOTAL_API_KEY_2: "28e907e705b1be11e0406dd06cfe6b968a6d829f6282379252b0efc9bb50b215",
-            SHODAN_API_KEY: "y0RKKzThYSKzhVBKMJ7CRI3ESdZYTwan"
+            VIRUSTOTAL_API_KEY: process.env.VIRUSTOTAL_API_KEY || "your_virustotal_api_key",
+            VIRUSTOTAL_API_KEY_2: process.env.VIRUSTOTAL_API_KEY_2 || "your_virustotal_api_key_2",
+            SHODAN_API_KEY: process.env.SHODAN_API_KEY || "your_shodan_api_key"
         };
     }
 

@@ -132,8 +132,8 @@
 │  📊 Comprehensive 37-Source Analysis:                                         │
 │  • AlienVault OTX: 762c4e5345c0c5b61c5896bc0e4de2a7fc52fc930b2209e5478c5...  │
 │  • GitHub API: your_github_token_here                                     │
-│  • Etherscan: VXVJX5N1UM44KUYMJDAVZBKJ3I5ATWDB6E                            │
-│  • Hunter.io: 98df4bbbac21d3f2dfae2e657e09520b82b94bb0                       │
+│  • Etherscan: your_etherscan_api_key                                      │
+│  • Hunter.io: your_hunter_api_key                                         │
 │  • + 33 additional free sources (Malware Bazaar, URLhaus, etc.)              │
 └─────────────────────────────────────────────────────────────────────────────────┘
      │ (Enhanced context)

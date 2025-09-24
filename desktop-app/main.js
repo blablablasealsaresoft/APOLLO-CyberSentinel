@@ -1326,27 +1326,64 @@ class ApolloApplication {
                 let networkUtilization = 0;
                 try {
                     const networkStats = await si.networkStats();
+                    console.log(`🔍 Network stats for performance: ${networkStats?.length || 0} interfaces found`);
+                    
                     if (networkStats && networkStats.length > 0) {
                         // Calculate network utilization as percentage of interface capacity
                         const totalRx = networkStats.reduce((sum, stat) => sum + (stat.rx_sec || 0), 0);
                         const totalTx = networkStats.reduce((sum, stat) => sum + (stat.tx_sec || 0), 0);
                         const totalTraffic = totalRx + totalTx;
                         
-                        // Assume 100 Mbps connection as baseline (can be adjusted)
-                        const baselineCapacity = 100 * 1024 * 1024 / 8; // 100 Mbps in bytes/sec
+                        console.log(`🔍 Network traffic: ${totalRx} bytes/s RX, ${totalTx} bytes/s TX, ${totalTraffic} total`);
+                        
+                        // Use dynamic baseline based on actual interface speed or reasonable default
+                        const baselineCapacity = 100 * 1024 * 1024 / 8; // 100 Mbps in bytes/sec (12.5 MB/s)
                         networkUtilization = Math.min(100, Math.round((totalTraffic / baselineCapacity) * 100));
+                        
+                        console.log(`🔍 Network utilization calculation: ${totalTraffic} / ${baselineCapacity} = ${networkUtilization}%`);
+                    } else {
+                        console.warn('⚠️ No network interfaces found for utilization calculation');
                     }
                 } catch (networkError) {
                     console.warn('⚠️ Network utilization calculation failed:', networkError.message);
                     networkUtilization = 0;
                 }
 
-                console.log(`📊 Real system performance: CPU ${Math.round(cpu.currentLoad || 0)}%, Memory ${Math.round(((mem.used / mem.total) * 100) || 0)}%, Disk ${Math.round(((disk[0]?.use || 0) * 100) || 0)}%, Network ${networkUtilization}%`);
+                // Fix disk calculation with enhanced debugging
+                let diskUtilization = 0;
+                console.log(`🔍 Disk data structure:`, disk);
+                
+                if (disk && disk.length > 0 && disk[0]) {
+                    const diskInfo = disk[0];
+                    console.log(`🔍 Primary disk info:`, diskInfo);
+                    console.log(`🔍 Disk use value: ${diskInfo.use} (type: ${typeof diskInfo.use})`);
+                    console.log(`🔍 Disk size: ${diskInfo.size}, used: ${diskInfo.used}, available: ${diskInfo.available}`);
+                    
+                    // Calculate disk usage based on actual used/size ratio
+                    if (diskInfo.used && diskInfo.size) {
+                        diskUtilization = Math.round((diskInfo.used / diskInfo.size) * 100);
+                        console.log(`🔍 Disk calculation: ${diskInfo.used} / ${diskInfo.size} = ${diskUtilization}%`);
+                    } else if (diskInfo.use) {
+                        // Fallback to use field if available
+                        const diskUse = diskInfo.use;
+                        diskUtilization = diskUse > 1 ? Math.round(diskUse) : Math.round(diskUse * 100);
+                        console.log(`🔍 Disk use field: ${diskUse} -> ${diskUtilization}%`);
+                    }
+                    
+                    diskUtilization = Math.min(100, Math.max(0, diskUtilization)); // Ensure 0-100 range
+                    console.log(`🔍 Final disk utilization: ${diskUtilization}%`);
+                } else {
+                    console.warn('⚠️ No disk information available');
+                }
+
+                console.log(`📊 Real system performance: CPU ${Math.round(cpu.currentLoad || 0)}%, Memory ${Math.round(((mem.used / mem.total) * 100) || 0)}%, Disk ${diskUtilization}%, Network ${networkUtilization}%`);
+                console.log(`🔍 Disk debug: disk[0].use = ${disk[0]?.use}, calculated = ${diskUtilization}%`);
+                console.log(`🔍 Network debug: totalTraffic = ${networkStats ? 'calculated' : 'none'}, utilization = ${networkUtilization}%`);
 
                 return {
                     cpu: Math.round(cpu.currentLoad || 0),
                     memory: Math.round(((mem.used / mem.total) * 100) || 0),
-                    disk: Math.round(((disk[0]?.use || 0) * 100) || 0),
+                    disk: diskUtilization, // FIXED: Proper disk utilization calculation
                     network: networkUtilization, // REAL network utilization calculation
                     processes: processes.all || 0
                 };

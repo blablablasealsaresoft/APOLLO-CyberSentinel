@@ -1792,12 +1792,13 @@ body {
     letter-spacing: 1px;
 }
 
-/* THREAT SCANNER */
+/* THREAT SCANNER - OPTIMIZED FOR CONTAINER FIT */
 .threat-scanner {
     position: relative;
-    width: 150px;
-    height: 150px;
-    margin: 30px auto;
+    width: 120px; /* Reduced from 150px */
+    height: 120px; /* Reduced from 150px */
+    margin: 20px auto; /* Reduced from 30px */
+    flex-shrink: 0; /* Prevent shrinking */
 }
 
 .scanner-ring {
@@ -1893,6 +1894,64 @@ body {
     white-space: nowrap;
 }
 
+/* Threat Detection Optimized Layout */
+.threat-status {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: rgba(76, 175, 80, 0.1);
+    border: 1px solid rgba(76, 175, 80, 0.3);
+    border-radius: 8px;
+}
+
+.status-indicator.safe i {
+    color: #4caf50;
+    font-size: 1.1rem;
+}
+
+.status-indicator.safe span {
+    color: var(--apollo-text);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.detection-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.stat-mini {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px;
+    background: rgba(0, 255, 157, 0.05);
+    border-radius: 6px;
+    border: 1px solid rgba(0, 255, 157, 0.2);
+}
+
+.stat-mini .stat-number {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--apollo-primary);
+}
+
+.stat-mini .stat-desc {
+    font-size: 0.7rem;
+    color: var(--apollo-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
 /* Network stats styling complete */
 
 /* Responsive Network Stats for Better Container Fit */
@@ -1964,24 +2023,40 @@ body {
     flex-direction: column;
 }
 
-/* PERFORMANCE METRICS */
+/* PERFORMANCE METRICS - OPTIMIZED FOR CONTAINER FIT */
 .performance-metrics {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 12px; /* Reduced from 20px */
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .perf-item {
     display: grid;
-    grid-template-columns: 100px 1fr 60px;
+    grid-template-columns: 80px 1fr 45px; /* Further reduced for better fit */
     align-items: center;
-    gap: 15px;
+    gap: 8px; /* Reduced from 15px */
+    padding: 6px 0; /* Compact padding */
+    min-width: 0; /* Allow shrinking */
+    box-sizing: border-box;
 }
 
 .perf-label {
-    font-size: 14px;
+    font-size: 0.8rem; /* Reduced from 14px */
     color: var(--text-secondary);
     font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.perf-value {
+    font-size: 0.85rem; /* Slightly smaller */
+    font-weight: 700;
+    color: var(--apollo-text);
+    text-align: right;
+    white-space: nowrap;
 }
 
 .progress-bar {

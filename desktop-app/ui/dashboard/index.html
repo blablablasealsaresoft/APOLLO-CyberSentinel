@@ -164,10 +164,22 @@
                             <div class="scanner-status">SCANNING</div>
                         </div>
                         <div class="threat-list" id="threat-list">
-                            <div class="threat-item safe">
-                                <i class="fas fa-check-circle"></i>
-                                <span>No active threats detected</span>
-                        </div>
+                            <div class="threat-status">
+                                <div class="status-indicator safe">
+                                    <i class="fas fa-shield-check"></i>
+                                    <span>Real-time protection operational</span>
+                                </div>
+                                <div class="detection-stats">
+                                    <div class="stat-mini">
+                                        <span class="stat-number" id="threats-detected-today">0</span>
+                                        <span class="stat-desc">Today</span>
+                                    </div>
+                                    <div class="stat-mini">
+                                        <span class="stat-number" id="threats-blocked-total">0</span>
+                                        <span class="stat-desc">Blocked</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

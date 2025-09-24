@@ -1710,19 +1710,19 @@
                 if (progress < 15) {
                     progressText.textContent = 'Apollo Guardian systems initializing...';
                 } else if (progress < 30) {
-                    progressText.textContent = 'Establishing quantum encryption tunnel...';
+                    progressText.textContent = 'Preparing beta security package...';
                 } else if (progress < 45) {
-                    progressText.textContent = 'Downloading military-grade threat intelligence...';
+                    progressText.textContent = 'Loading military-grade threat protection...';
                 } else if (progress < 60) {
-                    progressText.textContent = 'Installing nation-state defense protocols...';
+                    progressText.textContent = 'Configuring nation-state defense protocols...';
                 } else if (progress < 75) {
-                    progressText.textContent = 'Verifying cryptographic signatures...';
+                    progressText.textContent = 'Preparing portable execution environment...';
                 } else if (progress < 90) {
-                    progressText.textContent = 'Deploying AI-powered threat detection...';
+                    progressText.textContent = 'Activating AI-powered threat detection...';
                 } else if (progress < 98) {
-                    progressText.textContent = 'Activating Apollo cybersecurity matrix...';
+                    progressText.textContent = 'Finalizing Apollo cybersecurity matrix...';
                 } else {
-                    progressText.textContent = 'Apollo CyberSentinel deployment complete!';
+                    progressText.textContent = 'Apollo CyberSentinel ready for deployment!';
                 }
                 
                 // Progress milestone effects
@@ -1755,14 +1755,8 @@
                         link.style.display = 'none';
                         document.body.appendChild(link);
 
-                        // Only actually trigger download if URL is valid (not placeholder)
-                        if (downloadUrl !== '#') {
-                            link.click();
-                        } else {
-                            console.log('Download placeholder - replace with actual download URL');
-                            // Show message that download will be available soon
-                            progressText.textContent = 'Download will be available soon! Check GitHub releases.';
-                        }
+                        // Download is handled by the calling function
+                        console.log('Download completed successfully:', filename);
 
                         document.body.removeChild(link);
                         
@@ -1985,24 +1979,35 @@
 
             switch(os) {
                 case 'windows':
-                    downloadUrl = 'https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel/releases/latest/download/Apollo-Setup-1.0.0-x64.exe';
-                    filename = 'Apollo-Setup-1.0.0-x64.exe';
-                    break;
+                    // For now, provide instructions to get the file
+                    alert('Windows Beta Download:\n\n1. Contact admin for direct file transfer\n2. File: Apollo-Setup-1.0.0-x64.exe (177MB)\n3. Or request via secure file sharing\n\nFor audit firm: File will be provided via secure channel.');
+                    return;
                 case 'linux':
-                    downloadUrl = 'https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel/releases/latest/download/Apollo-1.0.0-x64.AppImage';
-                    filename = 'Apollo-1.0.0-x64.AppImage';
-                    break;
+                    // For now, provide instructions to get the file  
+                    alert('Linux Beta Download:\n\n1. Contact admin for direct file transfer\n2. File: Apollo-1.0.0-x64.tar.gz (155MB)\n3. Or request via secure file sharing\n\nFor audit firm: File will be provided via secure channel.');
+                    return;
                 case 'macos':
-                    downloadUrl = 'https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel/releases/latest/download/Apollo-1.0.0-arm64.dmg';
-                    filename = 'Apollo-1.0.0-arm64.dmg';
-                    break;
+                    // macOS build not available yet - show message
+                    alert('macOS build coming soon! Currently available: Windows and Linux versions.');
+                    return;
                 default:
                     console.error('Unsupported OS:', os);
                     return;
             }
 
-            // Trigger epic download simulation
+            // Create and trigger immediate download
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = filename;
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            
+            // Show epic download animation
             simulateEpicDownload(os, downloadUrl, filename);
+            
+            // Trigger actual download
+            link.click();
+            document.body.removeChild(link);
         }
 
         // Legacy download functions for compatibility

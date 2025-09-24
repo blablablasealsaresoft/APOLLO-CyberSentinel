@@ -11,6 +11,12 @@ desktop-app/releases/*.deb
 desktop-app/releases/*.rpm
 desktop-app/releases/*.AppImage
 
+# Large executable files in root
+Apollo-Setup-1.0.0-x64.exe
+Apollo-1.0.0-x64.tar.gz
+*.exe
+*.dmg
+
 # Node modules
 node_modules/
 */node_modules/

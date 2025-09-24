@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apollo CyberSentinel - Direct Downloads</title>
+    <style>
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: #1a1a1a;
+            color: white;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #ffd700;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .download-item {
+            background: rgba(26, 26, 26, 0.8);
+            border: 2px solid #ffd700;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .download-btn {
+            background: #ffd700;
+            color: #1a1a1a;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+        .download-btn:hover {
+            background: #ffed4a;
+            transform: translateY(-2px);
+        }
+        .info {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid #ffd700;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .file-info {
+            font-size: 0.9em;
+            color: #ccc;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Apollo CyberSentinel v1.0.0 Beta - Direct Downloads</h1>
+        
+        <div class="info">
+            <h3>🛡️ Beta Testing Release</h3>
+            <p>These are unsigned beta builds for testing and third-party security auditing. Production versions will include code signing.</p>
+        </div>
+
+        <div class="download-item">
+            <h3>🪟 Windows Download</h3>
+            <p>Portable executable - no installation required</p>
+            <a href="Apollo-Setup-1.0.0-x64.exe" class="download-btn" download>
+                Download for Windows
+            </a>
+            <div class="file-info">
+                File: Apollo-Setup-1.0.0-x64.exe<br>
+                Size: ~177MB<br>
+                Architecture: x64
+            </div>
+        </div>
+
+        <div class="download-item">
+            <h3>🐧 Linux Download</h3>
+            <p>Compressed package - extract and run</p>
+            <a href="Apollo-1.0.0-x64.tar.gz" class="download-btn" download>
+                Download for Linux
+            </a>
+            <div class="file-info">
+                File: Apollo-1.0.0-x64.tar.gz<br>
+                Size: ~155MB<br>
+                Architecture: x64
+            </div>
+        </div>
+
+        <div class="download-item">
+            <h3>🍎 macOS</h3>
+            <p>Coming soon - requires macOS build environment</p>
+            <div class="file-info">
+                Status: In development
+            </div>
+        </div>
+
+        <div class="info">
+            <h3>📋 Installation Instructions</h3>
+            <p><strong>Windows:</strong> Download and run Apollo-Setup-1.0.0-x64.exe directly</p>
+            <p><strong>Linux:</strong> Extract with <code>tar -xzf Apollo-1.0.0-x64.tar.gz</code> then run <code>./apollo</code></p>
+        </div>
+
+        <div class="info">
+            <h3>🔒 Security Notice</h3>
+            <p>These beta builds are unsigned for testing purposes. Some antivirus software may flag them. This is normal for beta software awaiting code signing certificates.</p>
+        </div>
+
+        <p style="text-align: center; margin-top: 40px;">
+            <a href="installer.html" style="color: #ffd700;">← Back to Main Installer</a>
+        </p>
+    </div>
+
+    <script>
+        // Test file accessibility
+        function testFileAccess() {
+            const files = [
+                'Apollo-Setup-1.0.0-x64.exe',
+                'Apollo-1.0.0-x64.tar.gz'
+            ];
+            
+            files.forEach(file => {
+                fetch(file, { method: 'HEAD' })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log(`✅ ${file} is accessible`);
+                        } else {
+                            console.log(`❌ ${file} returned ${response.status}`);
+                        }
+                    })
+                    .catch(error => {
+                        console.log(`❌ ${file} failed to load:`, error);
+                    });
+            });
+        }
+
+        // Test on page load
+        window.addEventListener('load', testFileAccess);
+    </script>
+</body>
+</html>

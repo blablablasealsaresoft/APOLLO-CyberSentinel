@@ -45,6 +45,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
     
     // Advanced Functions (Also available in apolloAPI)
     authenticateForWallet: (walletType, securityLevel) => ipcRenderer.invoke('authenticate-for-wallet', walletType, securityLevel),
+    authenticateForTransaction: (transactionDetails) => ipcRenderer.invoke('authenticate-for-transaction', transactionDetails),
+    logSecureTransaction: (logEntry) => ipcRenderer.invoke('log-secure-transaction', logEntry),
     getAuthStatus: () => ipcRenderer.invoke('get-auth-status'),
     performLiveTriage: () => ipcRenderer.invoke('perform-live-triage'),
     analyzeMobileSpyware: (backupPath, platform) => ipcRenderer.invoke('analyze-mobile-spyware', backupPath, platform),
@@ -117,6 +119,8 @@ contextBridge.exposeInMainWorld('apolloAPI', {
     
     // Enterprise Biometric Authentication (ALSO IN APOLLO API)
     authenticateForWallet: (walletType, securityLevel) => ipcRenderer.invoke('authenticate-for-wallet', walletType, securityLevel),
+    authenticateForTransaction: (transactionDetails) => ipcRenderer.invoke('authenticate-for-transaction', transactionDetails),
+    logSecureTransaction: (logEntry) => ipcRenderer.invoke('log-secure-transaction', logEntry),
     authorizeWalletConnection: (walletProvider, walletAddress, connectionType) => ipcRenderer.invoke('authorize-wallet-connection', walletProvider, walletAddress, connectionType),
     getAuthStatus: () => ipcRenderer.invoke('get-auth-status'),
     getTelemetryAnalytics: () => ipcRenderer.invoke('get-telemetry-analytics'),

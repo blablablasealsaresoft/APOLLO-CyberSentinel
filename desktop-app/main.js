@@ -1003,6 +1003,92 @@ class ApolloApplication {
                 return { error: error.message };
             }
         });
+
+        // 🔐 Transaction-Specific Biometric Authentication
+        ipcMain.handle('authenticate-for-transaction', async (event, transactionDetails) => {
+            try {
+                console.log('🔐 Processing transaction biometric authentication request:', transactionDetails);
+                
+                // Enhanced transaction authentication with additional security checks
+                const transactionAuthResult = await this.biometricAuth.authenticateForTransaction(
+                    transactionDetails
+                );
+                
+                // Log transaction authentication attempt
+                if (this.telemetrySystem) {
+                    this.telemetrySystem.trackEvent('transaction_biometric_auth', {
+                        success: transactionAuthResult.success,
+                        securityScore: transactionAuthResult.securityScore,
+                        transactionValue: transactionDetails.value,
+                        transactionTo: transactionDetails.to?.substring(0, 10) + '...'
+                    });
+                }
+                
+                return transactionAuthResult;
+                
+            } catch (error) {
+                console.error('❌ Transaction biometric authentication failed:', error);
+                return { 
+                    success: false, 
+                    error: error.message,
+                    securityScore: 0,
+                    timestamp: new Date().toISOString()
+                };
+            }
+        });
+
+        // 📋 Secure Transaction Logging
+        ipcMain.handle('log-secure-transaction', async (event, logEntry) => {
+            try {
+                console.log('📋 Logging secure transaction:', logEntry);
+                
+                // Store in secure transaction log
+                const transactionLogPath = path.join(this.apolloDataDir, 'secure-transactions.json');
+                
+                let transactionLog = [];
+                if (await fs.pathExists(transactionLogPath)) {
+                    try {
+                        transactionLog = await fs.readJson(transactionLogPath);
+                    } catch (error) {
+                        console.warn('⚠️ Failed to read existing transaction log, creating new one');
+                        transactionLog = [];
+                    }
+                }
+                
+                // Add new entry with additional security metadata
+                const secureLogEntry = {
+                    ...logEntry,
+                    id: crypto.randomUUID(),
+                    sessionId: this.biometricAuth?.currentSessionId || 'unknown',
+                    apolloVersion: require('./package.json').version
+                };
+                
+                transactionLog.push(secureLogEntry);
+                
+                // Keep only last 1000 transactions for storage management
+                if (transactionLog.length > 1000) {
+                    transactionLog = transactionLog.slice(-1000);
+                }
+                
+                await fs.writeJson(transactionLogPath, transactionLog, { spaces: 2 });
+                
+                // Track in telemetry
+                if (this.telemetrySystem) {
+                    this.telemetrySystem.trackEvent('secure_transaction_logged', {
+                        transactionValue: logEntry.value,
+                        currency: logEntry.currency,
+                        authScore: logEntry.biometricAuth?.securityScore
+                    });
+                }
+                
+                console.log('✅ Transaction logged securely with ID:', secureLogEntry.id);
+                return { success: true, transactionId: secureLogEntry.id };
+                
+            } catch (error) {
+                console.error('❌ Failed to log secure transaction:', error);
+                return { success: false, error: error.message };
+            }
+        });
         
         // ========================================================================
         // ADVANCED FORENSIC EVIDENCE CAPTURE HANDLERS (NIST SP 800-86 COMPLIANT)

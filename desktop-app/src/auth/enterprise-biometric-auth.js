@@ -900,6 +900,209 @@ class SecureAuthDatabase {
             console.error('❌ Failed to store authentication attempt:', error);
         }
     }
+
+    /**
+     * 🔐 Transaction-Specific Biometric Authentication
+     * Requires fresh biometric verification for each transaction
+     */
+    async authenticateForTransaction(transactionDetails) {
+        console.log('🔐 Processing transaction-specific biometric authentication...');
+        
+        try {
+            // Always require fresh authentication for transactions
+            const transactionAuthStart = Date.now();
+            
+            // Enhanced security checks for transactions
+            const riskScore = this.calculateTransactionRisk(transactionDetails);
+            const requiredSecurityScore = this.getRequiredSecurityScore(riskScore);
+            
+            console.log(`💰 Transaction risk score: ${riskScore}/100`);
+            console.log(`🔒 Required security score: ${requiredSecurityScore}/100`);
+            
+            // Perform full biometric authentication
+            const authResult = await this.performFullBiometricAuth();
+            
+            if (!authResult.success) {
+                this.authenticationState.failedAttempts++;
+                await this.updateTelemetry('transaction_auth_failed', { 
+                    reason: 'biometric_failed',
+                    transactionValue: transactionDetails.value,
+                    riskScore: riskScore
+                });
+                
+                return {
+                    success: false,
+                    error: 'Biometric authentication failed',
+                    securityScore: authResult.securityScore || 0,
+                    riskScore: riskScore,
+                    requiredScore: requiredSecurityScore
+                };
+            }
+            
+            // Check if security score meets transaction requirements
+            if (authResult.securityScore < requiredSecurityScore) {
+                this.authenticationState.failedAttempts++;
+                await this.updateTelemetry('transaction_auth_failed', { 
+                    reason: 'insufficient_security_score',
+                    actualScore: authResult.securityScore,
+                    requiredScore: requiredSecurityScore,
+                    transactionValue: transactionDetails.value
+                });
+                
+                return {
+                    success: false,
+                    error: `Insufficient security score. Required: ${requiredSecurityScore}, Actual: ${authResult.securityScore}`,
+                    securityScore: authResult.securityScore,
+                    riskScore: riskScore,
+                    requiredScore: requiredSecurityScore
+                };
+            }
+            
+            // Log successful transaction authentication
+            const authDuration = Date.now() - transactionAuthStart;
+            await this.updateTelemetry('transaction_auth_success', {
+                securityScore: authResult.securityScore,
+                riskScore: riskScore,
+                requiredScore: requiredSecurityScore,
+                authDuration: authDuration,
+                transactionValue: transactionDetails.value,
+                transactionTo: transactionDetails.to?.substring(0, 10) + '...'
+            });
+            
+            console.log('✅ Transaction biometric authentication successful');
+            return {
+                success: true,
+                securityScore: authResult.securityScore,
+                riskScore: riskScore,
+                requiredScore: requiredSecurityScore,
+                methods: authResult.methods,
+                timestamp: new Date().toISOString(),
+                transactionId: crypto.randomUUID()
+            };
+            
+        } catch (error) {
+            console.error('❌ Transaction authentication error:', error);
+            this.authenticationState.failedAttempts++;
+            
+            await this.updateTelemetry('transaction_auth_error', {
+                error: error.message,
+                transactionValue: transactionDetails.value
+            });
+            
+            return {
+                success: false,
+                error: error.message,
+                securityScore: 0,
+                timestamp: new Date().toISOString()
+            };
+        }
+    }
+
+    /**
+     * Calculate transaction risk score based on various factors
+     */
+    calculateTransactionRisk(transactionDetails) {
+        let riskScore = 0;
+        
+        // Amount-based risk (higher amounts = higher risk)
+        const value = parseFloat(transactionDetails.value) || 0;
+        if (value > 1) riskScore += 30; // > 1 ETH
+        else if (value > 0.1) riskScore += 20; // > 0.1 ETH
+        else if (value > 0.01) riskScore += 10; // > 0.01 ETH
+        
+        // Address analysis
+        if (transactionDetails.to) {
+            // Check if it's a new address (not in our trusted list)
+            const isNewAddress = !this.authenticationState.trustedAddresses?.includes(transactionDetails.to);
+            if (isNewAddress) riskScore += 25;
+            
+            // Check for suspicious patterns
+            if (this.isSuspiciousAddress(transactionDetails.to)) {
+                riskScore += 40;
+            }
+        }
+        
+        // Time-based risk (late night transactions)
+        const currentHour = new Date().getHours();
+        if (currentHour < 6 || currentHour > 22) {
+            riskScore += 15;
+        }
+        
+        // Gas price analysis (unusually high gas = potential urgency/scam)
+        const gasPrice = parseFloat(transactionDetails.gasPrice) || 0;
+        if (gasPrice > 0.01) riskScore += 20; // Very high gas
+        
+        return Math.min(riskScore, 100); // Cap at 100
+    }
+
+    /**
+     * Get required security score based on transaction risk
+     */
+    getRequiredSecurityScore(riskScore) {
+        if (riskScore >= 80) return 95; // Very high risk
+        if (riskScore >= 60) return 90; // High risk
+        if (riskScore >= 40) return 85; // Medium risk
+        if (riskScore >= 20) return 80; // Low-medium risk
+        return 75; // Low risk
+    }
+
+    /**
+     * Check if address appears suspicious
+     */
+    isSuspiciousAddress(address) {
+        // Basic suspicious pattern detection
+        const suspiciousPatterns = [
+            /^0x0+/, // All zeros
+            /^0x[fF]+/, // All F's
+            /.{10,}0{10,}/, // Long string of zeros
+        ];
+        
+        return suspiciousPatterns.some(pattern => pattern.test(address));
+    }
+
+    /**
+     * Perform full biometric authentication for transactions
+     */
+    async performFullBiometricAuth() {
+        console.log('🔐 Performing full biometric authentication...');
+        
+        try {
+            // Simulate comprehensive biometric verification
+            const fingerprintResult = await this.fingerprintEngine.verifyFingerprint();
+            const faceIdResult = await this.faceIdEngine.verifyFaceID();
+            const voiceprintResult = await this.voiceprintEngine.verifyVoiceprint();
+            
+            // Calculate composite security score
+            const securityScore = Math.min(
+                Math.round((fingerprintResult.confidence + faceIdResult.confidence + voiceprintResult.confidence) / 3),
+                100
+            );
+            
+            const allMethodsSuccessful = 
+                fingerprintResult.verified && 
+                faceIdResult.verified && 
+                voiceprintResult.verified;
+            
+            return {
+                success: allMethodsSuccessful && securityScore >= 75,
+                securityScore: securityScore,
+                methods: ['fingerprint', 'faceid', 'voice'],
+                details: {
+                    fingerprint: fingerprintResult,
+                    faceId: faceIdResult,
+                    voiceprint: voiceprintResult
+                }
+            };
+            
+        } catch (error) {
+            console.error('❌ Full biometric auth failed:', error);
+            return {
+                success: false,
+                securityScore: 0,
+                error: error.message
+            };
+        }
+    }
 }
 
 module.exports = EnterpriseBiometricAuthSystem;

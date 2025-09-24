@@ -219,9 +219,9 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
         updateThreatStream(); // Initial load
         
-        // Set up periodic updates every 15 minutes instead of real-time
-        setInterval(updateThreatStream, 15 * 60 * 1000); // 15 minutes = 900,000ms
-        console.log('✅ Threat stream updates every 15 minutes for optimal API usage');
+        // Set up periodic updates every 30 seconds for optimal performance
+        setInterval(updateThreatStream, 30000); // 30 seconds for smoother operation
+        console.log('✅ Threat stream updates every 30 seconds for optimal system performance');
     }, 1000);
     
     // Initialize REAL backend connections
@@ -1613,7 +1613,7 @@ function initializeProtectionSystems() {
     animateProtectionChart();
     
     // Start protection monitoring
-    setInterval(updateProtectionMetrics, 5000);
+    setInterval(updateProtectionMetrics, 30000); // Changed from 5000 to 30000 (30 seconds)
 }
 
 function updateProtectionMetrics() {
@@ -1696,7 +1696,7 @@ function initializeThreatDetection() {
     }
     
     updateThreatDisplay();
-    setInterval(updateThreatDisplay, 5000);
+    setInterval(updateThreatDisplay, 30000); // Changed from 5000 to 30000 (30 seconds)
 }
 
 // GLOBAL SYSTEM PERFORMANCE MONITORING - REAL DATA ONLY
@@ -2017,20 +2017,20 @@ function initializeNetworkMonitoring() {
         console.log(`📊 System performance display updated: CPU ${stats.cpu}%, Memory ${stats.memory}%, Disk ${stats.disk}%, Network ${stats.network}%`);
     }
 
-    // Update network stats and system performance every 3 seconds
-    console.log('⚡ Setting up real-time monitoring intervals...');
+    // Update network stats and system performance every 30 seconds for optimal performance
+    console.log('⚡ Setting up optimized monitoring intervals (30 seconds)...');
     setInterval(() => {
-        console.log('🔄 Network stats interval triggered');
+        console.log('🔄 Network stats interval triggered (30s)');
         updateNetworkStats();
-    }, 3000);
+    }, 30000); // Changed from 3000 to 30000 (30 seconds)
     setInterval(() => {
-        console.log('🔄 System performance interval triggered');
+        console.log('🔄 System performance interval triggered (30s)');
         if (typeof window.updateSystemPerformance === 'function') {
             window.updateSystemPerformance();
         } else {
             console.warn('⚠️ window.updateSystemPerformance not available in interval');
         }
-    }, 3000);
+    }, 30000); // Changed from 3000 to 30000 (30 seconds)
     
     // Initial updates
     console.log('🚀 Starting initial data updates...');
@@ -2212,7 +2212,7 @@ function updateSystemTime() {
     }
     
     updateClock();
-    setInterval(updateClock, 1000);
+    setInterval(updateClock, 1000); // Keep 1 second for clock updates
 }
 
 function animateNumber(element, target) {
@@ -2352,8 +2352,8 @@ async function initialize3DThreatMap() {
     }
 
     await initializeGlobeFallback();
-    setInterval(updateThreatMapData, 2000);
-    setInterval(updateThreatStream, 3000);
+    setInterval(updateThreatMapData, 30000); // Changed from 2000 to 30000 (30 seconds)
+    setInterval(updateThreatStream, 30000); // Changed from 3000 to 30000 (30 seconds)
 
     showNotification('Global Threat Map', '3D visualization initialized with real-time data', 'success');
 }
@@ -2567,11 +2567,11 @@ async function showGlobalThreatMapModal() {
 function initializeThreatIntelligenceDashboard() {
     console.log('🔧 Initializing Enterprise Threat Intelligence Dashboard...');
 
-    // Add real-time updates
-    setInterval(updateThreatStats, 3000);
-    setInterval(updateThreatFeed, 5000);
-    setInterval(updateActorProfiles, 10000);
-    setInterval(updateRiskMatrix, 8000);
+    // Add optimized updates - all set to 30 seconds for smooth performance
+    setInterval(updateThreatStats, 30000); // Changed from 3000 to 30000 (30 seconds)
+    setInterval(updateThreatFeed, 30000); // Changed from 5000 to 30000 (30 seconds)
+    setInterval(updateActorProfiles, 30000); // Changed from 10000 to 30000 (30 seconds)
+    setInterval(updateRiskMatrix, 30000); // Changed from 8000 to 30000 (30 seconds)
 
     // Initialize dashboard components
     initializeIOCAnalysis();
@@ -4745,13 +4745,13 @@ function showThreatIntelligenceModal() {
 function initializeThreatIntelligenceDashboard() {
     console.log('🔧 Initializing Enhanced Enterprise Threat Intelligence Dashboard...');
 
-    // Start real-time updates
-    setInterval(updateThreatStats, 15000); // 15 seconds - optimized
-    setInterval(updateThreatFeed, 20000); // 20 seconds - optimized  
+    // Start optimized updates - all intervals set to 30 seconds for smooth performance
+    setInterval(updateThreatStats, 30000); // 30 seconds - optimized
+    setInterval(updateThreatFeed, 30000); // 30 seconds - optimized  
     setInterval(updateActorProfiles, 30000); // 30 seconds - optimized
-    setInterval(updateRiskMatrix, 25000); // 25 seconds - optimized
-    setInterval(updateGlobalHeatmap, 30000); // 30 seconds - new heatmap updates
-    setInterval(updateLastUpdateTime, 5000); // 5 seconds - time updates
+    setInterval(updateRiskMatrix, 30000); // 30 seconds - optimized
+    setInterval(updateGlobalHeatmap, 30000); // 30 seconds - optimized
+    setInterval(updateLastUpdateTime, 30000); // Changed from 5000 to 30000 (30 seconds)
 
     // Initialize components
     initializeIOCAnalysis();
@@ -7485,8 +7485,8 @@ async function initialize3DThreatMapDuplicate() {
     }
 
     await initializeGlobeFallback();
-    setInterval(updateThreatMapData, 2000);
-    setInterval(updateThreatStream, 3000);
+    setInterval(updateThreatMapData, 30000); // Changed from 2000 to 30000 (30 seconds)
+    setInterval(updateThreatStream, 30000); // Changed from 3000 to 30000 (30 seconds)
 
     showNotification('Global Threat Map', '3D visualization initialized with real-time data', 'success');
 }

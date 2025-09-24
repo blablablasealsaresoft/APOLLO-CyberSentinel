@@ -4037,9 +4037,10 @@ async function accessWalletConnection() {
             console.log('✅ User authenticated and authorized - opening WalletConnect QR code directly');
             showWalletConnectModal();
             
+            const timeRemainingMin = Math.round((authStatus.time_remaining || 0) / 60000);
             showNotification({
                 title: '🔗 Wallet Connection Ready',
-                message: `Biometric verification confirmed - QR code ready for scanning (${Math.round((authStatus.time_remaining || 0) / 60000)} min remaining)`,
+                message: `Biometric verification confirmed - QR code ready for scanning (${timeRemainingMin} min remaining)`,
                 type: 'success'
             });
             
@@ -6604,14 +6605,45 @@ async function startBiometricAuthentication() {
         
         // Final result
         updateAuthProgress(100, 'Authentication complete!');
-        updateSecurityScore(85); // Simulate successful authentication
-        updateWalletAuthStatus('authorized');
         
-        showNotification({
-            title: '✅ Biometric Authentication Successful',
-            message: 'Enterprise-grade authentication complete! Security Score: 85/100. Wallet connections now authorized.',
-            type: 'success'
-        });
+        // CRITICAL: Call backend to ACTUALLY save authentication state
+        try {
+            console.log('💾 Saving authentication state to backend...');
+            const backendAuthResult = await window.electronAPI.authenticateForWallet('general', 'enterprise');
+            console.log('💾 Backend authentication result:', backendAuthResult);
+            
+            if (backendAuthResult.success) {
+                console.log('✅ Authentication state saved to backend - session will persist for 15 minutes');
+                updateSecurityScore(backendAuthResult.securityScore || 85);
+                updateWalletAuthStatus('authorized');
+                
+                showNotification({
+                    title: '✅ Biometric Authentication Successful',
+                    message: `Enterprise-grade authentication complete! Security Score: ${backendAuthResult.securityScore || 85}/100. Backend session active for 15 minutes.`,
+                    type: 'success'
+                });
+            } else {
+                console.error('❌ Backend authentication failed:', backendAuthResult.error);
+                updateSecurityScore(0);
+                updateWalletAuthStatus('denied');
+                
+                showNotification({
+                    title: '❌ Authentication Backend Error',
+                    message: `Backend authentication failed: ${backendAuthResult.error || 'Unknown error'}`,
+                    type: 'error'
+                });
+            }
+        } catch (error) {
+            console.error('❌ Failed to save authentication to backend:', error);
+            updateSecurityScore(0);
+            updateWalletAuthStatus('denied');
+            
+            showNotification({
+                title: '❌ Authentication Save Failed',
+                message: `Failed to save authentication: ${error.message}`,
+                type: 'error'
+            });
+        }
         
         // Hide progress after completion
         setTimeout(() => {

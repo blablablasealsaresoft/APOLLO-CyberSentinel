@@ -929,22 +929,41 @@ class ApolloApplication {
         // Biometric + 2FA authentication for wallet connections (REQUIRED)
         ipcMain.handle('authenticate-for-wallet', async (event, walletType = 'general', securityLevel = 'enterprise') => {
             try {
+                console.log(`🔐 Enterprise authentication requested for ${walletType} wallet (${securityLevel} level)`);
+                console.log(`🔍 Biometric auth system available:`, !!this.biometricAuth);
+                console.log(`🔍 authenticateForWalletConnection method:`, typeof this.biometricAuth?.authenticateForWalletConnection);
+                
                 if (this.biometricAuth) {
-                    console.log(`🔐 Enterprise authentication requested for ${walletType} wallet (${securityLevel} level)`);
+                    if (typeof this.biometricAuth.authenticateForWalletConnection !== 'function') {
+                        console.error('❌ authenticateForWalletConnection method not found');
+                        return { 
+                            success: false, 
+                            error: 'authenticateForWalletConnection method not available',
+                            walletType: walletType,
+                            debug: 'Backend method missing'
+                        };
+                    }
+                    
                     const authResult = await this.biometricAuth.authenticateForWalletConnection(walletType, securityLevel);
+                    console.log(`🔍 Backend auth result:`, authResult);
                     
                     if (authResult.success) {
                         console.log(`✅ Enterprise authentication SUCCESS - Wallet connection authorized`);
                         console.log(`🛡️ Security Score: ${authResult.securityScore}/100 (Biometric + 2FA verified)`);
+                        console.log(`⏱️ Session expires at:`, new Date(this.biometricAuth.authenticationState.sessionExpiry).toLocaleTimeString());
                     } else {
                         console.log(`❌ Enterprise authentication FAILED - Wallet connection denied`);
+                        console.log(`🔍 Failure reason:`, authResult.error || 'Unknown error');
                     }
                     
                     return authResult;
                 }
+                console.error('❌ Biometric authentication system not initialized');
                 return { error: 'Biometric authentication system not initialized' };
             } catch (error) {
                 console.error('❌ Error in biometric authentication:', error);
+                console.error('  - Error details:', error.message);
+                console.error('  - Stack trace:', error.stack);
                 return { error: error.message, walletType: walletType };
             }
         });

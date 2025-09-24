@@ -42,6 +42,13 @@ contextBridge.exposeInMainWorld('electronAPI', {
     captureEvidence: () => ipcRenderer.invoke('capture-evidence'),
     quarantineThreats: () => ipcRenderer.invoke('quarantine-threats'),
     refreshThreats: () => ipcRenderer.invoke('refresh-threat-feeds'),
+    
+    // Advanced Functions (Also available in apolloAPI)
+    authenticateForWallet: (walletType, securityLevel) => ipcRenderer.invoke('authenticate-for-wallet', walletType, securityLevel),
+    getAuthStatus: () => ipcRenderer.invoke('get-auth-status'),
+    performLiveTriage: () => ipcRenderer.invoke('perform-live-triage'),
+    analyzeMobileSpyware: (backupPath, platform) => ipcRenderer.invoke('analyze-mobile-spyware', backupPath, platform),
+    captureForensicEvidence: (incidentId, evidenceType, priority) => ipcRenderer.invoke('capture-forensic-evidence', incidentId, evidenceType, priority),
 
     // Real-time event listeners
     onThreatDetected: (callback) => ipcRenderer.on('threat-detected', callback),

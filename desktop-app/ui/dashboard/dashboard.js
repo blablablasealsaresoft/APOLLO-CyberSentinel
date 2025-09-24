@@ -1055,6 +1055,7 @@ function initializeRealAPIFunctions() {
                 type: 'danger'
             });
         }
+        }); // Close the showInputModal callback
     };
     
     // View Threat Feeds (continued from above)

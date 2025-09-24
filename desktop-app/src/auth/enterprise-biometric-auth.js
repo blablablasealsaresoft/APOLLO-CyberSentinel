@@ -174,10 +174,19 @@ class EnterpriseBiometricAuthSystem extends EventEmitter {
             if (authResult.securityScore >= 70) {
                 authResult.success = true;
                 authResult.walletConnectionAllowed = true;
+                
+                // CRITICAL: Update authentication state for persistence
                 this.authenticationState.isAuthenticated = true;
+                this.authenticationState.biometricVerified = true;
+                this.authenticationState.twoFactorVerified = true;
                 this.authenticationState.walletConnectionAllowed = true;
                 this.authenticationState.lastAuthenticationTime = Date.now();
+                this.authenticationState.sessionExpiry = Date.now() + (15 * 60 * 1000); // 15 minutes from now
                 this.authenticationState.failedAttempts = 0;
+                this.authenticationState.securityScore = authResult.securityScore;
+                
+                console.log('🔐 PERSISTENCE: Authentication state updated for 15-minute session');
+                console.log('🔐 Session will expire at:', new Date(this.authenticationState.sessionExpiry).toLocaleTimeString());
                 
                 console.log(`🎉 Enterprise authentication SUCCESS - Wallet connection authorized (Security Score: ${authResult.securityScore})`);
                 authResult.recommendations.push('✅ ENTERPRISE AUTHENTICATION PASSED - Wallet connection authorized');
@@ -566,9 +575,29 @@ class EnterpriseBiometricAuthSystem extends EventEmitter {
     }
     
     isAuthenticationExpired() {
-        if (!this.authenticationState.lastAuthenticationTime) return true;
-        const expiryTime = 15 * 60 * 1000; // 15 minutes
-        return (Date.now() - this.authenticationState.lastAuthenticationTime) > expiryTime;
+        if (!this.authenticationState.lastAuthenticationTime) {
+            console.log('🔍 No last authentication time - considering expired');
+            return true;
+        }
+        
+        // Check against session expiry if available, otherwise use 15 minutes from last auth
+        const expiryTime = this.authenticationState.sessionExpiry || 
+                          (this.authenticationState.lastAuthenticationTime + (15 * 60 * 1000));
+        
+        const isExpired = Date.now() > expiryTime;
+        const timeRemaining = Math.max(0, expiryTime - Date.now());
+        
+        console.log(`🔍 Authentication expiry check: ${isExpired ? 'EXPIRED' : 'VALID'} (${Math.round(timeRemaining / 60000)} minutes remaining)`);
+        
+        if (isExpired && this.authenticationState.walletConnectionAllowed) {
+            console.log('⏰ Authentication session expired - resetting wallet access');
+            this.authenticationState.walletConnectionAllowed = false;
+            this.authenticationState.isAuthenticated = false;
+            this.authenticationState.biometricVerified = false;
+            this.authenticationState.twoFactorVerified = false;
+        }
+        
+        return isExpired;
     }
     
     handleFailedAuthentication(reason) {

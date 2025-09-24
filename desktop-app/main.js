@@ -1012,6 +1012,16 @@ class ApolloApplication {
         ipcMain.handle('authenticate-for-transaction', async (event, transactionDetails) => {
             try {
                 console.log('🔐 Processing transaction biometric authentication request:', transactionDetails);
+                console.log('🔍 Biometric auth instance check:', !!this.biometricAuth);
+                console.log('🔍 authenticateForTransaction method check:', typeof this.biometricAuth?.authenticateForTransaction);
+                
+                if (!this.biometricAuth) {
+                    throw new Error('Biometric authentication system not initialized');
+                }
+                
+                if (typeof this.biometricAuth.authenticateForTransaction !== 'function') {
+                    throw new Error('authenticateForTransaction method not available');
+                }
                 
                 // Enhanced transaction authentication with additional security checks
                 const transactionAuthResult = await this.biometricAuth.authenticateForTransaction(

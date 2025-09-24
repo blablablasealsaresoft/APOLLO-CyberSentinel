@@ -430,15 +430,22 @@ class ApolloApplication {
             this.biometricAuth = new EnterpriseBiometricAuthSystem(this.telemetrySystem);
             console.log('🚨 REVOLUTIONARY SECURITY: Biometric + 2FA REQUIRED for ALL wallet connections!');
             
-            // Initialize Advanced Forensic Evidence Capture Engine (NIST SP 800-86 COMPLIANT)
+            // Initialize Advanced Forensic Evidence Capture Engine through Unified Engine
             console.log('🔬 Advanced Forensic Evidence Capture Engine initializing...');
-            this.forensicEngine = new AdvancedForensicEngine(this.telemetrySystem, this.biometricAuth);
-            console.log('✅ FORENSIC CAPABILITIES: NIST SP 800-86 compliant evidence capture ready!');
+            await this.unifiedProtectionEngine.initializeForensicEngine(this.telemetrySystem, this.biometricAuth);
+            this.forensicEngine = this.unifiedProtectionEngine.forensicEngine;
+            console.log('✅ FORENSIC CAPABILITIES: NIST SP 800-86 compliant evidence capture integrated with unified protection!');
 
             // Set up unified alert handler
             this.unifiedProtectionEngine.on('threat-detected', (alert) => this.handleUnifiedThreatAlert(alert));
             this.unifiedProtectionEngine.on('crypto-asset-detected', (alert) => this.handleCryptoAlert(alert));
             this.unifiedProtectionEngine.on('engine-ready', (status) => this.handleEngineReady(status));
+            
+            // Set up forensic event handlers (NEW)
+            this.unifiedProtectionEngine.on('forensic-evidence-captured', (event) => this.handleForensicEvidenceCapture(event));
+            this.unifiedProtectionEngine.on('forensic-apt-captured', (event) => this.handleForensicAPTCapture(event));
+            this.unifiedProtectionEngine.on('forensic-crypto-captured', (event) => this.handleForensicCryptoCapture(event));
+            this.unifiedProtectionEngine.on('forensic-mobile-captured', (event) => this.handleForensicMobileCapture(event));
 
             // Start unified protection engine
             const engineStarted = await this.unifiedProtectionEngine.initialize();
@@ -570,6 +577,100 @@ class ApolloApplication {
 
         if (alert.severity === 'CRITICAL') {
             this.showCriticalThreatDialog(alert);
+        }
+    }
+    
+    // ============================================================================
+    // FORENSIC EVENT HANDLERS (NEW)
+    // ============================================================================
+    
+    handleForensicEvidenceCapture(event) {
+        console.log(`🔬 Forensic evidence captured: ${event.incidentId} (trigger: ${event.trigger})`);
+        
+        // Send forensic notification to renderer
+        if (this.mainWindow) {
+            this.mainWindow.webContents.send('forensic-evidence-captured', {
+                incidentId: event.incidentId,
+                trigger: event.trigger,
+                timestamp: event.timestamp,
+                message: `Forensic evidence automatically captured for ${event.trigger}`
+            });
+        }
+        
+        // Track forensic event in telemetry
+        if (this.telemetrySystem) {
+            this.telemetrySystem.trackEvent('automatic_forensic_capture', {
+                incidentId: event.incidentId,
+                trigger: event.trigger,
+                threatName: event.threatName
+            });
+        }
+    }
+    
+    handleForensicAPTCapture(event) {
+        console.log(`🔬 APT forensic evidence captured: ${event.incidentId} (APT: ${event.aptGroup})`);
+        
+        // Send critical APT forensic notification
+        if (this.mainWindow) {
+            this.mainWindow.webContents.send('forensic-apt-captured', {
+                incidentId: event.incidentId,
+                aptGroup: event.aptGroup,
+                attribution: event.attribution,
+                severity: 'critical',
+                message: `🚨 CRITICAL: APT forensic evidence captured for ${event.aptGroup}`
+            });
+        }
+        
+        // Track critical APT forensic event
+        if (this.telemetrySystem) {
+            this.telemetrySystem.trackEvent('apt_forensic_capture', {
+                incidentId: event.incidentId,
+                aptGroup: event.aptGroup,
+                attribution: event.attribution
+            });
+        }
+    }
+    
+    handleForensicCryptoCapture(event) {
+        console.log(`🔬 Crypto threat forensic evidence captured: ${event.incidentId}`);
+        
+        // Send crypto forensic notification
+        if (this.mainWindow) {
+            this.mainWindow.webContents.send('forensic-crypto-captured', {
+                incidentId: event.incidentId,
+                cryptoThreatType: event.cryptoThreatType,
+                message: `💰 Cryptocurrency threat forensic evidence captured`
+            });
+        }
+        
+        // Track crypto forensic event
+        if (this.telemetrySystem) {
+            this.telemetrySystem.trackEvent('crypto_forensic_capture', {
+                incidentId: event.incidentId,
+                threatType: event.cryptoThreatType
+            });
+        }
+    }
+    
+    handleForensicMobileCapture(event) {
+        console.log(`🔬 Mobile spyware forensic evidence captured: ${event.incidentId}`);
+        
+        // Send mobile forensic notification
+        if (this.mainWindow) {
+            this.mainWindow.webContents.send('forensic-mobile-captured', {
+                incidentId: event.incidentId,
+                spywareType: event.spywareType,
+                severity: 'critical',
+                message: `📱 Mobile spyware forensic evidence captured`
+            });
+        }
+        
+        // Track mobile forensic event
+        if (this.telemetrySystem) {
+            this.telemetrySystem.trackEvent('mobile_forensic_capture', {
+                incidentId: event.incidentId,
+                spywareType: event.spywareType
+            });
         }
     }
 

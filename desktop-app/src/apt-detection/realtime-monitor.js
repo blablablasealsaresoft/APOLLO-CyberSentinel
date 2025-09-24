@@ -22,6 +22,10 @@ class ApolloAPTDetector {
         // Integrate comprehensive Python OSINT intelligence for APT detection
         this.pythonOSINT = new PythonOSINTInterface();
         console.log('🔍 APT Detector integrated with comprehensive Python OSINT intelligence (37 sources)');
+        
+        // Forensic engine integration for APT evidence capture
+        this.forensicEngine = null;
+        this.automaticForensicCapture = true;
 
         this.initializeDetector();
     }

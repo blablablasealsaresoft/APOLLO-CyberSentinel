@@ -17,6 +17,10 @@ class ApolloThreatEngine {
         // Integrate comprehensive Python OSINT intelligence for threat engine
         this.pythonOSINT = new PythonOSINTInterface();
         console.log('🚀 Threat Engine integrated with comprehensive Python OSINT intelligence (37 sources)');
+        
+        // Forensic engine integration (will be set by unified protection engine)
+        this.forensicEngine = null;
+        this.automaticForensicCapture = true;
 
         this.initializeEngine();
     }

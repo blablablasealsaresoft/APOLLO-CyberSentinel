@@ -13,6 +13,10 @@ class ApolloWalletShield {
         // Integrate comprehensive Python OSINT intelligence for crypto protection
         this.pythonOSINT = new PythonOSINTInterface();
         console.log('⛓️ Wallet Shield integrated with comprehensive Python OSINT intelligence (37 sources)');
+        
+        // Forensic engine integration for crypto threat evidence capture
+        this.forensicEngine = null;
+        this.automaticForensicCapture = true;
 
         this.initializeShield();
     }

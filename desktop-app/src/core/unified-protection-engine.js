@@ -11,6 +11,7 @@ const PythonOSINTInterface = require('../intelligence/python-osint-interface');
 const AdvancedAPTDetectionEngines = require('../apt-detection/advanced-apt-engines');
 const AdvancedCryptocurrencyProtection = require('../crypto-guardian/advanced-crypto-protection');
 const PegasusForensicsEngine = require('../mobile-threats/pegasus-forensics');
+const AdvancedForensicEngine = require('../forensics/advanced-forensic-engine');
 
 class ApolloUnifiedProtectionEngine extends EventEmitter {
     constructor() {
@@ -31,6 +32,10 @@ class ApolloUnifiedProtectionEngine extends EventEmitter {
         this.advancedCryptoProtection = new AdvancedCryptocurrencyProtection();
         this.pegasusForensics = new PegasusForensicsEngine();
         console.log('🔬 Advanced nation-state detection engines integrated (APT28/29, Lazarus, Pegasus, Crypto)');
+        
+        // Initialize advanced forensic evidence capture engine (will be initialized with dependencies)
+        this.forensicEngine = null; // Will be initialized after other systems are ready
+        console.log('🔬 Advanced Forensic Engine ready for integration with biometric authentication');
 
         // Consolidated protection modules
         this.protectionModules = {
@@ -1743,6 +1748,137 @@ class ApolloUnifiedProtectionEngine extends EventEmitter {
         actions.push({ action: 'UPDATE_OSINT_FEEDS', priority: 'MEDIUM', module: 'INTELLIGENCE' });
         
         return actions;
+    }
+    
+    // ============================================================================
+    // ADVANCED FORENSIC ENGINE INTEGRATION (NEW)
+    // ============================================================================
+    
+    async initializeForensicEngine(telemetrySystem, biometricAuth) {
+        try {
+            console.log('🔬 Initializing Advanced Forensic Engine with unified protection integration...');
+            
+            // Initialize forensic engine with all dependencies
+            this.forensicEngine = new AdvancedForensicEngine(telemetrySystem, biometricAuth);
+            
+            // Connect forensic engine to all existing modules
+            await this.connectForensicToModules();
+            
+            console.log('✅ Advanced Forensic Engine integrated with unified protection system');
+            return true;
+        } catch (error) {
+            console.error('❌ Forensic engine initialization failed:', error);
+            return false;
+        }
+    }
+    
+    async connectForensicToModules() {
+        // Connect forensic engine to threat detection
+        if (this.threatDetection) {
+            this.threatDetection.on('threat-detected', async (threat) => {
+                await this.handleForensicThreatEvent(threat);
+            });
+        }
+        
+        // Connect forensic engine to APT detection
+        if (this.advancedAPTEngines) {
+            this.advancedAPTEngines.on('apt-detected', async (aptThreat) => {
+                await this.handleForensicAPTEvent(aptThreat);
+            });
+        }
+        
+        // Connect forensic engine to crypto protection
+        if (this.advancedCryptoProtection) {
+            this.advancedCryptoProtection.on('crypto-threat-detected', async (cryptoThreat) => {
+                await this.handleForensicCryptoEvent(cryptoThreat);
+            });
+        }
+        
+        // Connect forensic engine to mobile threats
+        if (this.pegasusForensics) {
+            this.pegasusForensics.on('mobile-spyware-detected', async (mobileSpyware) => {
+                await this.handleForensicMobileEvent(mobileSpyware);
+            });
+        }
+        
+        console.log('🔗 Forensic engine connected to all protection modules');
+    }
+    
+    async handleForensicThreatEvent(threat) {
+        try {
+            console.log(`🔬 Forensic capture triggered by threat detection: ${threat.name}`);
+            
+            // Automatically capture evidence for high-severity threats
+            if (threat.severity === 'high' || threat.severity === 'critical') {
+                const incidentId = `THR-${Date.now().toString(36).toUpperCase()}`;
+                await this.forensicEngine.captureComprehensiveEvidence(incidentId, 'threat_response', 'high');
+                
+                // Emit forensic event
+                this.emit('forensic-evidence-captured', {
+                    incidentId: incidentId,
+                    trigger: 'threat_detection',
+                    threatName: threat.name,
+                    timestamp: new Date().toISOString()
+                });
+            }
+        } catch (error) {
+            console.error('❌ Forensic threat event handling failed:', error);
+        }
+    }
+    
+    async handleForensicAPTEvent(aptThreat) {
+        try {
+            console.log(`🔬 Forensic capture triggered by APT detection: ${aptThreat.apt_group}`);
+            
+            // Automatically capture evidence for APT detections
+            const incidentId = `APT-${Date.now().toString(36).toUpperCase()}`;
+            await this.forensicEngine.captureComprehensiveEvidence(incidentId, 'apt_detection', 'critical');
+            
+            // Analyze volatile threat characteristics
+            await this.forensicEngine.analyzeVolatileThreat(aptThreat.indicator, 'apt_focused');
+            
+            this.emit('forensic-apt-captured', {
+                incidentId: incidentId,
+                aptGroup: aptThreat.apt_group,
+                attribution: aptThreat.attribution
+            });
+        } catch (error) {
+            console.error('❌ Forensic APT event handling failed:', error);
+        }
+    }
+    
+    async handleForensicCryptoEvent(cryptoThreat) {
+        try {
+            console.log(`🔬 Forensic capture triggered by crypto threat: ${cryptoThreat.type}`);
+            
+            // Capture evidence for cryptocurrency threats
+            const incidentId = `CRY-${Date.now().toString(36).toUpperCase()}`;
+            await this.forensicEngine.captureComprehensiveEvidence(incidentId, 'crypto_threat', 'high');
+            
+            this.emit('forensic-crypto-captured', {
+                incidentId: incidentId,
+                cryptoThreatType: cryptoThreat.type
+            });
+        } catch (error) {
+            console.error('❌ Forensic crypto event handling failed:', error);
+        }
+    }
+    
+    async handleForensicMobileEvent(mobileSpyware) {
+        try {
+            console.log(`🔬 Forensic capture triggered by mobile spyware: ${mobileSpyware.type}`);
+            
+            // Capture evidence for mobile spyware (especially Pegasus)
+            const incidentId = `MOB-${Date.now().toString(36).toUpperCase()}`;
+            await this.forensicEngine.captureComprehensiveEvidence(incidentId, 'mobile_spyware', 'critical');
+            
+            this.emit('forensic-mobile-captured', {
+                incidentId: incidentId,
+                spywareType: mobileSpyware.type
+            });
+        } catch (error) {
+            console.error('❌ Forensic mobile event handling failed:', error);
+        }
     }
     
     // ============================================================================

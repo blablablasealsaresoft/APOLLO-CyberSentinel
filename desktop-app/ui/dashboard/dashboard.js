@@ -1823,13 +1823,20 @@ function initializeNetworkMonitoring() {
 
     // REAL-ONLY system performance monitoring - NO FAKE DATA
     async function updateSystemPerformance() {
+        console.log('🔄 updateSystemPerformance() called');
         try {
+            console.log('🔍 Checking electronAPI availability:', !!window.electronAPI);
+            console.log('🔍 Checking getSystemPerformance function:', typeof window.electronAPI?.getSystemPerformance);
+            
             if (window.electronAPI && typeof window.electronAPI.getSystemPerformance === 'function') {
+                console.log('📡 Calling window.electronAPI.getSystemPerformance()...');
                 const systemStats = await window.electronAPI.getSystemPerformance();
                 console.log('📊 Real system performance data received:', systemStats);
                 updateSystemPerformanceDisplay(systemStats);
             } else {
-                console.warn('⚠️ System performance API not available - showing 0% values');
+                console.warn('⚠️ System performance API not available');
+                console.warn('  - electronAPI exists:', !!window.electronAPI);
+                console.warn('  - getSystemPerformance type:', typeof window.electronAPI?.getSystemPerformance);
                 // REAL DATA ONLY - NO FAKE FALLBACK
                 const systemStats = {
                     cpu: 0,
@@ -1841,6 +1848,8 @@ function initializeNetworkMonitoring() {
             }
         } catch (error) {
             console.error('❌ Failed to get system performance:', error);
+            console.error('  - Error details:', error.message);
+            console.error('  - Stack:', error.stack);
             // REAL DATA ONLY - NO FAKE FALLBACK
             const systemStats = {
                 cpu: 0,
@@ -1911,8 +1920,18 @@ function initializeNetworkMonitoring() {
     }
 
     // Update network stats and system performance every 3 seconds
-    setInterval(updateNetworkStats, 3000);
-    setInterval(updateSystemPerformance, 3000);
+    console.log('⚡ Setting up real-time monitoring intervals...');
+    setInterval(() => {
+        console.log('🔄 Network stats interval triggered');
+        updateNetworkStats();
+    }, 3000);
+    setInterval(() => {
+        console.log('🔄 System performance interval triggered');
+        updateSystemPerformance();
+    }, 3000);
+    
+    // Initial updates
+    console.log('🚀 Starting initial data updates...');
     updateNetworkStats(); // Initial update
     updateSystemPerformance(); // Initial update
 }

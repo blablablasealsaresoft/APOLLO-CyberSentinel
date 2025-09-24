@@ -980,6 +980,106 @@
     box-shadow: 0 8px 16px rgba(23, 162, 184, 0.3);
 }
 
+/* Combined Threat Intelligence Styling */
+.threat-intel-combined {
+    background: linear-gradient(135deg, rgba(0, 123, 255, 0.1) 0%, rgba(0, 123, 255, 0.05) 100%);
+    border: 2px solid rgba(0, 123, 255, 0.3);
+}
+
+.intel-pulse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    background: rgba(0, 123, 255, 0.6);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: intel-pulse 2s infinite;
+}
+
+@keyframes intel-pulse {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(1.5);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.intel-capabilities {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin: 15px 0;
+}
+
+.intel-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px;
+    background: rgba(0, 123, 255, 0.1);
+    border-radius: 6px;
+    font-size: 0.8rem;
+}
+
+.intel-indicator i {
+    color: rgba(0, 123, 255, 0.8);
+    font-size: 0.9rem;
+}
+
+.intel-indicator span {
+    color: var(--apollo-text);
+    font-weight: 500;
+}
+
+/* Activity placeholder styling */
+.activity-placeholder {
+    text-align: center;
+    padding: 30px 20px;
+    color: var(--apollo-text-secondary);
+    background: linear-gradient(135deg, rgba(0, 255, 157, 0.05) 0%, rgba(0, 255, 157, 0.02) 100%);
+    border: 1px solid rgba(0, 255, 157, 0.2);
+    border-radius: 12px;
+    margin: 15px 0;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.placeholder-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.placeholder-content i {
+    font-size: 2rem;
+    color: var(--apollo-primary);
+    margin-bottom: 5px;
+}
+
+.placeholder-content span {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--apollo-text);
+}
+
+.placeholder-content small {
+    font-size: 0.8rem;
+    color: var(--apollo-text-secondary);
+    font-style: italic;
+}
+
 * {
     margin: 0;
     padding: 0;

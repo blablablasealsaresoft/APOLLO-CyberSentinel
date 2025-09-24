@@ -257,34 +257,13 @@
                     </div>
                     <div class="card-content activity-feed-container">
                         <div class="activity-feed full-width" id="activity-feed">
-                            <div class="activity-item">
-                                <div class="activity-icon success">
-                                    <i class="fas fa-shield-check"></i>
-                                </div>
-                                <div class="activity-details">
-                                    <div class="activity-title">System Protected</div>
-                                    <div class="activity-time">Just now</div>
+                            <div class="activity-placeholder">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-satellite-dish"></i>
+                                    <span>🔍 Monitoring for real system events...</span>
+                                    <small>Activity will appear when actual backend operations occur</small>
                                 </div>
                             </div>
-                            <div class="activity-item">
-                                <div class="activity-icon info">
-                                    <i class="fas fa-sync"></i>
-                                </div>
-                                <div class="activity-details">
-                                    <div class="activity-title">Database Updated</div>
-                                    <div class="activity-time">2 minutes ago</div>
-                                </div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon warning">
-                                    <i class="fas fa-exclamation-triangle"></i>
-                    </div>
-                                <div class="activity-details">
-                                    <div class="activity-title">Suspicious Activity Blocked</div>
-                                    <div class="activity-time">15 minutes ago</div>
-                        </div>
-                        </div>
-                        </div>
                         </div>
                     </div>
                 </div>
@@ -493,17 +472,39 @@
                     </div>
                 </div>
 
-                <!-- ENTERPRISE THREAT INTELLIGENCE SECTION (ROW 2, POSITION 3) -->
-                <div class="feature-card epic-glow fade-in animate-delay-15">
+                <!-- COMBINED ENTERPRISE THREAT INTEL + GLOBAL MAP SECTION (ROW 2, POSITION 3) -->
+                <div class="feature-card threat-intel-combined epic-glow fade-in animate-delay-15">
                     <div class="feature-icon">
-                        <i class="fas fa-satellite-dish"></i>
+                        <i class="fas fa-globe-americas"></i>
+                        <div class="intel-pulse"></div>
                     </div>
-                    <h4>Enterprise Threat Intel</h4>
-                    <p>Nation-state threat landscape</p>
+                    <h4>🌍 Global Threat Intelligence</h4>
+                    <p>Enterprise dashboard + 3D threat map</p>
+                    
+                    <!-- Threat Intelligence Capabilities -->
+                    <div class="intel-capabilities">
+                        <div class="intel-indicator">
+                            <i class="fas fa-satellite-dish"></i>
+                            <span>Enterprise Intel</span>
+                        </div>
+                        <div class="intel-indicator">
+                            <i class="fas fa-globe"></i>
+                            <span>3D Global Map</span>
+                        </div>
+                        <div class="intel-indicator">
+                            <i class="fas fa-search-plus"></i>
+                            <span>IOC Analysis</span>
+                        </div>
+                        <div class="intel-indicator">
+                            <i class="fas fa-chart-network"></i>
+                            <span>Real-time Feed</span>
+                        </div>
+                    </div>
+                    
                     <div class="feature-stats">
                         <div class="feature-stat">
                             <div class="stat-number" id="active-threats">0</div>
-                            <div class="stat-desc">Active</div>
+                            <div class="stat-desc">Active Threats</div>
                         </div>
                         <div class="feature-stat">
                             <div class="stat-number" id="countries-monitored">195</div>
@@ -511,15 +512,20 @@
                         </div>
                         <div class="feature-stat">
                             <div class="stat-number" id="iocs-analyzed">0</div>
-                            <div class="stat-desc">IOCs</div>
+                            <div class="stat-desc">IOCs Analyzed</div>
+                        </div>
+                        <div class="feature-stat">
+                            <div class="stat-number">37</div>
+                            <div class="stat-desc">OSINT Sources</div>
                         </div>
                     </div>
+                    
                     <div class="feature-actions">
                         <button class="action-btn primary" onclick="viewThreats()">
-                            <i class="fas fa-binoculars"></i> View Threats
+                            <i class="fas fa-chart-line"></i> Enterprise Dashboard
                         </button>
                         <button class="action-btn secondary" onclick="openThreatMap()">
-                            <i class="fas fa-globe"></i> View Map
+                            <i class="fas fa-globe"></i> 3D Global Map
                         </button>
                         <button class="action-btn tertiary" onclick="queryIOCIntelligence()">
                             <i class="fas fa-search-plus"></i> IOC Analysis

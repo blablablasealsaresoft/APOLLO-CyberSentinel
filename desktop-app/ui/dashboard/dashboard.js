@@ -1888,39 +1888,8 @@ function initializeNetworkMonitoring() {
 function initializeActivityFeed() {
     console.log('📋 Initializing Activity Feed...');
     
-    // Real activity templates based on system events
-    const activityTemplates = {
-        scan: [
-            { icon: 'fa-shield-check', type: 'success', template: 'System scan completed - {files} files checked' },
-            { icon: 'fa-search', type: 'info', template: 'Deep scan initiated on {path}' },
-            { icon: 'fa-check-circle', type: 'success', template: 'Quick scan completed in {time}s' },
-            { icon: 'fa-exclamation-triangle', type: 'warning', template: 'Scan detected suspicious file: {file}' }
-        ],
-        threat: [
-            { icon: 'fa-exclamation-triangle', type: 'danger', template: 'Threat detected: {threat} - Action: {action}' },
-            { icon: 'fa-shield-alt', type: 'success', template: 'Threat blocked: {threat} from {ip}' },
-            { icon: 'fa-virus-slash', type: 'success', template: 'Malware quarantined: {malware}' },
-            { icon: 'fa-ban', type: 'warning', template: 'Suspicious IP blocked: {ip}' }
-        ],
-        network: [
-            { icon: 'fa-network-wired', type: 'info', template: 'Network scan completed - {connections} connections analyzed' },
-            { icon: 'fa-globe', type: 'info', template: 'OSINT intelligence updated from {sources} sources' },
-            { icon: 'fa-sync-alt', type: 'info', template: 'Threat signatures updated - {signatures} new patterns' },
-            { icon: 'fa-firewall', type: 'success', template: 'Firewall rules updated' }
-        ],
-        system: [
-            { icon: 'fa-cog', type: 'info', template: 'System configuration updated' },
-            { icon: 'fa-user-shield', type: 'success', template: 'Privacy mode activated' },
-            { icon: 'fa-lock', type: 'success', template: 'Security settings applied' },
-            { icon: 'fa-database', type: 'info', template: 'Threat database synchronized' }
-        ],
-        crypto: [
-            { icon: 'fa-coins', type: 'info', template: 'Cryptocurrency wallet protected' },
-            { icon: 'fa-shield-alt', type: 'success', template: 'Smart contract analyzed: {contract}' },
-            { icon: 'fa-exclamation-triangle', type: 'warning', template: 'Suspicious transaction detected: {hash}' },
-            { icon: 'fa-check-circle', type: 'success', template: 'Wallet security verified' }
-        ]
-    };
+    // REAL-ONLY Activity Feed - No Fake Data Generation
+    console.log('🔥 Activity feed initialized for REAL backend events only - No fake data will be generated');
 
     // Track recent events to avoid duplicates
     const recentEvents = new Set();
@@ -1991,40 +1960,80 @@ function initializeActivityFeed() {
         }
     }
 
-    // Add periodic activities based on system state
-    function generateActivities() {
-        // Base activities every 30-60 seconds
-        setInterval(() => {
-            const activities = ['scan', 'network', 'system'];
-            const category = activities[Math.floor(Math.random() * activities.length)];
-            addActivity(category);
-        }, 30000 + Math.random() * 30000); // 30-60 seconds
-
-        // Threat-related activities less frequently
-        setInterval(() => {
-            if (Math.random() < 0.3) { // 30% chance
-                addActivity('threat');
-            }
-        }, 60000); // Every minute
-
-        // Crypto activities occasionally
-        setInterval(() => {
-            if (Math.random() < 0.1) { // 10% chance
-                addActivity('crypto');
-            }
-        }, 120000); // Every 2 minutes
+    // REAL BACKEND EVENT LISTENERS ONLY - NO FAKE DATA
+    console.log('🔥 REMOVED ALL FAKE ACTIVITY GENERATION - Only real backend events will be displayed');
+    
+    // Listen for real backend events only
+    if (window.electronAPI) {
+        // Real threat detection events
+        try {
+            window.electronAPI.onThreatDetected((event, threat) => {
+                addRealActivity('danger', 'fa-exclamation-triangle', `Real threat detected: ${threat.name || 'Unknown threat'}`, 'now');
+            });
+        } catch (error) {
+            console.log('⚠️ Threat detection listener not available yet');
+        }
+        
+        // Real scan completion events  
+        try {
+            window.electronAPI.onScanCompleted((event, results) => {
+                addRealActivity('success', 'fa-shield-check', `Scan completed: ${results.filesScanned || 0} files checked`, 'now');
+            });
+        } catch (error) {
+            console.log('⚠️ Scan completion listener not available yet');
+        }
+        
+        // Real protection events
+        try {
+            window.electronAPI.onThreatBlocked((event, threat) => {
+                addRealActivity('success', 'fa-ban', `Threat blocked: ${threat.type || 'Unknown'}`, 'now');
+            });
+        } catch (error) {
+            console.log('⚠️ Threat blocking listener not available yet');
+        }
     }
-
-    // Add initial activities with more variety
-    setTimeout(() => {
-        addActivity('scan', { files: 15420 });
-        setTimeout(() => addActivity('network', { sources: 15, connections: 127 }), 3000);
-        setTimeout(() => addActivity('system'), 6000);
-        setTimeout(() => addActivity('threat', { threat: 'Trojan.Generic', action: 'Quarantined' }), 9000);
-        setTimeout(() => addActivity('crypto', { contract: '0x742d35Cc6' }), 12000);
-    }, 2000);
-
-    generateActivities();
+    
+    // Initialize with clean state - no fake activities
+    const activityFeed = document.querySelector('.activity-feed');
+    if (activityFeed) {
+        activityFeed.innerHTML = '<div class="activity-placeholder">🔍 Monitoring for real system events...</div>';
+    }
+    
+    // Function to add REAL activities only
+    function addRealActivity(type, icon, text, time) {
+        const feed = document.querySelector('.activity-feed');
+        if (!feed) return;
+        
+        const activityHtml = `
+            <div class="activity-item fade-in">
+                <div class="activity-icon ${type}">
+                    <i class="fas ${icon}"></i>
+                </div>
+                <div class="activity-details">
+                    <div class="activity-title">${text}</div>
+                    <div class="activity-time">${time}</div>
+                </div>
+            </div>
+        `;
+        
+        // Remove placeholder if it exists
+        const placeholder = feed.querySelector('.activity-placeholder');
+        if (placeholder) {
+            placeholder.remove();
+        }
+        
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = activityHtml;
+        feed.insertBefore(tempDiv.firstElementChild, feed.firstChild);
+        
+        // Keep only last 8 real activities
+        while (feed.children.length > 8) {
+            feed.removeChild(feed.lastChild);
+        }
+    }
+    
+    // Make addRealActivity globally available for backend integration
+    window.addRealActivity = addRealActivity;
 }
 
 // UTILITY FUNCTIONS

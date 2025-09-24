@@ -56,7 +56,7 @@ class PythonOSINTInterface {
                     ...process.env,
                     // Ensure user's API keys are available to Python
                     ALIENVAULT_OTX_API_KEY: process.env.ALIENVAULT_OTX_API_KEY || '762c4e5345c0c5b61c5896bc0e4de2a7fc52fc930b2209e5478c5367d646a777',
-                    GITHUB_API_TOKEN: process.env.GITHUB_API_TOKEN || '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',
+                    GITHUB_API_TOKEN: process.env.GITHUB_API_TOKEN || 'your_github_token_here',
                     ETHERSCAN_API_KEY: process.env.ETHERSCAN_API_KEY || 'VXVJX5N1UM44KUYMJDAVZBKJ3I5ATWDB6E',
                     NEWSAPI_KEY: process.env.NEWSAPI_KEY || '43f407a4aceb41c4a588224bfbf7f528',
                     HUNTER_IO_API_KEY: process.env.HUNTER_IO_API_KEY || '98df4bbbac21d3f2dfae2e657e09520b82b94bb0',

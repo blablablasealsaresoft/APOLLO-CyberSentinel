@@ -14,7 +14,7 @@
 ### 📊 **VERIFIED WORKING APIs**
 Your premium API keys are successfully integrated:
 - ✅ **AlienVault OTX**: `762c4e5345c0c5b61c5896bc0e4de2a7fc52fc930b2209e5478c5367d646a777`
-- ✅ **GitHub**: `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`
+- ✅ **GitHub**: `your_github_token_here`
 - ✅ **Etherscan**: `VXVJX5N1UM44KUYMJDAVZBKJ3I5ATWDB6E`
 - ✅ **NewsAPI**: `43f407a4aceb41c4a588224bfbf7f528`
 - ✅ **Hunter.io**: `98df4bbbac21d3f2dfae2e657e09520b82b94bb0`

@@ -527,7 +527,7 @@ class RealisticOSINTManager:
     async def query_github_intelligence(self, username: str) -> Dict[str, Any]:
         """Query GitHub using user's API token"""
         try:
-            api_token = os.getenv('GITHUB_API_TOKEN', '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')
+            api_token = os.getenv('GITHUB_API_TOKEN', 'your_github_token_here')
             headers = {'Authorization': f'token {api_token}'}
             
             # Get user info

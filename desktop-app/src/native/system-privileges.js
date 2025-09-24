@@ -420,10 +420,17 @@ WantedBy=multi-user.target`;
         if (this.platform === 'win32') {
             // Windows Defender exclusion for Apollo
             try {
-                await this.executePrivilegedCommand(`powershell -Command "Add-MpPreference -ExclusionPath '${process.cwd().replace(/'/g, "''")}'"`);
-                console.log('✅ Windows Defender configured');
+                const apolloPath = process.cwd().replace(/\\/g, '\\\\').replace(/'/g, "''");
+                const powershellCommand = `Add-MpPreference -ExclusionPath "${apolloPath}"`;
+                console.log('🛡️ Configuring Windows Defender exclusion...');
+                console.log(`📁 Excluding path: ${apolloPath}`);
+                
+                // Use simpler PowerShell execution
+                await this.executePrivilegedCommand(`powershell -Command "${powershellCommand}"`);
+                console.log('✅ Windows Defender exclusion configured successfully');
             } catch (error) {
-                console.warn('Could not configure Windows Defender:', error);
+                console.warn('⚠️ Could not configure Windows Defender exclusion:', error.message);
+                console.log('📋 This is non-critical - Apollo protection will still function normally');
             }
         }
 

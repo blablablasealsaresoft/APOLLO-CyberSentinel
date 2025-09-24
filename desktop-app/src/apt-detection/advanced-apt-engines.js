@@ -10,10 +10,12 @@ const fs = require('fs-extra');
 const path = require('path');
 const crypto = require('crypto');
 const { spawn } = require('child_process');
+const { EventEmitter } = require('events');
 const PythonOSINTInterface = require('../intelligence/python-osint-interface');
 
-class AdvancedAPTDetectionEngines {
+class AdvancedAPTDetectionEngines extends EventEmitter {
     constructor() {
+        super();
         this.pythonOSINT = new PythonOSINTInterface();
         this.aptEngines = new Map();
         this.yaraRules = new Map();
@@ -398,6 +400,19 @@ rule APT29_NOBELIUM_Backdoor {
             
             // Generate comprehensive recommendations
             analysisResults.recommendations = this.generateAPTRecommendations(analysisResults);
+            
+            // Emit APT detection events for forensic integration
+            if (analysisResults.detections.length > 0) {
+                for (const detection of analysisResults.detections) {
+                    this.emit('apt-detected', {
+                        apt_group: detection.apt_group,
+                        attribution: detection.attribution,
+                        confidence: detection.confidence,
+                        indicator: indicator,
+                        campaign: detection.campaign
+                    });
+                }
+            }
             
             console.log(`✅ Comprehensive APT analysis complete: ${analysisResults.detections.length} groups detected`);
             return analysisResults;

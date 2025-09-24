@@ -21,6 +21,13 @@ class ApolloThreatEngine {
         // Forensic engine integration (will be set by unified protection engine)
         this.forensicEngine = null;
         this.automaticForensicCapture = true;
+        
+        // Enhanced event emission for forensic integration
+        this.on('threat-detected', (threat) => {
+            if (threat.severity === 'high' || threat.severity === 'critical') {
+                console.log(`🔬 High-severity threat detected - triggering forensic capture: ${threat.name}`);
+            }
+        });
 
         this.initializeEngine();
     }

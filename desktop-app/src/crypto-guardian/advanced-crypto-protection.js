@@ -11,10 +11,12 @@ const path = require('path');
 const crypto = require('crypto');
 const os = require('os');
 const { spawn } = require('child_process');
+const { EventEmitter } = require('events');
 const PythonOSINTInterface = require('../intelligence/python-osint-interface');
 
-class AdvancedCryptocurrencyProtection {
+class AdvancedCryptocurrencyProtection extends EventEmitter {
     constructor() {
+        super();
         this.pythonOSINT = new PythonOSINTInterface();
         this.cryptojackingDetector = new CryptojackingDetector(this.pythonOSINT);
         this.walletProtector = new WalletStealerDetector(this.pythonOSINT);
@@ -206,6 +208,16 @@ class AdvancedCryptocurrencyProtection {
             
             // Generate comprehensive recommendations
             analysisResults.recommendations = this.generateCryptoRecommendations(analysisResults);
+            
+            // Emit crypto threat detection events for forensic integration
+            if (analysisResults.threat_categories.length > 0) {
+                this.emit('crypto-threat-detected', {
+                    type: analysisResults.threat_categories.join(', '),
+                    indicator: indicator,
+                    confidence: analysisResults.confidence_score,
+                    threats: analysisResults.detections
+                });
+            }
             
             console.log(`✅ Comprehensive crypto analysis complete: ${analysisResults.threat_categories.length} threat types detected`);
             return analysisResults;

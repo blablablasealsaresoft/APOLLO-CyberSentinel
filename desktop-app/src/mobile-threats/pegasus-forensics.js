@@ -11,10 +11,12 @@ const path = require('path');
 const crypto = require('crypto');
 const os = require('os');
 const { spawn } = require('child_process');
+const { EventEmitter } = require('events');
 const PythonOSINTInterface = require('../intelligence/python-osint-interface');
 
-class PegasusForensicsEngine {
+class PegasusForensicsEngine extends EventEmitter {
     constructor() {
+        super();
         this.pythonOSINT = new PythonOSINTInterface();
         this.pegasusDetector = new ComprehensivePegasusDetector(this.pythonOSINT);
         this.mobileSpywareDetector = new MobileSpywareDetector(this.pythonOSINT);
@@ -202,6 +204,18 @@ class PegasusForensicsEngine {
             
             // Generate comprehensive recommendations
             analysisResults.recommendations = this.generateMobileSecurityRecommendations(analysisResults);
+            
+            // Emit mobile spyware detection events for forensic integration
+            if (analysisResults.spyware_detections.length > 0) {
+                for (const detection of analysisResults.spyware_detections) {
+                    this.emit('mobile-spyware-detected', {
+                        type: detection.type,
+                        attribution: detection.attribution,
+                        confidence: detection.confidence,
+                        platform: devicePlatform
+                    });
+                }
+            }
             
             console.log(`✅ Comprehensive mobile analysis complete: ${analysisResults.spyware_detections.length} threats detected`);
             return analysisResults;

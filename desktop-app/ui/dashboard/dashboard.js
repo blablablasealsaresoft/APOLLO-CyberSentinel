@@ -1794,24 +1794,31 @@ function initializeNetworkMonitoring() {
     }
 
     function updateNetworkDisplay(networkStats) {
-        // Find network stat elements
-        const statValues = document.querySelectorAll('.network-stats .stat-value');
-        const connectionsElement = document.querySelector('.network-stats .connections-count');
-
-        if (statValues.length >= 2) {
-            // Convert bytes to MB/s and update display
-            const downloadSpeed = networkStats.rx_sec ? (networkStats.rx_sec / (1024 * 1024)).toFixed(1) : '0.0';
-            const uploadSpeed = networkStats.tx_sec ? (networkStats.tx_sec / (1024 * 1024)).toFixed(1) : '0.0';
-
-            statValues[0].textContent = downloadSpeed + ' MB/s'; // Download
-            statValues[1].textContent = uploadSpeed + ' MB/s';   // Upload
+        console.log('📊 Updating network display with real data:', networkStats);
+        
+        // Update download speed using correct ID
+        const downloadElement = document.getElementById('network-download');
+        if (downloadElement && networkStats.rx_sec !== undefined) {
+            const downloadSpeed = (networkStats.rx_sec / (1024 * 1024)).toFixed(1);
+            downloadElement.textContent = downloadSpeed + ' MB/s';
         }
 
-        // Update connections count
+        // Update upload speed using correct ID
+        const uploadElement = document.getElementById('network-upload');
+        if (uploadElement && networkStats.tx_sec !== undefined) {
+            const uploadSpeed = (networkStats.tx_sec / (1024 * 1024)).toFixed(1);
+            uploadElement.textContent = uploadSpeed + ' MB/s';
+        }
+
+        // Update connections count using correct ID - REAL DATA ONLY
+        const connectionsElement = document.getElementById('network-connections');
         if (connectionsElement) {
-            const connections = networkStats.connections || Math.floor(Math.random() * 50 + 20);
-            connectionsElement.textContent = connections;
+            const connections = networkStats.connections || 0; // NO FAKE DATA - Only real connections
+            connectionsElement.textContent = connections.toString();
         }
+        
+        // Log the update for verification
+        console.log(`✅ Network monitor updated: ${downloadElement?.textContent || '0'} down, ${uploadElement?.textContent || '0'} up, ${connectionsElement?.textContent || '0'} connections`);
     }
 
     // Real-time system performance monitoring

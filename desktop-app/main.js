@@ -1247,11 +1247,68 @@ class ApolloApplication {
         ipcMain.handle('get-network-stats', async () => {
             try {
                 const si = require('systeminformation');
-                const networkStats = await si.networkStats('eth0'); // Get stats for primary interface
-                return networkStats[0] || { rx_sec: 0, tx_sec: 0, connections: 0 };
+                
+                // Get network interfaces and find the active one
+                const networkInterfaces = await si.networkInterfaces();
+                const activeInterface = networkInterfaces.find(iface => 
+                    !iface.internal && 
+                    iface.operstate === 'up' && 
+                    iface.ip4 && 
+                    iface.ip4 !== '127.0.0.1'
+                );
+                
+                if (activeInterface) {
+                    // Get stats for the active interface
+                    const networkStats = await si.networkStats(activeInterface.iface);
+                    const stats = networkStats[0];
+                    
+                    if (stats) {
+                        // Get active network connections
+                        const connections = await si.networkConnections();
+                        const activeConnections = connections.filter(conn => conn.state === 'ESTABLISHED').length;
+                        
+                        console.log(`📊 Real network stats: ${(stats.rx_sec / 1024 / 1024).toFixed(2)} MB/s down, ${(stats.tx_sec / 1024 / 1024).toFixed(2)} MB/s up, ${activeConnections} connections`);
+                        
+                        return {
+                            rx_sec: stats.rx_sec || 0,
+                            tx_sec: stats.tx_sec || 0,
+                            connections: activeConnections,
+                            interface: activeInterface.iface,
+                            ip: activeInterface.ip4
+                        };
+                    }
+                }
+                
+                // Fallback: get all network stats
+                const allNetworkStats = await si.networkStats();
+                const totalStats = allNetworkStats.reduce((acc, stat) => {
+                    acc.rx_sec += stat.rx_sec || 0;
+                    acc.tx_sec += stat.tx_sec || 0;
+                    return acc;
+                }, { rx_sec: 0, tx_sec: 0 });
+                
+                const connections = await si.networkConnections();
+                const activeConnections = connections.filter(conn => conn.state === 'ESTABLISHED').length;
+                
+                console.log(`📊 Fallback network stats: ${(totalStats.rx_sec / 1024 / 1024).toFixed(2)} MB/s total`);
+                
+                return {
+                    rx_sec: totalStats.rx_sec,
+                    tx_sec: totalStats.tx_sec,
+                    connections: activeConnections,
+                    interface: 'combined',
+                    ip: 'multiple'
+                };
+                
             } catch (error) {
                 console.error('❌ Failed to get network stats:', error);
-                return { rx_sec: 0, tx_sec: 0, connections: 0 };
+                return { 
+                    rx_sec: 0, 
+                    tx_sec: 0, 
+                    connections: 0, 
+                    error: error.message,
+                    interface: 'unknown'
+                };
             }
         });
 

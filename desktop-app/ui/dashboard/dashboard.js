@@ -1699,6 +1699,108 @@ function initializeThreatDetection() {
     setInterval(updateThreatDisplay, 5000);
 }
 
+// GLOBAL SYSTEM PERFORMANCE MONITORING - REAL DATA ONLY
+async function updateSystemPerformance() {
+    console.log('🔄 updateSystemPerformance() called');
+    try {
+        console.log('🔍 Checking electronAPI availability:', !!window.electronAPI);
+        console.log('🔍 Checking getSystemPerformance function:', typeof window.electronAPI?.getSystemPerformance);
+        
+        if (window.electronAPI && typeof window.electronAPI.getSystemPerformance === 'function') {
+            console.log('📡 Calling window.electronAPI.getSystemPerformance()...');
+            const systemStats = await window.electronAPI.getSystemPerformance();
+            console.log('📊 Real system performance data received:', systemStats);
+            updateSystemPerformanceDisplay(systemStats);
+        } else {
+            console.warn('⚠️ System performance API not available');
+            console.warn('  - electronAPI exists:', !!window.electronAPI);
+            console.warn('  - getSystemPerformance type:', typeof window.electronAPI?.getSystemPerformance);
+            // REAL DATA ONLY - NO FAKE FALLBACK
+            const systemStats = {
+                cpu: 0,
+                memory: 0,
+                disk: 0,
+                network: 0
+            };
+            updateSystemPerformanceDisplay(systemStats);
+        }
+    } catch (error) {
+        console.error('❌ Failed to get system performance:', error);
+        console.error('  - Error details:', error.message);
+        console.error('  - Stack:', error.stack);
+        // REAL DATA ONLY - NO FAKE FALLBACK
+        const systemStats = {
+            cpu: 0,
+            memory: 0,
+            disk: 0,
+            network: 0
+        };
+        updateSystemPerformanceDisplay(systemStats);
+    }
+}
+
+function updateSystemPerformanceDisplay(stats) {
+    console.log('🔧 Updating system performance display with data:', stats);
+    
+    // Update CPU usage - REAL DATA ONLY
+    const cpuElement = document.querySelector('.perf-value.cpu-value');
+    const cpuFill = document.querySelector('.cpu-fill');
+    if (cpuElement && cpuFill && stats.cpu !== undefined) {
+        const cpuValue = Math.min(100, Math.max(0, Math.round(stats.cpu)));
+        cpuElement.textContent = cpuValue + '%';
+        cpuFill.style.width = cpuValue + '%';
+        cpuFill.style.background = cpuValue > 80 ? '#f44336' : cpuValue > 60 ? '#ff9800' : '#4caf50';
+        console.log(`✅ CPU updated: ${cpuValue}%`);
+    } else {
+        console.warn('⚠️ CPU element not found or no data');
+    }
+
+    // Update Memory usage - REAL DATA ONLY
+    const memoryElement = document.querySelector('.perf-value.memory-value');
+    const memoryFill = document.querySelector('.memory-fill');
+    if (memoryElement && memoryFill && stats.memory !== undefined) {
+        const memoryValue = Math.min(100, Math.max(0, Math.round(stats.memory)));
+        memoryElement.textContent = memoryValue + '%';
+        memoryFill.style.width = memoryValue + '%';
+        memoryFill.style.background = memoryValue > 80 ? '#f44336' : memoryValue > 60 ? '#ff9800' : '#4caf50';
+        console.log(`✅ Memory updated: ${memoryValue}%`);
+    } else {
+        console.warn('⚠️ Memory element not found or no data');
+    }
+
+    // Update Disk usage - REAL DATA ONLY
+    const diskElement = document.querySelector('.perf-value.disk-value');
+    const diskFill = document.querySelector('.disk-fill');
+    if (diskElement && diskFill && stats.disk !== undefined) {
+        const diskValue = Math.min(100, Math.max(0, Math.round(stats.disk)));
+        diskElement.textContent = diskValue + '%';
+        diskFill.style.width = diskValue + '%';
+        diskFill.style.background = diskValue > 80 ? '#f44336' : diskValue > 60 ? '#ff9800' : '#4caf50';
+        console.log(`✅ Disk updated: ${diskValue}%`);
+    } else {
+        console.warn('⚠️ Disk element not found or no data');
+    }
+
+    // Update Network usage - REAL DATA ONLY
+    const networkElement = document.querySelector('.perf-value.network-value');
+    const networkFill = document.querySelector('.network-fill');
+    if (networkElement && networkFill && stats.network !== undefined) {
+        const networkValue = Math.min(100, Math.max(0, Math.round(stats.network)));
+        networkElement.textContent = networkValue + '%';
+        networkFill.style.width = networkValue + '%';
+        networkFill.style.background = networkValue > 80 ? '#f44336' : networkValue > 60 ? '#ff9800' : '#4caf50';
+        console.log(`✅ Network performance updated: ${networkValue}%`);
+    } else {
+        console.warn('⚠️ Network performance element not found or no data');
+    }
+    
+    console.log(`📊 System performance display updated: CPU ${stats.cpu}%, Memory ${stats.memory}%, Disk ${stats.disk}%, Network ${stats.network}%`);
+}
+
+// Make functions globally available
+window.updateSystemPerformance = updateSystemPerformance;
+window.updateSystemPerformanceDisplay = updateSystemPerformanceDisplay;
+
 // NETWORK MONITORING
 function initializeNetworkMonitoring() {
     console.log('📡 Initializing Network Monitoring...');
@@ -1821,44 +1923,12 @@ function initializeNetworkMonitoring() {
         console.log(`✅ Network monitor updated: ${downloadElement?.textContent || '0'} down, ${uploadElement?.textContent || '0'} up, ${connectionsElement?.textContent || '0'} connections`);
     }
 
-    // REAL-ONLY system performance monitoring - NO FAKE DATA
-    async function updateSystemPerformance() {
-        console.log('🔄 updateSystemPerformance() called');
-        try {
-            console.log('🔍 Checking electronAPI availability:', !!window.electronAPI);
-            console.log('🔍 Checking getSystemPerformance function:', typeof window.electronAPI?.getSystemPerformance);
-            
-            if (window.electronAPI && typeof window.electronAPI.getSystemPerformance === 'function') {
-                console.log('📡 Calling window.electronAPI.getSystemPerformance()...');
-                const systemStats = await window.electronAPI.getSystemPerformance();
-                console.log('📊 Real system performance data received:', systemStats);
-                updateSystemPerformanceDisplay(systemStats);
-            } else {
-                console.warn('⚠️ System performance API not available');
-                console.warn('  - electronAPI exists:', !!window.electronAPI);
-                console.warn('  - getSystemPerformance type:', typeof window.electronAPI?.getSystemPerformance);
-                // REAL DATA ONLY - NO FAKE FALLBACK
-                const systemStats = {
-                    cpu: 0,
-                    memory: 0,
-                    disk: 0,
-                    network: 0
-                };
-                updateSystemPerformanceDisplay(systemStats);
-            }
-        } catch (error) {
-            console.error('❌ Failed to get system performance:', error);
-            console.error('  - Error details:', error.message);
-            console.error('  - Stack:', error.stack);
-            // REAL DATA ONLY - NO FAKE FALLBACK
-            const systemStats = {
-                cpu: 0,
-                memory: 0,
-                disk: 0,
-                network: 0
-            };
-            updateSystemPerformanceDisplay(systemStats);
-        }
+    // Call the global system performance function
+    if (typeof window.updateSystemPerformance === 'function') {
+        console.log('🔄 Calling global updateSystemPerformance function');
+        window.updateSystemPerformance();
+    } else {
+        console.warn('⚠️ Global updateSystemPerformance function not found');
     }
 
     function updateSystemPerformanceDisplay(stats) {
@@ -1927,13 +1997,21 @@ function initializeNetworkMonitoring() {
     }, 3000);
     setInterval(() => {
         console.log('🔄 System performance interval triggered');
-        updateSystemPerformance();
+        if (typeof window.updateSystemPerformance === 'function') {
+            window.updateSystemPerformance();
+        } else {
+            console.warn('⚠️ window.updateSystemPerformance not available in interval');
+        }
     }, 3000);
     
     // Initial updates
     console.log('🚀 Starting initial data updates...');
     updateNetworkStats(); // Initial update
-    updateSystemPerformance(); // Initial update
+    if (typeof window.updateSystemPerformance === 'function') {
+        window.updateSystemPerformance(); // Initial update
+    } else {
+        console.warn('⚠️ window.updateSystemPerformance not available for initial update');
+    }
 }
 
 // ACTIVITY FEED

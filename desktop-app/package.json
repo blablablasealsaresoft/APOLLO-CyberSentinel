@@ -9,9 +9,10 @@
     "dev": "electron . --dev",
     "build": "node scripts/build-production.js",
     "build:all": "npm run build:win && npm run build:mac && npm run build:linux",
-    "build:win": "electron-builder --win",
-    "build:mac": "electron-builder --mac",
-    "build:linux": "electron-builder --linux",
+    "build:win": "npm run protect && electron-builder --win",
+    "build:mac": "npm run protect && electron-builder --mac", 
+    "build:linux": "npm run protect && electron-builder --linux",
+    "protect": "node scripts/protect-code.js",
     "build:current": "BUILD_TARGET=current node scripts/build-production.js",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
@@ -89,53 +90,53 @@
       "signAndEditExecutable": false,
       "signDlls": false
     },
-     "mac": {
-       "target": [
-         {
-           "target": "dmg",
-           "arch": [
-             "x64",
-             "arm64"
-           ]
-         },
-         {
-           "target": "zip",
-           "arch": [
-             "x64",
-             "arm64"
-           ]
-         }
-       ],
-       "category": "public.app-category.security",
-       "hardenedRuntime": true,
-       "entitlements": "build/entitlements.mac.plist",
-       "entitlementsInherit": "build/entitlements.mac.plist",
-       "artifactName": "Apollo-${version}-${arch}.${ext}"
-     },
-     "linux": {
-       "target": [
-         {
-           "target": "AppImage",
-           "arch": [
-             "x64"
-           ]
-         },
-         {
-           "target": "deb",
-           "arch": [
-             "x64"
-           ]
-         },
-         {
-           "target": "rpm",
-           "arch": [
-             "x64"
-           ]
-         }
-       ],
-       "category": "Security",
-       "artifactName": "Apollo-${version}-${arch}.${ext}"
-     },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "category": "public.app-category.security",
+      "hardenedRuntime": true,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist",
+      "artifactName": "Apollo-${version}-${arch}.${ext}"
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "rpm",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "category": "Security",
+      "artifactName": "Apollo-${version}-${arch}.${ext}"
+    },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
@@ -218,9 +219,11 @@
   },
   "devDependencies": {
     "@types/node": "^20.11.5",
+    "asar-node": "^3.1.1",
     "electron": "^28.1.0",
     "electron-builder": "^24.9.1",
     "eslint": "^8.56.0",
+    "javascript-obfuscator": "^4.1.1",
     "jest": "^29.7.0",
     "jsdom": "^27.0.0",
     "puppeteer": "^24.22.0"

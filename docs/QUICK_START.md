@@ -1,8 +1,14 @@
-# 🚀 APOLLO SENTINEL™ - QUICK START GUIDE
+# 🚀 APOLLO CYBERSENTINEL™ - QUICK START GUIDE v3.0
 
-## 🌍 **GET NATION-STATE PROTECTION IN 5 MINUTES**
+## 🌍 **GET NATION-STATE PROTECTION IN 2 MINUTES**
 
-### **✅ 100% VERIFIED CAPABILITIES - READY FOR DEPLOYMENT**
+### **✅ 100% VERIFIED + CODE PROTECTED - READY FOR BETA TESTING**
+
+#### **🎯 FASTEST START: Download Protected Beta**
+1. **Go to**: https://apollosentinel.com/installer.html
+2. **Download**: Apollo-Protected-1.0.0-x64.zip (170MB)
+3. **Extract & Run**: Apollo-Protected-Start.bat
+4. **Protected & Ready**: Code-protected version with all features!
 
 ---
 

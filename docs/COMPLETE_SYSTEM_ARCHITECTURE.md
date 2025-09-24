@@ -1,8 +1,8 @@
 # 🏗️ APOLLO SENTINEL™ - COMPLETE SYSTEM ARCHITECTURE
 
-## 🚀 **COMPREHENSIVE TECHNICAL ARCHITECTURE WITH REAL BIOMETRIC HARDWARE**
+## 🚀 **COMPREHENSIVE TECHNICAL ARCHITECTURE v3.0 WITH CODE PROTECTION**
 
-**Complete documentation of Apollo Sentinel™'s revolutionary architecture, from real biometric hardware integration to nation-state threat protection.**
+**Complete documentation of Apollo CyberSentinel™'s revolutionary architecture, from real biometric hardware integration to nation-state threat protection, now with military-grade code protection and professional deployment systems.**
 
 ---
 
@@ -603,6 +603,94 @@ VERIFICATION_MATRIX:
   ✅ Security: Zero-bypass transaction protection
 ```
 
-**🎉 APOLLO SENTINEL™ - THE WORLD'S MOST ADVANCED CYBERSECURITY PLATFORM WITH REAL BIOMETRIC HARDWARE INTEGRATION**
+---
 
-*Providing nation-state grade protection with genuine device biometric security for consumers worldwide.*
+## 🔒 **CODE PROTECTION ARCHITECTURE (NEW)**
+
+### **🛡️ Military-Grade IP Protection System:**
+
+#### **🔐 Multi-Layer Obfuscation Engine:**
+```yaml
+PROTECTION_ARCHITECTURE:
+  ┌─────────────────────────────────────┐
+  │     APOLLO CODE PROTECTION v3.0     │
+  │    🔒 MILITARY-GRADE IP SECURITY     │
+  └─────────────────────────────────────┘
+                    │
+    ┌───────────────┼───────────────┐
+    │               │               │
+  ┌─▼─┐           ┌─▼─┐           ┌─▼─┐
+  │LEX│           │CTL│           │DATA│
+  │OBF│◄─────────►│FLT│◄─────────►│OBF│
+  │   │           │   │           │   │
+  └─┬─┘           └─┬─┘           └─┬─┘
+    │               │               │
+    └───────────────┼───────────────┘
+                    │
+    ┌───────────────┼───────────────┐
+    │               │               │
+  ┌─▼─┐           ┌─▼─┐           ┌─▼─┐
+  │DBG│           │STR│           │DED│
+  │PRT│◄─────────►│ENC│◄─────────►│COD│
+  │   │           │   │           │   │
+  └───┘           └───┘           └───┘
+
+LEX = Lexical Obfuscation
+CTL = Control Flow Flattening  
+DATA = Data Flow Obscuration
+DBG = Debug Protection
+STR = String Encryption
+DED = Dead Code Injection
+```
+
+#### **🔑 License Validation Architecture:**
+```yaml
+LICENSE_SYSTEM:
+  Machine_Fingerprinting:
+    - Hardware serial number extraction
+    - Network interface MAC address hashing
+    - System UUID generation with salting
+    - Installation timestamp validation
+    
+  Runtime_Validation:
+    - Startup license verification (every launch)
+    - Periodic integrity checking (5-minute intervals)
+    - Hardware change detection and revalidation
+    - Graceful degradation on validation failure
+    
+  Security_Enforcement:
+    - Encrypted license storage with AES-256
+    - Anti-tampering validation with SHA-256
+    - Machine binding with hardware fingerprints
+    - Audit trail generation for compliance
+```
+
+#### **🛡️ Distribution Protection:**
+```yaml
+DEPLOYMENT_SECURITY:
+  Git_LFS_Hosting:
+    - Large binary files hosted securely via GitHub LFS
+    - Professional download experience via installer.html
+    - Protected package distribution (Apollo-Protected-1.0.0-x64.zip)
+    - Working download links for immediate beta testing
+    
+  Package_Protection:
+    - Complete dependency inclusion (all DLLs)
+    - Professional startup scripts with validation
+    - Code integrity checking during extraction
+    - Anti-tampering detection and response
+    
+  Professional_Presentation:
+    - Epic guardian animations on installer page
+    - Professional security notices and system requirements
+    - Clear beta status with protection information
+    - Enterprise-grade download experience
+```
+
+---
+
+**🎉 APOLLO CYBERSENTINEL™ - THE WORLD'S MOST ADVANCED CYBERSECURITY PLATFORM**
+
+*Providing nation-state grade protection with genuine device biometric security, military-grade code protection, and professional deployment for consumers worldwide.*
+
+**🔒 Now with comprehensive intellectual property protection against code theft and reverse engineering.** 🔒

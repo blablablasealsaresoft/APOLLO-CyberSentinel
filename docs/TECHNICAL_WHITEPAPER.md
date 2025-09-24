@@ -1,10 +1,12 @@
 # 🛡️ APOLLO CyberSentinel: Technical Whitepaper
 ## Advanced Persistent Threat Detection Engine with Real Biometric Hardware Integration
 
-**Version**: 3.0.0  
+**Version**: 3.1.0  
 **Document Classification**: Technical Research  
 **Hardware Integration**: Real Windows Hello + Camera + Microphone + WebAuthn  
-**Publication Date**: September 19, 2025  
+**Code Protection**: Military-Grade Obfuscation + License Validation  
+**Deployment**: Professional Git LFS + Working Downloads  
+**Publication Date**: September 24, 2025  
 **Authors**: Apollo Security Research Team  
 
 ---
@@ -21,6 +23,9 @@ This whitepaper presents the technical architecture and implementation of APOLLO
 - 37-source OSINT intelligence integration with premium APIs and government feeds
 - Sub-35ms response time (32.35ms measured) with enterprise-grade performance optimization
 - 100% claims verification with comprehensive testing and validation framework
+- **🆕 Military-grade code protection** with JavaScript obfuscation and anti-reverse engineering
+- **🆕 Professional deployment system** with Git LFS hosting and working downloads
+- **🆕 License validation framework** with machine fingerprinting and IP protection
 
 ---
 

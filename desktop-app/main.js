@@ -976,15 +976,30 @@ class ApolloApplication {
         ipcMain.handle('get-auth-status', async (event) => {
             try {
                 if (this.biometricAuth) {
-                    return {
-                        authenticated: this.biometricAuth.authenticationState.isAuthenticated,
-                        biometric_verified: this.biometricAuth.authenticationState.biometricVerified,
-                        two_factor_verified: this.biometricAuth.authenticationState.twoFactorVerified,
-                        wallet_connection_allowed: this.biometricAuth.authenticationState.walletConnectionAllowed,
+                    // Check if authentication is expired and log the result
+                    const isExpired = this.biometricAuth.isAuthenticationExpired();
+                    console.log(`🔍 Auth status request - Expired: ${isExpired}`);
+                    console.log(`🔍 Current auth state:`, {
+                        isAuthenticated: this.biometricAuth.authenticationState.isAuthenticated,
+                        walletConnectionAllowed: this.biometricAuth.authenticationState.walletConnectionAllowed,
+                        lastAuthTime: this.biometricAuth.authenticationState.lastAuthenticationTime,
+                        sessionExpiry: this.biometricAuth.authenticationState.sessionExpiry
+                    });
+                    
+                    const authStatus = {
+                        authenticated: this.biometricAuth.authenticationState.isAuthenticated && !isExpired,
+                        biometric_verified: this.biometricAuth.authenticationState.biometricVerified && !isExpired,
+                        two_factor_verified: this.biometricAuth.authenticationState.twoFactorVerified && !isExpired,
+                        wallet_connection_allowed: this.biometricAuth.authenticationState.walletConnectionAllowed && !isExpired,
                         failed_attempts: this.biometricAuth.authenticationState.failedAttempts,
                         locked_out: this.biometricAuth.isUserLockedOut(),
-                        lockout_remaining: this.biometricAuth.getLockoutTimeRemaining()
+                        lockout_remaining: this.biometricAuth.getLockoutTimeRemaining(),
+                        session_expiry: this.biometricAuth.authenticationState.sessionExpiry,
+                        time_remaining: isExpired ? 0 : Math.max(0, (this.biometricAuth.authenticationState.sessionExpiry || 0) - Date.now())
                     };
+                    
+                    console.log(`📊 Returning auth status:`, authStatus);
+                    return authStatus;
                 }
                 return { error: 'Biometric authentication system not initialized' };
             } catch (error) {

@@ -29,9 +29,15 @@ class EnterpriseBiometricAuthSystem extends EventEmitter {
             twoFactorVerified: false,
             walletConnectionAllowed: false,
             lastAuthenticationTime: null,
+            sessionExpiry: null,
+            securityScore: 0,
             failedAttempts: 0,
-            lockoutUntil: null
+            lockoutUntil: null,
+            connectedWallets: [],
+            trustedAddresses: []
         };
+        
+        console.log('🔐 Initial authentication state initialized:', this.authenticationState);
         
         this.biometricEngines = new Map();
         this.twoFactorProviders = new Map();

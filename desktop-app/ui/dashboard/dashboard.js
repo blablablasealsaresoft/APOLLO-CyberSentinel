@@ -4013,33 +4013,66 @@ async function accessWalletConnection() {
     console.log('🔍 Checking authentication status for direct wallet access...');
     
     try {
-        // Check current authentication status
+        // Check current authentication status with enhanced debugging
         const authStatus = await window.electronAPI.getAuthStatus();
         console.log('🔍 Auth status for wallet access:', authStatus);
+        console.log('🔍 Auth status details:');
+        console.log('  - authenticated:', authStatus?.authenticated);
+        console.log('  - wallet_connection_allowed:', authStatus?.wallet_connection_allowed);
+        console.log('  - session_expiry:', authStatus?.session_expiry);
+        console.log('  - time_remaining:', authStatus?.time_remaining, 'ms');
+        
+        // Check authentication with error details
+        if (authStatus && authStatus.error) {
+            console.error('❌ Auth status error:', authStatus.error);
+            showNotification({
+                title: '⚠️ Authentication System Error',
+                message: `Error: ${authStatus.error}. Please try authenticating again.`,
+                type: 'error'
+            });
+            return;
+        }
         
         if (authStatus && authStatus.authenticated && authStatus.wallet_connection_allowed) {
-            console.log('✅ User already authenticated - opening WalletConnect QR code directly');
+            console.log('✅ User authenticated and authorized - opening WalletConnect QR code directly');
             showWalletConnectModal();
             
             showNotification({
                 title: '🔗 Wallet Connection Ready',
-                message: 'Biometric authentication verified - QR code ready for scanning',
+                message: `Biometric verification confirmed - QR code ready for scanning (${Math.round((authStatus.time_remaining || 0) / 60000)} min remaining)`,
                 type: 'success'
             });
+            
+            // Update activity feed
+            window.apolloDashboard?.addActivity({
+                text: `🔗 Quick wallet access granted (${Math.round((authStatus.time_remaining || 0) / 60000)} min session)`,
+                type: 'success'
+            });
+            
         } else {
             console.log('🔐 Authentication required - initiating biometric verification');
+            console.log('  - Reason: authenticated =', authStatus?.authenticated, ', wallet_allowed =', authStatus?.wallet_connection_allowed);
+            
             showNotification({
                 title: '🔐 Authentication Required',
-                message: 'Please complete biometric authentication first using the AUTHENTICATE button',
+                message: 'Please complete biometric authentication first using the AUTHENTICATE button. Your session may have expired.',
                 type: 'warning'
             });
+            
+            // Automatically trigger authentication for better UX
+            console.log('🔄 Auto-triggering biometric authentication for user convenience');
+            setTimeout(() => {
+                if (typeof window.startBiometricAuthentication === 'function') {
+                    window.startBiometricAuthentication();
+                }
+            }, 1000);
         }
     } catch (error) {
         console.error('❌ Failed to check auth status:', error);
         showNotification({
             title: '⚠️ Authentication Check Failed',
-            message: 'Please use the AUTHENTICATE button to verify your identity',
-            type: 'warning'
+            message: `Error: ${error.message}. Please use the AUTHENTICATE button to verify your identity.`,
+            type: 'error'
         });
     }
 }

@@ -1040,6 +1040,20 @@
     font-weight: 500;
 }
 
+.intel-indicator.primary {
+    background: rgba(0, 123, 255, 0.2);
+    border: 1px solid rgba(0, 123, 255, 0.4);
+}
+
+.intel-indicator.primary i {
+    color: rgba(0, 123, 255, 1);
+}
+
+.intel-indicator.primary span {
+    color: rgba(0, 123, 255, 1);
+    font-weight: 600;
+}
+
 /* Activity placeholder styling */
 .activity-placeholder {
     text-align: center;

@@ -1,8 +1,9 @@
 # 🛡️ APOLLO CyberSentinel: Technical Whitepaper
-## Advanced Persistent Threat Detection Engine with Real-Time Behavioral Analysis
+## Advanced Persistent Threat Detection Engine with Real Biometric Hardware Integration
 
-**Version**: 2.0.0  
+**Version**: 3.0.0  
 **Document Classification**: Technical Research  
+**Hardware Integration**: Real Windows Hello + Camera + Microphone + WebAuthn  
 **Publication Date**: September 19, 2025  
 **Authors**: Apollo Security Research Team  
 

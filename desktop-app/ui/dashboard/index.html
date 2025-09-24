@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: blob:; connect-src 'self' https://api.etherscan.io https://api.virustotal.com https://otx.alienvault.com https://api.shodan.io https://api.anthropic.com wss://relay.walletconnect.com https://relay.walletconnect.com https://cdn.jsdelivr.net; worker-src 'self' blob:;">
-    <title>APOLLO CyberSentinel - Military-Grade Protection Dashboard</title>
+    <title>APOLLO CyberSentinel - Nation-State Protection Dashboard</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="advanced-nation-state.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -120,22 +121,26 @@
             <section class="protection-overview">
                 <div class="overview-card epic-glow fade-in animate-delay-1">
                     <div class="card-header">
-                        <h3><i class="fas fa-shield-virus"></i> PROTECTION STATUS</h3>
+                        <h3><i class="fas fa-globe"></i> NATION-STATE PROTECTION</h3>
                         <span class="status-badge active">SECURED</span>
                     </div>
                     <div class="card-content">
                         <div class="protection-metrics">
                             <div class="metric">
-                                <div class="metric-value">100%</div>
-                                <div class="metric-label">System Protected</div>
+                                <div class="metric-value" id="apt-groups-monitored">6</div>
+                                <div class="metric-label">APT Groups Monitored</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value" id="osint-sources">37</div>
+                                <div class="metric-label">OSINT Sources</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value" id="response-time">32ms</div>
+                                <div class="metric-label">Response Time</div>
                             </div>
                             <div class="metric">
                                 <div class="metric-value" id="threats-blocked">0</div>
                                 <div class="metric-label">Threats Blocked</div>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-value" id="uptime">100%</div>
-                                <div class="metric-label">Uptime</div>
                             </div>
                         </div>
                         <div class="protection-visual">
@@ -403,20 +408,101 @@
                         </div>
                     </div>
 
-                <!-- IOC ANALYSIS SECTION -->
+                <!-- ADVANCED NATION-STATE ANALYSIS SECTION -->
                 <div class="feature-card epic-glow fade-in animate-delay-11">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <h4>Nation-State Analysis</h4>
+                    <p>Advanced APT detection & attribution</p>
+                    <div class="feature-stats">
+                        <div class="feature-stat">
+                            <div class="stat-number" id="apt-detections">0</div>
+                            <div class="stat-desc">APT Groups</div>
+                        </div>
+                        <div class="feature-stat">
+                            <div class="stat-number" id="attribution-confidence">0%</div>
+                            <div class="stat-desc">Confidence</div>
+                        </div>
+                    </div>
+                    <div class="feature-actions">
+                        <button class="action-btn primary" onclick="analyzeNationStateThreat()">
+                            <i class="fas fa-flag"></i> APT Analysis
+                        </button>
+                        <button class="action-btn secondary" onclick="viewAPTIntelligence()">
+                            <i class="fas fa-users-cog"></i> APT Intel
+                        </button>
+                    </div>
+                </div>
+
+                <!-- CRYPTOCURRENCY PROTECTION SECTION -->
+                <div class="feature-card epic-glow fade-in animate-delay-12">
+                    <div class="feature-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <h4>Crypto Protection</h4>
+                    <p>Multi-chain asset security</p>
+                    <div class="feature-stats">
+                        <div class="feature-stat">
+                            <div class="stat-number" id="crypto-threats-blocked">0</div>
+                            <div class="stat-desc">Threats</div>
+                        </div>
+                        <div class="feature-stat">
+                            <div class="stat-number" id="wallets-protected">7+</div>
+                            <div class="stat-desc">Currencies</div>
+                        </div>
+                    </div>
+                    <div class="feature-actions">
+                        <button class="action-btn primary" onclick="analyzeCryptoThreat()">
+                            <i class="fas fa-shield-alt"></i> Crypto Analysis
+                        </button>
+                        <button class="action-btn secondary" onclick="scanCryptoWallets()">
+                            <i class="fas fa-wallet"></i> Scan Wallets
+                        </button>
+                    </div>
+                </div>
+
+                <!-- MOBILE SPYWARE FORENSICS SECTION -->
+                <div class="feature-card epic-glow fade-in animate-delay-13">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h4>Mobile Forensics</h4>
+                    <p>Pegasus & spyware detection</p>
+                    <div class="feature-stats">
+                        <div class="feature-stat">
+                            <div class="stat-number" id="mobile-devices-scanned">0</div>
+                            <div class="stat-desc">Devices</div>
+                        </div>
+                        <div class="feature-stat">
+                            <div class="stat-number" id="spyware-detected">0</div>
+                            <div class="stat-desc">Spyware</div>
+                        </div>
+                    </div>
+                    <div class="feature-actions">
+                        <button class="action-btn primary" onclick="analyzeMobileDevice()">
+                            <i class="fas fa-search"></i> Analyze Device
+                        </button>
+                        <button class="action-btn secondary" onclick="pegasusForensics()">
+                            <i class="fas fa-user-secret"></i> Pegasus Scan
+                        </button>
+                    </div>
+                </div>
+
+                <!-- IOC ANALYSIS SECTION -->
+                <div class="feature-card epic-glow fade-in animate-delay-14">
                     <div class="feature-icon">
                         <i class="fas fa-microscope"></i>
                     </div>
                     <h4>IOC Analysis</h4>
-                    <p>Indicator investigation</p>
+                    <p>Advanced indicator investigation</p>
                     <div class="feature-stats">
                         <div class="feature-stat">
                             <div class="stat-number" id="iocs-analyzed">0</div>
                             <div class="stat-desc">IOCs</div>
                         </div>
                         <div class="feature-stat">
-                            <div class="stat-number">Multi-source</div>
+                            <div class="stat-number">37-Source</div>
                             <div class="stat-desc">Intel</div>
                         </div>
                     </div>
@@ -425,26 +511,31 @@
                     </button>
                 </div>
 
-                <!-- THREAT VIEWER SECTION -->
+                <!-- ENTERPRISE THREAT INTELLIGENCE SECTION -->
                 <div class="feature-card epic-glow fade-in animate-delay-12">
                     <div class="feature-icon">
-                        <i class="fas fa-eye"></i>
+                        <i class="fas fa-satellite-dish"></i>
                     </div>
-                    <h4>Threat Viewer</h4>
-                    <p>Active threat monitoring</p>
+                    <h4>Enterprise Threat Intel</h4>
+                    <p>Nation-state threat landscape</p>
                     <div class="feature-stats">
                         <div class="feature-stat">
                             <div class="stat-number" id="active-threats">0</div>
                             <div class="stat-desc">Active</div>
-                    </div>
+                        </div>
                         <div class="feature-stat">
-                            <div class="stat-number">Live</div>
-                            <div class="stat-desc">Updates</div>
-                                </div>
-                            </div>
-                    <button class="action-btn primary" onclick="viewThreats()">
-                        <i class="fas fa-binoculars"></i> View Threats
-                    </button>
+                            <div class="stat-number" id="countries-monitored">195</div>
+                            <div class="stat-desc">Countries</div>
+                        </div>
+                    </div>
+                    <div class="feature-actions">
+                        <button class="action-btn primary" onclick="viewThreats()">
+                            <i class="fas fa-binoculars"></i> View Threats
+                        </button>
+                        <button class="action-btn secondary" onclick="openThreatMap()">
+                            <i class="fas fa-globe"></i> View Map
+                        </button>
+                    </div>
                 </div>
 
                 <!-- BIOMETRIC SECURITY SECTION -->

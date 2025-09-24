@@ -580,6 +580,71 @@
     background: rgba(255, 0, 0, 0.1);
 }
 
+/* Real Hardware Status Indicators */
+.hardware-available {
+    position: relative;
+}
+
+.hardware-available::after {
+    content: '🔧';
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    font-size: 0.8rem;
+    background: var(--apollo-primary);
+    color: var(--apollo-dark);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--apollo-dark);
+}
+
+.hardware-unavailable {
+    position: relative;
+    opacity: 0.6;
+}
+
+.hardware-unavailable::after {
+    content: '⚠️';
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    font-size: 0.8rem;
+    background: var(--apollo-warning);
+    color: var(--apollo-dark);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--apollo-dark);
+}
+
+/* Enhanced biometric method indicators */
+.auth-method-indicator.hardware-ready {
+    border: 2px solid var(--apollo-primary);
+    background: rgba(0, 255, 157, 0.1);
+}
+
+.auth-method-indicator.hardware-unavailable {
+    border: 2px solid var(--apollo-warning);
+    background: rgba(255, 193, 7, 0.1);
+}
+
+.auth-method-indicator.hardware-ready .method-status {
+    background: var(--apollo-primary);
+    color: var(--apollo-dark);
+}
+
+.auth-method-indicator.hardware-unavailable .method-status {
+    background: var(--apollo-warning);
+    color: var(--apollo-dark);
+}
+
 * {
     margin: 0;
     padding: 0;

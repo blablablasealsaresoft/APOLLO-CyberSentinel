@@ -185,7 +185,11 @@ class ApolloApplication {
                 nodeIntegration: false,
                 contextIsolation: true,
                 enableRemoteModule: false,
-                preload: path.join(__dirname, 'preload.js')
+                preload: path.join(__dirname, 'preload.js'),
+                // Enable hardware access for real biometric authentication
+                webSecurity: true,
+                allowRunningInsecureContent: false,
+                experimentalFeatures: true
             }
         });
 
@@ -1034,6 +1038,36 @@ class ApolloApplication {
                     securityScore: 0,
                     timestamp: new Date().toISOString()
                 };
+            }
+        });
+
+        // 🔍 Windows Hello Hardware Detection
+        ipcMain.handle('check-windows-hello', async (event) => {
+            try {
+                console.log('🔍 Checking Windows Hello availability...');
+                
+                if (process.platform !== 'win32') {
+                    return { available: false, reason: 'Windows platform required' };
+                }
+                
+                return new Promise((resolve) => {
+                    const { exec } = require('child_process');
+                    const command = `powershell -Command "Get-WindowsOptionalFeature -Online -FeatureName 'Windows-Hello-Face' | Select-Object State"`;
+                    
+                    exec(command, { timeout: 5000 }, (error, stdout, stderr) => {
+                        if (!error && stdout.includes('Enabled')) {
+                            console.log('✅ Windows Hello detected and available');
+                            resolve({ available: true, methods: ['fingerprint', 'face'] });
+                        } else {
+                            console.log('⚠️ Windows Hello not available:', error?.message || 'Not enabled');
+                            resolve({ available: false, reason: 'Windows Hello not enabled' });
+                        }
+                    });
+                });
+                
+            } catch (error) {
+                console.error('❌ Windows Hello check failed:', error);
+                return { available: false, error: error.message };
             }
         });
 

@@ -10,6 +10,13 @@ const fs = require('fs-extra');
 const path = require('path');
 const crypto = require('crypto');
 const os = require('os');
+const { 
+    RealDeviceBiometrics, 
+    RealFingerprintAuthEngine, 
+    RealFaceIDAuthEngine, 
+    RealVoiceprintAuthEngine,
+    WebAuthnBiometricEngine 
+} = require('./real-device-biometrics');
 const { EventEmitter } = require('events');
 
 class EnterpriseBiometricAuthSystem extends EventEmitter {
@@ -44,14 +51,22 @@ class EnterpriseBiometricAuthSystem extends EventEmitter {
     }
     
     async setupBiometricEngines() {
-        // Initialize comprehensive biometric authentication engines
-        this.biometricEngines.set('fingerprint', new FingerprintAuthEngine());
-        this.biometricEngines.set('faceID', new FaceIDAuthEngine());
-        this.biometricEngines.set('voiceprint', new VoiceprintAuthEngine());
+        // Initialize REAL device biometric hardware detection
+        this.realDeviceBiometrics = new RealDeviceBiometrics();
+        await this.realDeviceBiometrics.initializeBiometricCapabilities();
+        
+        // Initialize REAL biometric authentication engines
+        this.biometricEngines.set('fingerprint', new RealFingerprintAuthEngine(this.realDeviceBiometrics));
+        this.biometricEngines.set('faceID', new RealFaceIDAuthEngine(this.realDeviceBiometrics));
+        this.biometricEngines.set('voiceprint', new RealVoiceprintAuthEngine(this.realDeviceBiometrics));
+        this.biometricEngines.set('webauthn', new WebAuthnBiometricEngine());
+        
+        // Keep legacy engines as fallbacks
         this.biometricEngines.set('retina', new RetinaAuthEngine());
         this.biometricEngines.set('palm', new PalmAuthEngine());
         
-        console.log('👤 Biometric engines initialized: 5 authentication methods available');
+        console.log('🔐 REAL device biometric engines initialized with hardware capabilities:', this.realDeviceBiometrics.biometricCapabilities);
+        console.log('👤 Total authentication methods: 6 (4 real hardware + 2 legacy)');
     }
     
     async setup2FAProviders() {
@@ -63,6 +78,14 @@ class EnterpriseBiometricAuthSystem extends EventEmitter {
         this.twoFactorProviders.set('hardware', new HardwareTokenProvider());
         
         console.log('🔑 2FA providers initialized: 5 authentication factors available');
+        
+        // Initialize direct engine references for real hardware
+        this.fingerprintEngine = this.biometricEngines.get('fingerprint'); // Real Windows Hello
+        this.faceIdEngine = this.biometricEngines.get('faceID'); // Real camera
+        this.voiceprintEngine = this.biometricEngines.get('voiceprint'); // Real microphone
+        this.webauthnEngine = this.biometricEngines.get('webauthn'); // WebAuthn platform
+        this.retinaEngine = this.biometricEngines.get('retina'); // Legacy fallback
+        this.palmEngine = this.biometricEngines.get('palm'); // Legacy fallback
     }
     
     async initializeAuthDatabase() {

@@ -48,6 +48,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
     authenticateForTransaction: (transactionDetails) => ipcRenderer.invoke('authenticate-for-transaction', transactionDetails),
     logSecureTransaction: (logEntry) => ipcRenderer.invoke('log-secure-transaction', logEntry),
     getAuthStatus: () => ipcRenderer.invoke('get-auth-status'),
+    checkWindowsHello: () => ipcRenderer.invoke('check-windows-hello'),
     performLiveTriage: () => ipcRenderer.invoke('perform-live-triage'),
     analyzeMobileSpyware: (backupPath, platform) => ipcRenderer.invoke('analyze-mobile-spyware', backupPath, platform),
     captureForensicEvidence: (incidentId, evidenceType, priority) => ipcRenderer.invoke('capture-forensic-evidence', incidentId, evidenceType, priority),

@@ -290,8 +290,8 @@
                 </div>
             </section>
 
-            <!-- PREMIUM FEATURES GRID -->
-            <section class="features-grid">
+            <!-- PREMIUM FEATURES GRID - PROPERLY ALIGNED -->
+            <section class="features-grid aligned-grid">
                 <!-- AI ORACLE SECTION -->
                 <div class="feature-card epic-glow fade-in animate-delay-6">
                     <div class="feature-icon">
@@ -382,70 +382,35 @@
                     </div>
                 </div>
 
-                <!-- ADVANCED DIGITAL FORENSICS SECTION -->
-                <div class="feature-card forensics-advanced epic-glow fade-in animate-delay-10">
+                <!-- 🔬 NATION-STATE ANALYSIS SECTION (ROW 1, POSITION 4) -->
+                <div class="feature-card forensics-advanced epic-glow fade-in animate-delay-9">
                     <div class="feature-icon">
-                        <i class="fas fa-microscope"></i>
+                        <i class="fas fa-globe-americas"></i>
                         <div class="forensic-pulse"></div>
                     </div>
-                    <h4>🔬 Advanced Forensics</h4>
-                    <p>NIST SP 800-86 compliant evidence capture</p>
+                    <h4>🔬 Nation-State Analysis</h4>
+                    <p>Advanced APT detection & attribution</p>
                     
-                    <!-- Forensic Capabilities Display -->
+                    <!-- APT Capabilities Display -->
                     <div class="forensic-capabilities">
                         <div class="capability-indicator">
-                            <i class="fas fa-memory"></i>
-                            <span>Memory</span>
+                            <i class="fas fa-flag"></i>
+                            <span>APT28</span>
                         </div>
                         <div class="capability-indicator">
-                            <i class="fas fa-network-wired"></i>
-                            <span>Network</span>
+                            <i class="fas fa-bear"></i>
+                            <span>APT29</span>
+                        </div>
+                        <div class="capability-indicator">
+                            <i class="fas fa-dragon"></i>
+                            <span>Lazarus</span>
                         </div>
                         <div class="capability-indicator">
                             <i class="fas fa-mobile-alt"></i>
-                            <span>Mobile</span>
-                        </div>
-                        <div class="capability-indicator">
-                            <i class="fas fa-bolt"></i>
-                            <span>Volatile</span>
+                            <span>Pegasus</span>
                         </div>
                     </div>
                     
-                    <div class="feature-stats">
-                        <div class="feature-stat">
-                            <div class="stat-number" id="evidence-captured">0</div>
-                            <div class="stat-desc">Evidence Types</div>
-                        </div>
-                        <div class="feature-stat">
-                            <div class="stat-number" id="forensic-incidents">0</div>
-                            <div class="stat-desc">Incidents</div>
-                        </div>
-                        <div class="feature-stat">
-                            <div class="stat-number" id="chain-custody">100%</div>
-                            <div class="stat-desc">Chain Integrity</div>
-                        </div>
-                    </div>
-                    
-                    <div class="feature-actions">
-                        <button class="action-btn primary" onclick="captureEvidence()">
-                            <i class="fas fa-microscope"></i> Capture Evidence
-                        </button>
-                        <button class="action-btn secondary" onclick="analyzeVolatileThreats()">
-                            <i class="fas fa-bug"></i> Volatile Analysis
-                        </button>
-                        <button class="action-btn tertiary" onclick="performLiveSystemTriage()">
-                            <i class="fas fa-heartbeat"></i> Live Triage
-                        </button>
-                    </div>
-                </div>
-
-                <!-- ADVANCED NATION-STATE ANALYSIS SECTION -->
-                <div class="feature-card epic-glow fade-in animate-delay-11">
-                    <div class="feature-icon">
-                        <i class="fas fa-globe-americas"></i>
-                    </div>
-                    <h4>Nation-State Analysis</h4>
-                    <p>Advanced APT detection & attribution</p>
                     <div class="feature-stats">
                         <div class="feature-stat">
                             <div class="stat-number" id="apt-detections">0</div>
@@ -455,13 +420,21 @@
                             <div class="stat-number" id="attribution-confidence">0%</div>
                             <div class="stat-desc">Confidence</div>
                         </div>
+                        <div class="feature-stat">
+                            <div class="stat-number" id="govt-sources">8</div>
+                            <div class="stat-desc">Govt Intel</div>
+                        </div>
                     </div>
+                    
                     <div class="feature-actions">
                         <button class="action-btn primary" onclick="analyzeNationStateThreat()">
                             <i class="fas fa-flag"></i> APT Analysis
                         </button>
                         <button class="action-btn secondary" onclick="viewAPTIntelligence()">
                             <i class="fas fa-users-cog"></i> APT Intel
+                        </button>
+                        <button class="action-btn tertiary" onclick="captureEvidence()">
+                            <i class="fas fa-microscope"></i> Evidence
                         </button>
                     </div>
                 </div>
@@ -520,30 +493,8 @@
                     </div>
                 </div>
 
-                <!-- IOC ANALYSIS SECTION -->
-                <div class="feature-card epic-glow fade-in animate-delay-14">
-                    <div class="feature-icon">
-                        <i class="fas fa-microscope"></i>
-                    </div>
-                    <h4>IOC Analysis</h4>
-                    <p>Advanced indicator investigation</p>
-                    <div class="feature-stats">
-                        <div class="feature-stat">
-                            <div class="stat-number" id="iocs-analyzed">0</div>
-                            <div class="stat-desc">IOCs</div>
-                        </div>
-                        <div class="feature-stat">
-                            <div class="stat-number">37-Source</div>
-                            <div class="stat-desc">Intel</div>
-                        </div>
-                    </div>
-                    <button class="action-btn primary" onclick="queryIOCIntelligence()">
-                        <i class="fas fa-search-plus"></i> Analyze IOC
-                    </button>
-                </div>
-
-                <!-- ENTERPRISE THREAT INTELLIGENCE SECTION -->
-                <div class="feature-card epic-glow fade-in animate-delay-12">
+                <!-- ENTERPRISE THREAT INTELLIGENCE SECTION (ROW 2, POSITION 3) -->
+                <div class="feature-card epic-glow fade-in animate-delay-15">
                     <div class="feature-icon">
                         <i class="fas fa-satellite-dish"></i>
                     </div>
@@ -558,6 +509,10 @@
                             <div class="stat-number" id="countries-monitored">195</div>
                             <div class="stat-desc">Countries</div>
                         </div>
+                        <div class="feature-stat">
+                            <div class="stat-number" id="iocs-analyzed">0</div>
+                            <div class="stat-desc">IOCs</div>
+                        </div>
                     </div>
                     <div class="feature-actions">
                         <button class="action-btn primary" onclick="viewThreats()">
@@ -565,6 +520,9 @@
                         </button>
                         <button class="action-btn secondary" onclick="openThreatMap()">
                             <i class="fas fa-globe"></i> View Map
+                        </button>
+                        <button class="action-btn tertiary" onclick="queryIOCIntelligence()">
+                            <i class="fas fa-search-plus"></i> IOC Analysis
                         </button>
                     </div>
                 </div>

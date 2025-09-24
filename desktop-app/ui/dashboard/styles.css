@@ -1967,11 +1967,61 @@ body {
     color: var(--text-secondary);
 }
 
-/* FEATURES GRID */
+/* FEATURES GRID - ALIGNED WITH DASHBOARD CONTAINERS */
 .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 25px;
+}
+
+/* Properly Aligned Grid - Matches System Performance and Activity Feed Width */
+.features-grid.aligned-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+    max-width: 1360px; /* Match dashboard container - 20px padding on each side */
+    box-sizing: border-box;
+    /* Ensure it doesn't extend beyond dashboard boundaries */
+    overflow: hidden;
+}
+
+/* Ensure cards fit properly in 4-column layout without overflow */
+.aligned-grid .feature-card {
+    min-width: 0; /* Allow cards to shrink */
+    width: 100%;
+    margin: 0;
+    padding: 20px 15px; /* Reduced padding for better fit */
+    box-sizing: border-box;
+    overflow: hidden; /* Prevent content overflow */
+}
+
+/* Responsive layout for smaller screens */
+@media (max-width: 1400px) {
+    .features-grid.aligned-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+    }
+    
+    .aligned-grid .feature-card {
+        padding: 18px 12px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .features-grid.aligned-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .features-grid.aligned-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
 }
 
 .feature-icon {
@@ -3509,6 +3559,10 @@ input:checked + .slider:before {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 20px;
+    max-width: 1360px; /* Match features grid alignment */
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .stat-card {
@@ -3694,11 +3748,15 @@ input:checked + .slider:before {
     box-shadow: 0 0 10px rgba(76, 175, 80, 0.8);
 }
 
-/* Enhanced Dashboard Grid */
+/* Enhanced Dashboard Grid - Aligned with Features Grid */
 .dashboard-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 30px;
+    max-width: 1360px; /* Match features grid and stats alignment */
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
     margin-bottom: 30px;
 }
 

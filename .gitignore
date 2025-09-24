@@ -1,21 +1,21 @@
 # Apollo CyberSentinel - Git Ignore
 
-# Build artifacts (too large for Git)
+# Build artifacts (most too large for Git, but some handled by LFS)
 desktop-app/Apollo.exe
 desktop-app/dist/
-desktop-app/releases/*.exe
-desktop-app/releases/*.tar.gz
+# desktop-app/releases/*.exe  # Now handled by Git LFS
+# desktop-app/releases/*.tar.gz  # Now handled by Git LFS
 desktop-app/releases/*.zip
-desktop-app/releases/*.dmg
+# desktop-app/releases/*.dmg  # Now handled by Git LFS
 desktop-app/releases/*.deb
 desktop-app/releases/*.rpm
 desktop-app/releases/*.AppImage
 
-# Large executable files in root
-Apollo-Setup-1.0.0-x64.exe
-Apollo-1.0.0-x64.tar.gz
-*.exe
-*.dmg
+# Large executable files in root (now handled by Git LFS)
+# Apollo-Setup-1.0.0-x64.exe
+# Apollo-1.0.0-x64.tar.gz
+# *.exe files are now tracked by Git LFS
+# *.dmg files are now tracked by Git LFS
 
 # Node modules
 node_modules/

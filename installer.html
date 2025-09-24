@@ -1978,11 +1978,13 @@
 
             switch(os) {
                 case 'windows':
-                    downloadUrl = 'https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel/releases/latest/download/Apollo-Setup-1.0.0-x64.exe';
+                    // Direct GitHub raw download (will work with Git LFS)
+                    downloadUrl = 'https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel/raw/main/desktop-app/releases/Apollo-Setup-1.0.0-x64.exe';
                     filename = 'Apollo-Setup-1.0.0-x64.exe';
                     break;
                 case 'linux':
-                    downloadUrl = 'https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel/releases/latest/download/Apollo-1.0.0-x64.tar.gz';
+                    // Direct GitHub raw download (will work with Git LFS)
+                    downloadUrl = 'https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel/raw/main/desktop-app/releases/Apollo-1.0.0-x64.tar.gz';
                     filename = 'Apollo-1.0.0-x64.tar.gz';
                     break;
                 case 'macos':

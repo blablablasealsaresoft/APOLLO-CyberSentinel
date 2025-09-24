@@ -107,6 +107,12 @@ contextBridge.exposeInMainWorld('apolloAPI', {
     analyzeAPTThreat: (indicator, type) => ipcRenderer.invoke('analyze-apt-threat', indicator, type),
     analyzeCryptoThreat: (indicator, type) => ipcRenderer.invoke('analyze-crypto-threat', indicator, type),
     analyzeMobileSpyware: (backupPath, platform) => ipcRenderer.invoke('analyze-mobile-spyware', backupPath, platform),
+    
+    // Enterprise Biometric Authentication (REVOLUTIONARY)
+    authenticateForWallet: (walletType, securityLevel) => ipcRenderer.invoke('authenticate-for-wallet', walletType, securityLevel),
+    authorizeWalletConnection: (walletProvider, walletAddress, connectionType) => ipcRenderer.invoke('authorize-wallet-connection', walletProvider, walletAddress, connectionType),
+    getAuthStatus: () => ipcRenderer.invoke('get-auth-status'),
+    getTelemetryAnalytics: () => ipcRenderer.invoke('get-telemetry-analytics'),
 
     onThreatAlert: (callback) => ipcRenderer.on('threat-alert', callback),
     onCryptoAlert: (callback) => ipcRenderer.on('crypto-alert', callback),

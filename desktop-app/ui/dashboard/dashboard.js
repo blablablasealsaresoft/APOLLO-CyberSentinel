@@ -490,28 +490,95 @@ function initializeRealAPIFunctions() {
     
     // 💰 CRYPTO GUARDIAN FEATURES
     window.connectWalletConnect = async function() {
-        console.log('🔗 Initiating WalletConnect...');
-        
-        showWalletConnectModal();
+        console.log('🔐 Initiating Enterprise Wallet Connection with Biometric + 2FA Authentication...');
         
         try {
+            // REVOLUTIONARY SECURITY: Biometric + 2FA REQUIRED for ALL wallet connections
+            console.log('🚨 REVOLUTIONARY SECURITY: Biometric + 2FA authentication required for wallet connection');
+            
+            showNotification({
+                title: '🔐 Enterprise Security Protocol',
+                message: 'Biometric + 2FA authentication required for wallet connection. Starting multi-layer security verification...',
+                type: 'info'
+            });
+            
+            // Phase 1: Enterprise Biometric + 2FA Authentication
+            console.log('👤 Phase 1: Biometric authentication starting...');
+            const authResult = await window.electronAPI.authenticateForWallet('walletconnect', 'enterprise');
+            
+            if (!authResult.success) {
+                showNotification({
+                    title: '🚨 Biometric Authentication Failed',
+                    message: `Security Score: ${authResult.securityScore || 0}/70 required. ${authResult.recommendations?.join(' ') || 'Authentication failed'}`,
+                    type: 'error'
+                });
+                
+                // Show detailed biometric failure report
+                showBiometricAuthFailureReport(authResult);
+                return;
+            }
+            
+            console.log(`✅ Enterprise authentication SUCCESS - Security Score: ${authResult.securityScore}/100`);
+            showNotification({
+                title: '✅ Biometric + 2FA Verified',
+                message: `Enterprise security passed (Score: ${authResult.securityScore}/100). Authorizing wallet connection...`,
+                type: 'success'
+            });
+            
+            // Phase 2: Authorize specific wallet connection with risk assessment
+            console.log('🛡️ Phase 2: Wallet connection authorization...');
+            const walletAuthResult = await window.electronAPI.authorizeWalletConnection('WalletConnect', null, 'mobile');
+            
+            if (!walletAuthResult.authorized) {
+                showNotification({
+                    title: '🚨 Wallet Authorization Denied',
+                    message: `Risk Level: ${walletAuthResult.riskAssessment?.riskLevel || 'High'}. ${walletAuthResult.recommendations?.join(' ') || 'Connection denied'}`,
+                    type: 'error'
+                });
+                return;
+            }
+            
+            console.log(`✅ Wallet connection AUTHORIZED - Risk Level: ${walletAuthResult.riskAssessment?.riskLevel}`);
+            
+            // Phase 3: Show enterprise security verification modal
+            showEnhancedWalletConnectModal(authResult, walletAuthResult);
+            
+            // Phase 4: Proceed with actual wallet connection
             if (window.electronAPI) {
                 const result = await window.electronAPI.connectWallet('walletconnect');
                 
                 if (result.connected) {
                     updateWalletUI(result.address);
-                    closeWalletModal();
                     
                     window.apolloDashboard.addActivity({
-                        text: `Wallet connected: ${result.address.substring(0, 10)}...`,
+                        text: `🔒 SECURE wallet connected: ${result.address.substring(0, 10)}... (Biometric + 2FA verified)`,
                         type: 'success'
+                    });
+                    
+                    showNotification({
+                        title: '🛡️ Enterprise Secure Connection',
+                        message: 'Wallet connected with revolutionary biometric + 2FA security',
+                        type: 'success'
+                    });
+                } else {
+                    showNotification({
+                        title: 'Connection Failed',
+                        message: 'Wallet connection failed despite security verification',
+                        type: 'error'
                     });
                 }
             }
+            
         } catch (error) {
-            closeWalletModal();
+            console.error('❌ Enterprise wallet connection error:', error);
+            showNotification({
+                title: '🚨 Enterprise Security Error',
+                message: 'Enterprise wallet connection failed: ' + error.message,
+                type: 'error'
+            });
+            
             window.apolloDashboard.addActivity({
-                text: `Wallet connection failed: ${error.message}`,
+                text: `🚨 Secure wallet connection failed: ${error.message}`,
                 type: 'danger'
             });
         }
@@ -1861,9 +1928,82 @@ function animateMetrics() {
     });
 }
 
-window.configureBiometrics = function() {
-    console.log('🔐 Configuring biometric security...');
-    showBiometricConfigModal();
+window.configureBiometrics = async function() {
+    console.log('🔐 Configuring enterprise biometric security...');
+    
+    try {
+        // Get current authentication status
+        const authStatus = await window.electronAPI.getAuthStatus();
+        
+        const reportContent = `
+            <div style="max-width: 700px; margin: 0 auto;">
+                <div style="background: linear-gradient(135deg, #1a1a1a, #0a0a0a); padding: 30px; border-radius: 15px; border: 2px solid var(--brand-gold);">
+                    <h3 style="color: var(--brand-gold); margin-bottom: 25px; text-align: center;"><i class="fas fa-fingerprint"></i> Enterprise Biometric Security Configuration</h3>
+                    
+                    <div style="background: rgba(33, 150, 243, 0.1); padding: 20px; border-radius: 10px; border: 1px solid rgba(33, 150, 243, 0.3); margin-bottom: 20px;">
+                        <div style="color: #2196f3; font-weight: bold; margin-bottom: 15px;"><i class="fas fa-shield-alt"></i> CURRENT AUTHENTICATION STATUS</div>
+                        <div style="color: #fff; line-height: 1.6;">
+                            <div><strong>Enterprise Auth:</strong> ${authStatus?.authenticated ? '✅ ACTIVE' : '❌ INACTIVE'}</div>
+                            <div><strong>Biometric Verified:</strong> ${authStatus?.biometric_verified ? '✅ YES' : '❌ NO'}</div>
+                            <div><strong>2FA Verified:</strong> ${authStatus?.two_factor_verified ? '✅ YES' : '❌ NO'}</div>
+                            <div><strong>Wallet Access:</strong> ${authStatus?.wallet_connection_allowed ? '✅ ALLOWED' : '🚨 BLOCKED'}</div>
+                            <div><strong>Failed Attempts:</strong> ${authStatus?.failed_attempts || 0}/5</div>
+                            ${authStatus?.locked_out ? `<div style="color: #f44336;"><strong>Status:</strong> 🚨 LOCKED (${authStatus.lockout_remaining} min remaining)</div>` : ''}
+                        </div>
+                    </div>
+                    
+                    <div style="background: rgba(156, 39, 176, 0.1); padding: 20px; border-radius: 10px; border: 1px solid rgba(156, 39, 176, 0.3); margin-bottom: 20px;">
+                        <div style="color: #9c27b0; font-weight: bold; margin-bottom: 15px;"><i class="fas fa-cog"></i> BIOMETRIC AUTHENTICATION METHODS</div>
+                        <div style="color: #fff; line-height: 1.8;">
+                            👆 <strong>Fingerprint Recognition:</strong> Primary biometric authentication (75%+ confidence required)<br>
+                            😊 <strong>Face ID Authentication:</strong> Advanced facial recognition with liveness detection (80%+ confidence)<br>
+                            🎤 <strong>Voiceprint Verification:</strong> Voice pattern recognition and analysis (85%+ confidence)<br>
+                            👁️ <strong>Retina Scanning:</strong> High-security iris pattern recognition (90%+ confidence)<br>
+                            ✋ <strong>Palm Print Analysis:</strong> Advanced palm vein pattern verification (85%+ confidence)
+                        </div>
+                    </div>
+                    
+                    <div style="background: rgba(255, 193, 7, 0.1); padding: 20px; border-radius: 10px; border: 1px solid rgba(255, 193, 7, 0.3); margin-bottom: 20px;">
+                        <div style="color: #ffc107; font-weight: bold; margin-bottom: 15px;"><i class="fas fa-mobile-alt"></i> TWO-FACTOR AUTHENTICATION</div>
+                        <div style="color: #fff; line-height: 1.8;">
+                            📱 <strong>TOTP Authenticator:</strong> Google Authenticator, Authy, 1Password, Microsoft Authenticator<br>
+                            📲 <strong>SMS Verification:</strong> Secure text message authentication codes<br>
+                            📧 <strong>Email Verification:</strong> Encrypted email-based authentication<br>
+                            📬 <strong>Push Notifications:</strong> Mobile app push approval system<br>
+                            🔑 <strong>Hardware Tokens:</strong> YubiKey, FIDO2, RSA SecurID security keys
+                        </div>
+                    </div>
+                    
+                    <div style="background: rgba(255, 152, 0, 0.1); padding: 20px; border-radius: 10px; border: 1px solid rgba(255, 152, 0, 0.3);">
+                        <div style="color: #FF9800; font-weight: bold; margin-bottom: 15px;"><i class="fas fa-rocket"></i> REVOLUTIONARY SECURITY REQUIREMENTS</div>
+                        <div style="color: #fff; line-height: 1.8;">
+                            🚨 <strong>Mandatory for Wallets:</strong> ALL crypto wallet connections require biometric + 2FA<br>
+                            🔐 <strong>Enterprise Grade:</strong> 70+ security score required for authorization<br>
+                            👥 <strong>Multi-Factor Required:</strong> 3 biometric methods + 3 2FA providers minimum<br>
+                            ⏱️ <strong>Session Security:</strong> 15-minute authentication validity with automatic logout<br>
+                            📊 <strong>Continuous Assessment:</strong> Real-time security posture monitoring<br>
+                            🏆 <strong>World's First:</strong> Consumer-grade biometric cryptocurrency protection
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        showReportModal('Enterprise Biometric Security Configuration', reportContent);
+        
+        window.apolloDashboard.addActivity({
+            text: '🔐 Enterprise biometric security configuration accessed',
+            type: 'info'
+        });
+        
+    } catch (error) {
+        console.error('❌ Biometric configuration error:', error);
+        showNotification({
+            title: 'Configuration Error',
+            message: 'Failed to load biometric configuration: ' + error.message,
+            type: 'error'
+        });
+    }
 };
 
 window.openThreatMap = async function() {
@@ -5040,6 +5180,127 @@ function detectIndicatorType(indicator) {
     return 'domain';
 }
 
+// ============================================================================
+// ENTERPRISE BIOMETRIC AUTHENTICATION UI (REVOLUTIONARY)
+// ============================================================================
+
+function showBiometricAuthFailureReport(authResult) {
+    const reportContent = `
+        <div style="max-width: 700px; margin: 0 auto;">
+            <div style="background: linear-gradient(135deg, #1a1a1a, #0a0a0a); padding: 30px; border-radius: 15px; border: 2px solid #f44336;">
+                <h3 style="color: #f44336; margin-bottom: 25px; text-align: center;"><i class="fas fa-exclamation-triangle"></i> Enterprise Authentication Failed</h3>
+                
+                <div style="background: rgba(244, 67, 54, 0.15); padding: 20px; border-radius: 10px; border: 2px solid rgba(244, 67, 54, 0.5); margin-bottom: 20px;">
+                    <div style="color: #f44336; font-weight: bold; margin-bottom: 15px; font-size: 18px; text-align: center;">
+                        🚨 BIOMETRIC + 2FA AUTHENTICATION REQUIRED
+                    </div>
+                    <div style="color: #fff; text-align: center; line-height: 1.6;">
+                        Apollo Sentinel™ requires enterprise-grade biometric and two-factor authentication<br>
+                        for ALL cryptocurrency wallet connections. This is a revolutionary security feature.
+                    </div>
+                </div>
+                
+                ${authResult.biometricResults ? `
+                <div style="background: rgba(156, 39, 176, 0.1); padding: 20px; border-radius: 10px; border: 1px solid rgba(156, 39, 176, 0.3); margin-bottom: 20px;">
+                    <div style="color: #9c27b0; font-weight: bold; margin-bottom: 15px;"><i class="fas fa-fingerprint"></i> BIOMETRIC AUTHENTICATION RESULTS</div>
+                    <div style="color: #fff; line-height: 1.6;">
+                        <div><strong>Overall Score:</strong> ${authResult.biometricResults.overallScore?.toFixed(1) || 0}% (80%+ required)</div>
+                        <div><strong>Methods Tested:</strong> ${authResult.biometricResults.methodsUsed?.join(', ') || 'Fingerprint, Face ID, Voiceprint'}</div>
+                        <div><strong>Required Methods:</strong> ${authResult.biometricResults.requiredMethods?.join(', ') || '3 biometric factors'}</div>
+                        <div><strong>Status:</strong> ${authResult.biometricResults.success ? '✅ PASSED' : '❌ FAILED'}</div>
+                    </div>
+                </div>
+                ` : ''}
+                
+                ${authResult.twoFactorResults ? `
+                <div style="background: rgba(255, 193, 7, 0.1); padding: 20px; border-radius: 10px; border: 1px solid rgba(255, 193, 7, 0.3); margin-bottom: 20px;">
+                    <div style="color: #ffc107; font-weight: bold; margin-bottom: 15px;"><i class="fas fa-shield-alt"></i> TWO-FACTOR AUTHENTICATION RESULTS</div>
+                    <div style="color: #fff; line-height: 1.6;">
+                        <div><strong>Methods Tested:</strong> ${authResult.twoFactorResults.methodsUsed?.join(', ') || 'TOTP, Hardware Token, Push'}</div>
+                        <div><strong>Required Providers:</strong> ${authResult.twoFactorResults.requiredProviders?.join(', ') || 'TOTP + Hardware + Push'}</div>
+                        <div><strong>Status:</strong> ${authResult.twoFactorResults.success ? '✅ PASSED' : '❌ FAILED'}</div>
+                    </div>
+                </div>
+                ` : ''}
+                
+                <div style="background: rgba(255, 152, 0, 0.1); padding: 20px; border-radius: 10px; border: 1px solid rgba(255, 152, 0, 0.3);">
+                    <div style="color: #FF9800; font-weight: bold; margin-bottom: 15px;"><i class="fas fa-info-circle"></i> ENTERPRISE SECURITY REQUIREMENTS</div>
+                    <div style="color: #fff; line-height: 1.8;">
+                        🔐 <strong>Biometric Authentication:</strong> Fingerprint, Face ID, and Voiceprint required (80%+ confidence)<br>
+                        🔑 <strong>Two-Factor Authentication:</strong> TOTP, Hardware Token, and Push notification required<br>
+                        🛡️ <strong>Security Score:</strong> 70+ points required for wallet connection authorization<br>
+                        ⏱️ <strong>Session Duration:</strong> 15-minute authentication validity for maximum security<br>
+                        🚨 <strong>Revolutionary Feature:</strong> World's first consumer biometric crypto protection<br>
+                        🏆 <strong>Enterprise Grade:</strong> Military-level wallet connection security
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    showReportModal('Enterprise Biometric Authentication Required', reportContent);
+}
+
+function showEnhancedWalletConnectModal(authResult, walletAuthResult) {
+    const reportContent = `
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div style="background: linear-gradient(135deg, #1a1a1a, #0a0a0a); padding: 30px; border-radius: 15px; border: 2px solid var(--brand-gold);">
+                <h3 style="color: var(--brand-gold); margin-bottom: 25px; text-align: center;"><i class="fas fa-shield-alt"></i> Enterprise Secure Wallet Connection</h3>
+                
+                <div style="background: rgba(76, 175, 80, 0.15); padding: 20px; border-radius: 10px; border: 2px solid rgba(76, 175, 80, 0.5); margin-bottom: 20px;">
+                    <div style="color: #4caf50; font-weight: bold; margin-bottom: 15px; font-size: 18px; text-align: center;">
+                        ✅ ENTERPRISE AUTHENTICATION SUCCESSFUL
+                    </div>
+                    <div style="color: #fff; text-align: center; line-height: 1.6;">
+                        🔐 Biometric + 2FA verification complete<br>
+                        🛡️ Security Score: ${authResult.securityScore}/100<br>
+                        💼 Wallet connection authorized with enterprise-grade security
+                    </div>
+                </div>
+                
+                <div style="background: rgba(33, 150, 243, 0.1); padding: 20px; border-radius: 10px; border: 1px solid rgba(33, 150, 243, 0.3); margin-bottom: 20px;">
+                    <div style="color: #2196f3; font-weight: bold; margin-bottom: 15px;"><i class="fas fa-fingerprint"></i> BIOMETRIC VERIFICATION DETAILS</div>
+                    <div style="color: #fff; line-height: 1.6;">
+                        <div><strong>Authentication Methods:</strong> ${authResult.authenticationMethods?.join(', ') || 'Biometric + 2FA'}</div>
+                        <div><strong>Biometric Score:</strong> ${authResult.biometricResults?.overallScore?.toFixed(1) || 0}% (${authResult.biometricResults?.methodsUsed?.length || 0} methods)</div>
+                        <div><strong>Two-Factor Status:</strong> ${authResult.twoFactorResults?.success ? '✅ Verified' : '❌ Failed'}</div>
+                        <div><strong>Session Duration:</strong> 15 minutes (Enterprise security standard)</div>
+                    </div>
+                </div>
+                
+                <div style="background: rgba(255, 193, 7, 0.1); padding: 20px; border-radius: 10px; border: 1px solid rgba(255, 193, 7, 0.3); margin-bottom: 20px;">
+                    <div style="color: #ffc107; font-weight: bold; margin-bottom: 15px;"><i class="fas fa-wallet"></i> WALLET CONNECTION AUTHORIZATION</div>
+                    <div style="color: #fff; line-height: 1.6;">
+                        <div><strong>Provider:</strong> ${walletAuthResult?.walletProvider || 'WalletConnect'}</div>
+                        <div><strong>Security Level:</strong> ${walletAuthResult?.securityLevel || 'Enterprise'}</div>
+                        <div><strong>Risk Assessment:</strong> ${walletAuthResult?.riskAssessment?.riskLevel || 'Low'} risk</div>
+                        <div><strong>Authorization:</strong> ${walletAuthResult?.authorized ? '✅ APPROVED' : '❌ DENIED'}</div>
+                    </div>
+                </div>
+                
+                <div style="background: rgba(255, 152, 0, 0.1); padding: 20px; border-radius: 10px; border: 1px solid rgba(255, 152, 0, 0.3);">
+                    <div style="color: #FF9800; font-weight: bold; margin-bottom: 15px;"><i class="fas fa-rocket"></i> REVOLUTIONARY SECURITY FEATURES</div>
+                    <div style="color: #fff; line-height: 1.8;">
+                        🌍 <strong>World's First:</strong> Consumer-grade biometric crypto protection<br>
+                        🔐 <strong>Multi-Layer Security:</strong> Biometric + 2FA + Risk assessment + Telemetry<br>
+                        ⏱️ <strong>Session Security:</strong> 15-minute authentication validity with automatic logout<br>
+                        🛡️ <strong>Enterprise Grade:</strong> Military-level wallet connection security protocol<br>
+                        📊 <strong>Continuous Monitoring:</strong> Real-time security posture and threat assessment<br>
+                        🏆 <strong>Industry Leading:</strong> Revolutionary advancement in cryptocurrency security
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    showReportModal('Enterprise Secure Wallet Connection Verified', reportContent);
+    
+    // Auto-close after showing security verification
+    setTimeout(() => {
+        showWalletConnectModal(); // Show the regular wallet connection UI
+    }, 3000);
+}
+
 // Expose advanced nation-state functions globally
 window.analyzeNationStateThreat = analyzeNationStateThreat;
 window.viewAPTIntelligence = viewAPTIntelligence;
@@ -5047,6 +5308,10 @@ window.analyzeCryptoThreat = analyzeCryptoThreat;
 window.analyzeMobileDevice = analyzeMobileDevice;
 window.pegasusForensics = pegasusForensics;
 window.scanCryptoWallets = scanCryptoWallets;
+
+// Expose biometric authentication functions globally
+window.showBiometricAuthFailureReport = showBiometricAuthFailureReport;
+window.showEnhancedWalletConnectModal = showEnhancedWalletConnectModal;
 
 // ============================================================================
 // ADVANCED NATION-STATE UI INITIALIZATION (NEW)

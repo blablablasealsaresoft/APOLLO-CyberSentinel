@@ -39,6 +39,8 @@ const ApolloUnifiedProtectionEngine = require('./src/core/unified-protection-eng
 const SystemPrivileges = require('./src/native/system-privileges');
 const OSINTThreatIntelligence = require('./src/intelligence/osint-sources');
 const ApolloAIOracle = require('./src/ai/oracle-integration');
+const ApolloBetaTelemetry = require('./src/telemetry/beta-telemetry');
+const EnterpriseBiometricAuthSystem = require('./src/auth/enterprise-biometric-auth');
 
 // WalletConnect imports - Apollo acts as a dApp to connect to mobile wallets
 const { Core } = require('@walletconnect/core');
@@ -416,6 +418,16 @@ class ApolloApplication {
             // Initialize intelligence modules
             this.osintIntelligence = new OSINTThreatIntelligence();
             this.aiOracle = new ApolloAIOracle();
+            
+            // Initialize Enterprise Telemetry System (NOW INTEGRATED)
+            console.log('📊 Enterprise Telemetry System initializing...');
+            this.telemetrySystem = new ApolloBetaTelemetry();
+            console.log('✅ Enterprise telemetry active - Performance monitoring enabled');
+            
+            // Initialize Enterprise Biometric Authentication (REVOLUTIONARY)
+            console.log('🔐 Enterprise Biometric Authentication System initializing...');
+            this.biometricAuth = new EnterpriseBiometricAuthSystem(this.telemetrySystem);
+            console.log('🚨 REVOLUTIONARY SECURITY: Biometric + 2FA REQUIRED for ALL wallet connections!');
 
             // Set up unified alert handler
             this.unifiedProtectionEngine.on('threat-detected', (alert) => this.handleUnifiedThreatAlert(alert));
@@ -796,6 +808,92 @@ class ApolloApplication {
             } catch (error) {
                 console.error('❌ Error in mobile spyware analysis:', error);
                 return { error: error.message, platform: platform };
+            }
+        });
+        
+        // ========================================================================
+        // ENTERPRISE BIOMETRIC AUTHENTICATION HANDLERS (REVOLUTIONARY)
+        // ========================================================================
+        
+        // Biometric + 2FA authentication for wallet connections (REQUIRED)
+        ipcMain.handle('authenticate-for-wallet', async (event, walletType = 'general', securityLevel = 'enterprise') => {
+            try {
+                if (this.biometricAuth) {
+                    console.log(`🔐 Enterprise authentication requested for ${walletType} wallet (${securityLevel} level)`);
+                    const authResult = await this.biometricAuth.authenticateForWalletConnection(walletType, securityLevel);
+                    
+                    if (authResult.success) {
+                        console.log(`✅ Enterprise authentication SUCCESS - Wallet connection authorized`);
+                        console.log(`🛡️ Security Score: ${authResult.securityScore}/100 (Biometric + 2FA verified)`);
+                    } else {
+                        console.log(`❌ Enterprise authentication FAILED - Wallet connection denied`);
+                    }
+                    
+                    return authResult;
+                }
+                return { error: 'Biometric authentication system not initialized' };
+            } catch (error) {
+                console.error('❌ Error in biometric authentication:', error);
+                return { error: error.message, walletType: walletType };
+            }
+        });
+        
+        // Authorize specific wallet connection after authentication
+        ipcMain.handle('authorize-wallet-connection', async (event, walletProvider, walletAddress, connectionType = 'standard') => {
+            try {
+                if (this.biometricAuth) {
+                    console.log(`💼 Wallet connection authorization requested: ${walletProvider}`);
+                    const authResult = await this.biometricAuth.authorizeWalletConnection(walletProvider, walletAddress, connectionType);
+                    
+                    if (authResult.authorized) {
+                        console.log(`✅ Wallet connection AUTHORIZED: ${walletProvider}`);
+                        console.log(`🔒 Risk Level: ${authResult.riskAssessment?.riskLevel || 'unknown'}`);
+                    } else {
+                        console.log(`❌ Wallet connection DENIED: ${walletProvider} - ${authResult.error || 'Security requirements not met'}`);
+                    }
+                    
+                    return authResult;
+                }
+                return { error: 'Biometric authentication system not initialized' };
+            } catch (error) {
+                console.error('❌ Error in wallet authorization:', error);
+                return { error: error.message, walletProvider: walletProvider };
+            }
+        });
+        
+        // Get authentication status
+        ipcMain.handle('get-auth-status', async (event) => {
+            try {
+                if (this.biometricAuth) {
+                    return {
+                        authenticated: this.biometricAuth.authenticationState.isAuthenticated,
+                        biometric_verified: this.biometricAuth.authenticationState.biometricVerified,
+                        two_factor_verified: this.biometricAuth.authenticationState.twoFactorVerified,
+                        wallet_connection_allowed: this.biometricAuth.authenticationState.walletConnectionAllowed,
+                        failed_attempts: this.biometricAuth.authenticationState.failedAttempts,
+                        locked_out: this.biometricAuth.isUserLockedOut(),
+                        lockout_remaining: this.biometricAuth.getLockoutTimeRemaining()
+                    };
+                }
+                return { error: 'Biometric authentication system not initialized' };
+            } catch (error) {
+                console.error('❌ Error getting auth status:', error);
+                return { error: error.message };
+            }
+        });
+        
+        // Get telemetry analytics
+        ipcMain.handle('get-telemetry-analytics', async (event) => {
+            try {
+                if (this.telemetrySystem) {
+                    const analytics = this.telemetrySystem.getAnalytics();
+                    console.log('📊 Telemetry analytics requested');
+                    return analytics;
+                }
+                return { error: 'Telemetry system not initialized' };
+            } catch (error) {
+                console.error('❌ Error getting telemetry analytics:', error);
+                return { error: error.message };
             }
         });
 

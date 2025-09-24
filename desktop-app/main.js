@@ -1322,11 +1322,32 @@ class ApolloApplication {
                     si.processes()
                 ]);
 
+                // Calculate real network utilization
+                let networkUtilization = 0;
+                try {
+                    const networkStats = await si.networkStats();
+                    if (networkStats && networkStats.length > 0) {
+                        // Calculate network utilization as percentage of interface capacity
+                        const totalRx = networkStats.reduce((sum, stat) => sum + (stat.rx_sec || 0), 0);
+                        const totalTx = networkStats.reduce((sum, stat) => sum + (stat.tx_sec || 0), 0);
+                        const totalTraffic = totalRx + totalTx;
+                        
+                        // Assume 100 Mbps connection as baseline (can be adjusted)
+                        const baselineCapacity = 100 * 1024 * 1024 / 8; // 100 Mbps in bytes/sec
+                        networkUtilization = Math.min(100, Math.round((totalTraffic / baselineCapacity) * 100));
+                    }
+                } catch (networkError) {
+                    console.warn('⚠️ Network utilization calculation failed:', networkError.message);
+                    networkUtilization = 0;
+                }
+
+                console.log(`📊 Real system performance: CPU ${Math.round(cpu.currentLoad || 0)}%, Memory ${Math.round(((mem.used / mem.total) * 100) || 0)}%, Disk ${Math.round(((disk[0]?.use || 0) * 100) || 0)}%, Network ${networkUtilization}%`);
+
                 return {
                     cpu: Math.round(cpu.currentLoad || 0),
                     memory: Math.round(((mem.used / mem.total) * 100) || 0),
                     disk: Math.round(((disk[0]?.use || 0) * 100) || 0),
-                    network: Math.floor(Math.random() * 100 + 20), // Temporary until we implement real network monitoring
+                    network: networkUtilization, // REAL network utilization calculation
                     processes: processes.all || 0
                 };
             } catch (error) {

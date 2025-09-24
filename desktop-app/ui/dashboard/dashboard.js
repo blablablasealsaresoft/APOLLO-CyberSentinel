@@ -1821,67 +1821,93 @@ function initializeNetworkMonitoring() {
         console.log(`✅ Network monitor updated: ${downloadElement?.textContent || '0'} down, ${uploadElement?.textContent || '0'} up, ${connectionsElement?.textContent || '0'} connections`);
     }
 
-    // Real-time system performance monitoring
+    // REAL-ONLY system performance monitoring - NO FAKE DATA
     async function updateSystemPerformance() {
         try {
-            if (window.electronAPI) {
+            if (window.electronAPI && typeof window.electronAPI.getSystemPerformance === 'function') {
                 const systemStats = await window.electronAPI.getSystemPerformance();
+                console.log('📊 Real system performance data received:', systemStats);
                 updateSystemPerformanceDisplay(systemStats);
             } else {
-                // Fallback with simulated data
+                console.warn('⚠️ System performance API not available - showing 0% values');
+                // REAL DATA ONLY - NO FAKE FALLBACK
                 const systemStats = {
-                    cpu: Math.floor(Math.random() * 100),
-                    memory: Math.floor(Math.random() * 100),
-                    disk: Math.floor(Math.random() * 100),
-                    network: Math.floor(Math.random() * 100 + 20)
+                    cpu: 0,
+                    memory: 0,
+                    disk: 0,
+                    network: 0
                 };
                 updateSystemPerformanceDisplay(systemStats);
             }
         } catch (error) {
             console.error('❌ Failed to get system performance:', error);
+            // REAL DATA ONLY - NO FAKE FALLBACK
+            const systemStats = {
+                cpu: 0,
+                memory: 0,
+                disk: 0,
+                network: 0
+            };
+            updateSystemPerformanceDisplay(systemStats);
         }
     }
 
     function updateSystemPerformanceDisplay(stats) {
-        // Update CPU usage using the old perf-item structure
+        console.log('🔧 Updating system performance display with data:', stats);
+        
+        // Update CPU usage - REAL DATA ONLY
         const cpuElement = document.querySelector('.perf-value.cpu-value');
         const cpuFill = document.querySelector('.cpu-fill');
-        if (cpuElement && cpuFill) {
-            const cpuValue = Math.min(100, Math.max(0, stats.cpu || 0));
+        if (cpuElement && cpuFill && stats.cpu !== undefined) {
+            const cpuValue = Math.min(100, Math.max(0, Math.round(stats.cpu)));
             cpuElement.textContent = cpuValue + '%';
             cpuFill.style.width = cpuValue + '%';
             cpuFill.style.background = cpuValue > 80 ? '#f44336' : cpuValue > 60 ? '#ff9800' : '#4caf50';
+            console.log(`✅ CPU updated: ${cpuValue}%`);
+        } else {
+            console.warn('⚠️ CPU element not found or no data');
         }
 
-        // Update Memory usage using the old perf-item structure
+        // Update Memory usage - REAL DATA ONLY
         const memoryElement = document.querySelector('.perf-value.memory-value');
         const memoryFill = document.querySelector('.memory-fill');
-        if (memoryElement && memoryFill) {
-            const memoryValue = Math.min(100, Math.max(0, stats.memory || 0));
+        if (memoryElement && memoryFill && stats.memory !== undefined) {
+            const memoryValue = Math.min(100, Math.max(0, Math.round(stats.memory)));
             memoryElement.textContent = memoryValue + '%';
             memoryFill.style.width = memoryValue + '%';
             memoryFill.style.background = memoryValue > 80 ? '#f44336' : memoryValue > 60 ? '#ff9800' : '#4caf50';
+            console.log(`✅ Memory updated: ${memoryValue}%`);
+        } else {
+            console.warn('⚠️ Memory element not found or no data');
         }
 
-        // Update Disk usage using the old perf-item structure
+        // Update Disk usage - REAL DATA ONLY
         const diskElement = document.querySelector('.perf-value.disk-value');
         const diskFill = document.querySelector('.disk-fill');
-        if (diskElement && diskFill) {
-            const diskValue = Math.min(100, Math.max(0, stats.disk || 0));
+        if (diskElement && diskFill && stats.disk !== undefined) {
+            const diskValue = Math.min(100, Math.max(0, Math.round(stats.disk)));
             diskElement.textContent = diskValue + '%';
             diskFill.style.width = diskValue + '%';
             diskFill.style.background = diskValue > 80 ? '#f44336' : diskValue > 60 ? '#ff9800' : '#4caf50';
+            console.log(`✅ Disk updated: ${diskValue}%`);
+        } else {
+            console.warn('⚠️ Disk element not found or no data');
         }
 
-        // Update Network usage using the old perf-item structure
+        // Update Network usage - REAL DATA ONLY
         const networkElement = document.querySelector('.perf-value.network-value');
         const networkFill = document.querySelector('.network-fill');
-        if (networkElement && networkFill) {
-            const networkValue = Math.min(100, Math.max(0, stats.network || 0));
+        if (networkElement && networkFill && stats.network !== undefined) {
+            const networkValue = Math.min(100, Math.max(0, Math.round(stats.network)));
             networkElement.textContent = networkValue + '%';
             networkFill.style.width = networkValue + '%';
             networkFill.style.background = networkValue > 80 ? '#f44336' : networkValue > 60 ? '#ff9800' : '#4caf50';
+            console.log(`✅ Network performance updated: ${networkValue}%`);
+        } else {
+            console.warn('⚠️ Network performance element not found or no data');
         }
+        
+        console.log(`📊 System performance display updated: CPU ${stats.cpu}%, Memory ${stats.memory}%, Disk ${stats.disk}%, Network ${stats.network}%`);
     }
 
     // Update network stats and system performance every 3 seconds

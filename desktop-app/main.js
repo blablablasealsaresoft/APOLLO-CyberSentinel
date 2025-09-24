@@ -1377,8 +1377,6 @@ class ApolloApplication {
                 }
 
                 console.log(`📊 Real system performance: CPU ${Math.round(cpu.currentLoad || 0)}%, Memory ${Math.round(((mem.used / mem.total) * 100) || 0)}%, Disk ${diskUtilization}%, Network ${networkUtilization}%`);
-                console.log(`🔍 Disk debug: disk[0].use = ${disk[0]?.use}, calculated = ${diskUtilization}%`);
-                console.log(`🔍 Network debug: totalTraffic = ${networkStats ? 'calculated' : 'none'}, utilization = ${networkUtilization}%`);
 
                 return {
                     cpu: Math.round(cpu.currentLoad || 0),

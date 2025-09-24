@@ -1898,18 +1898,46 @@ function initializeNetworkMonitoring() {
     function updateNetworkDisplay(networkStats) {
         console.log('📊 Updating network display with real data:', networkStats);
         
-        // Update download speed using correct ID
+        // Update download speed using correct ID with proper unit handling
         const downloadElement = document.getElementById('network-download');
         if (downloadElement && networkStats.rx_sec !== undefined) {
-            const downloadSpeed = (networkStats.rx_sec / (1024 * 1024)).toFixed(1);
-            downloadElement.textContent = downloadSpeed + ' MB/s';
+            const downloadBytes = networkStats.rx_sec;
+            let downloadDisplay;
+            
+            if (downloadBytes >= 1024 * 1024) {
+                // Show MB/s for large values
+                downloadDisplay = (downloadBytes / (1024 * 1024)).toFixed(1) + ' MB/s';
+            } else if (downloadBytes >= 1024) {
+                // Show KB/s for medium values
+                downloadDisplay = (downloadBytes / 1024).toFixed(1) + ' KB/s';
+            } else {
+                // Show B/s for small values
+                downloadDisplay = downloadBytes.toFixed(0) + ' B/s';
+            }
+            
+            downloadElement.textContent = downloadDisplay;
+            console.log(`📥 Download: ${downloadBytes} bytes/s = ${downloadDisplay}`);
         }
 
-        // Update upload speed using correct ID
+        // Update upload speed using correct ID with proper unit handling
         const uploadElement = document.getElementById('network-upload');
         if (uploadElement && networkStats.tx_sec !== undefined) {
-            const uploadSpeed = (networkStats.tx_sec / (1024 * 1024)).toFixed(1);
-            uploadElement.textContent = uploadSpeed + ' MB/s';
+            const uploadBytes = networkStats.tx_sec;
+            let uploadDisplay;
+            
+            if (uploadBytes >= 1024 * 1024) {
+                // Show MB/s for large values
+                uploadDisplay = (uploadBytes / (1024 * 1024)).toFixed(1) + ' MB/s';
+            } else if (uploadBytes >= 1024) {
+                // Show KB/s for medium values
+                uploadDisplay = (uploadBytes / 1024).toFixed(1) + ' KB/s';
+            } else {
+                // Show B/s for small values
+                uploadDisplay = uploadBytes.toFixed(0) + ' B/s';
+            }
+            
+            uploadElement.textContent = uploadDisplay;
+            console.log(`📤 Upload: ${uploadBytes} bytes/s = ${uploadDisplay}`);
         }
 
         // Update connections count using correct ID - REAL DATA ONLY

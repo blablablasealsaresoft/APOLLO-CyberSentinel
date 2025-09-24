@@ -694,36 +694,31 @@ function initializeRealAPIFunctions() {
                 return;
             }
             
-            console.log(`✅ Wallet connection AUTHORIZED - Risk Level: ${walletAuthResult.riskAssessment?.riskLevel}`);
+        console.log(`✅ Wallet connection AUTHORIZED - Risk Level: ${walletAuthResult.riskAssessment?.riskLevel}`);
+        
+        // Phase 3: Show enterprise security verification modal first
+        showEnhancedWalletConnectModal(authResult, walletAuthResult);
+        
+        // Phase 4: Auto-open WalletConnect QR code modal after verification
+        setTimeout(() => {
+            console.log('🔗 Opening WalletConnect QR code modal after successful biometric verification');
+            showWalletConnectModal(); // This will show the QR code and wallet options
             
-            // Phase 3: Show enterprise security verification modal
-            showEnhancedWalletConnectModal(authResult, walletAuthResult);
+            // Update activity feed
+            window.apolloDashboard?.addActivity({
+                text: `🔒 Biometric verification successful - WalletConnect ready`,
+                type: 'success'
+            });
             
-            // Phase 4: Proceed with actual wallet connection
-            if (window.electronAPI) {
-                const result = await window.electronAPI.connectWallet('walletconnect');
-                
-                if (result.connected) {
-                    updateWalletUI(result.address);
-                    
-                    window.apolloDashboard.addActivity({
-                        text: `🔒 SECURE wallet connected: ${result.address.substring(0, 10)}... (Biometric + 2FA verified)`,
-                        type: 'success'
-                    });
-                    
-                    showNotification({
-                        title: '🛡️ Enterprise Secure Connection',
-                        message: 'Wallet connected with revolutionary biometric + 2FA security',
-                        type: 'success'
-                    });
-                } else {
-                    showNotification({
-                        title: 'Connection Failed',
-                        message: 'Wallet connection failed despite security verification',
-                        type: 'error'
-                    });
-                }
-            }
+            // Update biometric UI to show persistent authorization
+            updateBiometricUIMetrics({
+                authenticated: true,
+                securityScore: authResult.securityScore || 85,
+                walletAccess: true,
+                failedAttempts: 0
+            });
+            
+        }, 3000); // 3 second delay to show verification message first
             
         } catch (error) {
             console.error('❌ Enterprise wallet connection error:', error);
@@ -4012,6 +4007,45 @@ async function testRealBiometricHardware() {
 
 // Make hardware test function globally available
 window.testRealBiometricHardware = testRealBiometricHardware;
+
+// 🔗 DIRECT WALLET ACCESS FOR AUTHENTICATED USERS
+async function accessWalletConnection() {
+    console.log('🔍 Checking authentication status for direct wallet access...');
+    
+    try {
+        // Check current authentication status
+        const authStatus = await window.electronAPI.getAuthStatus();
+        console.log('🔍 Auth status for wallet access:', authStatus);
+        
+        if (authStatus && authStatus.authenticated && authStatus.wallet_connection_allowed) {
+            console.log('✅ User already authenticated - opening WalletConnect QR code directly');
+            showWalletConnectModal();
+            
+            showNotification({
+                title: '🔗 Wallet Connection Ready',
+                message: 'Biometric authentication verified - QR code ready for scanning',
+                type: 'success'
+            });
+        } else {
+            console.log('🔐 Authentication required - initiating biometric verification');
+            showNotification({
+                title: '🔐 Authentication Required',
+                message: 'Please complete biometric authentication first using the AUTHENTICATE button',
+                type: 'warning'
+            });
+        }
+    } catch (error) {
+        console.error('❌ Failed to check auth status:', error);
+        showNotification({
+            title: '⚠️ Authentication Check Failed',
+            message: 'Please use the AUTHENTICATE button to verify your identity',
+            type: 'warning'
+        });
+    }
+}
+
+// Make direct wallet access globally available
+window.accessWalletConnection = accessWalletConnection;
 
 // 🔗 Enhanced Wallet Connection Methods with Transaction Hooks
 async function connectMetaMask() {

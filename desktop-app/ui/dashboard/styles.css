@@ -1571,7 +1571,7 @@ body {
 }
 
 .ai-thinking {
-    text-align: center;
+        text-align: center;
     padding: 30px;
 }
 
@@ -1654,7 +1654,7 @@ body {
 
 .biometric-options {
     display: flex;
-    flex-direction: column;
+        flex-direction: column;
     gap: 15px;
     margin-bottom: 30px;
 }
@@ -1993,7 +1993,7 @@ input:checked + .slider:before {
     }
     
     .logo-text {
-        font-size: 20px;
+    font-size: 20px;
     }
     
     .protection-overview,
@@ -2011,7 +2011,7 @@ input:checked + .slider:before {
     }
     
     .footer-content {
-        flex-direction: column;
+    flex-direction: column;
         gap: 20px;
         text-align: center;
     }
@@ -3305,86 +3305,86 @@ input:checked + .slider:before {
     color: var(--text-secondary);
 }
 
-/* Risk Assessment Matrix */
+/* Enterprise Risk Assessment Matrix */
 .risk-matrix {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 15px;
-    height: 200px;
+    gap: 20px;
+    margin: 20px 0;
 }
 
-.risk-quadrant {
-    border-radius: 10px;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.risk-quadrant, .quadrant-card {
+    min-height: 160px;
+    padding: 25px;
+    border-radius: 15px;
+    backdrop-filter: blur(15px);
     transition: all 0.3s ease;
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
-.risk-quadrant::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.05));
-    opacity: 0;
-    transition: opacity 0.3s ease;
+.risk-quadrant:hover, .quadrant-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
 }
 
-.risk-quadrant:hover {
-    transform: scale(1.05);
+.risk-quadrant.critical, .quadrant-card.critical {
+    background: linear-gradient(135deg, rgba(244, 67, 54, 0.15), rgba(244, 67, 54, 0.05));
+    border: 2px solid rgba(244, 67, 54, 0.4);
 }
 
-.risk-quadrant:hover::before {
-    opacity: 1;
+.risk-quadrant.high, .quadrant-card.high {
+    background: linear-gradient(135deg, rgba(255, 152, 0, 0.15), rgba(255, 152, 0, 0.05));
+    border: 2px solid rgba(255, 152, 0, 0.4);
 }
 
-.risk-quadrant.critical {
-    background: linear-gradient(135deg, rgba(244, 67, 54, 0.2), rgba(244, 67, 54, 0.1));
-    border: 2px solid #f44336;
+.risk-quadrant.medium, .quadrant-card.medium {
+    background: linear-gradient(135deg, rgba(33, 150, 243, 0.15), rgba(33, 150, 243, 0.05));
+    border: 2px solid rgba(33, 150, 243, 0.4);
 }
 
-.risk-quadrant.high {
-    background: linear-gradient(135deg, rgba(255, 152, 0, 0.2), rgba(255, 152, 0, 0.1));
-    border: 2px solid #ff9800;
-}
-
-.risk-quadrant.medium {
-    background: linear-gradient(135deg, rgba(255, 193, 7, 0.2), rgba(255, 193, 7, 0.1));
-    border: 2px solid #ffc107;
-}
-
-.risk-quadrant.low {
-    background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(76, 175, 80, 0.1));
-    border: 2px solid #4caf50;
+.risk-quadrant.low, .quadrant-card.low {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.15), rgba(76, 175, 80, 0.05));
+    border: 2px solid rgba(76, 175, 80, 0.4);
 }
 
 .quadrant-title {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
     color: var(--brand-white);
 }
 
+.risk-quadrant.critical .quadrant-title { color: #f44336; }
+.risk-quadrant.high .quadrant-title { color: #ff9800; }
+.risk-quadrant.medium .quadrant-title { color: #2196f3; }
+.risk-quadrant.low .quadrant-title { color: #4caf50; }
+
 .quadrant-count {
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--brand-gold);
-    text-align: center;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    font-size: 48px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
+.risk-quadrant.critical .quadrant-count { color: #f44336; }
+.risk-quadrant.high .quadrant-count { color: #ff9800; }
+.risk-quadrant.medium .quadrant-count { color: #2196f3; }
+.risk-quadrant.low .quadrant-count { color: #4caf50; }
+
 .quadrant-description {
-    font-size: 10px;
+    font-size: 13px;
     color: var(--text-secondary);
-    text-align: center;
+    line-height: 1.4;
+    margin-bottom: 15px;
 }
 
 .quadrant-actions {
@@ -3393,18 +3393,35 @@ input:checked + .slider:before {
 }
 
 .quadrant-actions button {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid currentColor;
-    border-radius: 15px;
-    padding: 4px 12px;
-    color: currentColor;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
     cursor: pointer;
-    font-size: 10px;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.quadrant-actions button:hover {
-    background: currentColor;
+.risk-quadrant.critical .quadrant-actions button {
+    background: linear-gradient(135deg, #f44336, #d32f2f);
+    color: white;
+}
+
+.risk-quadrant.high .quadrant-actions button {
+    background: linear-gradient(135deg, #ff9800, #f57c00);
+    color: white;
+}
+
+.risk-quadrant.medium .quadrant-actions button {
+    background: linear-gradient(135deg, #2196f3, #1976d2);
+    color: white;
+}
+
+.risk-quadrant.low .quadrant-actions button {
+    background: linear-gradient(135deg, #4caf50, #388e3c);
     color: white;
 }
 
@@ -3533,13 +3550,80 @@ input:checked + .slider:before {
     transform: scale(1.1);
 }
 
-/* Global Threat Heatmap */
+/* Enterprise Global Threat Heatmap */
 .heatmap-container {
-    background: radial-gradient(ellipse at center, rgba(0, 100, 255, 0.05) 0%, transparent 70%);
-    border-radius: 10px;
-    padding: 20px;
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.9), rgba(10, 10, 10, 0.7));
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-radius: 15px;
+    padding: 25px;
     position: relative;
     overflow: hidden;
+    backdrop-filter: blur(15px);
+    min-height: 400px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.world-map-background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    height: 70%;
+    background: linear-gradient(135deg, rgba(0, 50, 100, 0.3), rgba(0, 30, 60, 0.2));
+    border-radius: 10px;
+    opacity: 0.6;
+}
+
+.world-map-svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    height: 70%;
+    opacity: 0.4;
+}
+
+.heatmap-data {
+    position: relative;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.region-data {
+    text-align: center;
+    padding: 15px;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.region-data:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.heatmap-stats {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: rgba(255, 215, 0, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.heatmap-controls {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
 }
 
 .heatmap-placeholder {
@@ -4095,7 +4179,8 @@ input:checked + .slider:before {
     z-index: 1;
     padding: 0;
     height: calc(95vh - 80px);
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .threat-map-container {
@@ -4544,6 +4629,204 @@ input:checked + .slider:before {
 .stream-location {
     font-size: 11px;
     color: var(--text-secondary);
+}
+
+/* Enhanced Threat Stream Styling */
+.stream-container {
+    max-height: 500px !important;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 10px;
+    padding-right: 15px;
+}
+
+.stream-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.stream-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+}
+
+.stream-container::-webkit-scrollbar-thumb {
+    background: var(--brand-gold);
+    border-radius: 2px;
+}
+
+.stream-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 20px;
+    border-radius: 12px;
+    border-left: 4px solid var(--brand-gold);
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.7), rgba(10, 10, 10, 0.5));
+    backdrop-filter: blur(15px);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: visible;
+    min-height: 180px;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.stream-item:hover {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.05), rgba(255, 255, 255, 0.02));
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.stream-item.critical {
+    border-left-color: #f44336;
+    box-shadow: 0 0 20px rgba(244, 67, 54, 0.3);
+}
+
+.stream-item.high {
+    border-left-color: #ff9800;
+    box-shadow: 0 0 15px rgba(255, 152, 0, 0.2);
+}
+
+.stream-item.medium {
+    border-left-color: #2196f3;
+    box-shadow: 0 0 10px rgba(33, 150, 243, 0.15);
+}
+
+.stream-time {
+    font-size: 10px;
+    color: var(--text-secondary);
+    font-family: 'Courier New', monospace;
+    min-width: 70px;
+    text-align: right;
+    padding-top: 2px;
+    border-right: 1px solid rgba(255, 215, 0, 0.2);
+    padding-right: 10px;
+}
+
+.stream-content {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.stream-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.stream-item.critical .stream-icon {
+    background: linear-gradient(135deg, rgba(244, 67, 54, 0.3), rgba(244, 67, 54, 0.1));
+    color: #f44336;
+    animation: pulse-red 2s infinite;
+}
+
+.stream-item.high .stream-icon {
+    background: linear-gradient(135deg, rgba(255, 152, 0, 0.3), rgba(255, 152, 0, 0.1));
+    color: #ff9800;
+    animation: pulse-orange 2s infinite;
+}
+
+.stream-item.medium .stream-icon {
+    background: linear-gradient(135deg, rgba(33, 150, 243, 0.3), rgba(33, 150, 243, 0.1));
+    color: #2196f3;
+    animation: pulse-blue 2s infinite;
+}
+
+.stream-title {
+    font-weight: 700;
+    color: var(--brand-white);
+    margin-bottom: 8px;
+    font-size: 16px;
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+
+.stream-location {
+    font-size: 13px;
+    color: var(--brand-gold);
+    font-weight: 600;
+    margin-bottom: 6px;
+    padding: 4px 10px;
+    background: rgba(255, 215, 0, 0.15);
+    border-radius: 6px;
+    display: inline-block;
+    word-wrap: break-word;
+}
+
+.stream-impact {
+    font-size: 12px;
+    color: #ff6b6b;
+    font-style: italic;
+    margin-bottom: 4px;
+    line-height: 1.3;
+    word-wrap: break-word;
+}
+
+.stream-target {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+    line-height: 1.3;
+    word-wrap: break-word;
+}
+
+.stream-mitre {
+    font-size: 11px;
+    color: #4ecdc4;
+    font-family: 'Courier New', monospace;
+    margin-bottom: 3px;
+    background: rgba(78, 205, 196, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: inline-block;
+    word-wrap: break-word;
+}
+
+.stream-confidence {
+    font-size: 11px;
+    color: #95a5a6;
+    font-style: italic;
+    line-height: 1.3;
+    word-wrap: break-word;
+}
+
+@keyframes pulse-red {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(244, 67, 54, 0); }
+}
+
+@keyframes pulse-orange {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 152, 0, 0.7); }
+    70% { box-shadow: 0 0 0 8px rgba(255, 152, 0, 0); }
+}
+
+@keyframes pulse-blue {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(33, 150, 243, 0.7); }
+    70% { box-shadow: 0 0 0 6px rgba(33, 150, 243, 0); }
+}
+
+/* Threat Stream States */
+.no-threats {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 30px 20px;
+    font-style: italic;
+}
+
+.no-threats i {
+    opacity: 0.6;
+    margin-bottom: 10px;
 }
 
 /* Animations */

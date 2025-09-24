@@ -4,6 +4,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const crypto = require('crypto');
 const si = require('systeminformation');
+const PythonOSINTInterface = require('../intelligence/python-osint-interface');
 
 class ApolloThreatEngine {
     constructor() {
@@ -12,6 +13,10 @@ class ApolloThreatEngine {
         this.behaviorPatterns = new Map();
         this.activeThreats = new Set();
         this.alertCallbacks = [];
+        
+        // Integrate comprehensive Python OSINT intelligence for threat engine
+        this.pythonOSINT = new PythonOSINTInterface();
+        console.log('🚀 Threat Engine integrated with comprehensive Python OSINT intelligence (37 sources)');
 
         this.initializeEngine();
     }
@@ -420,6 +425,132 @@ class ApolloThreatEngine {
     async shutdown() {
         this.isRunning = false;
         console.log('🛑 Apollo Threat Engine shutting down...');
+    }
+    // Comprehensive threat detection with Python OSINT intelligence
+    async analyzeThreatWithOSINT(indicator, indicatorType = 'domain') {
+        try {
+            console.log(`🔍 Threat Engine analyzing with comprehensive OSINT: ${indicator}`);
+            
+            // Query comprehensive OSINT intelligence
+            const osintResult = await this.pythonOSINT.queryThreatIntelligence(indicator, indicatorType);
+            const stats = await this.pythonOSINT.getOSINTStats();
+            
+            // Enhanced threat detection analysis
+            const threatAnalysis = {
+                indicator: indicator,
+                type: indicatorType,
+                timestamp: new Date().toISOString(),
+                osint_sources_queried: osintResult?.sources_queried || 0,
+                total_sources_available: stats?.totalSources || 0,
+                threat_classification: this.classifyThreatWithOSINT(osintResult),
+                malware_families: this.extractMalwareFamilies(osintResult),
+                attack_vectors: this.identifyAttackVectors(osintResult),
+                defensive_measures: this.recommendDefensiveMeasures(osintResult),
+                osint_intelligence: osintResult
+            };
+            
+            // Update threat database with OSINT findings
+            if (osintResult?.malicious || osintResult?.sources?.some(s => s.malicious)) {
+                this.threatDatabase.set(indicator, {
+                    ...threatAnalysis,
+                    added_timestamp: new Date().toISOString(),
+                    osint_verified: true
+                });
+                this.activeThreats.add(indicator);
+                console.log(`⚠️ Threat added to database with OSINT verification: ${indicator}`);
+            }
+            
+            console.log(`✅ Threat Engine OSINT analysis complete: ${threatAnalysis.threat_classification}`);
+            return threatAnalysis;
+            
+        } catch (error) {
+            console.error('❌ Threat Engine OSINT analysis failed:', error);
+            return {
+                indicator: indicator,
+                error: error.message,
+                osint_sources_queried: 0
+            };
+        }
+    }
+    
+    classifyThreatWithOSINT(osintResult) {
+        if (!osintResult || !osintResult.results) return 'Unknown';
+        
+        const results = osintResult.results;
+        const classifications = [];
+        
+        // Analyze AlienVault OTX data
+        if (results.alienvault_otx && results.alienvault_otx.raw_data) {
+            const pulses = results.alienvault_otx.raw_data.pulse_info?.pulses || [];
+            
+            for (const pulse of pulses) {
+                const tags = pulse.tags || [];
+                const name = pulse.name || '';
+                
+                if (tags.some(tag => tag.toLowerCase().includes('ransomware')) || name.toLowerCase().includes('ransomware')) {
+                    classifications.push('Ransomware');
+                } else if (tags.some(tag => tag.toLowerCase().includes('apt')) || name.toLowerCase().includes('apt')) {
+                    classifications.push('Advanced Persistent Threat');
+                } else if (tags.some(tag => tag.toLowerCase().includes('phishing')) || name.toLowerCase().includes('phishing')) {
+                    classifications.push('Phishing Campaign');
+                } else if (tags.some(tag => tag.toLowerCase().includes('botnet')) || name.toLowerCase().includes('botnet')) {
+                    classifications.push('Botnet');
+                }
+            }
+        }
+        
+        // Analyze other sources
+        if (results.threatcrowd && results.threatcrowd.hashes?.length > 0) {
+            classifications.push('Malware Distribution');
+        }
+        
+        return classifications.length > 0 ? classifications.join(', ') : 'Generic Threat';
+    }
+    
+    extractMalwareFamilies(osintResult) {
+        const families = [];
+        
+        if (osintResult?.results?.alienvault_otx?.malware_families) {
+            families.push(...osintResult.results.alienvault_otx.malware_families);
+        }
+        
+        return families.length > 0 ? families : ['Unknown'];
+    }
+    
+    identifyAttackVectors(osintResult) {
+        const vectors = [];
+        
+        if (osintResult?.results) {
+            const results = osintResult.results;
+            
+            if (results.certificates) vectors.push('SSL/TLS Certificate Abuse');
+            if (results.hunter_io) vectors.push('Email-based Reconnaissance');
+            if (results.security_feeds) vectors.push('Known Threat Campaign');
+            if (results.geolocation) vectors.push('Geographic Targeting');
+        }
+        
+        return vectors.length > 0 ? vectors : ['Unknown Vector'];
+    }
+    
+    recommendDefensiveMeasures(osintResult) {
+        const measures = [];
+        
+        if (osintResult?.malicious) {
+            measures.push('🚨 IMMEDIATE BLOCK - Malicious indicator confirmed by OSINT');
+            measures.push('🔍 Hunt for additional IOCs from same campaign');
+            measures.push('📊 Monitor related infrastructure using OSINT feeds');
+        }
+        
+        if (osintResult?.results?.geolocation?.country) {
+            const country = osintResult.results.geolocation.country;
+            if (['North Korea', 'Russia', 'China', 'Iran'].includes(country)) {
+                measures.push(`⚠️ Nation-state origin (${country}) - Implement enhanced monitoring`);
+            }
+        }
+        
+        measures.push('🔄 Continue comprehensive OSINT monitoring');
+        
+        return measures;
     }
 }
 

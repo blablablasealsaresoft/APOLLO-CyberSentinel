@@ -7,6 +7,10 @@ const path = require('path');
 const os = require('os');
 const crypto = require('crypto');
 const ApolloBehavioralAnalyzer = require('./behavioral-analyzer');
+const PythonOSINTInterface = require('../intelligence/python-osint-interface');
+const AdvancedAPTDetectionEngines = require('../apt-detection/advanced-apt-engines');
+const AdvancedCryptocurrencyProtection = require('../crypto-guardian/advanced-crypto-protection');
+const PegasusForensicsEngine = require('../mobile-threats/pegasus-forensics');
 
 class ApolloUnifiedProtectionEngine extends EventEmitter {
     constructor() {
@@ -17,6 +21,16 @@ class ApolloUnifiedProtectionEngine extends EventEmitter {
         this.version = '2.0.0';
         this.isActive = false;
         this.lastScanTime = null;
+        
+        // Integrate comprehensive Python OSINT intelligence for unified protection
+        this.pythonOSINT = new PythonOSINTInterface();
+        console.log('🛡️ Unified Protection Engine integrated with comprehensive Python OSINT intelligence (37 sources)');
+        
+        // Initialize advanced detection engines from nation-state guide
+        this.advancedAPTEngines = new AdvancedAPTDetectionEngines();
+        this.advancedCryptoProtection = new AdvancedCryptocurrencyProtection();
+        this.pegasusForensics = new PegasusForensicsEngine();
+        console.log('🔬 Advanced nation-state detection engines integrated (APT28/29, Lazarus, Pegasus, Crypto)');
 
         // Consolidated protection modules
         this.protectionModules = {
@@ -1512,6 +1526,370 @@ class ApolloUnifiedProtectionEngine extends EventEmitter {
             this.protectionModules[moduleName] = false;
             console.log(`⚠️ Module disabled: ${moduleName}`);
         }
+    }
+    // Comprehensive unified threat analysis with Python OSINT intelligence
+    async analyzeUnifiedThreatWithOSINT(indicator, indicatorType = 'domain', context = {}) {
+        try {
+            console.log(`🛡️ Unified Protection analyzing with comprehensive OSINT: ${indicator}`);
+            
+            // Query comprehensive OSINT intelligence
+            const osintResult = await this.pythonOSINT.queryThreatIntelligence(indicator, indicatorType);
+            const stats = await this.pythonOSINT.getOSINTStats();
+            
+            // Unified threat analysis across all protection modules
+            const unifiedAnalysis = {
+                indicator: indicator,
+                type: indicatorType,
+                context: context,
+                timestamp: new Date().toISOString(),
+                
+                // OSINT Intelligence
+                osint_sources_queried: osintResult?.sources_queried || 0,
+                total_sources_available: stats?.totalSources || 0,
+                osint_intelligence: osintResult,
+                
+                // Unified threat assessment
+                unified_threat_level: this.calculateUnifiedThreatLevel(osintResult),
+                threat_categories: this.categorizeUnifiedThreats(osintResult),
+                confidence_score: this.calculateUnifiedConfidence(osintResult),
+                
+                // Protection module responses
+                threat_detection_response: this.generateThreatDetectionResponse(osintResult),
+                wallet_protection_response: this.generateWalletProtectionResponse(osintResult),
+                apt_monitoring_response: this.generateAPTMonitoringResponse(osintResult),
+                network_monitoring_response: this.generateNetworkMonitoringResponse(osintResult),
+                
+                // Unified recommendations
+                unified_recommendations: this.generateUnifiedRecommendations(osintResult),
+                immediate_actions: this.generateImmediateActions(osintResult)
+            };
+            
+            // Update unified threat database
+            if (osintResult?.malicious || osintResult?.sources?.some(s => s.malicious)) {
+                this.threatDatabase.set(indicator, {
+                    ...unifiedAnalysis,
+                    osint_verified: true,
+                    protection_status: 'ACTIVE_MONITORING'
+                });
+                
+                this.stats.threatsDetected++;
+                console.log(`⚠️ Unified threat detected with OSINT verification: ${indicator}`);
+                
+                // Emit unified threat alert
+                this.emit('unified-threat-detected', unifiedAnalysis);
+            }
+            
+            console.log(`✅ Unified Protection OSINT analysis complete: ${unifiedAnalysis.unified_threat_level}`);
+            return unifiedAnalysis;
+            
+        } catch (error) {
+            console.error('❌ Unified Protection OSINT analysis failed:', error);
+            return {
+                indicator: indicator,
+                error: error.message,
+                osint_sources_queried: 0,
+                unified_threat_level: 'error'
+            };
+        }
+    }
+    
+    calculateUnifiedThreatLevel(osintResult) {
+        if (!osintResult || osintResult.error) return 'unknown';
+        
+        let threatScore = 0;
+        const maxScore = 100;
+        
+        // OSINT threat indicators
+        if (osintResult.malicious) threatScore += 40;
+        if (osintResult.sources?.some(s => s.malicious)) threatScore += 30;
+        if (osintResult.sources?.length >= 5) threatScore += 10; // Multiple source confirmation
+        
+        // Specific source weights
+        if (osintResult.results?.alienvault_otx?.pulse_count > 0) threatScore += 15;
+        if (osintResult.results?.threatcrowd?.hashes?.length > 0) threatScore += 10;
+        if (osintResult.results?.geolocation?.country && 
+            ['North Korea', 'Russia', 'China', 'Iran'].includes(osintResult.results.geolocation.country)) {
+            threatScore += 20; // Nation-state origin
+        }
+        
+        const threatLevel = threatScore / maxScore;
+        
+        if (threatLevel >= 0.8) return 'critical';
+        if (threatLevel >= 0.6) return 'high';
+        if (threatLevel >= 0.4) return 'medium';
+        if (threatLevel >= 0.2) return 'low';
+        return 'clean';
+    }
+    
+    categorizeUnifiedThreats(osintResult) {
+        const categories = [];
+        
+        if (!osintResult || !osintResult.results) return ['Unknown'];
+        
+        const results = osintResult.results;
+        
+        // Analyze threat categories from OSINT data
+        if (results.alienvault_otx && results.alienvault_otx.raw_data) {
+            const pulses = results.alienvault_otx.raw_data.pulse_info?.pulses || [];
+            
+            const threatTypes = new Set();
+            for (const pulse of pulses) {
+                const tags = pulse.tags || [];
+                const name = pulse.name || '';
+                
+                if (tags.some(tag => tag.toLowerCase().includes('ransomware'))) threatTypes.add('Ransomware');
+                if (tags.some(tag => tag.toLowerCase().includes('apt'))) threatTypes.add('APT');
+                if (tags.some(tag => tag.toLowerCase().includes('phishing'))) threatTypes.add('Phishing');
+                if (tags.some(tag => tag.toLowerCase().includes('malware'))) threatTypes.add('Malware');
+                if (tags.some(tag => tag.toLowerCase().includes('botnet'))) threatTypes.add('Botnet');
+                if (tags.some(tag => tag.toLowerCase().includes('crypto'))) threatTypes.add('Crypto Threat');
+            }
+            
+            categories.push(...Array.from(threatTypes));
+        }
+        
+        if (results.certificates) categories.push('Certificate Threat');
+        if (results.hunter_io) categories.push('Email Threat');
+        if (results.geolocation) categories.push('Geographic Threat');
+        
+        return categories.length > 0 ? categories : ['Generic Threat'];
+    }
+    
+    calculateUnifiedConfidence(osintResult) {
+        if (!osintResult || osintResult.error) return 0.1;
+        
+        let confidenceScore = 0.5; // Base confidence
+        const sourcesCount = osintResult.sources?.length || 0;
+        
+        // Increase confidence based on number of sources
+        if (sourcesCount >= 5) confidenceScore += 0.3;
+        else if (sourcesCount >= 3) confidenceScore += 0.2;
+        else if (sourcesCount >= 1) confidenceScore += 0.1;
+        
+        // Premium source bonus
+        if (osintResult.results?.alienvault_otx && !osintResult.results.alienvault_otx.error) {
+            confidenceScore += 0.2;
+        }
+        
+        return Math.min(confidenceScore, 1.0);
+    }
+    
+    generateThreatDetectionResponse(osintResult) {
+        return {
+            module: 'Threat Detection',
+            action: osintResult?.malicious ? 'BLOCK' : 'MONITOR',
+            priority: osintResult?.malicious ? 'HIGH' : 'LOW',
+            osint_sources: osintResult?.sources_queried || 0
+        };
+    }
+    
+    generateWalletProtectionResponse(osintResult) {
+        return {
+            module: 'Wallet Protection',
+            action: osintResult?.malicious ? 'REJECT_TRANSACTION' : 'ALLOW',
+            priority: osintResult?.malicious ? 'CRITICAL' : 'NORMAL',
+            crypto_intelligence: osintResult?.results?.etherscan ? 'AVAILABLE' : 'LIMITED'
+        };
+    }
+    
+    generateAPTMonitoringResponse(osintResult) {
+        const nationState = osintResult?.results?.geolocation?.country;
+        const isNationState = ['North Korea', 'Russia', 'China', 'Iran'].includes(nationState);
+        
+        return {
+            module: 'APT Monitoring',
+            action: isNationState ? 'ENHANCED_MONITORING' : 'STANDARD_MONITORING',
+            priority: isNationState ? 'HIGH' : 'MEDIUM',
+            nation_state_origin: nationState || 'Unknown'
+        };
+    }
+    
+    generateNetworkMonitoringResponse(osintResult) {
+        return {
+            module: 'Network Monitoring',
+            action: osintResult?.malicious ? 'BLOCK_TRAFFIC' : 'MONITOR_TRAFFIC',
+            priority: osintResult?.malicious ? 'HIGH' : 'LOW',
+            geolocation_data: osintResult?.results?.geolocation ? 'AVAILABLE' : 'LIMITED'
+        };
+    }
+    
+    generateUnifiedRecommendations(osintResult) {
+        const recommendations = [];
+        
+        if (osintResult?.malicious) {
+            recommendations.push('🚨 IMMEDIATE THREAT BLOCKING - Malicious indicator confirmed by comprehensive OSINT');
+            recommendations.push('🔍 INVESTIGATE RELATED INFRASTRUCTURE - Hunt for additional IOCs');
+            recommendations.push('📊 ENHANCE MONITORING - Implement continuous OSINT surveillance');
+        } else {
+            recommendations.push('✅ CONTINUE MONITORING - No immediate threats detected');
+            recommendations.push('🔄 MAINTAIN OSINT SURVEILLANCE - Regular intelligence updates');
+        }
+        
+        const sourcesQueried = osintResult?.sources_queried || 0;
+        recommendations.push(`📈 OSINT COVERAGE - ${sourcesQueried} sources analyzed for comprehensive intelligence`);
+        
+        return recommendations;
+    }
+    
+    generateImmediateActions(osintResult) {
+        const actions = [];
+        
+        if (osintResult?.malicious) {
+            actions.push({ action: 'BLOCK_INDICATOR', priority: 'CRITICAL', module: 'ALL' });
+            actions.push({ action: 'ALERT_ADMIN', priority: 'HIGH', module: 'NOTIFICATION' });
+            actions.push({ action: 'LOG_INCIDENT', priority: 'HIGH', module: 'FORENSICS' });
+        }
+        
+        actions.push({ action: 'UPDATE_OSINT_FEEDS', priority: 'MEDIUM', module: 'INTELLIGENCE' });
+        
+        return actions;
+    }
+    
+    // ============================================================================
+    // ADVANCED NATION-STATE THREAT ANALYSIS (NEW)
+    // ============================================================================
+    
+    async performAdvancedNationStateAnalysis(indicator, indicatorType = 'domain', context = {}) {
+        try {
+            console.log(`🌍 Advanced nation-state threat analysis for: ${indicator}`);
+            
+            const analysisResults = {
+                indicator: indicator,
+                type: indicatorType,
+                context: context,
+                timestamp: new Date().toISOString(),
+                
+                // Advanced APT analysis
+                apt_analysis: null,
+                crypto_analysis: null,
+                mobile_analysis: null,
+                
+                // Comprehensive threat assessment
+                nation_state_attribution: null,
+                threat_campaigns: [],
+                mitre_techniques: [],
+                confidence_score: 0,
+                
+                // OSINT intelligence
+                osint_sources_queried: 0,
+                total_sources_available: 0,
+                osint_intelligence: null,
+                
+                // Advanced recommendations
+                nation_state_recommendations: [],
+                immediate_actions: []
+            };
+            
+            // 1. Advanced APT Group Analysis
+            analysisResults.apt_analysis = await this.advancedAPTEngines.performComprehensiveAPTAnalysis(indicator, indicatorType);
+            if (analysisResults.apt_analysis.detections.length > 0) {
+                analysisResults.nation_state_attribution = analysisResults.apt_analysis.nation_state_attribution;
+                analysisResults.threat_campaigns.push(...analysisResults.apt_analysis.detections.map(d => d.campaign || 'Unknown'));
+                analysisResults.confidence_score = Math.max(analysisResults.confidence_score, analysisResults.apt_analysis.confidence_score);
+            }
+            
+            // 2. Advanced Cryptocurrency Threat Analysis
+            if (indicatorType === 'domain' || indicatorType === 'address' || indicatorType === 'hash') {
+                analysisResults.crypto_analysis = await this.advancedCryptoProtection.performComprehensiveCryptoAnalysis(indicator, indicatorType);
+                if (analysisResults.crypto_analysis.threat_categories.length > 0) {
+                    analysisResults.confidence_score = Math.max(analysisResults.confidence_score, analysisResults.crypto_analysis.confidence_score);
+                }
+            }
+            
+            // 3. Mobile Spyware Analysis (if mobile context)
+            if (context.platform === 'mobile' || context.device_backup) {
+                analysisResults.mobile_analysis = await this.pegasusForensics.performComprehensiveMobileAnalysis(
+                    context.device_backup || '/tmp/device_backup',
+                    context.mobile_platform || 'ios'
+                );
+                if (analysisResults.mobile_analysis.spyware_detections.length > 0) {
+                    analysisResults.confidence_score = Math.max(analysisResults.confidence_score, analysisResults.mobile_analysis.confidence_score);
+                }
+            }
+            
+            // 4. OSINT Intelligence Synthesis
+            analysisResults.osint_intelligence = analysisResults.apt_analysis?.osint_intelligence || 
+                                               analysisResults.crypto_analysis?.osint_intelligence ||
+                                               await this.pythonOSINT.queryThreatIntelligence(indicator, indicatorType);
+            
+            analysisResults.osint_sources_queried = analysisResults.osint_intelligence?.sources_queried || 0;
+            
+            // 5. Generate Nation-State Specific Recommendations
+            analysisResults.nation_state_recommendations = this.generateNationStateRecommendations(analysisResults);
+            analysisResults.immediate_actions = this.generateNationStateActions(analysisResults);
+            
+            console.log(`✅ Advanced nation-state analysis complete: ${analysisResults.nation_state_attribution || 'No attribution'}`);
+            return analysisResults;
+            
+        } catch (error) {
+            console.error('❌ Advanced nation-state analysis failed:', error);
+            return {
+                indicator: indicator,
+                error: error.message,
+                nation_state_attribution: null,
+                confidence_score: 0
+            };
+        }
+    }
+    
+    generateNationStateRecommendations(analysisResults) {
+        const recommendations = [];
+        
+        if (analysisResults.nation_state_attribution) {
+            recommendations.push(`🌍 NATION-STATE THREAT: ${analysisResults.nation_state_attribution}`);
+            recommendations.push('📞 CONTACT AUTHORITIES - Report to FBI/CISA for nation-state targeting');
+            recommendations.push('🔒 IMPLEMENT ENHANCED SECURITY - Nation-state grade protection required');
+            recommendations.push('💾 PRESERVE EVIDENCE - Maintain forensic integrity for investigation');
+            
+            // Attribution-specific recommendations
+            if (analysisResults.nation_state_attribution.includes('Russia')) {
+                recommendations.push('🇷🇺 RUSSIAN APT - Monitor for credential theft and spear phishing');
+            } else if (analysisResults.nation_state_attribution.includes('North Korea')) {
+                recommendations.push('🇰🇵 DPRK APT - Secure cryptocurrency assets immediately');
+            } else if (analysisResults.nation_state_attribution.includes('NSO Group')) {
+                recommendations.push('📱 PEGASUS DETECTED - Enable mobile device lockdown mode');
+            }
+        }
+        
+        if (analysisResults.crypto_analysis?.threat_categories.length > 0) {
+            recommendations.push('💰 CRYPTO THREATS - Implement advanced wallet protection');
+        }
+        
+        if (analysisResults.mobile_analysis?.spyware_detections.length > 0) {
+            recommendations.push('📱 MOBILE SPYWARE - Execute mobile security protocols');
+        }
+        
+        const sourcesQueried = analysisResults.osint_sources_queried || 0;
+        recommendations.push(`📊 COMPREHENSIVE INTELLIGENCE - ${sourcesQueried} sources analyzed`);
+        
+        return recommendations;
+    }
+    
+    generateNationStateActions(analysisResults) {
+        const actions = [];
+        
+        if (analysisResults.confidence_score >= 0.8) {
+            actions.push({ action: 'ISOLATE_SYSTEMS', priority: 'CRITICAL', module: 'ALL' });
+            actions.push({ action: 'ALERT_AUTHORITIES', priority: 'HIGH', module: 'NOTIFICATION' });
+            actions.push({ action: 'PRESERVE_EVIDENCE', priority: 'HIGH', module: 'FORENSICS' });
+        }
+        
+        if (analysisResults.nation_state_attribution) {
+            actions.push({ action: 'ENHANCED_MONITORING', priority: 'HIGH', module: 'APT_DETECTION' });
+            actions.push({ action: 'THREAT_HUNTING', priority: 'MEDIUM', module: 'INTELLIGENCE' });
+        }
+        
+        if (analysisResults.crypto_analysis?.threat_categories.includes('wallet_stealer')) {
+            actions.push({ action: 'SECURE_CRYPTO_ASSETS', priority: 'CRITICAL', module: 'CRYPTO_GUARDIAN' });
+        }
+        
+        if (analysisResults.mobile_analysis?.pegasus_analysis?.infected) {
+            actions.push({ action: 'MOBILE_LOCKDOWN', priority: 'CRITICAL', module: 'MOBILE_PROTECTION' });
+        }
+        
+        actions.push({ action: 'UPDATE_THREAT_FEEDS', priority: 'MEDIUM', module: 'INTELLIGENCE' });
+        
+        return actions;
     }
 }
 

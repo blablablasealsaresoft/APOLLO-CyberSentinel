@@ -26,7 +26,11 @@ contextBridge.exposeInMainWorld('electronAPI', {
     getAIOracleStats: () => ipcRenderer.invoke('get-ai-oracle-stats'),
     getNetworkStats: () => ipcRenderer.invoke('get-network-stats'),
     getSystemPerformance: () => ipcRenderer.invoke('get-system-performance'),
-    
+
+    // Security scanning operations
+    scanForMalware: () => ipcRenderer.invoke('scan-for-malware'),
+    scanForDDoS: () => ipcRenderer.invoke('scan-for-ddos'),
+
     // Real OSINT intelligence operations
     refreshThreatFeeds: () => ipcRenderer.invoke('refresh-threat-feeds'),
     refreshOSINT: () => ipcRenderer.invoke('refresh-threat-feeds'),
@@ -89,6 +93,20 @@ contextBridge.exposeInMainWorld('apolloAPI', {
     refreshThreats: () => ipcRenderer.invoke('refresh-threat-feeds'),
     getNetworkStats: () => ipcRenderer.invoke('get-network-stats'),
     getSystemPerformance: () => ipcRenderer.invoke('get-system-performance'),
+    scanForMalware: () => ipcRenderer.invoke('scan-for-malware'),
+    scanForDDoS: () => ipcRenderer.invoke('scan-for-ddos'),
+    
+    // Comprehensive Python OSINT Intelligence
+    queryDomainIntelligence: (domain) => ipcRenderer.invoke('query-domain-intelligence', domain),
+    analyzeCryptoTransaction: (txHash, blockchain) => ipcRenderer.invoke('analyze-crypto-transaction', txHash, blockchain),
+    queryThreatIntelligence: (indicator, type) => ipcRenderer.invoke('query-threat-intelligence', indicator, type),
+    getComprehensiveOSINTStats: () => ipcRenderer.invoke('get-osint-stats'),
+    
+    // Advanced Nation-State Threat Analysis (NEW)
+    analyzeNationStateThreat: (indicator, type, context) => ipcRenderer.invoke('analyze-nation-state-threat', indicator, type, context),
+    analyzeAPTThreat: (indicator, type) => ipcRenderer.invoke('analyze-apt-threat', indicator, type),
+    analyzeCryptoThreat: (indicator, type) => ipcRenderer.invoke('analyze-crypto-threat', indicator, type),
+    analyzeMobileSpyware: (backupPath, platform) => ipcRenderer.invoke('analyze-mobile-spyware', backupPath, platform),
 
     onThreatAlert: (callback) => ipcRenderer.on('threat-alert', callback),
     onCryptoAlert: (callback) => ipcRenderer.on('crypto-alert', callback),

@@ -11,6 +11,7 @@ const ThreatBlocker = require('../native/threat-blocker');
 const ApolloThreatEngine = require('../threat-engine/core');
 const ApolloWalletShield = require('../crypto-guardian/wallet-shield');
 const ApolloAPTDetector = require('../apt-detection/realtime-monitor');
+const PythonOSINTInterface = require('../intelligence/python-osint-interface');
 
 class ApolloService {
     constructor() {
@@ -23,6 +24,10 @@ class ApolloService {
         this.threatEngine = null;
         this.walletShield = null;
         this.aptDetector = null;
+        
+        // Integrate comprehensive Python OSINT intelligence for service-level operations
+        this.pythonOSINT = new PythonOSINTInterface();
+        console.log('🔧 Apollo Service integrated with comprehensive Python OSINT intelligence (37 sources)');
 
         this.serviceConfig = {
             name: 'ApolloProtection',

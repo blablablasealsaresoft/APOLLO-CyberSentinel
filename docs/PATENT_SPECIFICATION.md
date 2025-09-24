@@ -42,10 +42,11 @@ There exists a need for a cybersecurity system that can:
 ### Novel Technical Contributions
 
 #### 1. Hybrid Threat Detection Engine (Claim 1)
-A novel three-tier detection system comprising:
+A novel multi-tier detection system comprising:
 - **Tier 1**: Verified signature matching against government-documented threats
 - **Tier 2**: Real-time behavioral pattern analysis for zero-day detection  
 - **Tier 3**: AI-enhanced context analysis with confidence scoring
+- **Tier 4**: 37-source OSINT intelligence correlation with premium API integration
 
 #### 2. Critical Process Protection System (Claim 2)
 A system and method for protecting essential operating system processes from accidental termination during threat response, comprising:
@@ -64,6 +65,38 @@ A system for integrating real-time threat intelligence from authoritative govern
 - Automated ingestion of CISA, FBI, and NCSC threat indicators
 - Verification and attribution of threat intelligence sources
 - Real-time correlation with local system activity
+
+#### 5. Advanced APT Detection Framework (Claim 5) - NEW
+A comprehensive system for detecting nation-state Advanced Persistent Threats comprising:
+- **APT28 (Fancy Bear)**: SOURFACE/EVILTOSS detection with Moscow timezone compilation analysis
+- **APT29 (Cozy Bear)**: SUNBURST/NOBELIUM supply chain compromise detection
+- **Lazarus Group**: AppleJeus cryptocurrency theft campaign detection with YARA rules
+- **Pegasus (NSO)**: Zero-click mobile exploitation detection with MVT compatibility
+- Multi-source attribution using OSINT intelligence and geolocation correlation
+
+#### 6. Comprehensive Cryptocurrency Protection System (Claim 6) - NEW
+A multi-layered cryptocurrency threat protection system comprising:
+- **Cryptojacking Detection**: XMRig, mining pool, and behavioral pattern detection
+- **Wallet Stealer Protection**: Multi-wallet format protection (Bitcoin, Ethereum, Monero, etc.)
+- **Clipboard Hijacking Prevention**: Real-time cryptocurrency address monitoring
+- **Multi-chain Analysis**: Cross-blockchain transaction and address intelligence
+- Comprehensive protection for 7+ cryptocurrencies with real-time monitoring
+
+#### 7. Mobile Spyware Forensics Engine (Claim 7) - NEW
+An advanced mobile device forensic analysis system comprising:
+- **Pegasus Detection**: iOS/Android spyware analysis with shutdown.log and DataUsage.sqlite examination
+- **Stalkerware Identification**: Domestic abuse surveillance software detection
+- **Commercial Spyware Detection**: FinSpy, Cellebrite, and vendor-specific analysis
+- **MVT Integration**: Mobile Verification Toolkit compatibility for Amnesty International standards
+- Evidence preservation with forensic integrity and chain of custody
+
+#### 8. Nation-State Attribution Engine (Claim 8) - NEW
+A sophisticated threat attribution system comprising:
+- **Geographic Intelligence**: IP geolocation correlation with nation-state infrastructure
+- **MITRE ATT&CK Mapping**: Technique attribution to specific APT groups
+- **Campaign Identification**: Specific operation detection (AppleJeus, SolarWinds, etc.)
+- **Confidence Scoring**: Multi-source intelligence synthesis for attribution confidence
+- Real-time threat actor profiling with government-verified intelligence sources
 
 ---
 
@@ -360,15 +393,51 @@ class GovernmentIntelligenceIntegrator {
 - Real-time threat attribution assessment
 - Verification framework for source authenticity
 
+**Claim 5**: An advanced APT detection framework for nation-state threat identification comprising:
+- Specific APT group detection engines (APT28, APT29, Lazarus, Pegasus)
+- YARA rule implementation with Moscow timezone compilation analysis
+- MITRE ATT&CK technique mapping for threat attribution
+- Supply chain compromise detection with SUNBURST pattern recognition
+- Cryptocurrency theft campaign detection with AppleJeus signatures
+
+**Claim 6**: A comprehensive cryptocurrency protection system comprising:
+- Multi-cryptocurrency wallet protection (Bitcoin, Ethereum, Monero, Litecoin, Zcash)
+- Real-time cryptojacking detection with mining pool monitoring
+- Clipboard hijacking prevention with address substitution detection
+- Multi-chain blockchain analysis with cross-network correlation
+- Behavioral pattern recognition for unknown cryptocurrency threats
+
+**Claim 7**: A mobile device spyware forensics engine comprising:
+- Pegasus spyware detection with shutdown.log and DataUsage.sqlite analysis
+- Stalkerware identification with domestic abuse safety protocols
+- MVT (Mobile Verification Toolkit) compatibility for Amnesty International standards
+- Commercial spyware detection for FinSpy, Cellebrite, and vendor tools
+- Evidence preservation with forensic integrity and chain of custody maintenance
+
+**Claim 8**: A nation-state threat attribution engine comprising:
+- Geographic intelligence correlation with IP geolocation and infrastructure analysis
+- APT group identification using government-verified threat intelligence
+- Campaign-specific detection (AppleJeus, SolarWinds, Evil New Year)
+- Multi-source confidence scoring with premium API integration
+- Real-time threat actor profiling with 37-source OSINT intelligence synthesis
+
 ### Dependent Claims
 
-**Claim 5**: The method of Claim 1, wherein the behavioral analysis comprises weighted scoring of suspicious activity patterns including mass file encryption, privilege escalation, and data exfiltration behaviors.
+**Claim 9**: The method of Claim 1, wherein the behavioral analysis comprises weighted scoring of suspicious activity patterns including mass file encryption, privilege escalation, and data exfiltration behaviors.
 
-**Claim 6**: The system of Claim 2, wherein critical processes are identified dynamically based on operating system type and include at minimum: winlogon.exe, csrss.exe, services.exe, and lsass.exe on Windows systems.
+**Claim 10**: The system of Claim 2, wherein critical processes are identified dynamically based on operating system type and include at minimum: winlogon.exe, csrss.exe, services.exe, and lsass.exe on Windows systems.
 
-**Claim 7**: The method of Claim 3, wherein process chain analysis includes verification of legitimate chains such as "explorer.exe>powershell.exe" for user-initiated activities and "code.exe>powershell.exe" for development environments.
+**Claim 11**: The method of Claim 3, wherein process chain analysis includes verification of legitimate chains such as "explorer.exe>powershell.exe" for user-initiated activities and "code.exe>powershell.exe" for development environments.
 
-**Claim 8**: The system of Claim 4, wherein government sources include at minimum CISA cybersecurity advisories, FBI cyber division notices, and academic research from Citizen Lab and Amnesty International.
+**Claim 12**: The system of Claim 4, wherein government sources include at minimum CISA cybersecurity advisories, FBI cyber division notices, and academic research from Citizen Lab and Amnesty International.
+
+**Claim 13**: The APT detection framework of Claim 5, wherein APT28 detection includes compilation timestamp analysis for Moscow timezone business hours and RSA encryption pattern recognition in SOURFACE malware variants.
+
+**Claim 14**: The cryptocurrency protection system of Claim 6, wherein wallet protection includes real-time monitoring of wallet.dat files, Ethereum keystore directories, MetaMask browser extensions, and Electrum wallet applications with process legitimacy verification.
+
+**Claim 15**: The mobile forensics engine of Claim 7, wherein Pegasus detection includes analysis of iOS shutdown.log files for suspicious process terminations, DataUsage.sqlite database for network usage anomalies, and WebKit cache examination for exploitation artifacts.
+
+**Claim 16**: The attribution engine of Claim 8, wherein nation-state identification includes geolocation correlation with threat actor infrastructure, MITRE ATT&CK technique fingerprinting, and multi-source confidence scoring using premium threat intelligence APIs.
 
 ---
 

@@ -1,4 +1,5 @@
 const Anthropic = require('@anthropic-ai/sdk');
+const PythonOSINTInterface = require('../intelligence/python-osint-interface');
 
 class ApolloAIOracle {
     constructor() {
@@ -8,6 +9,10 @@ class ApolloAIOracle {
         this.threatContextDatabase = new Map();
         this.analysisHistory = [];
         this.maxHistorySize = 1000;
+        
+        // Integrate comprehensive Python OSINT intelligence
+        this.pythonOSINT = new PythonOSINTInterface();
+        console.log('🧠 AI Oracle integrated with comprehensive Python OSINT intelligence (37 sources)');
 
         this.systemPrompt = `You are Apollo, a military-grade cybersecurity AI assistant specializing in:
 - Nation-state threat analysis (North Korea, Russia, China, Iran)
@@ -28,6 +33,112 @@ Always include confidence scores and cite relevant threat intelligence sources w
         this.loadConfiguration();
         this.initializeThreatContext();
         console.log('🤖 Apollo AI Oracle initialized');
+    }
+    
+    async gatherComprehensiveOSINTIntelligence(indicator) {
+        try {
+            console.log(`🔍 AI Oracle gathering comprehensive OSINT for: ${indicator}`);
+            
+            // Determine indicator type
+            let indicatorType = 'domain';
+            if (/^[a-fA-F0-9]{32,64}$/.test(indicator)) indicatorType = 'hash';
+            else if (/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(indicator)) indicatorType = 'ip';
+            else if (indicator.startsWith('http')) indicatorType = 'url';
+            else if (/^0x[a-fA-F0-9]{40}$/.test(indicator)) indicatorType = 'address';
+            
+            let osintData = null;
+            
+            if (indicatorType === 'domain') {
+                osintData = await this.pythonOSINT.queryDomainIntelligence(indicator);
+            } else if (indicatorType === 'ip') {
+                osintData = await this.pythonOSINT.queryIPIntelligence(indicator);
+            } else {
+                osintData = await this.pythonOSINT.queryThreatIntelligence(indicator, indicatorType);
+            }
+            
+            const stats = await this.pythonOSINT.getOSINTStats();
+            
+            return {
+                indicator: indicator,
+                type: indicatorType,
+                sourcesQueried: osintData?.sources_queried || 0,
+                totalSources: stats?.totalSources || 0,
+                osintData: osintData,
+                summary: this.summarizeOSINTForAI(osintData, stats)
+            };
+            
+        } catch (error) {
+            console.warn(`⚠️ AI Oracle OSINT gathering failed: ${error.message}`);
+            return {
+                indicator: indicator,
+                sourcesQueried: 0,
+                summary: 'OSINT intelligence unavailable',
+                error: error.message
+            };
+        }
+    }
+    
+    summarizeOSINTForAI(osintData, stats) {
+        if (!osintData || osintData.error) {
+            return 'No OSINT intelligence available.';
+        }
+        
+        let summary = `OSINT Intelligence Summary (${stats?.totalSources || 0} sources available):\n`;
+        
+        if (osintData.results) {
+            const results = osintData.results;
+            
+            if (results.alienvault_otx && !results.alienvault_otx.error) {
+                summary += `- AlienVault OTX: ${results.alienvault_otx.pulse_count || 0} threat pulses, reputation ${results.alienvault_otx.reputation || 0}\n`;
+            }
+            
+            if (results.hunter_io && !results.hunter_io.error) {
+                summary += `- Hunter.io: Organization "${results.hunter_io.organization || 'Unknown'}", ${results.hunter_io.emails_found || 0} emails\n`;
+            }
+            
+            if (results.certificates && !results.certificates.error) {
+                summary += `- SSL Certificates: ${results.certificates.certificates_found || 0} certificates, ${results.certificates.unique_subdomains || 0} subdomains\n`;
+            }
+            
+            if (results.geolocation && !results.geolocation.error) {
+                summary += `- Geolocation: ${results.geolocation.country || 'Unknown'}, ${results.geolocation.city || 'Unknown'}, ISP: ${results.geolocation.isp || 'Unknown'}\n`;
+            }
+            
+            if (results.threatcrowd && !results.threatcrowd.error) {
+                summary += `- ThreatCrowd: ${results.threatcrowd.hashes?.length || 0} hashes, ${results.threatcrowd.subdomains?.length || 0} subdomains\n`;
+            }
+        }
+        
+        return summary;
+    }
+    
+    buildAnalysisPromptWithOSINT(indicator, threatContext, context, osintIntelligence) {
+        return `
+COMPREHENSIVE CYBERSECURITY THREAT ANALYSIS REQUEST
+
+Indicator: ${indicator}
+Type: ${osintIntelligence.type}
+Context: ${JSON.stringify(context)}
+
+COMPREHENSIVE OSINT INTELLIGENCE:
+${osintIntelligence.summary}
+
+THREAT CONTEXT DATABASE:
+${threatContext}
+
+ANALYSIS REQUIREMENTS:
+Based on the comprehensive OSINT data from ${osintIntelligence.sourcesQueried} sources out of ${osintIntelligence.totalSources} available, provide:
+
+1. THREAT LEVEL: (clean, low, medium, high, critical)
+2. CONFIDENCE SCORE: (0.0 to 1.0) based on OSINT evidence quality
+3. TECHNICAL ANALYSIS: Incorporating all OSINT findings
+4. ATTRIBUTION: Threat actor/campaign identification if possible
+5. RECOMMENDATIONS: Specific defensive actions
+6. IOCS: Additional indicators of compromise from OSINT
+7. TTPS: Tactics, techniques, and procedures observed
+
+Focus on actionable intelligence and cite specific OSINT sources in your analysis.
+        `;
     }
 
     loadConfiguration() {
@@ -94,10 +205,13 @@ Always include confidence scores and cite relevant threat intelligence sources w
         }
 
         try {
-            console.log(`🧠 Claude AI Oracle analyzing threat: ${indicator}`);
+            console.log(`🧠 Claude AI Oracle analyzing threat with comprehensive OSINT: ${indicator}`);
 
+            // Gather comprehensive OSINT intelligence first
+            const osintIntelligence = await this.gatherComprehensiveOSINTIntelligence(indicator);
+            
             const threatContext = this.buildThreatContext(indicator, context);
-            const prompt = this.buildAnalysisPrompt(indicator, threatContext, context);
+            const prompt = this.buildAnalysisPromptWithOSINT(indicator, threatContext, context, osintIntelligence);
 
             // Use custom prompt if provided in context
             const finalPrompt = context.customPrompt || prompt;

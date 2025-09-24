@@ -5,6 +5,7 @@
 const crypto = require('crypto');
 const path = require('path');
 const fs = require('fs-extra');
+const PythonOSINTInterface = require('../intelligence/python-osint-interface');
 
 class EnhancedThreatDatabase {
     constructor() {
@@ -12,6 +13,11 @@ class EnhancedThreatDatabase {
         this.hashes = new Set();
         this.patterns = new Map();
         this.isLoaded = false;
+        
+        // Integrate comprehensive Python OSINT intelligence for enhanced threat signatures
+        this.pythonOSINT = new PythonOSINTInterface();
+        console.log('📊 Enhanced Threat Database integrated with comprehensive Python OSINT intelligence (37 sources)');
+        
         this.initialize();
     }
 
@@ -690,6 +696,144 @@ class EnhancedThreatDatabase {
                 MINER: Array.from(this.signatures.values()).filter(s => s.category === 'MINER').length
             }
         };
+    }
+    // OSINT-enhanced threat signature analysis
+    async analyzeWithOSINTEnhancement(indicator, indicatorType = 'hash') {
+        try {
+            console.log(`📊 Enhanced Database analyzing with comprehensive OSINT: ${indicator}`);
+            
+            // First check local enhanced signatures
+            const localMatch = this.checkSignature(indicator);
+            
+            // Query comprehensive OSINT intelligence for additional context
+            const osintResult = await this.pythonOSINT.queryThreatIntelligence(indicator, indicatorType);
+            const stats = await this.pythonOSINT.getOSINTStats();
+            
+            // Enhanced signature analysis
+            const enhancedAnalysis = {
+                indicator: indicator,
+                type: indicatorType,
+                timestamp: new Date().toISOString(),
+                
+                // Local signature database results
+                local_signature_match: localMatch,
+                local_threat_detected: localMatch.detected,
+                local_signature_details: localMatch.details,
+                
+                // OSINT intelligence enhancement
+                osint_sources_queried: osintResult?.sources_queried || 0,
+                total_sources_available: stats?.totalSources || 0,
+                osint_intelligence: osintResult,
+                osint_threat_detected: osintResult?.malicious || false,
+                
+                // Combined analysis
+                combined_threat_level: this.calculateCombinedThreatLevel(localMatch, osintResult),
+                combined_confidence: this.calculateCombinedConfidence(localMatch, osintResult),
+                enhanced_attribution: this.enhanceAttribution(localMatch, osintResult),
+                comprehensive_recommendations: this.generateComprehensiveRecommendations(localMatch, osintResult)
+            };
+            
+            console.log(`✅ Enhanced signature analysis with OSINT complete: ${enhancedAnalysis.combined_threat_level}`);
+            return enhancedAnalysis;
+            
+        } catch (error) {
+            console.error('❌ OSINT-enhanced signature analysis failed:', error);
+            return {
+                indicator: indicator,
+                error: error.message,
+                local_signature_match: this.checkSignature(indicator),
+                osint_sources_queried: 0
+            };
+        }
+    }
+    
+    calculateCombinedThreatLevel(localMatch, osintResult) {
+        let threatScore = 0;
+        
+        // Local signature weights
+        if (localMatch.detected) {
+            switch (localMatch.details.severity) {
+                case 'CRITICAL': threatScore += 50; break;
+                case 'HIGH': threatScore += 40; break;
+                case 'MEDIUM': threatScore += 25; break;
+                case 'LOW': threatScore += 10; break;
+            }
+        }
+        
+        // OSINT weights
+        if (osintResult?.malicious) threatScore += 30;
+        if (osintResult?.sources?.some(s => s.malicious)) threatScore += 20;
+        
+        if (threatScore >= 70) return 'critical';
+        if (threatScore >= 50) return 'high';
+        if (threatScore >= 30) return 'medium';
+        if (threatScore >= 10) return 'low';
+        return 'clean';
+    }
+    
+    calculateCombinedConfidence(localMatch, osintResult) {
+        let confidence = 0.3; // Base confidence
+        
+        // Local signature confidence
+        if (localMatch.detected) confidence += 0.4;
+        
+        // OSINT confidence
+        const osintConfidence = osintResult?.confidence || 0;
+        confidence += osintConfidence * 0.3;
+        
+        // Source count bonus
+        const sourcesCount = osintResult?.sources?.length || 0;
+        if (sourcesCount >= 3) confidence += 0.2;
+        else if (sourcesCount >= 1) confidence += 0.1;
+        
+        return Math.min(confidence, 1.0);
+    }
+    
+    enhanceAttribution(localMatch, osintResult) {
+        let attribution = localMatch.detected ? localMatch.details.attribution : 'Unknown';
+        
+        // Enhance with OSINT attribution data
+        if (osintResult?.results?.alienvault_otx?.raw_data) {
+            const pulses = osintResult.results.alienvault_otx.raw_data.pulse_info?.pulses || [];
+            
+            for (const pulse of pulses) {
+                const tags = pulse.tags || [];
+                if (tags.some(tag => tag.toLowerCase().includes('lazarus'))) {
+                    attribution = 'Lazarus Group (North Korea) - OSINT Enhanced';
+                    break;
+                } else if (tags.some(tag => tag.toLowerCase().includes('apt1'))) {
+                    attribution = 'APT1 (China) - OSINT Enhanced';
+                    break;
+                }
+            }
+        }
+        
+        return attribution;
+    }
+    
+    generateComprehensiveRecommendations(localMatch, osintResult) {
+        const recommendations = [];
+        
+        // Local signature recommendations
+        if (localMatch.detected && localMatch.details.mitigation) {
+            recommendations.push(`🛡️ SIGNATURE-BASED: ${localMatch.details.mitigation}`);
+        }
+        
+        // OSINT-based recommendations
+        if (osintResult?.malicious) {
+            recommendations.push('🔍 OSINT-VERIFIED THREAT: Implement immediate blocking');
+            recommendations.push('📊 MONITOR RELATED INFRASTRUCTURE: Check for campaign indicators');
+        }
+        
+        // Combined recommendations
+        if (localMatch.detected && osintResult?.malicious) {
+            recommendations.push('⚠️ DUAL CONFIRMATION: High-confidence threat - Execute full defensive measures');
+        }
+        
+        const sourcesQueried = osintResult?.sources_queried || 0;
+        recommendations.push(`📈 CONTINUE OSINT MONITORING: ${sourcesQueried} sources provide ongoing intelligence`);
+        
+        return recommendations;
     }
 }
 

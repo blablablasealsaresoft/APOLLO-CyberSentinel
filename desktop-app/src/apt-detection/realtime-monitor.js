@@ -4,6 +4,7 @@ const path = require('path');
 const crypto = require('crypto');
 const { exec, spawn } = require('child_process');
 const util = require('util');
+const PythonOSINTInterface = require('../intelligence/python-osint-interface');
 
 const execAsync = util.promisify(exec);
 
@@ -17,6 +18,10 @@ class ApolloAPTDetector {
         this.monitoringInterval = null;
         this.processMonitoringInterval = null;
         this.networkMonitoringInterval = null;
+        
+        // Integrate comprehensive Python OSINT intelligence for APT detection
+        this.pythonOSINT = new PythonOSINTInterface();
+        console.log('🔍 APT Detector integrated with comprehensive Python OSINT intelligence (37 sources)');
 
         this.initializeDetector();
     }
@@ -735,6 +740,125 @@ class ApolloAPTDetector {
         }
 
         console.log('🛑 Apollo APT Detection shutting down...');
+    }
+    // Enhanced APT detection with comprehensive OSINT intelligence
+    async analyzeAPTIndicatorWithOSINT(indicator, indicatorType = 'domain') {
+        try {
+            console.log(`🔍 APT Detector analyzing indicator with comprehensive OSINT: ${indicator}`);
+            
+            // Query comprehensive OSINT intelligence
+            const osintResult = await this.pythonOSINT.queryThreatIntelligence(indicator, indicatorType);
+            const stats = await this.pythonOSINT.getOSINTStats();
+            
+            // Enhanced APT analysis with OSINT data
+            const aptAnalysis = {
+                indicator: indicator,
+                type: indicatorType,
+                timestamp: new Date().toISOString(),
+                osint_sources_queried: osintResult?.sources_queried || 0,
+                total_sources_available: stats?.totalSources || 0,
+                apt_attribution: this.analyzeAPTAttribution(osintResult),
+                threat_level: osintResult?.threat_level || 'unknown',
+                confidence: osintResult?.confidence || 0.5,
+                nation_state_indicators: this.extractNationStateIndicators(osintResult),
+                osint_intelligence: osintResult
+            };
+            
+            console.log(`✅ APT analysis with OSINT complete: ${aptAnalysis.apt_attribution || 'No attribution'}`);
+            return aptAnalysis;
+            
+        } catch (error) {
+            console.error('❌ APT OSINT analysis failed:', error);
+            return {
+                indicator: indicator,
+                error: error.message,
+                osint_sources_queried: 0
+            };
+        }
+    }
+    
+    analyzeAPTAttribution(osintResult) {
+        if (!osintResult || !osintResult.results) return 'Unknown';
+        
+        const results = osintResult.results;
+        let attribution = 'Unknown';
+        
+        // Check AlienVault OTX for APT attribution
+        if (results.alienvault_otx && results.alienvault_otx.raw_data) {
+            const pulses = results.alienvault_otx.raw_data.pulse_info?.pulses || [];
+            
+            for (const pulse of pulses) {
+                const tags = pulse.tags || [];
+                const name = pulse.name || '';
+                
+                // Check for known APT groups
+                if (tags.some(tag => tag.toLowerCase().includes('lazarus')) || name.toLowerCase().includes('lazarus')) {
+                    attribution = 'Lazarus Group (North Korea)';
+                    break;
+                } else if (tags.some(tag => tag.toLowerCase().includes('apt1')) || name.toLowerCase().includes('apt1')) {
+                    attribution = 'APT1 (China - PLA Unit 61398)';
+                    break;
+                } else if (tags.some(tag => tag.toLowerCase().includes('fancy bear')) || name.toLowerCase().includes('fancy bear')) {
+                    attribution = 'Fancy Bear (Russia - GRU Unit 26165)';
+                    break;
+                } else if (tags.some(tag => tag.toLowerCase().includes('cozy bear')) || name.toLowerCase().includes('cozy bear')) {
+                    attribution = 'Cozy Bear (Russia - SVR)';
+                    break;
+                } else if (tags.some(tag => tag.toLowerCase().includes('charming kitten')) || name.toLowerCase().includes('charming kitten')) {
+                    attribution = 'Charming Kitten (Iran)';
+                    break;
+                }
+            }
+        }
+        
+        return attribution;
+    }
+    
+    extractNationStateIndicators(osintResult) {
+        if (!osintResult || !osintResult.results) return [];
+        
+        const indicators = [];
+        const results = osintResult.results;
+        
+        // Extract geolocation indicators
+        if (results.geolocation && !results.geolocation.error) {
+            const country = results.geolocation.country;
+            if (['North Korea', 'Russia', 'China', 'Iran'].includes(country)) {
+                indicators.push({
+                    type: 'geolocation',
+                    indicator: `Origin: ${country}`,
+                    risk_level: 'high',
+                    source: 'IP Geolocation'
+                });
+            }
+        }
+        
+        // Extract ThreatCrowd nation-state indicators
+        if (results.threatcrowd && !results.threatcrowd.error) {
+            const emails = results.threatcrowd.emails || [];
+            const domains = results.threatcrowd.subdomains || [];
+            
+            // Check for nation-state associated domains/emails
+            const nationStatePatterns = [
+                { pattern: /\.kp$|\.cn$|\.ru$|\.ir$/, indicator: 'Nation-state TLD usage' },
+                { pattern: /gov\.|mil\.|edu\./, indicator: 'Government/Military targeting' },
+                { pattern: /apt\d+|lazarus|fancy|cozy|charming/i, indicator: 'Known APT group association' }
+            ];
+            
+            for (const pattern of nationStatePatterns) {
+                if (emails.some(email => pattern.pattern.test(email)) || 
+                    domains.some(domain => pattern.pattern.test(domain))) {
+                    indicators.push({
+                        type: 'pattern_match',
+                        indicator: pattern.indicator,
+                        risk_level: 'critical',
+                        source: 'ThreatCrowd'
+                    });
+                }
+            }
+        }
+        
+        return indicators;
     }
 }
 

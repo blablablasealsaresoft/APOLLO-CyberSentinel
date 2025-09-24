@@ -1,6 +1,7 @@
 const axios = require('axios');
 const fs = require('fs-extra');
 const path = require('path');
+const PythonOSINTInterface = require('./python-osint-interface');
 
 class OSINTThreatIntelligence {
     constructor() {
@@ -14,6 +15,10 @@ class OSINTThreatIntelligence {
             iocsCollected: 0,
             lastUpdate: new Date()
         };
+        
+        // Initialize Python OSINT interface
+        this.pythonOSINT = new PythonOSINTInterface();
+        console.log('🔗 Integrated Python OSINT comprehensive intelligence system');
     }
 
     loadApiKeys() {
@@ -50,7 +55,7 @@ class OSINTThreatIntelligence {
                     name: "VirusTotal",
                     endpoint: "https://www.virustotal.com/vtapi/v2",
                     apiKey: this.apiKeys.VIRUSTOTAL_API_KEY,
-                    reliability: 0.98,
+                    reliability: 0.60, // Reduced due to deprecated API endpoints
                     types: ["malware", "files", "urls", "domains"]
                 },
                 {
@@ -491,6 +496,261 @@ class OSINTThreatIntelligence {
             console.error('❌ Failed to refresh threat feeds:', error.message);
             return false;
         }
+    }
+
+    // Get real threat data using Python OSINT comprehensive system
+    async getRealThreats() {
+        try {
+            console.log('🔍 Querying COMPREHENSIVE Python OSINT system with all your API keys...');
+            
+            // First try to get threats from the Python comprehensive system
+            let pythonThreats = [];
+            try {
+                pythonThreats = await this.pythonOSINT.getRealThreats();
+                console.log(`🐍 Retrieved ${pythonThreats.length} threats from Python OSINT system`);
+                
+                // Update stats from Python system
+                const pythonStats = await this.pythonOSINT.getOSINTStats();
+                this.stats.threatsFound += pythonThreats.length;
+                this.stats.queriesRun += pythonStats.queriesRun || 0;
+                this.stats.iocsCollected += pythonThreats.length;
+                
+            } catch (pythonError) {
+                console.warn('⚠️ Python OSINT system unavailable, falling back to Node.js sources');
+            }
+            
+            // Get additional threats from Node.js sources (as backup)
+            const nodeThreats = await this.getNodeJSThreats();
+            
+            // Combine both sources
+            const allThreats = [...pythonThreats, ...nodeThreats];
+            
+            console.log(`✅ TOTAL: Retrieved ${allThreats.length} REAL threats from comprehensive OSINT sources`);
+            this.stats.threatsFound = allThreats.length;
+            this.stats.lastUpdate = new Date();
+            
+            return allThreats;
+        } catch (error) {
+            console.error('❌ Error getting comprehensive threats:', error);
+            return [];
+        }
+    }
+    
+    // Get comprehensive OSINT statistics including Python system
+    async getOSINTStats() {
+        try {
+            // Get Python system stats
+            const pythonStats = await this.pythonOSINT.getOSINTStats();
+            
+            // Combine with Node.js stats
+            return {
+                ...this.stats,
+                pythonSources: pythonStats.totalSources || 0,
+                pythonConfigured: pythonStats.configuredSources || 0,
+                pythonFree: pythonStats.freeSources || 0,
+                pythonPremium: pythonStats.premiumSources || 0,
+                totalSystemSources: (pythonStats.totalSources || 0) + this.threatSources.premiumSources.length + this.threatSources.freeSources.length,
+                activeSources: this.threatSources.premiumSources.length + this.threatSources.freeSources.length,
+                cacheSize: this.cache.size,
+                pythonCategories: pythonStats.categories || [],
+                reliability: pythonStats.reliability || {},
+                lastPythonUpdate: pythonStats.lastUpdate
+            };
+        } catch (error) {
+            console.error('❌ Failed to get comprehensive OSINT stats:', error);
+            return {
+                ...this.stats,
+                pythonSources: 0,
+                totalSystemSources: this.threatSources.premiumSources.length + this.threatSources.freeSources.length,
+                activeSources: this.threatSources.premiumSources.length + this.threatSources.freeSources.length,
+                cacheSize: this.cache.size,
+                error: error.message
+            };
+        }
+    }
+    
+    // Legacy Node.js threat gathering (as backup)
+    async getNodeJSThreats() {
+        try {
+            const threats = [];
+
+            console.log('🔍 Querying legacy Node.js OSINT sources as backup...');
+
+            // 1. Query AlienVault OTX with your API key
+            try {
+                const otxResponse = await axios.get(`${this.threatSources.premiumSources[0].endpoint}/pulses/subscribed?limit=5`, {
+                    headers: { 'X-OTX-API-KEY': this.apiKeys.ALIENVAULT_OTX_API_KEY }
+                });
+
+                if (otxResponse.data && otxResponse.data.results) {
+                    otxResponse.data.results.forEach((pulse, index) => {
+                        const targetCountries = pulse.targeted_countries && pulse.targeted_countries.length > 0 
+                            ? pulse.targeted_countries[0] : 'Global';
+                        
+                        threats.push({
+                            name: pulse.name || 'Threat Intelligence Pulse',
+                            type: this.categorizePulse(pulse.tags),
+                            country: targetCountries,
+                            severity: this.mapSeverity(pulse.tags),
+                            confidence: 0.90,
+                            description: pulse.description || 'Active threat campaign detected',
+                            source: 'AlienVault OTX (Node.js Backup)',
+                            tags: pulse.tags || [],
+                            created: pulse.created,
+                            id: `nodejs_otx_${pulse.id}`
+                        });
+                    });
+                    console.log(`✅ Retrieved ${threats.length} threats from AlienVault OTX (Node.js backup)`);
+                }
+            } catch (otxError) {
+                console.warn('⚠️ AlienVault OTX (Node.js) query failed:', otxError.message);
+            }
+
+            // 2. Query free sources as backup
+            try {
+                const mbResponse = await axios.post('https://mb-api.abuse.ch/api/v1/', {
+                    query: 'get_recent',
+                    selector: 'time'
+                });
+
+                if (mbResponse.data && mbResponse.data.data) {
+                    mbResponse.data.data.slice(0, 2).forEach((malware, index) => {
+                        threats.push({
+                            name: `${malware.file_name || 'Malware'} detected`,
+                            type: 'malware',
+                            country: malware.origin_country || 'Unknown',
+                            severity: 'high',
+                            confidence: 0.88,
+                            description: `Malware family: ${malware.signature || 'Unknown'}`,
+                            source: 'Malware Bazaar (Node.js Backup)',
+                            file_type: malware.file_type,
+                            sha256: malware.sha256_hash,
+                            id: `nodejs_mb_${malware.sha256_hash?.substring(0, 8)}`
+                        });
+                    });
+                    console.log(`✅ Retrieved recent malware from Malware Bazaar (Node.js backup)`);
+                }
+            } catch (mbError) {
+                console.warn('⚠️ Malware Bazaar (Node.js) query failed:', mbError.message);
+            }
+
+            console.log(`✅ Node.js backup: Retrieved ${threats.length} threats`);
+            return threats;
+        } catch (error) {
+            console.error('❌ Error getting Node.js backup threats:', error);
+            return [];
+        }
+    }
+    
+    // Enhanced domain intelligence using Python system
+    async queryDomainIntelligence(domain) {
+        try {
+            console.log(`🌐 Querying comprehensive domain intelligence for: ${domain}`);
+            
+            // Use Python system for comprehensive domain analysis
+            let pythonResults = null;
+            try {
+                pythonResults = await this.pythonOSINT.queryDomainIntelligence(domain);
+                console.log(`🐍 Retrieved domain intelligence from Python system`);
+            } catch (pythonError) {
+                console.warn('⚠️ Python domain analysis unavailable, using Node.js fallback');
+            }
+            
+            // Get basic Node.js analysis as backup
+            const nodeResults = await this.queryThreatIntelligence(domain, 'domain');
+            
+            return {
+                domain: domain,
+                timestamp: new Date().toISOString(),
+                python_analysis: pythonResults,
+                node_analysis: nodeResults,
+                comprehensive: pythonResults !== null
+            };
+            
+        } catch (error) {
+            console.error(`❌ Domain intelligence query failed for ${domain}:`, error);
+            return { domain: domain, error: error.message };
+        }
+    }
+    
+    // Enhanced crypto transaction analysis using Python system
+    async analyzeCryptoTransaction(txHash, blockchain = 'ethereum') {
+        console.log(`💰 Analyzing crypto transaction with comprehensive OSINT: ${txHash}`);
+
+        try {
+            // Use Python system for multi-chain analysis if available
+            let pythonAnalysis = null;
+            try {
+                // Extract address from transaction if possible
+                const ethResponse = await axios.get(`https://api.etherscan.io/api?module=proxy&action=eth_getTransactionByHash&txhash=${txHash}&apikey=${this.apiKeys.ETHERSCAN_API_KEY}`);
+                
+                if (ethResponse.data.result && ethResponse.data.result.to) {
+                    pythonAnalysis = await this.pythonOSINT.executePythonCommand('ip', ['--indicator', ethResponse.data.result.to]);
+                }
+            } catch (pythonError) {
+                console.warn('⚠️ Python crypto analysis unavailable');
+            }
+            
+            // Legacy Node.js analysis
+            if (blockchain === 'ethereum') {
+                const endpoint = `https://api.etherscan.io/api?module=proxy&action=eth_getTransactionByHash&txhash=${txHash}&apikey=${this.apiKeys.ETHERSCAN_API_KEY}`;
+                const response = await axios.get(endpoint, { timeout: 10000 });
+
+                if (response.data.result) {
+                    const tx = response.data.result;
+
+                    // Check against known malicious addresses
+                    const threatCheck = await this.queryThreatIntelligence(tx.to, 'address');
+
+                    return {
+                        hash: txHash,
+                        from: tx.from,
+                        to: tx.to,
+                        value: parseInt(tx.value, 16),
+                        gasPrice: parseInt(tx.gasPrice, 16),
+                        threat_level: threatCheck.threat_level,
+                        malicious: threatCheck.malicious,
+                        python_analysis: pythonAnalysis,
+                        analysis: {
+                            high_value: parseInt(tx.value, 16) > 1000000000000000000, // > 1 ETH
+                            unusual_gas: parseInt(tx.gasPrice, 16) > 100000000000, // > 100 Gwei
+                            threat_sources: threatCheck.sources,
+                            comprehensive_osint: pythonAnalysis !== null
+                        }
+                    };
+                }
+            }
+        } catch (error) {
+            console.error('Crypto transaction analysis failed:', error.message);
+        }
+
+        return { hash: txHash, error: 'Analysis failed' };
+    }
+
+    // Helper function to categorize OTX pulses
+    categorizePulse(tags) {
+        if (!tags || tags.length === 0) return 'threat_intel';
+        
+        const tagString = tags.join(' ').toLowerCase();
+        if (tagString.includes('ransomware') || tagString.includes('crypto')) return 'ransomware';
+        if (tagString.includes('phishing') || tagString.includes('email')) return 'phishing';
+        if (tagString.includes('ddos') || tagString.includes('botnet')) return 'ddos';
+        if (tagString.includes('apt') || tagString.includes('nation')) return 'apt';
+        if (tagString.includes('malware') || tagString.includes('trojan')) return 'malware';
+        if (tagString.includes('exploit') || tagString.includes('vulnerability')) return 'exploit';
+        
+        return 'threat_intel';
+    }
+
+    // Helper function to map severity from tags
+    mapSeverity(tags) {
+        if (!tags || tags.length === 0) return 'medium';
+        
+        const tagString = tags.join(' ').toLowerCase();
+        if (tagString.includes('critical') || tagString.includes('high') || tagString.includes('apt')) return 'critical';
+        if (tagString.includes('medium') || tagString.includes('malware')) return 'high';
+        
+        return 'medium';
     }
 }
 

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apollo Download Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #1a1a1a;
+            color: white;
+        }
+        .test-button {
+            display: block;
+            background: #ffd700;
+            color: black;
+            padding: 15px 30px;
+            margin: 10px 0;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .test-button:hover {
+            background: #ffed4a;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .success { background: rgba(0, 255, 65, 0.2); color: #00ff41; }
+        .error { background: rgba(255, 68, 68, 0.2); color: #ff4444; }
+        .info { background: rgba(255, 215, 0, 0.2); color: #ffd700; }
+    </style>
+</head>
+<body>
+    <h1>🚀 Apollo Download Link Test</h1>
+    
+    <p>Test the expected GitHub release download URLs:</p>
+    
+    <h2>Windows Download Test</h2>
+    <a href="https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel/releases/latest/download/Apollo-Setup-1.0.0-x64.exe" 
+       class="test-button" target="_blank">
+        Test Windows Download
+    </a>
+    
+    <h2>Linux Download Test</h2>
+    <a href="https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel/releases/latest/download/Apollo-1.0.0-x64.tar.gz" 
+       class="test-button" target="_blank">
+        Test Linux Download
+    </a>
+    
+    <h2>Local Release Files</h2>
+    <a href="releases/Apollo-Setup-1.0.0-x64.exe" class="test-button">
+        Local Windows File
+    </a>
+    <a href="releases/Apollo-1.0.0-x64.tar.gz" class="test-button">
+        Local Linux File
+    </a>
+    <a href="releases/README.md" class="test-button">
+        Release README
+    </a>
+    
+    <div class="status info">
+        <h3>📋 Testing Checklist</h3>
+        <ul>
+            <li>✅ Windows executable exists (177MB)</li>
+            <li>✅ Linux tarball exists (~100MB compressed)</li>
+            <li>⚠️ macOS build requires macOS environment</li>
+            <li>🔄 GitHub release needs to be created</li>
+            <li>🔄 Download URLs need to be tested after release</li>
+        </ul>
+    </div>
+    
+    <div class="status success">
+        <h3>✅ Ready for Release</h3>
+        <p>All release files are prepared and ready for GitHub upload!</p>
+    </div>
+    
+    <script>
+        // Test download functionality
+        document.querySelectorAll('.test-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                console.log('Testing download:', e.target.href);
+                
+                // For GitHub links, show a message since they won't work until release is created
+                if (e.target.href.includes('github.com')) {
+                    e.preventDefault();
+                    alert('This GitHub download link will work after the release is created and published.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

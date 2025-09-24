@@ -1,5 +1,81 @@
+# Apollo CyberSentinel - Git Ignore
+
+# Build artifacts (too large for Git)
+desktop-app/Apollo.exe
+desktop-app/dist/
+desktop-app/releases/*.exe
+desktop-app/releases/*.tar.gz
+desktop-app/releases/*.zip
+desktop-app/releases/*.dmg
+desktop-app/releases/*.deb
+desktop-app/releases/*.rpm
+desktop-app/releases/*.AppImage
+
+# Node modules
 node_modules/
+*/node_modules/
+
+# Build directories
+build/
 dist/
+
+# Logs
 *.log
-*.env
-.env*
+logs/
+
+# Runtime data
+pids/
+*.pid
+*.seed
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# nyc test coverage
+.nyc_output
+
+# Dependency directory
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows image file caches
+*.tmp
+*.temp
+
+# Package files
+*.jar
+*.war
+*.ear
+*.tar
+*.zip
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Electron build artifacts
+app/
+unpackaged/

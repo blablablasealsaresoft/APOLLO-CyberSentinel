@@ -36,7 +36,7 @@ APOLLO_APP_DIR="/Applications/Apollo Security.app"
 APOLLO_DATA_DIR="$HOME/Library/Application Support/Apollo"
 APOLLO_LOG_DIR="$HOME/Library/Logs/Apollo"
 APOLLO_DAEMON_PLIST="/Library/LaunchDaemons/com.apollo.shield.plist"
-DOWNLOAD_URL="https://github.com/apollo-shield/releases/download/v${APOLLO_VERSION}/Apollo-${APOLLO_VERSION}-arm64.dmg"
+DOWNLOAD_URL="https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel/releases/latest/download/Apollo-${APOLLO_VERSION}-arm64.dmg"
 TEMP_DMG="/tmp/apollo-installer.dmg"
 
 echo -e "${BLUE}🚀 Apollo Security Installation Starting...${NC}"
@@ -103,9 +103,9 @@ ARCH=$(uname -m)
 echo "  Architecture: $ARCH"
 
 if [[ "$ARCH" == "arm64" ]]; then
-    DOWNLOAD_URL="https://github.com/apollo-shield/releases/download/v${APOLLO_VERSION}/Apollo-${APOLLO_VERSION}-arm64.dmg"
+    DOWNLOAD_URL="https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel/releases/latest/download/Apollo-${APOLLO_VERSION}-arm64.dmg"
 else
-    DOWNLOAD_URL="https://github.com/apollo-shield/releases/download/v${APOLLO_VERSION}/Apollo-${APOLLO_VERSION}-x64.dmg"
+    DOWNLOAD_URL="https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel/releases/latest/download/Apollo-${APOLLO_VERSION}-x64.dmg"
 fi
 
 echo -e "${GREEN}✅ System requirements met${NC}"
@@ -206,7 +206,7 @@ EOF
     cat > "$APOLLO_APP_DIR/Contents/MacOS/apollo" << 'EOF'
 #!/bin/bash
 cd "$(dirname "$0")"
-node main.js
+./Apollo
 EOF
 
     chmod +x "$APOLLO_APP_DIR/Contents/MacOS/apollo"

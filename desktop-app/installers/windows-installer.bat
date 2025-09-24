@@ -37,7 +37,7 @@ set "APOLLO_VERSION=1.0.0"
 set "APOLLO_DIR=%ProgramFiles%\Apollo Security"
 set "APOLLO_DATA=%APPDATA%\Apollo"
 set "APOLLO_SERVICE=ApolloProtection"
-set "DOWNLOAD_URL=https://github.com/apollo-shield/releases/download/v%APOLLO_VERSION%/Apollo-Setup-%APOLLO_VERSION%-x64.exe"
+set "DOWNLOAD_URL=https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel/releases/latest/download/Apollo-Setup-1.0.0-x64.exe"
 set "TEMP_INSTALLER=%TEMP%\apollo-installer.exe"
 
 echo 🚀 Apollo Security Installation Starting...
@@ -157,7 +157,7 @@ if "!INSTALL_LOCAL!" equ "1" (
     REM Create batch launcher
     echo @echo off > "%APOLLO_DIR%\apollo.bat"
     echo cd /d "%APOLLO_DIR%" >> "%APOLLO_DIR%\apollo.bat"
-    echo node main.js >> "%APOLLO_DIR%\apollo.bat"
+    echo Apollo.exe >> "%APOLLO_DIR%\apollo.bat"
 
 ) else (
     echo 📦 Installing Apollo from downloaded package...
@@ -179,7 +179,7 @@ REM Create service wrapper script
 echo @echo off > "%APOLLO_DIR%\service.bat"
 echo title Apollo Protection Service >> "%APOLLO_DIR%\service.bat"
 echo cd /d "%APOLLO_DIR%" >> "%APOLLO_DIR%\service.bat"
-echo node main.js --service >> "%APOLLO_DIR%\service.bat"
+echo Apollo.exe --service >> "%APOLLO_DIR%\service.bat"
 
 REM Install service using sc
 sc create %APOLLO_SERVICE% binPath= "\"%APOLLO_DIR%\service.bat\"" DisplayName= "Apollo Security Protection" start= auto description= "Military-grade protection against nation-state hackers and crypto threats" >nul 2>&1
@@ -269,7 +269,7 @@ echo.
 REM Final verification
 echo 🔍 Verifying installation...
 
-if exist "%APOLLO_DIR%\main.js" (
+if exist "%APOLLO_DIR%\Apollo.exe" (
     echo ✅ Apollo core files present
 ) else (
     echo ❌ Apollo core files missing

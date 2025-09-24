@@ -83,68 +83,62 @@
           ]
         }
       ],
-      "icon": "assets/apollo-icon.png",
       "requestedExecutionLevel": "requireAdministrator",
       "artifactName": "Apollo-Setup-${version}-${arch}.${ext}",
       "sign": false,
       "signAndEditExecutable": false,
       "signDlls": false
     },
-    "mac": {
-      "target": [
-        {
-          "target": "dmg",
-          "arch": [
-            "x64",
-            "arm64"
-          ]
-        },
-        {
-          "target": "zip",
-          "arch": [
-            "x64",
-            "arm64"
-          ]
-        }
-      ],
-      "icon": "assets/apollo-icon.png",
-      "category": "public.app-category.security",
-      "hardenedRuntime": true,
-      "entitlements": "build/entitlements.mac.plist",
-      "entitlementsInherit": "build/entitlements.mac.plist",
-      "artifactName": "Apollo-${version}-${arch}.${ext}"
-    },
-    "linux": {
-      "target": [
-        {
-          "target": "AppImage",
-          "arch": [
-            "x64"
-          ]
-        },
-        {
-          "target": "deb",
-          "arch": [
-            "x64"
-          ]
-        },
-        {
-          "target": "rpm",
-          "arch": [
-            "x64"
-          ]
-        }
-      ],
-      "icon": "assets/apollo-icon.png",
-      "category": "Security",
-      "artifactName": "Apollo-${version}-${arch}.${ext}"
-    },
+     "mac": {
+       "target": [
+         {
+           "target": "dmg",
+           "arch": [
+             "x64",
+             "arm64"
+           ]
+         },
+         {
+           "target": "zip",
+           "arch": [
+             "x64",
+             "arm64"
+           ]
+         }
+       ],
+       "category": "public.app-category.security",
+       "hardenedRuntime": true,
+       "entitlements": "build/entitlements.mac.plist",
+       "entitlementsInherit": "build/entitlements.mac.plist",
+       "artifactName": "Apollo-${version}-${arch}.${ext}"
+     },
+     "linux": {
+       "target": [
+         {
+           "target": "AppImage",
+           "arch": [
+             "x64"
+           ]
+         },
+         {
+           "target": "deb",
+           "arch": [
+             "x64"
+           ]
+         },
+         {
+           "target": "rpm",
+           "arch": [
+             "x64"
+           ]
+         }
+       ],
+       "category": "Security",
+       "artifactName": "Apollo-${version}-${arch}.${ext}"
+     },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
-      "installerIcon": "assets/apollo-icon.png",
-      "uninstallerIcon": "assets/apollo-icon.png",
-      "installerHeaderIcon": "assets/apollo-icon.png",
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
       "shortcutName": "Apollo",
@@ -155,8 +149,6 @@
     },
     "dmg": {
       "title": "Apollo ${version}",
-      "icon": "assets/apollo-icon.png",
-      "background": "assets/dmg-background.png",
       "contents": [
         {
           "x": 130,

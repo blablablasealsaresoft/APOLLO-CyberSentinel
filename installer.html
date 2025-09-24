@@ -1405,10 +1405,10 @@
 
             <!-- Security Notice -->
             <div class="security-notice fade-in animate-delay-1">
-                <h3><i class="fas fa-shield-alt"></i> Beta Product - Commercial License</h3>
+                <h3><i class="fas fa-shield-alt"></i> Beta Product - Open Beta Testing</h3>
                 <p>
-                    APOLLO CyberSentinel is a commercial cybersecurity product currently in beta.
-                    This is proprietary software designed for enterprise deployment. All downloads are cryptographically signed and verified.
+                    APOLLO CyberSentinel is currently in open beta testing phase.
+                    This beta version is provided without certificates for testing purposes. Production releases will include full cryptographic signing.
                 </p>
             </div>
 
@@ -1417,9 +1417,9 @@
                 <div class="download-header">
                     <h2 class="download-title">Choose Your Installation Method</h2>
                     <div class="version-info">
-                        <div class="version-badge">Version 3.0.0</div>
-                        <div class="version-badge">Enterprise Grade</div>
-                        <div class="version-badge">95% Protection Score</div>
+                        <div class="version-badge">Version 1.0.0 Beta</div>
+                        <div class="version-badge">Open Beta Testing</div>
+                        <div class="version-badge">No Certificate Required</div>
                     </div>
                 </div>
 
@@ -1429,10 +1429,10 @@
                         <div class="download-icon">
                             <i class="fab fa-windows"></i>
                         </div>
-                        <h3 class="download-label">Windows Installer</h3>
+                        <h3 class="download-label">Windows Beta</h3>
                         <p class="download-details">
-                            Complete installation package with all dependencies.
-                            Automatic updates and system integration included.
+                            Beta version - Portable executable, no installation required.
+                            Direct launch from downloaded file.
                         </p>
                         <a href="#" class="download-btn" onclick="downloadForOS('windows')">
                             <i class="fas fa-download"></i>
@@ -1459,9 +1459,9 @@
                         <div class="download-icon">
                             <i class="fab fa-linux"></i>
                         </div>
-                        <h3 class="download-label">Linux AppImage</h3>
+                        <h3 class="download-label">Linux Beta</h3>
                         <p class="download-details">
-                            Universal Linux package that runs on all distributions.
+                            Beta AppImage for Linux - runs on all distributions.
                             No installation required, just download and run.
                         </p>
                         <a href="#" class="download-btn" onclick="downloadForOS('linux')">
@@ -1489,10 +1489,10 @@
                         <div class="download-icon">
                             <i class="fab fa-apple"></i>
                         </div>
-                        <h3 class="download-label">macOS Package</h3>
+                        <h3 class="download-label">macOS Beta</h3>
                         <p class="download-details">
-                            Native macOS application with full system integration.
-                            Optimized for Intel and Apple Silicon Macs.
+                            Beta version for macOS - Intel and Apple Silicon support.
+                            Drag and drop installation from DMG file.
                         </p>
                         <a href="#" class="download-btn" onclick="downloadForOS('macos')">
                             <i class="fas fa-download"></i>
@@ -1527,7 +1527,7 @@
                         <div class="requirement-icon">
                             <i class="fas fa-shield-alt"></i>
                         </div>
-                        <div class="requirement-text">Administrator privileges</div>
+                        <div class="requirement-text">Administrator privileges (recommended)</div>
                     </div>
                     <div class="requirement-item">
                         <div class="requirement-icon">
@@ -1551,30 +1551,30 @@
                     <div class="step-item">
                         <div class="step-number">1</div>
                         <div class="step-content">
-                            <h3 class="step-title">Download the Installer</h3>
+                            <h3 class="step-title">Download the Beta</h3>
                             <p class="step-description">
-                                Click the download button above to get the latest version of APOLLO CyberSentinel. 
-                                The download will be verified automatically.
+                                Click the download button above to get the latest beta version of APOLLO CyberSentinel. 
+                                Beta versions are unsigned for testing purposes.
                             </p>
                         </div>
                     </div>
                     <div class="step-item">
                         <div class="step-number">2</div>
                         <div class="step-content">
-                            <h3 class="step-title">Run as Administrator</h3>
+                            <h3 class="step-title">Launch the Application</h3>
                             <p class="step-description">
-                                Right-click the installer and select "Run as administrator" to ensure proper installation 
-                                of system-level protection components.
+                                For Windows: Run Apollo.exe directly. For optimal protection, run as administrator.
+                                For macOS/Linux: Follow standard launch procedures for downloaded applications.
                             </p>
                         </div>
                     </div>
                     <div class="step-item">
                         <div class="step-number">3</div>
                         <div class="step-content">
-                            <h3 class="step-title">Start Protection</h3>
+                            <h3 class="step-title">Start Beta Testing</h3>
                             <p class="step-description">
-                                Launch APOLLO CyberSentinel and enable real-time protection. API keys for threat intelligence
-                                services are pre-configured and ready to use. The system will immediately begin defending against nation-state threats.
+                                Launch APOLLO CyberSentinel and explore the beta features. API keys for threat intelligence
+                                services are pre-configured for testing. Report any issues via GitHub or the feedback system.
                             </p>
                         </div>
                     </div>
@@ -1588,10 +1588,10 @@
                             <div class="additional-icon">
                                 <i class="fas fa-cube"></i>
                             </div>
-                            <h4>Portable Version</h4>
-                            <p>Windows portable executable - no installation required</p>
-                            <a href="#" class="additional-btn" onclick="downloadPortable()">
-                                <i class="fas fa-download"></i> Download Portable
+                            <h4>Beta Test Resources</h4>
+                            <p>Documentation, bug reporting, and community feedback</p>
+                            <a href="https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel" class="additional-btn" target="_blank">
+                                <i class="fab fa-github"></i> View on GitHub
                             </a>
                         </div>
                     </div>
@@ -1985,16 +1985,16 @@
 
             switch(os) {
                 case 'windows':
-                    downloadUrl = 'https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel/releases/latest/download/apollo-cybersentinel-windows-x64.exe';
-                    filename = 'apollo-cybersentinel-windows-x64.exe';
+                    downloadUrl = 'https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel/releases/latest/download/Apollo-Setup-1.0.0-x64.exe';
+                    filename = 'Apollo-Setup-1.0.0-x64.exe';
                     break;
                 case 'linux':
-                    downloadUrl = 'https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel/releases/latest/download/apollo-cybersentinel-linux-x64.AppImage';
-                    filename = 'apollo-cybersentinel-linux-x64.AppImage';
+                    downloadUrl = 'https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel/releases/latest/download/Apollo-1.0.0-x64.AppImage';
+                    filename = 'Apollo-1.0.0-x64.AppImage';
                     break;
                 case 'macos':
-                    downloadUrl = 'https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel/releases/latest/download/apollo-cybersentinel-macos-x64.dmg';
-                    filename = 'apollo-cybersentinel-macos-x64.dmg';
+                    downloadUrl = 'https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel/releases/latest/download/Apollo-1.0.0-arm64.dmg';
+                    filename = 'Apollo-1.0.0-arm64.dmg';
                     break;
                 default:
                     console.error('Unsupported OS:', os);
@@ -2011,12 +2011,8 @@
         }
 
         function downloadPortable() {
-            // Portable version - Windows executable without installer
-            const downloadUrl = 'https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel/releases/latest/download/apollo-cybersentinel-portable.exe';
-            const filename = 'apollo-cybersentinel-portable.exe';
-
-            console.log('🚀 Downloading Portable Version');
-            simulateEpicDownload('portable', downloadUrl, filename);
+            // Redirect to GitHub for beta testing resources
+            window.open('https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel', '_blank');
         }
 
         // INTERACTIVE HOVER EFFECTS FOR DOWNLOAD CARDS

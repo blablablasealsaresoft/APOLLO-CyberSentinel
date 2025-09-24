@@ -37,9 +37,9 @@ APOLLO_DATA_DIR="$HOME/.apollo"
 APOLLO_LOG_DIR="/var/log/apollo"
 APOLLO_SERVICE_FILE="/etc/systemd/system/apollo-protection.service"
 APOLLO_DESKTOP_FILE="$HOME/.local/share/applications/apollo-security.desktop"
-DOWNLOAD_URL_DEB="https://github.com/apollo-shield/releases/download/v${APOLLO_VERSION}/apollo-security_${APOLLO_VERSION}_amd64.deb"
-DOWNLOAD_URL_RPM="https://github.com/apollo-shield/releases/download/v${APOLLO_VERSION}/apollo-security-${APOLLO_VERSION}.x86_64.rpm"
-DOWNLOAD_URL_TAR="https://github.com/apollo-shield/releases/download/v${APOLLO_VERSION}/apollo-security-${APOLLO_VERSION}-linux-x64.tar.gz"
+DOWNLOAD_URL_DEB="https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel/releases/latest/download/apollo-cybersentinel_${APOLLO_VERSION}_amd64.deb"
+DOWNLOAD_URL_RPM="https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel/releases/latest/download/apollo-cybersentinel-${APOLLO_VERSION}.x86_64.rpm"
+DOWNLOAD_URL_TAR="https://github.com/blablablasealsaresoft/APOLLO-CyberSentinel/releases/latest/download/apollo-cybersentinel-${APOLLO_VERSION}-linux-x64.tar.gz"
 TEMP_PACKAGE="/tmp/apollo-installer"
 
 echo -e "${BLUE}🚀 Apollo Security Installation Starting...${NC}"
@@ -271,7 +271,7 @@ case "$INSTALL_METHOD" in
         cat > "$APOLLO_APP_DIR/apollo" << 'EOF'
 #!/bin/bash
 cd "$(dirname "$0")"
-exec node main.js "$@"
+exec ./Apollo "$@"
 EOF
         chmod +x "$APOLLO_APP_DIR/apollo"
         ;;
@@ -282,7 +282,7 @@ EOF
         cat > "$APOLLO_APP_DIR/apollo" << 'EOF'
 #!/bin/bash
 cd "$(dirname "$0")"
-exec node main.js "$@"
+exec ./Apollo "$@"
 EOF
         chmod +x "$APOLLO_APP_DIR/apollo"
         ;;
